@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-03-29T13:14:11.000Z</updated>
+  <updated>2016-03-31T13:24:49.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac_Android_配置adb环境变量</title>
+    <link href="http://iamasoldier6.com/2016/03/31/Mac-Android-%E9%85%8D%E7%BD%AEadb%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+    <id>http://iamasoldier6.com/2016/03/31/Mac-Android-配置adb环境变量/</id>
+    <published>2016-03-31T12:53:44.000Z</published>
+    <updated>2016-03-31T13:24:49.000Z</updated>
+    
+    <content type="html">&lt;p&gt;背景：&lt;/p&gt;
+&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac&lt;em&gt;Android&lt;/em&gt;配置adb环境变量”，写这个小专题源于之前学习《第一行代码》时，在“SQLite存储”一节遇到的，现与大家分享。方法如下：&lt;/p&gt;
+&lt;p&gt;1.打开终端Terminal。&lt;/p&gt;
+&lt;p&gt;2.进入HOME目录：命令行输入 echo（这之间有一个空格） $HOME&lt;/p&gt;
+&lt;p&gt;3.创建.bash_profile文件：命令行输入 touch（这之间有一个空格）.bash_profile&lt;/p&gt;
+&lt;p&gt;4.打开.bash_profile文件：命令行输入open（这之间有一个空格）-e（这之间有一个空格）.bash_profile，自动弹出 .bash_profile 文件的编辑窗口。&lt;/p&gt;
+&lt;p&gt;5.关键一步，不清楚AS的SDK路径，开启AS中的SDK Manager即可找到，&lt;br&gt;在.bash_profile文件中输入，比如我的：export PATH=${PATH}:/Users/Iamasoldier6/Library/Android/sdk/platform-tools&lt;/p&gt;
+&lt;p&gt;6.保存文件。&lt;/p&gt;
+&lt;p&gt;7.更新才配置的环境变量：命令行输入source（这之间有一个空格）.bash_profile&lt;/p&gt;
+&lt;p&gt;8.验证配置：输入adb，出现-bash: adb: command not found，则失败，找原因重新配置；&lt;br&gt;出现adb的命令参数解释，则表明环境变量配置成功，Bingo!&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;背景：&lt;/p&gt;
+&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac&lt;em
+    
+    </summary>
+    
+    
+      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+      <category term="adb" scheme="http://iamasoldier6.com/tags/adb/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
