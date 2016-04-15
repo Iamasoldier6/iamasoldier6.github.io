@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-04-15T05:19:58.000Z</updated>
+  <updated>2016-04-15T06:02:24.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="http://iamasoldier6.com/2016/04/14/%E5%8D%8A%E6%9C%88%E6%8A%80%E6%9C%AF%E8%B0%88/"/>
     <id>http://iamasoldier6.com/2016/04/14/半月技术谈/</id>
     <published>2016-04-14T10:18:39.000Z</published>
-    <updated>2016-04-15T05:19:58.000Z</updated>
+    <updated>2016-04-15T06:02:24.000Z</updated>
     
     <content type="html">&lt;p&gt;（之前近半年博客地址：&lt;a href=&quot;http://www.cnblogs.com/Iamasoldier6/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;博客园&lt;/a&gt;）&lt;/p&gt;
-&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;不废话，呈现如下：&lt;/p&gt;
+&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。不废话，呈现如下：&lt;/p&gt;
 &lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h2&gt;&lt;p&gt;博主前段时间深感 Java 基础无力，于是自清明放假开始，重新撸起去年自学期间半途放弃的《Thinking in Java》，并打算一季左右撸完。目前，已撸到了第 7 章，正常进度应该可以达成初定目标吧，原谅我是个渣渣，大神勿喷。几点总结如下：&lt;/p&gt;
 &lt;p&gt;1.在 Java 中你所做的全部工作就是定义类，产生那些类的对象，以及发送消息给这些对象。&lt;/p&gt;
 &lt;p&gt;2.一个 static 字段对每个类来说都只有一份存储空间，而非 static 字段则是对每个对象有一个存储空间。&lt;/p&gt;
@@ -82,7 +82,7 @@
     <summary type="html">
     
       &lt;p&gt;（之前近半年博客地址：&lt;a href=&quot;http://www.cnblogs.com/Iamasoldier6/&quot;&gt;博客园&lt;/a&gt;）&lt;/p&gt;
-&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。
+&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。
     
     </summary>
     
@@ -100,10 +100,10 @@
     <link href="http://iamasoldier6.com/2016/03/31/Mac-Android-%E9%85%8D%E7%BD%AEadb%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
     <id>http://iamasoldier6.com/2016/03/31/Mac-Android-配置adb环境变量/</id>
     <published>2016-03-31T12:53:44.000Z</published>
-    <updated>2016-04-01T00:59:28.000Z</updated>
+    <updated>2016-04-15T06:02:07.000Z</updated>
     
     <content type="html">&lt;p&gt;背景：&lt;/p&gt;
-&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac下Android的配置adb环境变量”，写这个小专题源于之前学习《第一行代码》时，在“SQLite存储”一节遇到的，现与大家分享。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;方法如下：&lt;/p&gt;
+&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac下Android的配置adb环境变量”，写这个小专题源于之前学习《第一行代码》时，在“SQLite存储”一节遇到的，现与大家分享。方法如下：&lt;/p&gt;
 &lt;p&gt;1.打开终端Terminal。&lt;/p&gt;
 &lt;p&gt;2.进入HOME目录：命令行输入 echo（这之间有一个空格） $HOME&lt;/p&gt;
 &lt;p&gt;3.创建.bash_profile文件：命令行输入 touch（这之间有一个空格）.bash_profile&lt;/p&gt;
@@ -117,7 +117,7 @@
     <summary type="html">
     
       &lt;p&gt;背景：&lt;/p&gt;
-&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac下Android的配置adb环境变量”，写这个小专题源于之前学习《第一行代码》时，在“SQLite存储”一节遇到的，现与大家分享。
+&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。
     
     </summary>
     
