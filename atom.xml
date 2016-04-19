@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-04-15T06:02:24.000Z</updated>
+  <updated>2016-04-19T04:08:14.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="http://iamasoldier6.com/2016/04/14/%E5%8D%8A%E6%9C%88%E6%8A%80%E6%9C%AF%E8%B0%88/"/>
     <id>http://iamasoldier6.com/2016/04/14/半月技术谈/</id>
     <published>2016-04-14T10:18:39.000Z</published>
-    <updated>2016-04-15T06:02:24.000Z</updated>
+    <updated>2016-04-19T04:08:14.000Z</updated>
     
     <content type="html">&lt;p&gt;（之前近半年博客地址：&lt;a href=&quot;http://www.cnblogs.com/Iamasoldier6/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;博客园&lt;/a&gt;）&lt;/p&gt;
 &lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。不废话，呈现如下：&lt;/p&gt;
-&lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h2&gt;&lt;p&gt;博主前段时间深感 Java 基础无力，于是自清明放假开始，重新撸起去年自学期间半途放弃的《Thinking in Java》，并打算一季左右撸完。目前，已撸到了第 7 章，正常进度应该可以达成初定目标吧，原谅我是个渣渣，大神勿喷。几点总结如下：&lt;/p&gt;
+&lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;&lt;strong&gt;Java&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;博主前段时间深感 Java 基础无力，于是自清明放假开始，重新撸起去年自学期间半途放弃的《Thinking in Java》，并打算一季左右撸完。目前，已撸到了第 7 章，正常进度应该可以达成初定目标吧，原谅我是个渣渣，大神勿喷。几点总结如下：&lt;/p&gt;
 &lt;p&gt;1.在 Java 中你所做的全部工作就是定义类，产生那些类的对象，以及发送消息给这些对象。&lt;/p&gt;
 &lt;p&gt;2.一个 static 字段对每个类来说都只有一份存储空间，而非 static 字段则是对每个对象有一个存储空间。&lt;/p&gt;
 &lt;p&gt;3.构造器的名称必须与类名完全相同。System.gc() 用于强制进行终结动作。&lt;/p&gt;
@@ -73,10 +73,10 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id=&quot;Android&quot;&gt;&lt;a href=&quot;#Android&quot; class=&quot;headerlink&quot; title=&quot;Android&quot;&gt;&lt;/a&gt;Android&lt;/h2&gt;&lt;p&gt;1.Android Studio 的中文乱码问题：Android Studio 安装后发现所有的中文，不管是界面上的还是输出的 Log 中的中文，都变成问号小框框， 可以肯定是字体的问题。&lt;/p&gt;
+&lt;h2 id=&quot;Android&quot;&gt;&lt;a href=&quot;#Android&quot; class=&quot;headerlink&quot; title=&quot;Android&quot;&gt;&lt;/a&gt;&lt;strong&gt;Android&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.Android Studio 的中文乱码问题：Android Studio 安装后发现所有的中文，不管是界面上的还是输出的 Log 中的中文，都变成问号小框框， 可以肯定是字体的问题。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;解决办法&lt;/code&gt;：Preferences -&amp;gt; Appearance &amp;amp; Behavior -&amp;gt; Appearance -&amp;gt; 选择 Override default fonts by，随便选择一个中文字体，小框框都是中文字，再保存重启就行。&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://laobie.github.io/android/2016/02/14/android-studio-tips.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Studio 小技巧合集&lt;/a&gt;，熟练一些常用快捷键操作，简直不能太顺心。&lt;/p&gt;
-&lt;h2 id=&quot;Variety&quot;&gt;&lt;a href=&quot;#Variety&quot; class=&quot;headerlink&quot; title=&quot;Variety&quot;&gt;&lt;/a&gt;Variety&lt;/h2&gt;&lt;p&gt;上周第二遍看《星际穿越》，哲理与人事方面颇受洗礼，很 Nice 的电影。具体解读纷繁，就不提了。&lt;/p&gt;
+&lt;h2 id=&quot;Variety&quot;&gt;&lt;a href=&quot;#Variety&quot; class=&quot;headerlink&quot; title=&quot;Variety&quot;&gt;&lt;/a&gt;&lt;strong&gt;Variety&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;上周第二遍看《星际穿越》，哲理与人事方面颇受洗礼，很 Nice 的电影。具体解读纷繁，就不提了。&lt;/p&gt;
 </content>
     
     <summary type="html">
