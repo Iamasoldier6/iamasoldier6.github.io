@@ -20,7 +20,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_6.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png">
-<meta property="og:updated_time" content="2016-04-29T15:15:09.000Z">
+<meta property="og:updated_time" content="2016-04-30T15:24:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述（一）">
 <meta name="twitter:description" content="Android 官网对 Volley 的一句话概括如下：
@@ -271,7 +271,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>然后，鼠标左击选中 volley.jar ，再右击会出现一长串菜单，下拉找到 Add As Library 并单击，再 OK ，等待 Gradle build 。完事后，再选中项目，比如我的 VolleyDemo ，右击后下拉菜单，找到 Open Module Settings 并单击，出现如图：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_6.png" alt=""></p>
 <p>依次选中划线部分，点击右下角 OK ，等待 Gradle build ，完事后，这样，准备工作就完成了。</p>
-<h2 id="三-StringRequest-的使用"><a href="#三-StringRequest-的使用" class="headerlink" title="三. StringRequest 的使用"></a><strong>三. StringRequest 的使用</strong></h2><p>StringRequestDemo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>，只有 Get 请求的使用，POST 请求的使用，类比即可。</p>
+<h2 id="三-StringRequest-的使用"><a href="#三-StringRequest-的使用" class="headerlink" title="三. StringRequest 的使用"></a><strong>三. StringRequest 的使用</strong></h2><p>StringRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>，只有 Get 请求的使用，POST 请求的使用，类比即可。</p>
 <p>从最基本的 HTTP 通信开始学习，即发起一条 HTTP 请求，然后接收 HTTP 响应。Android Studio 新建一个StringRequestDemo 项目，其他全部默认，一路 Next 到底，最后 Done。思路如下：</p>
 <p>首先，在 MainActivity 的 onCreate() 方法里，需要获取到一个 RequestQueue 对象：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RequestQueue <span class="built_in">queue</span> = Volley.newRequestQueue(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
@@ -297,7 +297,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>但是需要明确的是，StringRequest 中并没有提供设置 POST 参数的方法，然而，当发出 POST 请求时，Volley 会尝试调用 StringRequest 的父类即 Request 中的 getParams() 方法来获取 POST 参数，故只需要在 StringRequest 的匿名类中重写 getParams() 方法，于此设置 POST 参数即可，具体如下：</p>
 <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StringRequest stringRequest = <span class="literal">new</span> StringRequest(Method.POST, url, listener, errorListener) &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	<span class="keyword">protected</span> <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; getParams() throws AuthFailureError &#123;</span><br><span class="line">		<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; <span class="built_in">map</span> = <span class="literal">new</span> HashMap&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt;();</span><br><span class="line">		<span class="built_in">map</span>.put(<span class="string">"params1"</span>, <span class="string">"value1"</span>);</span><br><span class="line">		<span class="built_in">map</span>.put(<span class="string">"params2"</span>, <span class="string">"value2"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">map</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>虽然没有设置 POST 参数的方法，但是由于 Volley 开源，可以自由地添加和修改，定制出所需的 Volley 版本。</p>
-<h2 id="四-JsonRequest-的使用"><a href="#四-JsonRequest-的使用" class="headerlink" title="四. JsonRequest 的使用"></a><strong>四. JsonRequest 的使用</strong></h2><p>JsonRequestDemo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>，只有 JsonObjectRequest 的使用，JsonArrayObject 的使用，类比即可。</p>
+<h2 id="四-JsonRequest-的使用"><a href="#四-JsonRequest-的使用" class="headerlink" title="四. JsonRequest 的使用"></a><strong>四. JsonRequest 的使用</strong></h2><p>JsonRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>，只有 JsonObjectRequest 的使用，JsonArrayObject 的使用，类比即可。</p>
 <p>同 StringRequest 一样，JsonRequest 也是继承于 Request 类，但是，JsonRequest 是一个抽象类，无法直接创建实例，得从子类入手。其有两个直接的子类，JsonObjectRequest (用于请求一段 JSON 数据) 和 JsonArrayRequest (用于请求一段JSON 数组) 。具体如下：</p>
 <p>第一步同上述 StringRequest 的第一步一样。</p>
 <p>然后，再 new 出一个 JsonObjectRequest 对象：</p>
