@@ -117,10 +117,9 @@
     <link href="http://iamasoldier6.com/2016/04/14/%E5%8D%8A%E6%9C%88%E6%8A%80%E6%9C%AF%E8%B0%88/"/>
     <id>http://iamasoldier6.com/2016/04/14/半月技术谈/</id>
     <published>2016-04-14T10:18:39.000Z</published>
-    <updated>2016-04-19T04:08:14.000Z</updated>
+    <updated>2016-05-03T08:50:12.000Z</updated>
     
-    <content type="html">&lt;p&gt;（之前近半年博客地址：&lt;a href=&quot;http://www.cnblogs.com/Iamasoldier6/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;博客园&lt;/a&gt;）&lt;/p&gt;
-&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。不废话，呈现如下：&lt;/p&gt;
+    <content type="html">&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。不废话，呈现如下：&lt;/p&gt;
 &lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;&lt;strong&gt;Java&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;博主前段时间深感 Java 基础无力，于是自清明放假开始，重新撸起去年自学期间半途放弃的《Thinking in Java》，并打算一季左右撸完。目前，已撸到了第 7 章，正常进度应该可以达成初定目标吧，原谅我是个渣渣，大神勿喷。几点总结如下：&lt;/p&gt;
 &lt;p&gt;1.在 Java 中你所做的全部工作就是定义类，产生那些类的对象，以及发送消息给这些对象。&lt;/p&gt;
 &lt;p&gt;2.一个 static 字段对每个类来说都只有一份存储空间，而非 static 字段则是对每个对象有一个存储空间。&lt;/p&gt;
@@ -178,8 +177,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;（之前近半年博客地址：&lt;a href=&quot;http://www.cnblogs.com/Iamasoldier6/&quot;&gt;博客园&lt;/a&gt;）&lt;/p&gt;
-&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。
+      &lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。
     
     </summary>
     
