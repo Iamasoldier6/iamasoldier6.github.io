@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-04-30T15:24:53.000Z</updated>
+  <updated>2016-05-03T01:58:00.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Android Volley 研究综述（一）</title>
-    <link href="http://iamasoldier6.com/2016/04/27/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/"/>
-    <id>http://iamasoldier6.com/2016/04/27/Android-Volley-研究综述/</id>
-    <published>2016-04-27T12:17:59.000Z</published>
-    <updated>2016-04-30T15:24:53.000Z</updated>
+    <link href="http://iamasoldier6.com/2016/04/30/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/</id>
+    <published>2016-04-30T12:17:59.000Z</published>
+    <updated>2016-05-03T01:58:00.000Z</updated>
     
     <content type="html">&lt;p&gt;Android 官网对 Volley 的一句话概括如下：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -104,11 +104,11 @@
     </summary>
     
     
-      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
-    
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
       <category term="Volley" scheme="http://iamasoldier6.com/tags/Volley/"/>
+    
+      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
     
   </entry>
   
@@ -219,9 +219,9 @@
     </summary>
     
     
-      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
-    
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
     
       <category term="adb" scheme="http://iamasoldier6.com/tags/adb/"/>
     
