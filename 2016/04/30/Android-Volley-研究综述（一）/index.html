@@ -20,7 +20,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_6.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png">
-<meta property="og:updated_time" content="2016-05-03T01:58:00.000Z">
+<meta property="og:updated_time" content="2016-05-04T09:09:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述（一）">
 <meta name="twitter:description" content="Android 官网对 Volley 的一句话概括如下：
@@ -122,7 +122,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/Variety/" style="font-size: 10px;">Variety</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/adb/" style="font-size: 10px;">adb</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Variety/" style="font-size: 10px;">Variety</a> <a href="/tags/Volley/" style="font-size: 13.33px;">Volley</a> <a href="/tags/adb/" style="font-size: 10px;">adb</a>
 					</div>
 				</section>
 				
@@ -257,7 +257,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_5.png" alt=""></p>
 <p>然后，鼠标左击选中 volley.jar ，再右击会出现一长串菜单，下拉找到 Add As Library 并单击，再 OK ，等待 Gradle build 。完事后，再选中项目，比如我的 VolleyDemo ，右击后下拉菜单，找到 Open Module Settings 并单击，出现如图：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_6.png" alt=""></p>
-<p>依次选中划线部分，点击右下角 OK ，等待 Gradle build ，完事后，这样，准备工作就完成了。</p>
+<p>看到 Volley 已在 Dependencies 中，点击右下角 OK ，完事，这样准备工作就完成了。</p>
 <h2 id="三-StringRequest-的使用"><a href="#三-StringRequest-的使用" class="headerlink" title="三. StringRequest 的使用"></a><strong>三. StringRequest 的使用</strong></h2><p>StringRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>，只有 Get 请求的使用，POST 请求的使用，类比即可。</p>
 <p>从最基本的 HTTP 通信开始学习，即发起一条 HTTP 请求，然后接收 HTTP 响应。Android Studio 新建一个StringRequestDemo 项目，其他全部默认，一路 Next 到底，最后 Done。思路如下：</p>
 <p>首先，在 MainActivity 的 onCreate() 方法里，需要获取到一个 RequestQueue 对象：</p>
@@ -265,7 +265,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>这里的 RequestQueue 是一个请求队列对象，它可以缓存所有的 HTTP 请求，然后以一定的算法并发地发出这些请求。RequestQueue 内部的设计非常适合高并发，因此，不必为每一次的 HTTP 请求都创建一个 RequestQueue 对象，在每个需要和网络交互的 Activity 中创建一个 RequestQueue 对象基本足够。</p>
 <p>其次，为了要发出一条 HTTP 请求，再创建一个 StringRequest 对象：</p>
 <figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> url = <span class="string">"http://www.google.com"</span>;</span><br><span class="line"></span><br><span class="line">StringRequest stringRequest = <span class="keyword">new</span> StringRequest(url,</span><br><span class="line">        <span class="keyword">new</span> <span class="built_in">Response</span>.Listener&lt;<span class="built_in">String</span>&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> void onResponse(<span class="built_in">String</span> <span class="built_in">response</span>) &#123;</span><br><span class="line">                <span class="built_in">Log</span>.d(<span class="string">"TAG"</span>, <span class="built_in">response</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="keyword">new</span> <span class="built_in">Response</span>.ErrorListener() &#123;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> void onErrorResponse(VolleyError <span class="keyword">error</span>) &#123;</span><br><span class="line">        <span class="built_in">Log</span>.e(<span class="string">"TAG"</span>, <span class="keyword">error</span>.getMessage(), <span class="keyword">error</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>这里 new 出一个 StringRequest 对象，StringRequest 的构造函数传入了三个参数，第一个是目标服务器的 URL 地址，第二个是服务器响应成功的回调，第三个是服务器响应失败的回调。具体来说，目标服务器地址填的是 Google 的首页（需要翻墙），然后，在响应成功的回调里，打印出服务器返回的内容；在响应失败的回调里，打印出失败的详细信息。</p>
+<p>这里 new 出一个 StringRequest 对象，StringRequest() 方法中传入了三个参数，第一个是目标服务器的 URL 地址，第二个是服务器响应成功的回调，第三个是服务器响应失败的回调。具体来说，目标服务器地址填的是 Google 的首页（需要翻墙），然后，在响应成功的回调里，打印出服务器返回的内容；在响应失败的回调里，打印出失败的详细信息。</p>
 <p>最后，将该 StringRequest 对象添加到 RequestQueue 里面即可：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>.add(stringRequest);</span><br></pre></td></tr></table></figure>
 <p>另外，Volley 要访问网络，在 AndroidManifest.xml 文件中添加一条权限：</p>
@@ -288,7 +288,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>同 StringRequest 一样，JsonRequest 也是继承于 Request 类，但是，JsonRequest 是一个抽象类，无法直接创建实例，得从子类入手。其有两个直接的子类，JsonObjectRequest (用于请求一段 JSON 数据) 和 JsonArrayRequest (用于请求一段JSON 数组) 。具体如下：</p>
 <p>第一步同上述 StringRequest 的第一步一样。</p>
 <p>然后，再 new 出一个 JsonObjectRequest 对象：</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">JsonObjectRequest jsonObjectRequest = <span class="keyword">new</span> JsonObjectRequest(url, <span class="keyword">null</span>,</span><br><span class="line">        <span class="keyword">new</span> Response.Listener&lt;JSONObject&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(JSONObject response)</span> </span>&#123;</span><br><span class="line">                Log.d(<span class="string">"TAG"</span>, response.toString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="keyword">new</span> Response.ErrorListener() &#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onErrorResponse</span><span class="params">(VolleyError <span class="keyword">error</span>)</span> </span>&#123;</span><br><span class="line">       Log.e(<span class="string">"TAG"</span>, <span class="keyword">error</span>.getMessage(), <span class="keyword">error</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> url = <span class="string">"http://www.weather.com.cn/data/sk/101010100.html"</span>;</span><br><span class="line"></span><br><span class="line">JsonObjectRequest jsonObjectRequest = <span class="keyword">new</span> JsonObjectRequest(url, <span class="literal">null</span>,</span><br><span class="line">        <span class="keyword">new</span> <span class="built_in">Response</span>.Listener&lt;JSONObject&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> void onResponse(JSONObject <span class="built_in">response</span>) &#123;</span><br><span class="line">                <span class="built_in">Log</span>.d(<span class="string">"TAG"</span>, <span class="built_in">response</span>.toString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="keyword">new</span> <span class="built_in">Response</span>.ErrorListener() &#123;</span><br><span class="line"></span><br><span class="line">   @Override</span><br><span class="line">   <span class="keyword">public</span> void onErrorResponse(VolleyError <span class="keyword">error</span>) &#123;</span><br><span class="line">       <span class="built_in">Log</span>.e(<span class="string">"TAG"</span>, <span class="keyword">error</span>.getMessage(), <span class="keyword">error</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>最后，类比 StringRequest ，将 JsonObjectRequest 对象添加到 RequestQueue 里面：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>.add(jsonObjectRequest);</span><br></pre></td></tr></table></figure>
 <p>同时，不要忘了在 AndroidManifest.xml 文件中添加同上面一样的权限。</p>
@@ -297,7 +297,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>如此，根据实际需求，从 JSONObject 对象中取出需要的数据即可。</p>
 <p>总结来说，StringRequest, JsonObjectRequest 和 JsonArrayRequest 的用法基本一致，关于 Android Volley 研究综述（一）到此结束，（二）未完待续。<br><br></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://developer.android.com/training/volley/index.html" target="_blank" rel="external">http://developer.android.com/training/volley/index.html</a></p>
-<p>2.<a href="http://developer.android.com/training/volley/simple.html" target="_blank" rel="external">http://developer.android.com/training/volley/simple.html</a></p>
+<p>2.<a href="http://developer.android.com/training/volley/request.html" target="_blank" rel="external">http://developer.android.com/training/volley/request.html</a></p>
 <p>3.<a href="http://blog.csdn.net/guolin_blog/article/details/17482095" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/17482095</a><br><br><br><strong>博主沥血作文章，客观随性打钱赏。</strong></p>
 <p><strong>今时有幸结识您，来日相聚笑欢畅。</strong></p>
 <p><strong>［支付宝］</strong></p>
@@ -312,6 +312,15 @@ Volley is an HTTP library that makes networking for Android apps easier and most
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/05/03/Android-Volley-研究综述（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android Volley 研究综述（二）
+        
+      </div>
+    </a>
   
   
     <a href="/2016/04/14/半月技术谈/" id="article-nav-older" class="article-nav-link-wrap">
