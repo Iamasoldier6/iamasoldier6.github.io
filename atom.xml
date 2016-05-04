@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-05-04T09:11:20.000Z</updated>
+  <updated>2016-05-04T09:22:18.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://iamasoldier6.com/2016/05/03/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://iamasoldier6.com/2016/05/03/Android-Volley-研究综述（二）/</id>
     <published>2016-05-03T15:02:15.000Z</published>
-    <updated>2016-05-04T09:11:20.000Z</updated>
+    <updated>2016-05-04T09:22:18.000Z</updated>
     
-    <content type="html">&lt;p&gt;Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;本篇在&lt;a href=&quot;http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/&quot;&gt;Android Volley 研究综述（一）&lt;/a&gt;的基础上继续展开。&lt;/p&gt;
+    <content type="html">&lt;p&gt;Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;本篇在&lt;a href=&quot;http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/&quot;&gt;Android Volley 研究综述（一）&lt;/a&gt;的基础上继续展开，分析关于 Volley 加载网络图片。&lt;/p&gt;
 &lt;h2 id=&quot;一-ImageRequest-的使用&quot;&gt;&lt;a href=&quot;#一-ImageRequest-的使用&quot; class=&quot;headerlink&quot; title=&quot;一. ImageRequest 的使用&quot;&gt;&lt;/a&gt;&lt;strong&gt;一. ImageRequest 的使用&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;ImageRequestDemo 地址: &lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; GitHub &lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;ImageRequest ，指定一个 URL ，并在响应回调中接收一张图片。具体来说，ImageRequest 是一个封装好的 request ，用来在给定的 URL 中获得一张图片，同时调回一张解码过的位图。它也提供了些便捷的特性，如指定一种大小来重新裁剪。其主要优点是，Volley 的线程调度确保昂贵的图片操作（解码，重新裁剪）自动地在工作线程中发生。&lt;/p&gt;
 &lt;p&gt;以上来自官网，总结来说，同 StringRequest 和 JsonRequest 类似，使用大体分以下三步：&lt;/p&gt;
