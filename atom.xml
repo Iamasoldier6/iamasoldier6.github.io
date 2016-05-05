@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-05-05T08:27:16.000Z</updated>
+  <updated>2016-05-05T13:55:53.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2016/05/05/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/"/>
     <id>http://iamasoldier6.com/2016/05/05/Android-Volley-研究综述（三）/</id>
     <published>2016-05-05T10:33:05.000Z</published>
-    <updated>2016-05-05T08:27:16.000Z</updated>
+    <updated>2016-05-05T13:55:53.000Z</updated>
     
     <content type="html">&lt;p&gt;众多请求在工具箱里随时准备使用实施；如果你的响应是字符串，图片，或者是 JSON ，你或许不需要实现自定义请求。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;本篇在&lt;a href=&quot;http://iamasoldier6.com/2016/05/04/Android-Volley-研究综述（二）/&quot;&gt; Android Volley 研究综述（二）&lt;/a&gt;的基础上继续展开，分析关于 Volley 实现自定义的请求。&lt;/p&gt;
 &lt;p&gt;对于你需要实现自定义请求的场合，这是所有你需要做的：&lt;/p&gt;
@@ -62,12 +62,7 @@
 &lt;p&gt;显示的北京在 Android Studio 上是乱码的，这里手动改正了下。&lt;/p&gt;
 &lt;p&gt;本篇深刻地理解了自定义 Request 的的方法，至此，关于 Android Volley 研究综述（三）到此结束，（四）未完待续。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://developer.android.com/training/volley/request-custom.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://developer.android.com/training/volley/request-custom.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17612763&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17612763&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;strong&gt;博主沥血作文章，客观随性打钱赏。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;今时有幸结识您，来日相聚笑欢畅。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;［支付宝］&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;［微信］&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17612763&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17612763&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -90,7 +85,7 @@
     <link href="http://iamasoldier6.com/2016/05/04/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://iamasoldier6.com/2016/05/04/Android-Volley-研究综述（二）/</id>
     <published>2016-05-04T15:02:15.000Z</published>
-    <updated>2016-05-05T00:53:03.000Z</updated>
+    <updated>2016-05-05T13:55:26.000Z</updated>
     
     <content type="html">&lt;p&gt;Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;本篇在&lt;a href=&quot;http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/&quot;&gt; Android Volley 研究综述（一）&lt;/a&gt;的基础上继续展开，分析关于 Volley 加载网络图片。&lt;/p&gt;
 &lt;h2 id=&quot;一-ImageRequest-的使用&quot;&gt;&lt;a href=&quot;#一-ImageRequest-的使用&quot; class=&quot;headerlink&quot; title=&quot;一. ImageRequest 的使用&quot;&gt;&lt;/a&gt;&lt;strong&gt;一. ImageRequest 的使用&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;ImageRequestDemo 地址: &lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; GitHub &lt;/a&gt;。&lt;/p&gt;
@@ -165,12 +160,7 @@
 &lt;p&gt;当然，不愿压缩图片的话，只需要在布局文件中将 layout_width 和 layout_height 都设置成 wrap_content即可。至此，关于 Android Volley 研究综述（二）到此结束，（三）未完待续。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://developer.android.com/training/volley/request.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://developer.android.com/training/volley/request.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://developer.android.com/training/volley/requestqueue.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://developer.android.com/training/volley/requestqueue.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;3.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17482165&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17482165&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;strong&gt;博主沥血作文章，客观随性打钱赏。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;今时有幸结识您，来日相聚笑欢畅。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;［支付宝］&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;［微信］&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17482165&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17482165&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -191,7 +181,7 @@
     <link href="http://iamasoldier6.com/2016/04/30/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/</id>
     <published>2016-04-30T12:17:59.000Z</published>
-    <updated>2016-05-04T09:09:38.000Z</updated>
+    <updated>2016-05-05T13:55:13.000Z</updated>
     
     <content type="html">&lt;p&gt;Android 官网对 Volley 的一句话概括如下：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -258,12 +248,7 @@
 &lt;p&gt;总结来说，StringRequest, JsonObjectRequest 和 JsonArrayRequest 的用法基本一致，关于 Android Volley 研究综述（一）到此结束，（二）未完待续。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://developer.android.com/training/volley/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://developer.android.com/training/volley/index.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://developer.android.com/training/volley/request.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://developer.android.com/training/volley/request.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;3.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17482095&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17482095&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;strong&gt;博主沥血作文章，客观随性打钱赏。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;今时有幸结识您，来日相聚笑欢畅。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;［支付宝］&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;［微信］&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17482095&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17482095&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -288,7 +273,7 @@
     <link href="http://iamasoldier6.com/2016/04/14/%E5%8D%8A%E6%9C%88%E6%8A%80%E6%9C%AF%E8%B0%88/"/>
     <id>http://iamasoldier6.com/2016/04/14/半月技术谈/</id>
     <published>2016-04-14T10:18:39.000Z</published>
-    <updated>2016-05-03T08:50:12.000Z</updated>
+    <updated>2016-05-05T13:56:03.000Z</updated>
     
     <content type="html">&lt;p&gt;开博客有半个月了，总想搞个大新闻，奈何目前技术水平有限，憋不出来大事件，又想着尽量原创。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;索性，就把这半个月期间学习与开发中值得总结的东西放博客上，供自己复用时查询，也供需要的人参考。以后，也尽量保持一周或半月左右更新篇博客，于自己也是成长，同时有用的点也能帮助需要的人。不废话，呈现如下：&lt;/p&gt;
 &lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;&lt;strong&gt;Java&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;博主前段时间深感 Java 基础无力，于是自清明放假开始，重新撸起去年自学期间半途放弃的《Thinking in Java》，并打算一季左右撸完。目前，已撸到了第 7 章，正常进度应该可以达成初定目标吧，原谅我是个渣渣，大神勿喷。几点总结如下：&lt;/p&gt;
@@ -366,7 +351,7 @@
     <link href="http://iamasoldier6.com/2016/03/31/Mac-Android-%E9%85%8D%E7%BD%AEadb%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
     <id>http://iamasoldier6.com/2016/03/31/Mac-Android-配置adb环境变量/</id>
     <published>2016-03-31T12:53:44.000Z</published>
-    <updated>2016-05-05T10:54:26.000Z</updated>
+    <updated>2016-05-05T13:55:58.000Z</updated>
     
     <content type="html">&lt;p&gt;折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac下Android的配置adb环境变量”，写这个小专题源于之前学习《第一行代码》时，在“SQLite存储”一节遇到的，现与大家分享。方法如下：&lt;/p&gt;
 &lt;p&gt;1.打开终端Terminal。&lt;/p&gt;
