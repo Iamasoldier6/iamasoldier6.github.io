@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-05-05T13:55:53.000Z</updated>
+  <updated>2016-05-06T01:40:43.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2016/05/05/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0%EF%BC%88%E4%B8%89%EF%BC%89/"/>
     <id>http://iamasoldier6.com/2016/05/05/Android-Volley-研究综述（三）/</id>
     <published>2016-05-05T10:33:05.000Z</published>
-    <updated>2016-05-05T13:55:53.000Z</updated>
+    <updated>2016-05-06T01:40:43.000Z</updated>
     
     <content type="html">&lt;p&gt;众多请求在工具箱里随时准备使用实施；如果你的响应是字符串，图片，或者是 JSON ，你或许不需要实现自定义请求。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;本篇在&lt;a href=&quot;http://iamasoldier6.com/2016/05/04/Android-Volley-研究综述（二）/&quot;&gt; Android Volley 研究综述（二）&lt;/a&gt;的基础上继续展开，分析关于 Volley 实现自定义的请求。&lt;/p&gt;
 &lt;p&gt;对于你需要实现自定义请求的场合，这是所有你需要做的：&lt;/p&gt;
@@ -60,7 +60,8 @@
 &lt;p&gt;onResponse() 方法回调中返回了一个 Weather 对象，通过它可以得到 WeatherInfo 对象，接着选择性地取出所要的 JSON 数据。运行程序：&lt;/p&gt;
 &lt;figure class=&quot;highlight stylus&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;09&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;10.538&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1632&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;1632&lt;/span&gt;/com&lt;span class=&quot;selector-class&quot;&gt;.iamasoldier6&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.gsonrequestdemo&lt;/span&gt; D/TAG: city is 北京&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;09&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;10.538&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1632&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;1632&lt;/span&gt;/com&lt;span class=&quot;selector-class&quot;&gt;.iamasoldier6&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.gsonrequestdemo&lt;/span&gt; D/TAG: temp is &lt;span class=&quot;number&quot;&gt;18&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;09&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;10.538&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1632&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;1632&lt;/span&gt;/com&lt;span class=&quot;selector-class&quot;&gt;.iamasoldier6&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.gsonrequestdemo&lt;/span&gt; D/TAG: &lt;span class=&quot;selector-tag&quot;&gt;time&lt;/span&gt; is &lt;span class=&quot;number&quot;&gt;17&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;05&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;显示的北京在 Android Studio 上是乱码的，这里手动改正了下。&lt;/p&gt;
-&lt;p&gt;本篇深刻地理解了自定义 Request 的的方法，至此，关于 Android Volley 研究综述（三）到此结束，（四）未完待续。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;本篇深刻地理解了自定义 Request 的的方法，至此，关于 Android Volley 研究综述（三）到此结束，（四）未完待续。&lt;/p&gt;
+&lt;p&gt;本着知其然，知其所以然的理念，（四）会是关于 Volley 源码的研究综述，奈何笔者目前水平有限，待自觉有水平写出 Volley 源码研究综述时，再会完善所谓的（四）。最近有些高产，实则想将学习吸收的 Volley 部分总结至博客上，接下来，仍然顺着去看 Android 官方 Training。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://developer.android.com/training/volley/request-custom.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://developer.android.com/training/volley/request-custom.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/17612763&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/17612763&lt;/a&gt;&lt;/p&gt;
 </content>
