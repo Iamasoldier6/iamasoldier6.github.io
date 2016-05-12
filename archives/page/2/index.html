@@ -4,18 +4,17 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Mac_Android_配置adb环境变量 | Iamasoldier6&#39;s World</title>
+  <title>Archives | Iamasoldier6&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Mac_Android_配置adb环境变量">
-<meta property="og:url" content="http://iamasoldier6.com/2016/03/31/Mac-Android-配置adb环境变量/index.html">
+  <meta name="description" content="Forged from suffering, hardened by pain.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Iamasoldier6's World">
+<meta property="og:url" content="http://iamasoldier6.com/archives/page/2/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
-<meta property="og:description" content="折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。">
-<meta property="og:updated_time" content="2016-05-05T13:55:58.000Z">
+<meta property="og:description" content="Forged from suffering, hardened by pain.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac_Android_配置adb环境变量">
-<meta name="twitter:description" content="折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。">
+<meta name="twitter:title" content="Iamasoldier6's World">
+<meta name="twitter:description" content="Forged from suffering, hardened by pain.">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
   
@@ -179,168 +178,57 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Mac-Android-配置adb环境变量" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap">
   
-    <div class="article-meta">
-      <a href="/2016/03/31/Mac-Android-配置adb环境变量/" class="article-date">
-  	<time datetime="2016-03-31T12:53:44.000Z" itemprop="datePublished">2016-03-31</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2016/03/31/Mac-Android-配置adb环境变量/" class="archive-article-date">
+  	<time datetime="2016-03-31T12:53:44.000Z" itemprop="datePublished">Mar 31</time>
 </a>
-    </div>
+        </div>
+    	 
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Mac_Android_配置adb环境变量
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/03/31/Mac-Android-配置adb环境变量/">Mac_Android_配置adb环境变量</a>
     </h1>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/adb/">adb</a></li></ul>
 	</div>
 
-        
+          
 
+        </div>
         <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-  <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-  
+    </header>
   </div>
-
-        <p>折腾了近两天终于把博客搭建好了，圆了近半年的念想，以后终于有个专属自己的博客园地了。<a id="more"></a>等把这Hexo博客优化熟练好了，或许未来会开篇博客，讲搭建优化过程。这是搭建博客后的第一篇干货博客，熟悉下写博客流程，顺便试试效果怎样。下面进入正题，关于“Mac下Android的配置adb环境变量”，写这个小专题源于之前学习《第一行代码》时，在“SQLite存储”一节遇到的，现与大家分享。方法如下：</p>
-<p>1.打开终端Terminal。</p>
-<p>2.进入HOME目录：命令行输入 echo（这之间有一个空格） $HOME</p>
-<p>3.创建.bash_profile文件：命令行输入 touch（这之间有一个空格）.bash_profile</p>
-<p>4.打开.bash_profile文件：命令行输入open（这之间有一个空格）-e（这之间有一个空格）.bash_profile，自动弹出 .bash_profile 文件的编辑窗口。</p>
-<p>5.关键一步，不清楚AS的SDK路径，开启AS中的SDK Manager即可找到，<br>在.bash_profile文件中输入，比如我的：export PATH=${PATH}:/Users/Iamasoldier6/Library/Android/sdk/platform-tools</p>
-<p>6.保存文件。</p>
-<p>7.更新才配置的环境变量：命令行输入source（这之间有一个空格）.bash_profile</p>
-<p>8.验证配置：输入adb，出现-bash: adb: command not found，则失败，找原因重新配置；<br>出现adb的命令参数解释，则表明环境变量配置成功，Bingo!</p>
-
-      
-    </div>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/04/14/半月技术谈/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          半月技术谈
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-  
-
-  
-  <! -- 添加捐赠图标 -->
-<div class ="post-donate">
-    <div id="donate_board" class="donate_bar center">
-        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
-        <span class="donate_txt">
-           &uarr;<br>
-		   博主沥血作文章，客官随性打钱赏。左边支付宝打赏，右边微信打赏。
-        </span>
-        <br>
-      </div>  
-	<div id="donate_guide" class="donate_bar center hidden" >
-		<!-- 支付宝打赏图案 -->
-		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
-		<!-- 微信打赏图案 -->
-		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
-    </div>
-	<script type="text/javascript">
-		document.getElementById('btn_donate').onclick = function(){
-			$('#donate_board').addClass('hidden');
-			$('#donate_guide').removeClass('hidden');
-		}
-	</script>
-</div>
-<! -- 添加捐赠图标 -->
-
-
-
-      <! -- 添加版权信息 -->
-<div class="article-footer-copyright">
-<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
-
-<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/03/31/Mac-Android-配置adb环境变量/" target="_blank" title="Mac_Android_配置adb环境变量">Mac_Android_配置adb环境变量</a></b></left>
-
-<left><br/>本文链接：<b><a href="/2016/03/31/Mac-Android-配置adb环境变量/" target="_blank" title="Mac_Android_配置adb环境变量">http://iamasoldier6.com/2016/03/31/Mac-Android-配置adb环境变量/</a></b></left>
-</div>
-<! -- 添加版权信息 -->
-    
 </article>
+  
+  
+    </div></section>
+  
 
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">分享到: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
-    <a class="jiathis_button_plus"></a> 
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Mac-Android-配置adb环境变量" data-title="Mac_Android_配置adb环境变量" data-url="http://iamasoldier6.com/2016/03/31/Mac-Android-配置adb环境变量/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"iamasoldier6"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 
 </div>
       <footer id="footer">
@@ -371,8 +259,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
