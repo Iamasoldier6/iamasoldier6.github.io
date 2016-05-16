@@ -95,9 +95,9 @@
     </summary>
     
     
-      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
-    
       <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
       <category term="AOSP" scheme="http://iamasoldier6.com/tags/AOSP/"/>
     
@@ -349,11 +349,11 @@
     </summary>
     
     
+      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
+    
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
       <category term="Volley" scheme="http://iamasoldier6.com/tags/Volley/"/>
-    
-      <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
     
   </entry>
   
@@ -460,9 +460,9 @@
     </summary>
     
     
-      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
-    
       <category term="Mac" scheme="http://iamasoldier6.com/tags/Mac/"/>
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
       <category term="adb" scheme="http://iamasoldier6.com/tags/adb/"/>
     
