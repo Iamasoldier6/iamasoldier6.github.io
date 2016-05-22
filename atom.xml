@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-05-12T12:48:17.000Z</updated>
+  <updated>2016-05-22T02:22:39.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -14,6 +14,324 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从 ListView 到 RecyclerView 的用法浅析</title>
+    <link href="http://iamasoldier6.com/2016/05/21/%E4%BB%8E-ListView-%E5%88%B0-RecyclerView-%E7%9A%84%E7%94%A8%E6%B3%95%E6%B5%85%E6%9E%90/"/>
+    <id>http://iamasoldier6.com/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/</id>
+    <published>2016-05-21T03:57:52.000Z</published>
+    <updated>2016-05-22T02:22:39.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;ListView ，一种在垂直滚动列表中显示条目的视图；RecyclerView ，一种在局限的窗口呈现大数据集合的灵活视图。RecyclerView 部件是 ListView 的一种更高级且更灵活的版本。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;以上描述来自官网。&lt;/p&gt;
+&lt;p&gt;移动设备屏幕空间有限，导致在屏幕上一次性显示的内容也是有限的。当需要显示大量的数据时，设想有这样的控件，可以帮助用户只通过手指上下滑动，就可以让屏幕外的数据滚动到屏幕内，同时，屏幕上原有的数据会滚动出屏幕。如此，便可以优雅地解决在局限的屏幕上显示大量数据的问题。ListView 和 RecyclerView 便适用于此。&lt;/p&gt;
+&lt;p&gt;不过，自 Android 5.0 推出以来，RecyclerView 在很多地方都在逐步取代 ListView ，这也是官方推崇的。“江山代有才人出，各领风骚数百年”。如今，已要来到 Android 7.0 的时代，RecyclerView 的使用也很普遍了，或许，ListView 正逐步从 Android 的大舞台退出，RecyclerView 即将独领风骚。&lt;/p&gt;
+&lt;p&gt;下面浅析从 ListView 到 RecyclerView 的用法。&lt;/p&gt;
+&lt;h2 id=&quot;一-ListView-的用法&quot;&gt;&lt;a href=&quot;#一-ListView-的用法&quot; class=&quot;headerlink&quot; title=&quot;一. ListView 的用法&quot;&gt;&lt;/a&gt;&lt;strong&gt;一. ListView 的用法&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;ListViewDemo 地址: &lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; GitHub &lt;/a&gt;，学习总结自&lt;a href=&quot;http://blog.csdn.net/guolin_blog&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; 郭霖 &lt;/a&gt;的《第一行代码》。&lt;/p&gt;
+&lt;p&gt;新建一个 ListViewDemo 项目，默认持续下一步直至完成。然后，删掉 activity_main.xml 中默认建好的 TextView ，建立一个 ListView 如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;ListView&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    android:id=&lt;span class=&quot;string&quot;&gt;&quot;@+id/list_view&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    android:layout_width=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    android:layout_height=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;ListView&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;``&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;` &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;接着，新建一个实体类 Fruit ，作为 ListView 适配器的适配类型：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;public class Fruit {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private String name;
+private int imageId;
+
+public Fruit(String name, int imageId) {
+    this.name = name;
+    this.imageId = imageId;
+}
+
+public String getName() {
+    return name;
+}
+
+public int getImageId() {
+    return imageId;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;}&lt;br&gt;&lt;figure class=&quot;highlight applescript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;name&lt;/span&gt; 是水果的名字，imageId 是水果对应图片的资源 &lt;span class=&quot;built_in&quot;&gt;id&lt;/span&gt; 。然后，为 ListView 的子项自定义一个布局，在 layout 目录下新建 fruit_item.xml 如下：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;imageview android:id=&quot;@+id/fruit_image&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot;&gt;
+
+&lt;p&gt;&lt;textview android:id=&quot;@+id/fruit_name&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:layout_gravity=&quot;center&quot; android:layout_marginleft=&quot;10dip&quot;&gt;&lt;br&gt;&lt;figure class=&quot;highlight armasm&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;symbol&quot;&gt;ImageView&lt;/span&gt; 用于显示水果的图片，TextView 用于显示水果的名称。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;由于数据无法直接传递给 ListView ，需要借助适配器完成。&lt;span class=&quot;keyword&quot;&gt;Android &lt;/span&gt;中提供了很多适配器的实现类，这里使用 ArrayAdapter ，通过泛型指定适配的数据类型，再在构造函数中传入适配的数据。自定义一个适配器 FruitAdapter ，继承自 ArrayAdapter ，泛型指定为 Fruit 类。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;同时，优化 ListView 的使用效率：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;一. FruitAdapter 中的 getView() 方法每次都将布局加载一遍，这样，快速滚动的话会影响性能。故利用好 convertView 参数，缓存之前加载好的布局，再重用。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;二. 使用 ViewHolder 模式，其充分利用 ListView 的视图缓存机制，避免每次调用 getView() 时通过 findViewById() 实例化控件。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;代码如下：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/textview&gt;&lt;/p&gt;
+&lt;p&gt;public class FruitAdapter extends ArrayAdapter&lt;fruit&gt; {&lt;/fruit&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private int resourceId;
+
+public FruitAdapter(Context context, int textViewResourceId, List&amp;lt;Fruit&amp;gt; objects) {
+    super(context, textViewResourceId, objects);
+    resourceId = textViewResourceId;
+}
+
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+    Fruit fruit = getItem(position);
+    View view;
+    ViewHolder viewHolder;
+    if (convertView == null) {
+        view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+        viewHolder = new ViewHolder();
+        viewHolder.fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
+        viewHolder.fruitName = (TextView) view.findViewById(R.id.fruit_name);
+        view.setTag(viewHolder); //将 ViewHolder 存储在 View 中
+    } else {
+        view = convertView;
+        viewHolder = (ViewHolder) view.getTag(); //重新获取 ViewHolder, 找到缓存的布局.
+    }
+    viewHolder.fruitImage.setImageResource(fruit.getImageId());
+    viewHolder.fruitName.setText(fruit.getName());
+    return view;
+}
+
+class ViewHolder {
+    ImageView fruitImage;
+    TextView fruitName;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;}&lt;/p&gt;
+&lt;figure class=&quot;highlight cos&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;FruitAdapter 重写父类的构造函数，将上下文、ListView 子项布局的 id 和数据传递进来。同时，重写了 getView() 方法，每个子项滚动进屏幕内时调用该方法。其中，getItem() 方法获取当前项的 Fruit 实例。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;增加判断与一个内部类 ViewHolder ，利用视图缓存机制进行缓存。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;若 convertView 为空，则创建一个 ViewHolder 对象，将控件的实例存放在 ViewHolder 里。然后，调用 &lt;span class=&quot;keyword&quot;&gt;View&lt;/span&gt; 的 setTag() 方法，将 ViewHolder 对象存储在 &lt;span class=&quot;keyword&quot;&gt;View&lt;/span&gt; 中。若 convertView 不为空，则调用 &lt;span class=&quot;keyword&quot;&gt;View&lt;/span&gt; 的 getTag() 方法，重新取出 ViewHolder 。如此，所有控件的实例都缓存在 ViewHolder 里。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;最后，修改并完善 MainActivity 中的代码：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;public class MainActivity extends AppCompatActivity {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private List&amp;lt;Fruit&amp;gt; fruitList = new ArrayList&amp;lt;Fruit&amp;gt;();
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    initFruits();
+
+    FruitAdapter adapter = new FruitAdapter(MainActivity.this, R.layout.fruit_item, fruitList);
+    ListView listView = (ListView) findViewById(R.id.list_view);
+    listView.setAdapter(adapter);
+}
+
+private void initFruits() {
+    Fruit apple = new Fruit(&amp;quot;Apple&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(apple);
+    Fruit banana = new Fruit(&amp;quot;Banana&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(banana);
+    Fruit orange = new Fruit(&amp;quot;Orange&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(orange);
+    Fruit watermelon = new Fruit(&amp;quot;Watermelon&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(watermelon);
+    Fruit pear = new Fruit(&amp;quot;Pear&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(pear);
+    Fruit grape = new Fruit(&amp;quot;Grape&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(grape);
+    Fruit pineapple = new Fruit(&amp;quot;Pineapple&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(pineapple);
+    Fruit strawberry = new Fruit(&amp;quot;Strawberry&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(strawberry);
+    Fruit cherry = new Fruit(&amp;quot;Cherry&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(cherry);
+    Fruit mango = new Fruit(&amp;quot;Mango&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(mango);
+    Fruit peach = new Fruit(&amp;quot;Peach&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(peach);
+    Fruit lemon = new Fruit(&amp;quot;Lemon&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(lemon);
+    Fruit pitaya = new Fruit(&amp;quot;Pitaya&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(pitaya);
+    Fruit durin = new Fruit(&amp;quot;Durin&amp;quot;, R.mipmap.ic_launcher);
+    fruitList.add(durin);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;}&lt;br&gt;&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;添加了 initFruits() 方法，初始化所有的水果数据。将水果的名字和对应的图片 id 传入 Fruit 类的构造函数中，再把创建好的对象添加到水果列表中。而后，在 onCreate() 方法里创建了 FruitAdapter 对象，将 FruitAdapter 作为适配器传递给 ListView 。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;至此，ListView 的简单综合应用浅析完毕，运行程序，如下：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;![](http://7xt0ac.com1.z0.glb.clouddn.com/listview.png)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;更多如动态修改 ListView 、使 ListView 具有弹性、自动显示与隐藏布局 ListView 、模仿微信聊天布局 ListView 、动态改变点击 Item 布局的 ListView 等，详见 [&lt;span class=&quot;string&quot;&gt; GitHub &lt;/span&gt;](&lt;span class=&quot;link&quot;&gt;https://github.com/Iamasoldier6/AndroidExerciseDemos&lt;/span&gt;)。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;section&quot;&gt;## **二. RecyclerView 的用法**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RecyclerViewDemo 地址: [&lt;span class=&quot;string&quot;&gt; GitHub &lt;/span&gt;](&lt;span class=&quot;link&quot;&gt;https://github.com/Iamasoldier6/AndroidExerciseDemos&lt;/span&gt;)，学习总结自[&lt;span class=&quot;string&quot;&gt; 徐宜生 &lt;/span&gt;](&lt;span class=&quot;link&quot;&gt;https://github.com/xuyisheng&lt;/span&gt;)的《 Android 群英传》。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;首先，在 gradle 中引入 &lt;span class=&quot;code&quot;&gt;`compile &#39;com.android.support:recyclerview-v7:23.4.0&#39;`&lt;/span&gt; 的依赖。由于 RecyclerView 封装好了 ViewHolder ，再实现其功能。新建一个 RecyclerViewDemo 如上所示，同时添加了 Spinner 和 按钮：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;android.support.v7.widget.recyclerview android:id=&quot;@+id/rc_list&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;0dp&quot; android:layout_weight=&quot;9&quot; android:scrollbars=&quot;vertical&quot;&gt;
+
+&lt;linearlayout android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;0dp&quot; android:layout_weight=&quot;1&quot;&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;Spinner
+    android:id=&amp;quot;@+id/spinner&amp;quot;
+    android:layout_width=&amp;quot;0dp&amp;quot;
+    android:layout_height=&amp;quot;wrap_content&amp;quot;
+    android:layout_weight=&amp;quot;1&amp;quot;
+    android:entries=&amp;quot;@array/recycler_list&amp;quot;/&amp;gt;
+
+&amp;lt;Button
+    android:layout_width=&amp;quot;0dp&amp;quot;
+    android:layout_height=&amp;quot;wrap_content&amp;quot;
+    android:layout_weight=&amp;quot;1&amp;quot;
+    android:onClick=&amp;quot;addRecycler&amp;quot;
+    android:text=&amp;quot;Add&amp;quot;/&amp;gt;
+
+&amp;lt;Button
+    android:layout_width=&amp;quot;0dp&amp;quot;
+    android:layout_height=&amp;quot;wrap_content&amp;quot;
+    android:layout_weight=&amp;quot;1&amp;quot;
+    android:onClick=&amp;quot;delRecycler&amp;quot;
+    android:text=&amp;quot;Delete&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;/p&gt;&lt;/linearlayout&gt;&lt;br&gt;&lt;figure class=&quot;highlight smali&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;在 strings.xml 中新建 Spinner 中用到的&lt;span class=&quot;built_in&quot;&gt; array &lt;/span&gt;：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;string-array name=&quot;recycler_list&quot;&gt;&lt;br&gt;    &lt;item&gt;LinearLayoutManager&lt;/item&gt;&lt;br&gt;    &lt;item&gt;GridLayoutManager&lt;/item&gt;&lt;br&gt;&lt;/string-array&gt;&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;与 ListView 的用法一样，使用一个合适的数据适配器来加载数据，自定义一个适配器 RecyclerAdapter：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;public class RecyclerAdapter extends RecyclerView.Adapter&lt;recycleradapter.viewholder&gt; {&lt;/recycleradapter.viewholder&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private List&amp;lt;String&amp;gt; mData;
+public OnItemClickListener mOnItemClickListener;
+
+public RecyclerAdapter(List&amp;lt;String&amp;gt; data) {
+    this.mData = data;
+}
+
+public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+    this.mOnItemClickListener = itemClickListener;
+}
+
+public interface OnItemClickListener {
+    void onItemClick(View view, int position);
+}
+
+public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public TextView mTextView;
+
+    public ViewHolder(View itemView) {
+        super(itemView);
+        mTextView = (TextView) itemView;
+        mTextView.setOnClickListener(this);
+    }
+
+    // 通过接口回调来实现 RecyclerView 的点击事件
+    @Override
+    public void onClick(View view) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(view, getPosition());
+        }
+    }
+}
+
+@Override
+public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    // 将布局转化为 View ,并传递给 RecyclerView 封装好的 ViewHolder
+    View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rc_item,
+            viewGroup, false);
+    return new ViewHolder(view);
+}
+
+@Override
+public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    //建立起 ViewHolder 中视图与数据的关联
+    viewHolder.mTextView.setText(mData.get(i) + i);
+}
+
+@Override
+public int getItemCount() {
+    return mData.size();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;}&lt;br&gt;&lt;figure class=&quot;highlight armasm&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;一个典型的 RecyclerView ，通过 onCreateViewHolder 将 List &lt;span class=&quot;keyword&quot;&gt;item &lt;/span&gt;的布局转化为 View ，并传递给 RecyclerView 封装好的 ViewHolder ，就可以将数据与视图关联起来。但是要注意的是，&lt;span class=&quot;keyword&quot;&gt;Android &lt;/span&gt;并没有给 RecyclerView 增进点击事件，需要自己使用接口回调机制，创建一个点击事件的接口，如上面的：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;public void setOnItemClickListener(OnItemClickListener itemClickListener) {&lt;br&gt;    this.mOnItemClickListener = itemClickListener;&lt;br&gt;}&lt;/p&gt;
+&lt;p&gt;public interface OnItemClickListener {&lt;br&gt;    void onItemClick(View view, int position);&lt;br&gt;}&lt;br&gt;&lt;figure class=&quot;highlight crmsh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;然后，建立一个类似于 ListView 的 List Item 视图 rc_item.&lt;span class=&quot;keyword&quot;&gt;xml&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;?xml version=”1.0” encoding=”utf-8”?&amp;gt;&lt;/p&gt;
+&lt;textview xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:textsize=&quot;30sp&quot; android:gravity=&quot;center&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:layout_margin=&quot;3dp&quot; android:background=&quot;#bebebe&quot; android:orientation=&quot;vertical&quot;&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/textview&gt;&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;另外，自定义 LayoutManager 可以方便地创建不同的布局，为较深入 RecyclerView 的使用，本篇同时创建了线性布局和网格布局。MainActivity 中的代码如下：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;public class MainActivity extends AppCompatActivity {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private RecyclerView mRecyclerView;
+private RecyclerAdapter mRecyclerAdapter;
+private RecyclerView.LayoutManager mLayoutManager;
+
+private Spinner mSpinner;
+
+private List&amp;lt;String&amp;gt; mData = new ArrayList&amp;lt;String&amp;gt;();
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    mRecyclerView = (RecyclerView) findViewById(R.id.rc_list);
+    mLayoutManager = new LinearLayoutManager(this);
+    mRecyclerView.setLayoutManager(mLayoutManager);
+    mRecyclerView.setHasFixedSize(true);
+    //设置显示动画
+    mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    mSpinner = (Spinner) findViewById(R.id.spinner);
+    mSpinner.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView&amp;lt;?&amp;gt; parent,
+                                           View view, int position,
+                                           long id) {
+                    if (position == 0) {
+                        mRecyclerView.setLayoutManager(
+                                // 设置为线性布局
+                                new LinearLayoutManager(MainActivity.this));
+                    } else if (position == 1) {
+                        mRecyclerView.setLayoutManager(
+                                // 设置为表格布局
+                                new GridLayoutManager(MainActivity.this, 3));
+                    } else if (position == 2) {
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView&amp;lt;?&amp;gt; parent) {
+                }
+            });
+
+    //增加测试数据
+    mData.add(&amp;quot;Recycler&amp;quot;);
+    mData.add(&amp;quot;Recycler&amp;quot;);
+    mData.add(&amp;quot;Recycler&amp;quot;);
+
+    mRecyclerAdapter = new RecyclerAdapter(mData);
+    mRecyclerView.setAdapter(mRecyclerAdapter);
+
+    mRecyclerAdapter.setOnItemClickListener(
+            new RecyclerAdapter.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(final View view, int position) {
+                    // 设置点击动画
+                    view.animate()
+                            .translationZ(15f).setDuration(300)
+                            .setListener(new AnimatorListenerAdapter() {
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    view.animate()
+                                            .translationZ(1f)
+                                            .setDuration(500).start();
+                                }
+                            }).start();
+                }
+            });
+}
+
+public void addRecycler(View view) {
+    mData.add(&amp;quot;Recycler&amp;quot;);
+    int position = mData.size();
+    if (position &amp;gt; 0) {
+        mRecyclerAdapter.notifyDataSetChanged();
+    }
+}
+
+public void delRecycler(View view) {
+    int position = mData.size();
+    if (position &amp;gt; 0) {
+        mData.remove(position - 1);
+        mRecyclerAdapter.notifyDataSetChanged();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;}&lt;br&gt;&lt;figure class=&quot;highlight gherkin&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;RecyclerView 为条目位置提供了布局管理器，同时，为条目设置了操作动画。代码中也添加了动态修改功能，点击按钮，便可以增加或删除条目，notifyDataSetChanged() 方法帮助实现刷新布局的功能。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;最后，结合使用 Spinner ，程序运行结果分别如下：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;纵向布局&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;![](http://7xt0ac.com1.z0.glb.clouddn.com/revertical.png)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;横向布局&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;![](http://7xt0ac.com1.z0.glb.clouddn.com/rehorizontal.png)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## **三. ListView 与 RecyclerView 的简单对比**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;初看起来，ListView 与 RecyclerView 好像并没有什么不同。实际上，对比来看，RecyclerView 相对于 ListView ，主要包含这几处新的特性，如 ViewHolder，ItemDecorator，LayoutManager，SmoothScroller 以及增加或删除 item 时 item 动画等。具体如下：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;ViewHolder&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ViewHolder 是用来保存视图引用的类。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ListView 中，ViewHolder 得自定义，是一种推荐的提高性能的方式，不过不是必须的。不使用 ViewHolder 的话，ListView每次 getView() 的时候都会调用 findViewById()，影响性能。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RecyclerView 中，使用 RecyclerView.ViewHolder 是必须的，不过实现起来稍微复杂些，提高了性能。BaseAdapter 使用 RecyclerView.ViewHolder，绑定 position 到上面。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;LayoutManager&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ListView 只能在垂直方向上滚动，API 没有提供在水平方向上滚动的支持。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RecyclerView 在滚动上的功能扩展很多，支持多种类型列表的展示需求，如支持水平和垂直方向上滚动列表的 LinearLayoutManager ；支持交叉网格风格列表的 StaggeredLayoutManager ，类似于瀑布流；支持网格展示，可以水平或垂直滚动的 GridLayoutManager ，如展示图片的画廊。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;ItemAnimator&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ListView 中，删除或添加 item 时，是无法产生动画效果的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RecyclerView 中，RecyclerView.ItemAnimator 用于添加、删除或移动 item 时显示动画效果。若不自定义 ItemDecorator ，可以使用 DefaultItemAnimator。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;Adapter&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ListView 的 Adapter 中，getView() 将视图和 position 绑定起来，也能通过 registerDataObserver 在 Adapter 中注册一个观察者。ListView 有三个 Adapter 的默认实现，分别是 ArrayAdapter，CursorAdapter 和 SimpleCursorAdapter 。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RecyclerView 中，RecyclerView.AdapterDataObserver 是这个观察者，并且，其 Adapter 拥有除内置的内 DB 游标和 ArrayList 之外的所有功能。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;ItemDecoration&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ListView 中，要在 item 之间添加间隔符，在布局文件中对 ListView 添加如下属性：&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;android:divider=”@android:color/transparent”&lt;br&gt;android:dividerHeight=”5dp”&lt;br&gt;```&lt;br&gt;RecyclerView 默认情况下并没在 item 之间展示间隔符，想要添加间隔符，须使用 RecyclerView.ItemDecoration 类来实现。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;OnItemTouchListener&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ListView 通过 AdapterView.OnItemClickListener 接口探测点击事件。&lt;/p&gt;
+&lt;p&gt;RecyclerView 通过 RecyclerView.OnItemTouchListener 接口探测触摸事件，给予拦截触摸事件更多的控制权限。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://item.jd.com/11504254.html#comment&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;第一行代码&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2.&lt;a href=&quot;http://item.jd.com/11758334.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android 群英传&lt;/a&gt;&lt;/p&gt;
+&lt;/android.support.v7.widget.recyclerview&gt;&lt;/imageview&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;ListView ，一种在垂直滚动列表中显示条目的视图；RecyclerView ，一种在局限的窗口呈现大数据集合的灵活视图。RecyclerView 部件是 ListView 的一种更高级且更灵活的版本。
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+      <category term="ListView" scheme="http://iamasoldier6.com/tags/ListView/"/>
+    
+      <category term="RecyclerView" scheme="http://iamasoldier6.com/tags/RecyclerView/"/>
+    
+  </entry>
   
   <entry>
     <title>复盘 Mac OS X 下 Android 6.0 源码的下载与编译</title>

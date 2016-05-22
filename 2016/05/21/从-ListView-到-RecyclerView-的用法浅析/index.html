@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>从 ListView 到 RecyclerView 的用法浅析 | Iamasoldier6&#39;s World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ListView ，一种在垂直滚动列表中显示条目的视图；RecyclerView ，一种在局限的窗口呈现大数据集合的灵活视图。RecyclerView 部件是 ListView 的一种更高级且更灵活的版本。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 ListView 到 RecyclerView 的用法浅析">
+<meta property="og:url" content="http://iamasoldier6.com/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/index.html">
+<meta property="og:site_name" content="Iamasoldier6's World">
+<meta property="og:description" content="ListView ，一种在垂直滚动列表中显示条目的视图；RecyclerView ，一种在局限的窗口呈现大数据集合的灵活视图。RecyclerView 部件是 ListView 的一种更高级且更灵活的版本。">
+<meta property="og:updated_time" content="2016-05-22T02:22:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从 ListView 到 RecyclerView 的用法浅析">
+<meta name="twitter:description" content="ListView ，一种在垂直滚动列表中显示条目的视图；RecyclerView ，一种在局限的窗口呈现大数据集合的灵活视图。RecyclerView 部件是 ListView 的一种更高级且更灵活的版本。">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/AR.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004083648797" title="facebook">facebook</a>
+					        
+								<a class="google" target="_blank" href="https://plus.google.com/u/0/117011872816026464790" title="google">google</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/RecyclerView/" style="font-size: 10px;">RecyclerView</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Volley/" style="font-size: 16.67px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/AR.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004083648797" title="facebook">facebook</a>
+			        
+						<a class="google" target="_blank" href="https://plus.google.com/u/0/117011872816026464790" title="google">google</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-从-ListView-到-RecyclerView-的用法浅析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/" class="article-date">
+  	<time datetime="2016-05-21T03:57:52.000Z" itemprop="datePublished">2016-05-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从 ListView 到 RecyclerView 的用法浅析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ListView/">ListView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RecyclerView/">RecyclerView</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-ListView-的用法"><span class="toc-number">1.</span> <span class="toc-text">一. ListView 的用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">2.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>ListView ，一种在垂直滚动列表中显示条目的视图；RecyclerView ，一种在局限的窗口呈现大数据集合的灵活视图。RecyclerView 部件是 ListView 的一种更高级且更灵活的版本。<a id="more"></a></p>
+</blockquote>
+<p>以上描述来自官网。</p>
+<p>移动设备屏幕空间有限，导致在屏幕上一次性显示的内容也是有限的。当需要显示大量的数据时，设想有这样的控件，可以帮助用户只通过手指上下滑动，就可以让屏幕外的数据滚动到屏幕内，同时，屏幕上原有的数据会滚动出屏幕。如此，便可以优雅地解决在局限的屏幕上显示大量数据的问题。ListView 和 RecyclerView 便适用于此。</p>
+<p>不过，自 Android 5.0 推出以来，RecyclerView 在很多地方都在逐步取代 ListView ，这也是官方推崇的。“江山代有才人出，各领风骚数百年”。如今，已要来到 Android 7.0 的时代，RecyclerView 的使用也很普遍了，或许，ListView 正逐步从 Android 的大舞台退出，RecyclerView 即将独领风骚。</p>
+<p>下面浅析从 ListView 到 RecyclerView 的用法。</p>
+<h2 id="一-ListView-的用法"><a href="#一-ListView-的用法" class="headerlink" title="一. ListView 的用法"></a><strong>一. ListView 的用法</strong></h2><p>ListViewDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>，学习总结自<a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external"> 郭霖 </a>的《第一行代码》。</p>
+<p>新建一个 ListViewDemo 项目，默认持续下一步直至完成。然后，删掉 activity_main.xml 中默认建好的 TextView ，建立一个 ListView 如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;ListView</span><br><span class="line">    android:id=<span class="string">"@+id/list_view"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ListView</span>&gt;</span></span></span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line">接着，新建一个实体类 Fruit ，作为 ListView 适配器的适配类型：</span></span><br></pre></td></tr></table></figure>
+<p>public class Fruit {</p>
+<pre><code>private String name;
+private int imageId;
+
+public Fruit(String name, int imageId) {
+    this.name = name;
+    this.imageId = imageId;
+}
+
+public String getName() {
+    return name;
+}
+
+public int getImageId() {
+    return imageId;
+}
+</code></pre><p>}<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">name</span> 是水果的名字，imageId 是水果对应图片的资源 <span class="built_in">id</span> 。然后，为 ListView 的子项自定义一个布局，在 layout 目录下新建 fruit_item.xml 如下：</span><br></pre></td></tr></table></figure></p>
+<imageview android:id="@+id/fruit_image" android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+<p><textview android:id="@+id/fruit_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginleft="10dip"><br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">ImageView</span> 用于显示水果的图片，TextView 用于显示水果的名称。</span><br><span class="line"></span><br><span class="line">由于数据无法直接传递给 ListView ，需要借助适配器完成。<span class="keyword">Android </span>中提供了很多适配器的实现类，这里使用 ArrayAdapter ，通过泛型指定适配的数据类型，再在构造函数中传入适配的数据。自定义一个适配器 FruitAdapter ，继承自 ArrayAdapter ，泛型指定为 Fruit 类。</span><br><span class="line"></span><br><span class="line">同时，优化 ListView 的使用效率：</span><br><span class="line"></span><br><span class="line">一. FruitAdapter 中的 getView() 方法每次都将布局加载一遍，这样，快速滚动的话会影响性能。故利用好 convertView 参数，缓存之前加载好的布局，再重用。</span><br><span class="line"></span><br><span class="line">二. 使用 ViewHolder 模式，其充分利用 ListView 的视图缓存机制，避免每次调用 getView() 时通过 findViewById() 实例化控件。</span><br><span class="line"></span><br><span class="line">代码如下：</span><br></pre></td></tr></table></figure></textview></p>
+<p>public class FruitAdapter extends ArrayAdapter<fruit> {</fruit></p>
+<pre><code>private int resourceId;
+
+public FruitAdapter(Context context, int textViewResourceId, List&lt;Fruit&gt; objects) {
+    super(context, textViewResourceId, objects);
+    resourceId = textViewResourceId;
+}
+
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+    Fruit fruit = getItem(position);
+    View view;
+    ViewHolder viewHolder;
+    if (convertView == null) {
+        view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+        viewHolder = new ViewHolder();
+        viewHolder.fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
+        viewHolder.fruitName = (TextView) view.findViewById(R.id.fruit_name);
+        view.setTag(viewHolder); //将 ViewHolder 存储在 View 中
+    } else {
+        view = convertView;
+        viewHolder = (ViewHolder) view.getTag(); //重新获取 ViewHolder, 找到缓存的布局.
+    }
+    viewHolder.fruitImage.setImageResource(fruit.getImageId());
+    viewHolder.fruitName.setText(fruit.getName());
+    return view;
+}
+
+class ViewHolder {
+    ImageView fruitImage;
+    TextView fruitName;
+}
+</code></pre><p>}</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FruitAdapter 重写父类的构造函数，将上下文、ListView 子项布局的 id 和数据传递进来。同时，重写了 getView() 方法，每个子项滚动进屏幕内时调用该方法。其中，getItem() 方法获取当前项的 Fruit 实例。</span><br><span class="line"></span><br><span class="line">增加判断与一个内部类 ViewHolder ，利用视图缓存机制进行缓存。</span><br><span class="line"></span><br><span class="line">若 convertView 为空，则创建一个 ViewHolder 对象，将控件的实例存放在 ViewHolder 里。然后，调用 <span class="keyword">View</span> 的 setTag() 方法，将 ViewHolder 对象存储在 <span class="keyword">View</span> 中。若 convertView 不为空，则调用 <span class="keyword">View</span> 的 getTag() 方法，重新取出 ViewHolder 。如此，所有控件的实例都缓存在 ViewHolder 里。</span><br><span class="line"></span><br><span class="line">最后，修改并完善 MainActivity 中的代码：</span><br></pre></td></tr></table></figure>
+<p>public class MainActivity extends AppCompatActivity {</p>
+<pre><code>private List&lt;Fruit&gt; fruitList = new ArrayList&lt;Fruit&gt;();
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    initFruits();
+
+    FruitAdapter adapter = new FruitAdapter(MainActivity.this, R.layout.fruit_item, fruitList);
+    ListView listView = (ListView) findViewById(R.id.list_view);
+    listView.setAdapter(adapter);
+}
+
+private void initFruits() {
+    Fruit apple = new Fruit(&quot;Apple&quot;, R.mipmap.ic_launcher);
+    fruitList.add(apple);
+    Fruit banana = new Fruit(&quot;Banana&quot;, R.mipmap.ic_launcher);
+    fruitList.add(banana);
+    Fruit orange = new Fruit(&quot;Orange&quot;, R.mipmap.ic_launcher);
+    fruitList.add(orange);
+    Fruit watermelon = new Fruit(&quot;Watermelon&quot;, R.mipmap.ic_launcher);
+    fruitList.add(watermelon);
+    Fruit pear = new Fruit(&quot;Pear&quot;, R.mipmap.ic_launcher);
+    fruitList.add(pear);
+    Fruit grape = new Fruit(&quot;Grape&quot;, R.mipmap.ic_launcher);
+    fruitList.add(grape);
+    Fruit pineapple = new Fruit(&quot;Pineapple&quot;, R.mipmap.ic_launcher);
+    fruitList.add(pineapple);
+    Fruit strawberry = new Fruit(&quot;Strawberry&quot;, R.mipmap.ic_launcher);
+    fruitList.add(strawberry);
+    Fruit cherry = new Fruit(&quot;Cherry&quot;, R.mipmap.ic_launcher);
+    fruitList.add(cherry);
+    Fruit mango = new Fruit(&quot;Mango&quot;, R.mipmap.ic_launcher);
+    fruitList.add(mango);
+    Fruit peach = new Fruit(&quot;Peach&quot;, R.mipmap.ic_launcher);
+    fruitList.add(peach);
+    Fruit lemon = new Fruit(&quot;Lemon&quot;, R.mipmap.ic_launcher);
+    fruitList.add(lemon);
+    Fruit pitaya = new Fruit(&quot;Pitaya&quot;, R.mipmap.ic_launcher);
+    fruitList.add(pitaya);
+    Fruit durin = new Fruit(&quot;Durin&quot;, R.mipmap.ic_launcher);
+    fruitList.add(durin);
+}
+</code></pre><p>}<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">添加了 initFruits() 方法，初始化所有的水果数据。将水果的名字和对应的图片 id 传入 Fruit 类的构造函数中，再把创建好的对象添加到水果列表中。而后，在 onCreate() 方法里创建了 FruitAdapter 对象，将 FruitAdapter 作为适配器传递给 ListView 。</span><br><span class="line"></span><br><span class="line">至此，ListView 的简单综合应用浅析完毕，运行程序，如下：</span><br><span class="line"></span><br><span class="line">![](http://7xt0ac.com1.z0.glb.clouddn.com/listview.png)</span><br><span class="line"></span><br><span class="line">更多如动态修改 ListView 、使 ListView 具有弹性、自动显示与隐藏布局 ListView 、模仿微信聊天布局 ListView 、动态改变点击 Item 布局的 ListView 等，详见 [<span class="string"> GitHub </span>](<span class="link">https://github.com/Iamasoldier6/AndroidExerciseDemos</span>)。</span><br><span class="line"></span><br><span class="line"><span class="section">## **二. RecyclerView 的用法**</span></span><br><span class="line">RecyclerViewDemo 地址: [<span class="string"> GitHub </span>](<span class="link">https://github.com/Iamasoldier6/AndroidExerciseDemos</span>)，学习总结自[<span class="string"> 徐宜生 </span>](<span class="link">https://github.com/xuyisheng</span>)的《 Android 群英传》。</span><br><span class="line"></span><br><span class="line">首先，在 gradle 中引入 <span class="code">`compile 'com.android.support:recyclerview-v7:23.4.0'`</span> 的依赖。由于 RecyclerView 封装好了 ViewHolder ，再实现其功能。新建一个 RecyclerViewDemo 如上所示，同时添加了 Spinner 和 按钮：</span><br></pre></td></tr></table></figure></p>
+<android.support.v7.widget.recyclerview android:id="@+id/rc_list" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="9" android:scrollbars="vertical">
+
+<linearlayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+
+<pre><code>&lt;Spinner
+    android:id=&quot;@+id/spinner&quot;
+    android:layout_width=&quot;0dp&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:layout_weight=&quot;1&quot;
+    android:entries=&quot;@array/recycler_list&quot;/&gt;
+
+&lt;Button
+    android:layout_width=&quot;0dp&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:layout_weight=&quot;1&quot;
+    android:onClick=&quot;addRecycler&quot;
+    android:text=&quot;Add&quot;/&gt;
+
+&lt;Button
+    android:layout_width=&quot;0dp&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:layout_weight=&quot;1&quot;
+    android:onClick=&quot;delRecycler&quot;
+    android:text=&quot;Delete&quot;/&gt;
+</code></pre><p></p></linearlayout><br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在 strings.xml 中新建 Spinner 中用到的<span class="built_in"> array </span>：</span><br></pre></td></tr></table></figure><p></p>
+<p><string-array name="recycler_list"><br>    <item>LinearLayoutManager</item><br>    <item>GridLayoutManager</item><br></string-array><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">与 ListView 的用法一样，使用一个合适的数据适配器来加载数据，自定义一个适配器 RecyclerAdapter：</span><br></pre></td></tr></table></figure></p>
+<p>public class RecyclerAdapter extends RecyclerView.Adapter<recycleradapter.viewholder> {</recycleradapter.viewholder></p>
+<pre><code>private List&lt;String&gt; mData;
+public OnItemClickListener mOnItemClickListener;
+
+public RecyclerAdapter(List&lt;String&gt; data) {
+    this.mData = data;
+}
+
+public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+    this.mOnItemClickListener = itemClickListener;
+}
+
+public interface OnItemClickListener {
+    void onItemClick(View view, int position);
+}
+
+public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public TextView mTextView;
+
+    public ViewHolder(View itemView) {
+        super(itemView);
+        mTextView = (TextView) itemView;
+        mTextView.setOnClickListener(this);
+    }
+
+    // 通过接口回调来实现 RecyclerView 的点击事件
+    @Override
+    public void onClick(View view) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(view, getPosition());
+        }
+    }
+}
+
+@Override
+public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    // 将布局转化为 View ,并传递给 RecyclerView 封装好的 ViewHolder
+    View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rc_item,
+            viewGroup, false);
+    return new ViewHolder(view);
+}
+
+@Override
+public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    //建立起 ViewHolder 中视图与数据的关联
+    viewHolder.mTextView.setText(mData.get(i) + i);
+}
+
+@Override
+public int getItemCount() {
+    return mData.size();
+}
+</code></pre><p>}<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个典型的 RecyclerView ，通过 onCreateViewHolder 将 List <span class="keyword">item </span>的布局转化为 View ，并传递给 RecyclerView 封装好的 ViewHolder ，就可以将数据与视图关联起来。但是要注意的是，<span class="keyword">Android </span>并没有给 RecyclerView 增进点击事件，需要自己使用接口回调机制，创建一个点击事件的接口，如上面的：</span><br></pre></td></tr></table></figure></p>
+<p>public void setOnItemClickListener(OnItemClickListener itemClickListener) {<br>    this.mOnItemClickListener = itemClickListener;<br>}</p>
+<p>public interface OnItemClickListener {<br>    void onItemClick(View view, int position);<br>}<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后，建立一个类似于 ListView 的 List Item 视图 rc_item.<span class="keyword">xml</span> <span class="title">：</span></span><br></pre></td></tr></table></figure></p>
+<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
+<textview xmlns:android="http://schemas.android.com/apk/res/android" android:textsize="30sp" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="3dp" android:background="#bebebe" android:orientation="vertical">
+
+<p></p></textview><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">另外，自定义 LayoutManager 可以方便地创建不同的布局，为较深入 RecyclerView 的使用，本篇同时创建了线性布局和网格布局。MainActivity 中的代码如下：</span><br></pre></td></tr></table></figure><p></p>
+<p>public class MainActivity extends AppCompatActivity {</p>
+<pre><code>private RecyclerView mRecyclerView;
+private RecyclerAdapter mRecyclerAdapter;
+private RecyclerView.LayoutManager mLayoutManager;
+
+private Spinner mSpinner;
+
+private List&lt;String&gt; mData = new ArrayList&lt;String&gt;();
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    mRecyclerView = (RecyclerView) findViewById(R.id.rc_list);
+    mLayoutManager = new LinearLayoutManager(this);
+    mRecyclerView.setLayoutManager(mLayoutManager);
+    mRecyclerView.setHasFixedSize(true);
+    //设置显示动画
+    mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    mSpinner = (Spinner) findViewById(R.id.spinner);
+    mSpinner.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView&lt;?&gt; parent,
+                                           View view, int position,
+                                           long id) {
+                    if (position == 0) {
+                        mRecyclerView.setLayoutManager(
+                                // 设置为线性布局
+                                new LinearLayoutManager(MainActivity.this));
+                    } else if (position == 1) {
+                        mRecyclerView.setLayoutManager(
+                                // 设置为表格布局
+                                new GridLayoutManager(MainActivity.this, 3));
+                    } else if (position == 2) {
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView&lt;?&gt; parent) {
+                }
+            });
+
+    //增加测试数据
+    mData.add(&quot;Recycler&quot;);
+    mData.add(&quot;Recycler&quot;);
+    mData.add(&quot;Recycler&quot;);
+
+    mRecyclerAdapter = new RecyclerAdapter(mData);
+    mRecyclerView.setAdapter(mRecyclerAdapter);
+
+    mRecyclerAdapter.setOnItemClickListener(
+            new RecyclerAdapter.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(final View view, int position) {
+                    // 设置点击动画
+                    view.animate()
+                            .translationZ(15f).setDuration(300)
+                            .setListener(new AnimatorListenerAdapter() {
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    view.animate()
+                                            .translationZ(1f)
+                                            .setDuration(500).start();
+                                }
+                            }).start();
+                }
+            });
+}
+
+public void addRecycler(View view) {
+    mData.add(&quot;Recycler&quot;);
+    int position = mData.size();
+    if (position &gt; 0) {
+        mRecyclerAdapter.notifyDataSetChanged();
+    }
+}
+
+public void delRecycler(View view) {
+    int position = mData.size();
+    if (position &gt; 0) {
+        mData.remove(position - 1);
+        mRecyclerAdapter.notifyDataSetChanged();
+    }
+}
+</code></pre><p>}<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">RecyclerView 为条目位置提供了布局管理器，同时，为条目设置了操作动画。代码中也添加了动态修改功能，点击按钮，便可以增加或删除条目，notifyDataSetChanged() 方法帮助实现刷新布局的功能。</span><br><span class="line"></span><br><span class="line">最后，结合使用 Spinner ，程序运行结果分别如下：</span><br><span class="line"></span><br><span class="line">纵向布局</span><br><span class="line">![](http://7xt0ac.com1.z0.glb.clouddn.com/revertical.png)</span><br><span class="line"></span><br><span class="line">横向布局</span><br><span class="line">![](http://7xt0ac.com1.z0.glb.clouddn.com/rehorizontal.png)</span><br><span class="line"></span><br><span class="line"><span class="comment">## **三. ListView 与 RecyclerView 的简单对比**</span></span><br><span class="line">初看起来，ListView 与 RecyclerView 好像并没有什么不同。实际上，对比来看，RecyclerView 相对于 ListView ，主要包含这几处新的特性，如 ViewHolder，ItemDecorator，LayoutManager，SmoothScroller 以及增加或删除 item 时 item 动画等。具体如下：</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>ViewHolder<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">ViewHolder 是用来保存视图引用的类。</span><br><span class="line"></span><br><span class="line">ListView 中，ViewHolder 得自定义，是一种推荐的提高性能的方式，不过不是必须的。不使用 ViewHolder 的话，ListView每次 getView() 的时候都会调用 findViewById()，影响性能。</span><br><span class="line"></span><br><span class="line">RecyclerView 中，使用 RecyclerView.ViewHolder 是必须的，不过实现起来稍微复杂些，提高了性能。BaseAdapter 使用 RecyclerView.ViewHolder，绑定 position 到上面。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>LayoutManager<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">ListView 只能在垂直方向上滚动，API 没有提供在水平方向上滚动的支持。</span><br><span class="line"></span><br><span class="line">RecyclerView 在滚动上的功能扩展很多，支持多种类型列表的展示需求，如支持水平和垂直方向上滚动列表的 LinearLayoutManager ；支持交叉网格风格列表的 StaggeredLayoutManager ，类似于瀑布流；支持网格展示，可以水平或垂直滚动的 GridLayoutManager ，如展示图片的画廊。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>ItemAnimator<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">ListView 中，删除或添加 item 时，是无法产生动画效果的。</span><br><span class="line"></span><br><span class="line">RecyclerView 中，RecyclerView.ItemAnimator 用于添加、删除或移动 item 时显示动画效果。若不自定义 ItemDecorator ，可以使用 DefaultItemAnimator。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>Adapter<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">ListView 的 Adapter 中，getView() 将视图和 position 绑定起来，也能通过 registerDataObserver 在 Adapter 中注册一个观察者。ListView 有三个 Adapter 的默认实现，分别是 ArrayAdapter，CursorAdapter 和 SimpleCursorAdapter 。</span><br><span class="line"></span><br><span class="line">RecyclerView 中，RecyclerView.AdapterDataObserver 是这个观察者，并且，其 Adapter 拥有除内置的内 DB 游标和 ArrayList 之外的所有功能。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>ItemDecoration<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">ListView 中，要在 item 之间添加间隔符，在布局文件中对 ListView 添加如下属性：</span><br></pre></td></tr></table></figure></p>
+<p>android:divider=”@android:color/transparent”<br>android:dividerHeight=”5dp”<br>```<br>RecyclerView 默认情况下并没在 item 之间展示间隔符，想要添加间隔符，须使用 RecyclerView.ItemDecoration 类来实现。</p>
+<p><strong><em>OnItemTouchListener</em></strong></p>
+<p>ListView 通过 AdapterView.OnItemClickListener 接口探测点击事件。</p>
+<p>RecyclerView 通过 RecyclerView.OnItemTouchListener 接口探测触摸事件，给予拦截触摸事件更多的控制权限。<br><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://item.jd.com/11504254.html#comment" target="_blank" rel="external">第一行代码</a></p>
+<p>2.<a href="http://item.jd.com/11758334.html" target="_blank" rel="external">Android 群英传</a></p>
+</android.support.v7.widget.recyclerview></imageview>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/12/复盘Mac-OS-X-下Android-6-0-源码的下载与编译/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">复盘 Mac OS X 下 Android 6.0 源码的下载与编译</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   博主沥血作文章，客官随性打钱赏。左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/" target="_blank" title="从 ListView 到 RecyclerView 的用法浅析">从 ListView 到 RecyclerView 的用法浅析</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/" target="_blank" title="从 ListView 到 RecyclerView 的用法浅析">http://iamasoldier6.com/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="从-ListView-到-RecyclerView-的用法浅析" data-title="从 ListView 到 RecyclerView 的用法浅析" data-url="http://iamasoldier6.com/2016/05/21/从-ListView-到-RecyclerView-的用法浅析/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iamasoldier6"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+  </div>
+</body>
+</html>
