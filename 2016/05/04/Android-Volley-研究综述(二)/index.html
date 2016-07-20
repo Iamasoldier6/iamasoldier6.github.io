@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/failure1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader1.png">
-<meta property="og:updated_time" content="2016-07-20T09:56:07.000Z">
+<meta property="og:updated_time" content="2016-07-20T10:01:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(二)">
 <meta name="twitter:description" content="Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。">
@@ -222,7 +222,7 @@
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-ImageRequest-的使用"><span class="toc-number">1.</span> <span class="toc-text">一. ImageRequest 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-ImageLoader-的使用"><span class="toc-number">2.</span> <span class="toc-text">二. ImageLoader 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-NetworkImageView-的使用"><span class="toc-number">3.</span> <span class="toc-text">三. NetworkImageView 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
-        <p>Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。<a id="more"></a>本篇在<a href="http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/"> Android Volley 研究综述（一）</a>的基础上继续展开，分析关于 Volley 加载网络图片。</p>
+        <p>Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。<a id="more"></a>本篇在<a href="http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/"> Android Volley 研究综述(一) </a>的基础上继续展开，分析关于 Volley 加载网络图片。</p>
 <h2 id="一-ImageRequest-的使用"><a href="#一-ImageRequest-的使用" class="headerlink" title="一. ImageRequest 的使用"></a><strong>一. ImageRequest 的使用</strong></h2><p>ImageRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>。</p>
 <p>ImageRequest ，指定一个 URL ，并在响应回调中接收一张图片。具体来说，ImageRequest 是一个封装好的 request ，用来在给定的 URL 中获得一张图片，同时调回一张解码过的位图。它也提供了些便捷的特性，如指定一种大小来重新裁剪。其主要优点是，Volley 的线程调度确保昂贵的图片操作（解码，重新裁剪）自动地在工作线程中发生。</p>
 <p>以上来自官网，总结来说，同 StringRequest 和 JsonRequest 类似，使用大体分以下三步：</p>
@@ -292,7 +292,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mNetworkImageView</span><span class="selector-class">.setDefaultImageResId</span>(<span class="selector-tag">R</span><span class="selector-class">.drawable</span><span class="selector-class">.default_image</span>);</span><br><span class="line"><span class="selector-tag">mNetworkImageView</span><span class="selector-class">.setErrorImageResId</span>(<span class="selector-tag">R</span><span class="selector-class">.drawable</span><span class="selector-class">.failed_image</span>);</span><br><span class="line"><span class="selector-tag">mNetworkImageView</span><span class="selector-class">.setImageUrl</span>(<span class="selector-tag">url</span>, <span class="selector-tag">imageLoader</span>);</span><br></pre></td></tr></table></figure>
 <p>setImageUrl() 方法接收两个参数，第一个指定图片的 URL 地址，第二个是前面创建好的 ImageLoader 对象，姑且使用未设置图片缓存的代码。然后一些基本事项无需赘述，运行程序，看到效果与 ImageLoader 的效果是一样的。</p>
 <p>值得注意的是，使用 ImageRequest 和 ImageLoader 两种方式加载图片都可以传入一个最大宽度和最大高度的参数来对图片进行压缩。然而，对于 NetworkImageView ，并不需要提供任何设置最大宽高的方法也能对加载的图片进行压缩。它是一个控件，在加载图片的时候会自动获取自身的宽高，然后对比网络图片的宽高，再决定是否需要对图片进行压缩。整个压缩过程在内部是完全自动化的，其呈现给我们的始终是一张大小刚好的图片，不会多占用任何一点内存。</p>
-<p>当然，不愿压缩图片的话，只需要在布局文件中将 layout_width 和 layout_height 都设置成 wrap_content即可。至此，关于 Android Volley 研究综述（二）到此结束，（三）未完待续。<br><br></p>
+<p>当然，不愿压缩图片的话，只需要在布局文件中将 layout_width 和 layout_height 都设置成 wrap_content即可。至此，关于 Android Volley 研究综述(二)到此结束，(三)未完待续。<br><br></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://developer.android.com/training/volley/request.html" target="_blank" rel="external">http://developer.android.com/training/volley/request.html</a></p>
 <p>2.<a href="http://developer.android.com/training/volley/requestqueue.html" target="_blank" rel="external">http://developer.android.com/training/volley/requestqueue.html</a></p>
 <p>3.<a href="http://blog.csdn.net/guolin_blog/article/details/17482165" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/17482165</a></p>
