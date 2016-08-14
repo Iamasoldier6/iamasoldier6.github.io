@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://iamasoldier6.com/2016/08/14/Android-事件传递机制研究综述(二)/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
 <meta property="og:description" content="半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一) 博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
-<meta property="og:updated_time" content="2016-08-14T11:06:49.000Z">
+<meta property="og:updated_time" content="2016-08-14T11:10:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 事件传递机制研究综述(二)">
 <meta name="twitter:description" content="半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一) 博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
@@ -223,7 +223,7 @@
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> boolean <span class="title">dispatchTouchEvent</span>(<span class="params">MotionEvent <span class="keyword">event</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mOnTouchListener != <span class="keyword">null</span> &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED &amp;&amp;</span><br><span class="line">    mOnTouchListener.onTouch(<span class="keyword">this</span>, <span class="keyword">event</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   	<span class="keyword">return</span> onTouchEvent(<span class="keyword">event</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>方法内，进行一个判断，若 <code>mOnTouchListener != null</code> ，<code>(mViewFlags &amp; ENABLED_MASK) == ENABLED</code> 和 <code>mOnTouchListener.onTouch(this, event)</code> 同时成立，则返回 true ，否则执行 <code>onTouchEvent(event)</code> 方法，再返回。View 里，寻找到 <code>mOnTouchListener</code> 如下：</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">setOnTouchListener</span><span class="params">(OnTouchListener l)</span> </span>&#123;  </span><br><span class="line">    mOnTouchListener = l;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>mOnTouchListener</code> 是在 <code>setOnTouchListener()</code> 里赋值的，即在控件注册了 touch 事件时赋值。</p>
+<p>这里，<code>mOnTouchListener</code> 是在 <code>setOnTouchListener()</code> 里赋值的，即在控件注册了 touch 事件时赋值。</p>
 <p><code>(mViewFlags &amp; ENABLED_MASK) == ENABLED</code> 是判断当前点击的控件是否是 enable 的，条件恒定为 true 。</p>
 <p><code>mOnTouchListener.onTouch(this, event)</code> 即回调控件注册 touch 事件时的 <code>onTouch()</code> 方法，若该方法返回 true ，三个条件全部成立，则整个方法直接返回 true 。若该方法返回 false ，则执行 <code>onTouchEvent(event)</code> 方法。</p>
 <p>继续深入，且看 <code>onTouchEvent()</code> 方法的源码：</p>
