@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Iamasoldier6's World">
 <meta property="og:description" content="前段时间看过这样一段话，“人生是一场马拉松，要认准目标，稳步前行，切勿急躁，良好的节奏很重要”，且与读者共勉。好，进入本期的专题，浅谈 Android 异步消息处理机制。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message.png">
-<meta property="og:updated_time" content="2016-08-27T08:59:38.000Z">
+<meta property="og:updated_time" content="2016-08-30T00:26:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Android 异步消息处理机制">
 <meta name="twitter:description" content="前段时间看过这样一段话，“人生是一场马拉松，要认准目标，稳步前行，切勿急躁，良好的节奏很重要”，且与读者共勉。好，进入本期的专题，浅谈 Android 异步消息处理机制。">
@@ -217,7 +217,7 @@
         
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">1.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
         <p>前段时间看过这样一段话，“人生是一场马拉松，要认准目标，稳步前行，切勿急躁，良好的节奏很重要”，且与读者共勉。好，进入本期的专题，浅谈 Android 异步消息处理机制。<a id="more"></a></p>
@@ -266,7 +266,8 @@
 <p>最后，看 Activity 中的 runOnUiTread() 方法代码如下：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> void runOnUiThread(Runnable <span class="keyword">action</span>) &#123;  </span><br><span class="line">    <span class="keyword">if</span> (Thread.currentThread() <span class="comment">!= mUiThread) &#123;  </span></span><br><span class="line">        mHandler.post(<span class="keyword">action</span>);  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        <span class="keyword">action</span>.run();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>若当前的线程不等于 UI 线程(主线程)，则调用 Handler 的 post() 方法，否则调用 Runnable 对象的 run() 方法。</p>
-<p>通篇文章下来，显然，无论使用哪种方法在子线程中更新 UI ，背后的原理都是一样的，都需要借助异步消息处理机制进行实现，本篇至此结束。</p>
+<p>通篇文章下来，显然，无论使用哪种方法在子线程中更新 UI ，背后的原理都是一样的，都需要借助异步消息处理机制进行实现，本篇至此结束。<br><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://developer.android.com/reference/android/os/Handler.html" target="_blank" rel="external">https://developer.android.com/reference/android/os/Handler.html</a><br>2.<a href="http://blog.csdn.net/guolin_blog/article/details/9991569" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/9991569</a></p>
 
       
     </div>
