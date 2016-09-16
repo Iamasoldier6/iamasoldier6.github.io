@@ -12,14 +12,14 @@
 <meta property="og:url" content="http://iamasoldier6.com/2016/05/15/Android-Volley-研究综述(二)/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
 <meta property="og:description" content="Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/failure1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader1.png">
-<meta property="og:updated_time" content="2016-09-10T12:22:28.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success2.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/failure2.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader3.png">
+<meta property="og:updated_time" content="2016-09-16T15:05:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(二)">
 <meta name="twitter:description" content="Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success1.png">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success2.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
   
@@ -223,7 +223,7 @@
   </div>
 
         <p>Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。<a id="more"></a>本篇在<a href="http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/"> Android Volley 研究综述(一) </a>的基础上继续展开，分析关于 Volley 加载网络图片。</p>
-<h2 id="一-ImageRequest-的使用"><a href="#一-ImageRequest-的使用" class="headerlink" title="一. ImageRequest 的使用"></a><strong>一. ImageRequest 的使用</strong></h2><p>ImageRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>。</p>
+<h2 id="一-ImageRequest-的使用"><a href="#一-ImageRequest-的使用" class="headerlink" title="一. ImageRequest 的使用"></a><strong>一. ImageRequest 的使用</strong></h2><p>ImageRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageRequestDemo </a>。</p>
 <p>ImageRequest ，指定一个 URL ，并在响应回调中接收一张图片。具体来说，ImageRequest 是一个封装好的 request ，用来在给定的 URL 中获得一张图片，同时调回一张解码过的位图。它也提供了些便捷的特性，如指定一种大小来重新裁剪。其主要优点是，Volley 的线程调度确保昂贵的图片操作（解码，重新裁剪）自动地在工作线程中发生。</p>
 <p>以上来自官网，总结来说，同 StringRequest 和 JsonRequest 类似，使用大体分以下三步：</p>
 <p>I.创建一个 RequestQueue 对象。</p>
@@ -245,10 +245,10 @@
 <p>同样，不要忘了在 AndroidManifest.xml 文件中添加一条权限：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="built_in">name</span>=<span class="string">"android.permission.INTERNET"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>运行程序，发送网络请求，正常成功的话，显示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/success1.png" alt=""></p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/success2.png" alt=""></p>
 <p>如果因各种意外原因，请求失败的话，显示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/failure1.png" alt=""></p>
-<h2 id="二-ImageLoader-的使用"><a href="#二-ImageLoader-的使用" class="headerlink" title="二. ImageLoader 的使用"></a><strong>二. ImageLoader 的使用</strong></h2><p>ImageLoaderDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/failure2.png" alt=""></p>
+<h2 id="二-ImageLoader-的使用"><a href="#二-ImageLoader-的使用" class="headerlink" title="二. ImageLoader 的使用"></a><strong>二. ImageLoader 的使用</strong></h2><p>ImageLoaderDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageLoaderDemo </a>。</p>
 <p>ImageLoader，一个处理加载与缓存从远程 URLs 获取图片的帮助类。它是一个大量 ImageRequest 的协调器，如将许多小图片放入 ListView 中。ImageLoader 提供了一个超前于标准 Volley 缓存的内存内缓存，这对于防止抖动是重要的。在未堵塞或延迟主线程的情况下，这让实现缓存击中成为可能，不过，当使用磁盘 I/O 时是不可能的。ImageLoader 也能实现响应合并，没有它的话，几乎每一个响应处理机会将 bitmap 放到 view 上，并且会造成每一张图片的布局传递。合并让同时传送多个响应成为可能，这提升了性能。</p>
 <p>以上来自官网，总结来说，ImageLoader 也可以用来加载网络上的图片，并且它的内部也是使用 ImageRequest 实现的。但是，ImageLoader 较 ImageRequest 更高效，它不仅可以对图片进行缓存，还可以过滤掉重复的链接，避免重复发送请求。<br>ImageLoader 不是继承自 Request ，用法也与之前有所不同，大致分四步：</p>
 <p>I.创建一个 RequestQueue 对象。</p>
@@ -269,8 +269,8 @@
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageLoader.<span class="keyword">get</span>(url, listener, <span class="number">200</span>, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
 <p>同样，不要忘了在 AndroidManifest.xml 文件中添加同上面一样的权限。</p>
 <p>运行程序，先会显示默认的图片，最后效果图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader1.png" alt=""></p>
-<p>ImageLoaderCacheDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader3.png" alt=""></p>
+<p>ImageLoaderCacheDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageLoaderCacheDemo </a>。</p>
 <p>学会了 ImageLoader 的使用，但是其优点却没有用到。上述代码中，创建的 ImageCache 对象是一个空实现，没能起到图片缓存的作用。这里，借助 Android 提供的 LruCache 功能，写一个性能很好的 ImageCache ，新建一个 BitmapCache 并实现 ImageCache 接口：</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BitmapCache</span> <span class="keyword">implements</span> <span class="title">ImageLoader</span>.<span class="title">ImageCache</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> LruCache&lt;String, Bitmap&gt; mCache;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BitmapCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxSize = <span class="number">1</span> * <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">        mCache = <span class="keyword">new</span> LruCache&lt;String, Bitmap&gt;(maxSize) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> <span class="function"><span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap bitmap)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> bitmap.getRowBytes() * bitmap.getHeight();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Bitmap <span class="title">getBitmap</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> mCache.<span class="title">get</span><span class="params">(url)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">putBitmap</span><span class="params">(String url, Bitmap bitmap)</span> </span>&#123;</span><br><span class="line">        mCache.put(url, bitmap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将缓存图片的大小设置为 1M ，修改创建 ImageLoader 实例的代码，第二个参数传入 BitmapCache 的实例：</p>
@@ -278,7 +278,7 @@
 <p>然后其他所有，与前面的设置及代码一样，运行，Logcat 报出 unknown buffer 。在 Stack Overflow 上找到解决办法，即于 AndroidManifest.xml 文件中添加最后一行代码，具体如图：</p>
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:allowBackup=<span class="string">"true"</span></span><br><span class="line">    android:icon=<span class="string">"@mipmap/ic_launcher"</span></span><br><span class="line">    android:label=<span class="string">"@string/app_name"</span></span><br><span class="line">    android:supportsRtl=<span class="string">"true"</span></span><br><span class="line">    android:theme=<span class="string">"@style/AppTheme"</span></span><br><span class="line">    android:largeHeap=<span class="string">"true"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>使用 largeHeap ，请求系统为 Dalvik 虚拟机分配更大的内存空间，解决内存过小不够用导致的 OutOfMemoryError 的问题。最后，再运行，显示与上面的图片显示一样。</p>
-<h2 id="三-NetworkImageView-的使用"><a href="#三-NetworkImageView-的使用" class="headerlink" title="三. NetworkImageView 的使用"></a><strong>三. NetworkImageView 的使用</strong></h2><p>NetworkImageViewDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> GitHub </a>。</p>
+<h2 id="三-NetworkImageView-的使用"><a href="#三-NetworkImageView-的使用" class="headerlink" title="三. NetworkImageView 的使用"></a><strong>三. NetworkImageView 的使用</strong></h2><p>NetworkImageViewDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> NetworkImageViewDemo </a>。</p>
 <p>NetworkImageView，建立在 ImageLoader 上，并且在你的图片通过网络 URL 取回的情况下，有效地替代 ImageView 。如果 view 从层级结构中分离，NetworkImageView 也能管理取消待处理的请求。</p>
 <p>以上来自官网，总结来说，NetworkImageView 是一个自定义控制，继承自 ImageView ，具备 ImageView 的所有功能，并在原始的基础上拥有加载网络图片的功能。大致分以下五步：</p>
 <p>I.创建一个 RequestQueue 对象。</p>
@@ -286,13 +286,13 @@
 <p>III.布局文件中添加一个 NetworkImageView 的控件。</p>
 <p>IV.代码中获取该控件的实例。</p>
 <p>V.设置要加载的图片地址。</p>
-<p>第一步与初始化部分仍然同 ImageRequest 的大致一样。不过，添加 ImageView 部分 改为 添加 NetworkImageView 部分如下：</p>
+<p>第一步与初始化部分仍然同 ImageRequest 的大致一样。不过，添加 ImageView 部分改为添加 NetworkImageView 部分如下：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;com<span class="selector-class">.android</span><span class="selector-class">.volley</span><span class="selector-class">.toolbox</span><span class="selector-class">.NetworkImageView</span></span><br><span class="line">    android:id=<span class="string">"@+id/networkImageView"</span></span><br><span class="line">    android:layout_width=<span class="string">"200dp"</span></span><br><span class="line">    android:layout_height=<span class="string">"200dp"</span></span><br><span class="line">    android:layout_marginLeft=<span class="string">"65dp"</span></span><br><span class="line">    android:layout_marginTop=<span class="string">"150dp"</span></span><br><span class="line">    android:layout_gravity=<span class="string">"center"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>然后，得到了 NetworkImageView 控件的实例后，调用 setDefaultImageResId() 方法、setErrorImageResId() 方法和 setImageUrl() 方法来分别设置加载成功显示的图片，加载失败时显示的图片和目标图片的 URL 地址。如下：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mNetworkImageView</span><span class="selector-class">.setDefaultImageResId</span>(<span class="selector-tag">R</span><span class="selector-class">.drawable</span><span class="selector-class">.default_image</span>);</span><br><span class="line"><span class="selector-tag">mNetworkImageView</span><span class="selector-class">.setErrorImageResId</span>(<span class="selector-tag">R</span><span class="selector-class">.drawable</span><span class="selector-class">.failed_image</span>);</span><br><span class="line"><span class="selector-tag">mNetworkImageView</span><span class="selector-class">.setImageUrl</span>(<span class="selector-tag">url</span>, <span class="selector-tag">imageLoader</span>);</span><br></pre></td></tr></table></figure>
 <p>setImageUrl() 方法接收两个参数，第一个指定图片的 URL 地址，第二个是前面创建好的 ImageLoader 对象，姑且使用未设置图片缓存的代码。然后一些基本事项无需赘述，运行程序，看到效果与 ImageLoader 的效果是一样的。</p>
 <p>值得注意的是，使用 ImageRequest 和 ImageLoader 两种方式加载图片都可以传入一个最大宽度和最大高度的参数来对图片进行压缩。然而，对于 NetworkImageView ，并不需要提供任何设置最大宽高的方法也能对加载的图片进行压缩。它是一个控件，在加载图片的时候会自动获取自身的宽高，然后对比网络图片的宽高，再决定是否需要对图片进行压缩。整个压缩过程在内部是完全自动化的，其呈现给我们的始终是一张大小刚好的图片，不会多占用任何一点内存。</p>
-<p>当然，不愿压缩图片的话，只需要在布局文件中将 layout_width 和 layout_height 都设置成 wrap_content即可。至此，关于 Android Volley 研究综述(二)到此结束，(三)未完待续。 </p>
+<p>当然，不愿压缩图片的话，只需要在布局文件中将 layout_width 和 layout_height 都设置成 wrap_content 即可。至此，关于 Android Volley 研究综述(二)到此结束，(三)未完待续。 </p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong><br><br></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://developer.android.com/training/volley/request.html" target="_blank" rel="external">http://developer.android.com/training/volley/request.html</a></p>
 <p>2.<a href="http://developer.android.com/training/volley/requestqueue.html" target="_blank" rel="external">http://developer.android.com/training/volley/requestqueue.html</a></p>
