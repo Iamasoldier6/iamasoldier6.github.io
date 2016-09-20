@@ -355,13 +355,13 @@
     <link href="http://iamasoldier6.com/2016/06/12/%E5%A4%8D%E7%9B%98Mac-OS-X-%E4%B8%8BAndroid-6-0-%E6%BA%90%E7%A0%81%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E7%BC%96%E8%AF%91/"/>
     <id>http://iamasoldier6.com/2016/06/12/复盘Mac-OS-X-下Android-6-0-源码的下载与编译/</id>
     <published>2016-06-12T04:26:35.000Z</published>
-    <updated>2016-09-10T12:24:32.000Z</updated>
+    <updated>2016-09-20T15:48:47.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;复盘是棋类术语，指对局完毕后，复演该盘棋的记录，以检查对局中着法的优劣与得失关键，同时提出假设，再找出最佳方案。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;以上部分摘录自维基百科。&lt;/p&gt;
-&lt;p&gt;研究 Android 源码的重要性想必无需多言，比如参照 B 站 Android 工程师的这篇 &lt;a href=&quot;http://kaedea.com/2016/02/08/android-about-source-code/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;有没有必要阅读 Android 源码&lt;/a&gt; 。更有甚者，最近在 Android 圈内小有广传的 Android “天才少年” &lt;a href=&quot;https://github.com/asLody&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Lody&lt;/a&gt; ，就是靠着啃 Android 源码来学习的！要研读源码，首先得有源码。不过，源码环境目前只支持 Linux 和 Mac OS ，Windows 暂不支持。本人用的是 Mac ，来开启复盘 Mac OS X 下 Android 6.0 源码的下载与编译之旅吧（干货直接跳至&lt;strong&gt;最佳的方案&lt;/strong&gt;）。&lt;/p&gt;
+&lt;p&gt;研究 Android 源码的重要性想必无需多言，比如参照 B 站 Android 工程师的这篇&lt;a href=&quot;http://kaedea.com/2016/02/08/android-about-source-code/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;有没有必要阅读 Android 源码&lt;/a&gt;。更有甚者，最近在 Android 圈内小有广传的 Android “天才少年” &lt;a href=&quot;https://github.com/asLody&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Lody&lt;/a&gt; ，就是靠着啃 Android 源码来学习的！要研读源码，首先得有源码。不过，源码环境目前只支持 Linux 和 Mac OS ，Windows 暂不支持。本人用的是 Mac ，来开启复盘 Mac OS X 下 Android 6.0 源码的下载与编译之旅吧（干货直接跳至&lt;strong&gt;最佳的方案&lt;/strong&gt;）。&lt;/p&gt;
 &lt;h2 id=&quot;鲜血与眼泪&quot;&gt;&lt;a href=&quot;#鲜血与眼泪&quot; class=&quot;headerlink&quot; title=&quot;鲜血与眼泪&quot;&gt;&lt;/a&gt;&lt;strong&gt;鲜血与眼泪&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;鉴于我大天朝 GFW 的存在，单单折腾下载源码，就花了好几天时间，待我慢慢道来。&lt;/p&gt;
 &lt;p&gt;上周五下午，意外发现 &lt;a href=&quot;http://sunjiajia.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;安卓猴&lt;/a&gt; 同学的这篇 &lt;a href=&quot;http://sunjiajia.com/2015/08/14/download-android-open-source-projects/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;国内镜像加速 Android 源码下载&lt;/a&gt; ，早就听说读源码的重要性，正好手头没活，一时兴起，就打算将 Android 源码下载下来。“源码在手，天下我有”，想想还有点小激动呢。好，开始入坑。&lt;/p&gt;
 &lt;p&gt;照着博文所描述的步骤，一步步来，开始下载。Mac 摆一边，做着自己的事。离下班还有一小时瞄了眼 Terminal ，进度不知何时停住了！等啊等，进度还不动。于是按着步骤重新开始下载，继续摆一边，临下班时看，又在同样的地方卡住了！苍天啊！好了，第一天下载以失败告终。&lt;/p&gt;
