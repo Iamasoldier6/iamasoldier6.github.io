@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-09-10T12:28:48.000Z</updated>
+  <updated>2016-09-28T15:51:56.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://iamasoldier6.com/2016/09/10/%E6%B5%85%E6%9E%90-Android-%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A8%A1%E5%BC%8F%EF%BC%9AMVC-MVP-%E5%92%8C-MVVM(%E4%B8%80)/"/>
     <id>http://iamasoldier6.com/2016/09/10/浅析-Android-中的三大模式：MVC-MVP-和-MVVM(一)/</id>
     <published>2016-09-10T01:02:44.000Z</published>
-    <updated>2016-09-10T12:28:48.000Z</updated>
+    <updated>2016-09-28T15:51:56.000Z</updated>
     
-    <content type="html">&lt;p&gt;又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们有益的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这三大模式，很多码农应该听说过或者用过，招聘启事中也常会有要求“谈谈你对三大模式中一种或几种的理解”，时下一些紧跟技术发展方向的公司代码中也在运用。所以，理解乃至掌握这三大模式，是十分有必要的。下面，以实现简单的登录效果为实例，分别谈谈这三种模式，效果图如下：&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/login.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;一-MVC-模式&quot;&gt;&lt;a href=&quot;#一-MVC-模式&quot; class=&quot;headerlink&quot; title=&quot;一. MVC 模式&quot;&gt;&lt;/a&gt;&lt;strong&gt;一. MVC 模式&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;MVC ，即 Model View Controller ，软件开发中最常用的一种模式。一句话概括，即通过 Controller 层操作 Model 层的数据，再返回给 View 层展示结果，如下图所示：&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/mvc.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;用户分发事件，View 层发送指令到 Controller 层，然后，Controller 层通知 Model 层更新数据，最后，Model 层更新完数据，在 View 层显示结果。Demo 地址：&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MVCLoginDemo&lt;/a&gt;，部分代码如下：&lt;/p&gt;
@@ -53,7 +53,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们有益的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。
+      &lt;p&gt;又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。
     
     </summary>
     
