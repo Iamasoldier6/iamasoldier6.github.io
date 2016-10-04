@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-10-03T14:54:32.000Z</updated>
+  <updated>2016-10-04T14:03:21.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2016/09/25/%E6%B5%85%E6%9E%90-Android-%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A8%A1%E5%BC%8F%EF%BC%9AMVC-MVP-%E5%92%8C-MVVM(%E4%BA%8C)/"/>
     <id>http://iamasoldier6.com/2016/09/25/浅析-Android-中的三大模式：MVC-MVP-和-MVVM(二)/</id>
     <published>2016-09-25T04:18:37.000Z</published>
-    <updated>2016-10-03T14:54:32.000Z</updated>
+    <updated>2016-10-04T14:03:21.000Z</updated>
     
     <content type="html">&lt;p&gt;“你爬得高、走得远，不是为了被世界看到，而是看到整个世界。看得多了，也就知道怎么选了；走得远了，也就知道自己要的是什么了。漂泊的意义，大致就是为了有所选择”。喝完鸡汤，开启正题，上篇&lt;a href=&quot;http://t.cn/Rcel4ly&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)&lt;/a&gt;中，只是谈了 MVC 和 MVP 模式，现在换个实例，谈一谈剩下来的 MVVM 模式。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;一-MVVM-模式&quot;&gt;&lt;a href=&quot;#一-MVVM-模式&quot; class=&quot;headerlink&quot; title=&quot;一. MVVM 模式&quot;&gt;&lt;/a&gt;&lt;strong&gt;一. MVVM 模式&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;MVVM ，即 Model View ViewModel 。该模式最早由 MicroSoft 推出，近期 Google 推出 Data Binding 框架后，也让 MVVM 开始火起来。如下图所示：&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/mvvm1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -53,7 +53,7 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;ContributorView&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MvpView&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onLoadContributorStart&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onLoadContributorComplete&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Contributor topContributor)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;使用 Data Binding 框架节省了类似 findViewById 和数据绑定的时间，同时，Presenter 层将业务逻辑和 View 层分离。&lt;/p&gt;
 &lt;p&gt;此外，也可以在 ViewModel 中实现相应的接口，Presenter 层的数据发送到 ViewModel 中更新，由于 View 和 ViewModel 绑定在一起，如此，View 也会作出相应的反应。&lt;/p&gt;
-&lt;p&gt;总之，最佳实践也是在实践中摸索出来的，框架改变或者升级的目标也是为了尽量低的耦合性和尽量高的复用性。&lt;/p&gt;
+&lt;p&gt;总之，最佳实践也是在实践中摸索出来的，框架改变或者升级的目标也是为了实现尽量低的耦合性和尽量高的复用性。&lt;/p&gt;
 &lt;p&gt;至此，浅析 Android 中的三大模式：MVC , MVP 和 MVVM 到此结束。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://zjutkz.net/2016/04/13/选择恐惧症的福音！教你认清MVC，MVP和MVVM/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;选择恐惧症的福音！教你认清MVC，MVP和MVVM&lt;/a&gt;&lt;/p&gt;
