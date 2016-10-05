@@ -6,19 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一) | Iamasoldier6&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。">
+  <meta name="description" content="又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)">
 <meta property="og:url" content="http://iamasoldier6.com/2016/09/10/浅析-Android-中的三大模式：MVC-MVP-和-MVVM(一)/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
-<meta property="og:description" content="又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。">
+<meta property="og:description" content="又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/login.gif">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvc.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvp.png">
-<meta property="og:updated_time" content="2016-10-01T08:12:27.000Z">
+<meta property="og:updated_time" content="2016-10-05T15:22:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)">
-<meta name="twitter:description" content="又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。">
+<meta name="twitter:description" content="又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/login.gif">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
@@ -222,7 +222,7 @@
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-MVC-模式"><span class="toc-number">1.</span> <span class="toc-text">一. MVC 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-MVP-模式"><span class="toc-number">2.</span> <span class="toc-text">二. MVP 模式</span></a></li></ol>
   </div>
 
-        <p>又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好的，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。<a id="more"></a></p>
+        <p>又是一年教师节，首先，恭祝天下的教师们节日快乐。尤其，恭祝所有带过我的老师们，毕竟，没有你们的谆谆教诲，也没有我的今天。而今，虽然尚在魔都挣扎，但毕竟是从小地方一路走过来的，未来的路很长，且歌且行。好，进入这期的正题，简单分析下 Android 中的三大模式：MVC , MVP 和 MVVM 。<a id="more"></a></p>
 <p>这三大模式，很多码农应该听说过或者用过，招聘启事中也常会有要求“谈谈你对三大模式中一种或几种的理解”，时下一些紧跟技术发展方向的公司代码中也在运用。所以，理解乃至掌握这三大模式，是十分有必要的。下面，以实现简单的登录效果为实例，分别谈谈这三种模式，效果图如下：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/login.gif" alt=""></p>
 <h2 id="一-MVC-模式"><a href="#一-MVC-模式" class="headerlink" title="一. MVC 模式"></a><strong>一. MVC 模式</strong></h2><p>MVC ，即 Model View Controller ，软件开发中最常用的一种模式。一句话概括，即通过 Controller 层操作 Model 层的数据，再返回给 View 层展示结果，如下图所示：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/mvc.png" alt=""></p>
 <p>用户分发事件，View 层发送指令到 Controller 层，然后，Controller 层通知 Model 层更新数据，最后，Model 层更新完数据，在 View 层显示结果。Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">MVCLoginDemo</a>，部分代码如下：</p>
