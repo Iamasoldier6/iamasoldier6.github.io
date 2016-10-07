@@ -6,21 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Android Volley 研究综述(四) | Iamasoldier6&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在 Android Volley 研究综述(三)中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。
-一.深入 VolleyVoll">
+  <meta name="description" content="“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在 Android Volley 研究综述(三)中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Volley 研究综述(四)">
 <meta property="og:url" content="http://iamasoldier6.com/2016/10/07/Android-Volley-研究综述(四)/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
-<meta property="og:description" content="“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在 Android Volley 研究综述(三)中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。
-一.深入 VolleyVoll">
+<meta property="og:description" content="“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在 Android Volley 研究综述(三)中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/volley_process1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/volley_process1.png">
-<meta property="og:updated_time" content="2016-10-07T09:25:42.000Z">
+<meta property="og:updated_time" content="2016-10-07T09:36:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(四)">
-<meta name="twitter:description" content="“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在 Android Volley 研究综述(三)中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。
-一.深入 VolleyVoll">
+<meta name="twitter:description" content="“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在 Android Volley 研究综述(三)中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/volley_process1.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
@@ -224,7 +221,7 @@
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-深入-Volley"><span class="toc-number">1.</span> <span class="toc-text">一.深入 Volley</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-常见网络请求框架的简单对比"><span class="toc-number">2.</span> <span class="toc-text">二.常见网络请求框架的简单对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
-        <p>“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在<a href="http://t.cn/RVw0JLC" target="_blank" rel="external"> Android Volley 研究综述(三)</a>中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。</p>
+        <p>“人生是没有如果的游戏，尽力玩好现在就行了”。小半年前，在<a href="http://t.cn/RVw0JLC" target="_blank" rel="external"> Android Volley 研究综述(三)</a>中，曾说过“未来某天完善”(四)，即 Volley 源码的研究综述，本着有始有终的原则，在国庆长假的最后一天，来探究 Volley 的源码，虽说出了一些时新的网络请求框架如 OKHttp , Retrofit 等，但深入经典的 Volley 框架也是十分有必要的。<a id="more"></a></p>
 <h2 id="一-深入-Volley"><a href="#一-深入-Volley" class="headerlink" title="一.深入 Volley"></a><strong>一.深入 Volley</strong></h2><p>Volley 的官方文档中有下面这一张工作流程图：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/volley_process1.png" alt=""></p>
 <p>使用 Volley 时，第一步是调用 Volley.newRequestQueue(context) 方法，获取一个 RequestQueue 对象：</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function">RequestQueue <span class="title">newRequestQueue</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">return</span> <span class="title">newRequestQueue</span><span class="params">(context, <span class="keyword">null</span>)</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
