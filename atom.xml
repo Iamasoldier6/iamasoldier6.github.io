@@ -721,7 +721,7 @@
     <link href="http://iamasoldier6.com/2016/04/30/Android-Volley-%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0(%E4%B8%80)/"/>
     <id>http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述(一)/</id>
     <published>2016-04-30T12:17:59.000Z</published>
-    <updated>2016-09-16T14:45:27.000Z</updated>
+    <updated>2016-10-13T15:23:00.000Z</updated>
     
     <content type="html">&lt;p&gt;Android 官网对 Volley 的一句话概括如下：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -741,7 +741,7 @@
 &lt;p&gt;Volley 擅长用来显示 UI 的 RPC (远程过程调用协议) 类型的操作，如获取作为构造性数据的一页搜索结果。它轻松地整合了任何协议，同时输出支持的数据，如原始的字符串，图片和 JSON 。通过提供内置的支持你需要的特性，Volley 使你免于去写样板代码，让你将关注点放在你的 App 的功能逻辑上。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Volley 不适合大的数据文件的下载或者大数据量的操作，是由于 Volley 需要保持解析时内存里的所有响应。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;以上简介来自官网，总的来说，Volley 既可以像 AsyncHttpClient 一样简单地进行 HTTP 通信，也可以像 Universal-Image-Loader 一样轻松地加载网络图片。Volley 非常适合进行数据量不大，但通信频繁的网络操作，而对于大数据量的网络操作，如下载文件，Volley 的表现就不敢恭维了。&lt;/p&gt;
-&lt;h2 id=&quot;二-Volley-的准备&quot;&gt;&lt;a href=&quot;#二-Volley-的准备&quot; class=&quot;headerlink&quot; title=&quot;二. Volley 的准备&quot;&gt;&lt;/a&gt;&lt;strong&gt;二. Volley 的准备&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;首先，电脑上最好得装有 Git ，具体安装方法因操作系统各异，自行 Google ，推荐梯子&lt;a href=&quot;http://www.meiyouvpn.top/promote/1335&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;美游 VPN &lt;/a&gt;，用了半年了，还不错。好，下载 Volley 源码：&lt;/p&gt;
+&lt;h2 id=&quot;二-Volley-的准备&quot;&gt;&lt;a href=&quot;#二-Volley-的准备&quot; class=&quot;headerlink&quot; title=&quot;二. Volley 的准备&quot;&gt;&lt;/a&gt;&lt;strong&gt;二. Volley 的准备&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;首先，电脑上最好得装有 Git ，具体安装方法因操作系统各异，自行 Google ，推荐梯子&lt;code&gt;蓝灯&lt;/code&gt;。好，下载 Volley 源码：&lt;/p&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://android.googlesource.com/platform/frameworks/volley&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;下载完成后，在 /volley/build/intermediates/bundles/debug 里找到 classes.jar ，就是我们要的 jar 包了，拷贝一份出来，重命名成 volley.jar ，再使用 Android Studio 新建一个 Android 项目，将 volley.jar 文件添加到 libs 目录下，如图：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
