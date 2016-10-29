@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success2.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/failure2.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader3.png">
-<meta property="og:updated_time" content="2016-09-16T15:05:29.000Z">
+<meta property="og:updated_time" content="2016-10-29T12:15:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(二)">
 <meta name="twitter:description" content="Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。">
@@ -219,11 +219,11 @@
         
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-ImageRequest-的使用"><span class="toc-number">1.</span> <span class="toc-text">一. ImageRequest 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-ImageLoader-的使用"><span class="toc-number">2.</span> <span class="toc-text">二. ImageLoader 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-NetworkImageView-的使用"><span class="toc-number">3.</span> <span class="toc-text">三. NetworkImageView 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ImageRequest-的使用"><span class="toc-number">1.</span> <span class="toc-text">ImageRequest 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ImageLoader-的使用"><span class="toc-number">2.</span> <span class="toc-text">ImageLoader 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NetworkImageView-的使用"><span class="toc-number">3.</span> <span class="toc-text">NetworkImageView 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
         <p>Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley ，可以实现类似的效果，并且，在性能上也毫不逊色。<a id="more"></a>本篇在<a href="http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/"> Android Volley 研究综述(一) </a>的基础上继续展开，分析关于 Volley 加载网络图片。</p>
-<h2 id="一-ImageRequest-的使用"><a href="#一-ImageRequest-的使用" class="headerlink" title="一. ImageRequest 的使用"></a><strong>一. ImageRequest 的使用</strong></h2><p>ImageRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageRequestDemo </a>。</p>
+<h2 id="ImageRequest-的使用"><a href="#ImageRequest-的使用" class="headerlink" title="ImageRequest 的使用"></a><strong>ImageRequest 的使用</strong></h2><p>ImageRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageRequestDemo </a>。</p>
 <p>ImageRequest ，指定一个 URL ，并在响应回调中接收一张图片。具体来说，ImageRequest 是一个封装好的 request ，用来在给定的 URL 中获得一张图片，同时调回一张解码过的位图。它也提供了些便捷的特性，如指定一种大小来重新裁剪。其主要优点是，Volley 的线程调度确保昂贵的图片操作（解码，重新裁剪）自动地在工作线程中发生。</p>
 <p>以上来自官网，总结来说，同 StringRequest 和 JsonRequest 类似，使用大体分以下三步：</p>
 <p>I.创建一个 RequestQueue 对象。</p>
@@ -248,7 +248,7 @@
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/success2.png" alt=""></p>
 <p>如果因各种意外原因，请求失败的话，显示：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/failure2.png" alt=""></p>
-<h2 id="二-ImageLoader-的使用"><a href="#二-ImageLoader-的使用" class="headerlink" title="二. ImageLoader 的使用"></a><strong>二. ImageLoader 的使用</strong></h2><p>ImageLoaderDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageLoaderDemo </a>。</p>
+<h2 id="ImageLoader-的使用"><a href="#ImageLoader-的使用" class="headerlink" title="ImageLoader 的使用"></a><strong>ImageLoader 的使用</strong></h2><p>ImageLoaderDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageLoaderDemo </a>。</p>
 <p>ImageLoader，一个处理加载与缓存从远程 URLs 获取图片的帮助类。它是一个大量 ImageRequest 的协调器，如将许多小图片放入 ListView 中。ImageLoader 提供了一个超前于标准 Volley 缓存的内存内缓存，这对于防止抖动是重要的。在未堵塞或延迟主线程的情况下，这让实现缓存击中成为可能，不过，当使用磁盘 I/O 时是不可能的。ImageLoader 也能实现响应合并，没有它的话，几乎每一个响应处理机会将 bitmap 放到 view 上，并且会造成每一张图片的布局传递。合并让同时传送多个响应成为可能，这提升了性能。</p>
 <p>以上来自官网，总结来说，ImageLoader 也可以用来加载网络上的图片，并且它的内部也是使用 ImageRequest 实现的。但是，ImageLoader 较 ImageRequest 更高效，它不仅可以对图片进行缓存，还可以过滤掉重复的链接，避免重复发送请求。<br>ImageLoader 不是继承自 Request ，用法也与之前有所不同，大致分四步：</p>
 <p>I.创建一个 RequestQueue 对象。</p>
@@ -278,7 +278,7 @@
 <p>然后其他所有，与前面的设置及代码一样，运行，Logcat 报出 unknown buffer 。在 Stack Overflow 上找到解决办法，即于 AndroidManifest.xml 文件中添加最后一行代码，具体如图：</p>
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:allowBackup=<span class="string">"true"</span></span><br><span class="line">    android:icon=<span class="string">"@mipmap/ic_launcher"</span></span><br><span class="line">    android:label=<span class="string">"@string/app_name"</span></span><br><span class="line">    android:supportsRtl=<span class="string">"true"</span></span><br><span class="line">    android:theme=<span class="string">"@style/AppTheme"</span></span><br><span class="line">    android:largeHeap=<span class="string">"true"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>使用 largeHeap ，请求系统为 Dalvik 虚拟机分配更大的内存空间，解决内存过小不够用导致的 OutOfMemoryError 的问题。最后，再运行，显示与上面的图片显示一样。</p>
-<h2 id="三-NetworkImageView-的使用"><a href="#三-NetworkImageView-的使用" class="headerlink" title="三. NetworkImageView 的使用"></a><strong>三. NetworkImageView 的使用</strong></h2><p>NetworkImageViewDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> NetworkImageViewDemo </a>。</p>
+<h2 id="NetworkImageView-的使用"><a href="#NetworkImageView-的使用" class="headerlink" title="NetworkImageView 的使用"></a><strong>NetworkImageView 的使用</strong></h2><p>NetworkImageViewDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> NetworkImageViewDemo </a>。</p>
 <p>NetworkImageView，建立在 ImageLoader 上，并且在你的图片通过网络 URL 取回的情况下，有效地替代 ImageView 。如果 view 从层级结构中分离，NetworkImageView 也能管理取消待处理的请求。</p>
 <p>以上来自官网，总结来说，NetworkImageView 是一个自定义控制，继承自 ImageView ，具备 ImageView 的所有功能，并在原始的基础上拥有加载网络图片的功能。大致分以下五步：</p>
 <p>I.创建一个 RequestQueue 对象。</p>
