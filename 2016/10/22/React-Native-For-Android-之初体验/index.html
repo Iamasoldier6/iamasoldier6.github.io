@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>React Native For Android 之初体验 | Iamasoldier6&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架详细谈一谈。">
+  <meta name="description" content="NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架简单谈一谈。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native For Android 之初体验">
 <meta property="og:url" content="http://iamasoldier6.com/2016/10/22/React-Native-For-Android-之初体验/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
-<meta property="og:description" content="NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架详细谈一谈。">
+<meta property="og:description" content="NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架简单谈一谈。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/brew.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/node.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/rn_sdk.png">
@@ -20,10 +20,10 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/rn_problem.jpeg">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/bizhi1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/bizhi2.png">
-<meta property="og:updated_time" content="2016-10-29T11:55:14.000Z">
+<meta property="og:updated_time" content="2016-10-30T09:30:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native For Android 之初体验">
-<meta name="twitter:description" content="NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架详细谈一谈。">
+<meta name="twitter:description" content="NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架简单谈一谈。">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/brew.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
@@ -227,10 +227,10 @@
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#框架的简介"><span class="toc-number">1.</span> <span class="toc-text">框架的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第一个-React-Native-应用"><span class="toc-number">3.</span> <span class="toc-text">第一个 React Native 应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见问题及解决办法"><span class="toc-number">4.</span> <span class="toc-text">常见问题及解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进阶之路"><span class="toc-number">5.</span> <span class="toc-text">进阶之路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">6.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
-        <p>NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架详细谈一谈。<a id="more"></a></p>
+        <p>NBA 凯尔特人队的训练馆里有这么一段非常著名的箴言：“ What hurts more , the pain of hard work or the pain of regret ”，共勉。最近，公司新项目打算基于 H5 写 Android 的 UI 界面，于是，前几天了解并比照了相关的开发框架，接触到了 Facebook 公司大名鼎鼎的 React Native 框架，以下就该框架简单谈一谈。<a id="more"></a></p>
 <h2 id="框架的简介"><a href="#框架的简介" class="headerlink" title="框架的简介"></a><strong>框架的简介</strong></h2><p>React Native 由 React 衍生出来，而 React 起源于 Facebook 的内部项目，用来架设旗下的 Instagram 网站，于 2013 年 5 月开源。</p>
 <p>React Native ，用写 Web App 的方式写 Native App ，即用 JavaScript 和 React 开发应用，仅仅需要一份业务逻辑代码，通吃 Android 、iOS 和 Web 三端。Facebook 公司最早发布的 React Native 是针对 iOS 的，React Native For Android 是去年 9 月 15 日开源的。现如今，React Native 的体验已经很不错了，接近原生应用，但尚未达到 Native App 的体验。不过，其发展势头迅猛，被誉为所谓的未来。</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a><strong>环境搭建</strong></h2><p>本文中，该框架环境搭建是基于 Mac OS X 平台的，Windows 平台的框架环境搭建可以参考文章<a href="http://blog.csdn.net/crapulencezzz/article/details/52830207?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">React-Native 环境搭建(Windows for Android)</a>，面向对象仅是有一定 Android 开发基础的同学，默认已配置好 Android 开发环境。</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a><strong>环境搭建</strong></h2><p>本文中，该框架环境搭建是基于 Mac OS X 平台的，Windows 平台的框架环境搭建可以参考文章<a href="http://blog.csdn.net/crapulencezzz/article/details/52830207?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external"> React-Native 环境搭建(Windows for Android) </a>，面向对象仅是有一定 Android 开发基础的同学，默认已配置好 Android 开发环境。</p>
 <p><strong><em>Step 1.安装 Homebrew</em></strong> </p>
 <p>Homebrew 是一款自由及开放源代码的软件包管理系统，用以简化 Mac OS X 系统上的软件安装过程，以 Ruby 语言编写，由一个核心 Git 版本库构成，使用户能更新 Homebrew ，是 OS X 不可缺少的套件管理器。</p>
 <p>先检查电脑上是否已经存在 Homebrew ，终端上执行以下指令：</p>
@@ -283,16 +283,16 @@
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/rn_pic.jpeg" alt=""></p>
 <p>Congratulations! 欢迎跨进 React Native 的大门！</p>
 <h2 id="常见问题及解决办法"><a href="#常见问题及解决办法" class="headerlink" title="常见问题及解决办法"></a><strong>常见问题及解决办法</strong></h2><p>如果能一路顺畅地获得最终的效果，那恭喜你，规避了很多的坑。事实上，一般不会一路顺畅地走下来，常见问题及解决办法如下：</p>
-<p>1.运行项目时，手机上可能会如下现象：</p>
+<p>1.运行项目时，手机上可能会出现如下现象：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/rn_problem.jpeg" alt=""></p>
 <p>常用解决办法：</p>
 <p>(1) 项目目录下，终端上执行以下指令：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">adb</span> <span class="selector-tag">reverse</span> <span class="selector-tag">tcp</span><span class="selector-pseudo">:8081</span> <span class="selector-tag">tcp</span><span class="selector-pseudo">:8081</span></span><br></pre></td></tr></table></figure>
-<p>摇一摇手机，出现一个对话框，选择 <code>Reload</code> ，成功则完，若继续出现其它类似的红屏页面，参考 2 。</p>
+<p>摇一摇手机，出现一个对话框，选择 <code>Reload</code> ，成功则完，若继续出现其它类似的红屏页面，参考 (2) 。</p>
 <p>(2) 仍然是，摇一摇手机，出现对话框，选择 <code>Dev Settings</code> ，点击 <code>Debug server host &amp; port for device</code> ，弹出一个输入框，输入当前所用电脑的局域网 IP 和 端口号 8081 ，如我的：<code>10.10.3.95:8081</code> ，点确定，再返回后，重新 <code>Reload</code> ，成功则完，再出现问题，那就得科学上网，去 Google 了。</p>
 <p>2.真机若为小米手机，运行效果出现白屏时，参考<a href="http://jingyan.baidu.com/article/f25ef25466c0fc482d1b824d.html" target="_blank" rel="external">经验</a>。</p>
 <p>更多问题，右转 Google 解决。</p>
-<h2 id="进阶之路"><a href="#进阶之路" class="headerlink" title="进阶之路"></a><strong>进阶之路</strong></h2><p>参见 GitHub 上总结的收藏<a href="https://github.com/reactnativecn/react-native-guide" target="_blank" rel="external"> react-native-guide</a> 。</p>
+<h2 id="进阶之路"><a href="#进阶之路" class="headerlink" title="进阶之路"></a><strong>进阶之路</strong></h2><p>资料参见 GitHub 上总结的收藏<a href="https://github.com/reactnativecn/react-native-guide" target="_blank" rel="external"> react-native-guide</a> 。</p>
 <p>到这一步，我们仅仅刚跨进大门，下一步，可能就想做出更丰富的应用，会想到研读一下开源的项目，很抱歉，以上收藏链接中的开源项目，绝大部分在运行编译过程中都多少有些问题或者不适用，对初学者定是一遍遍的打击，经本人一一检测(或许有所遗漏)，目前，<a href="https://github.com/JasonStu/RN-BiZhi" target="_blank" rel="external">RN-BiZhi</a> 和 <a href="https://github.com/Bob1993/React-Native-Gank" target="_blank" rel="external">react-native-gank</a> 可以成功地编译运行到手机上。</p>
 <p>举个例子，比如，针对 <code>RN-BiZhi</code> 项目。</p>
 <p>从 GitHub 上下载到该项目后，打开终端，进入该项目的主目录下，再执行以下命令，和之前创建第一个应用时大同小异：</p>
@@ -300,9 +300,9 @@
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> config set registry https:<span class="regexp">//</span>registry.<span class="built_in">npm</span>.taobao.org --<span class="built_in">global</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">npm</span> config set disturl https:<span class="regexp">//</span><span class="built_in">npm</span>.taobao.org/dist --<span class="built_in">global</span></span><br></pre></td></tr></table></figure>
 <p>然后，执行指令：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
-<p>稍等几分钟，完成后，再执行：</p>
+<p>稍等几分钟，完成后，再执行指令：</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-<span class="keyword">native</span> run-android</span><br></pre></td></tr></table></figure>
-<p>Windows 下，执行该指令之前，可能得先执行：</p>
+<p>Windows 下，执行该指令之前，可能得先执行指令：</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-<span class="keyword">native</span> start</span><br></pre></td></tr></table></figure>
 <p>项目运行成功后，如下截图所示：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/bizhi1.png" alt=""></p>
