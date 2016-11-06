@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-10-30T15:10:17.000Z</updated>
+  <updated>2016-11-06T06:39:43.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -14,6 +14,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的 Android 训练馆</title>
+    <link href="http://iamasoldier6.com/2016/11/05/%E6%88%91%E7%9A%84%20Android-%E8%AE%AD%E7%BB%83%E9%A6%86/"/>
+    <id>http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/</id>
+    <published>2016-11-05T09:14:26.000Z</published>
+    <updated>2016-11-06T06:39:43.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/spurs.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;以上是 NBA 马刺队更衣室里的格言。&lt;/p&gt;
+&lt;p&gt;欢迎来到我的 Android 训练馆！自搭建博客至今，已悄然过去半年有余。陆陆续续的，这半年间，也有不少放到 GitHub 上的 Android Demo ，包括研读沪江网 Android 工程师&lt;a href=&quot;http://blog.csdn.net/eclipsexys&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;徐宜生&lt;/a&gt;《 Android 群英传》的绝大部分 Demo 、研读优秀 Android 工程师如&lt;a href=&quot;http://blog.csdn.net/guolin_blog&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;郭霖&lt;/a&gt;、&lt;a href=&quot;http://blog.csdn.net/lmj623565791&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;张鸿洋&lt;/a&gt;等人部分博客的 Demo 以及自己工作学习中写的部分 Demo 。今天稍作整理，总结所得，将其中一些 Demo 示例效果放至博客上，供有需要的人参考。&lt;/p&gt;
+&lt;p&gt;Demo 仓库地址：&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AndroidExerciseDemos&lt;/a&gt; ，这里是我挥洒汗水与激情的训练馆，示以强迫症式的优雅的代码，&lt;strong&gt;依照时间顺序由近及远，持续更新中&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;1.博客&lt;a href=&quot;http://t.cn/RfvjIYG&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;浅析 Android 中的三大模式：MVC , MVP 和 MVVM (二)&lt;/a&gt;中的 &lt;code&gt;MVVMGitHubDemo&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/mvvmgithub.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;MVP + Data Binding 改进版的 &lt;code&gt;MVPDataBindDemo&lt;/code&gt; 示例效果一样。&lt;/p&gt;
+&lt;p&gt;2.点击设定按钮，屏幕锁定黑屏，定时 5 秒后，自动解锁唤醒，点亮屏幕。(&lt;code&gt;LockWakeScreenDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/lockwake.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3.类似微软小冰，智能问答式的图灵机器人，需要在&lt;a href=&quot;http://www.tuling123.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;图灵机器人&lt;/a&gt;官网注册后，选择创建自己的机器人，再从个人中心取得自己的 APIkey 。(&lt;code&gt;TulingRobotDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/tulingrobot.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;4.博客&lt;a href=&quot;http://t.cn/Rcel4ly&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)&lt;/a&gt; 中的&lt;code&gt;MVPLoginDemo&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/logindemo.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;5.自定义的手势锁，可以指定 N * N 的锁点、锁的颜色变化和尝试解锁的次数等。(&lt;code&gt;CusGestureLockDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/gesturelock.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;6.图片为圆形或者自定义圆角，适用于应用中头像的自定义使用。(&lt;code&gt;CusCircleAvatarDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/circleavatar.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;7.使用滚轮选择器控件，实现类似淘宝手机客户端，可以选择收获地址的省市区三级联动组件。(&lt;code&gt;WheelSelectDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/wheelselect.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;8.类似微信主界面，点击顶部标题栏右边加号，弹出个小窗口。(&lt;code&gt;WeChatPopupWindowDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/wechatpopup.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;9.利用 Fragment ，实现了项目常用的 Tab 切换，如一个主界面，其下面四个 Tab 页，互相切换，类似微信。(&lt;code&gt;FragTabDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/fragmenttab.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;10.实现下拉刷新，可显示刷新后的文字与时间描述，方便做后续的扩展。(&lt;code&gt;PullDownRefreshDemo&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/pulldownrefresh.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;想查看更多实用有趣的 Demo ，欢迎访问我的训练馆：&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AndroidExerciseDemos&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>React Native for Android 之初体验</title>
