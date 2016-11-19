@@ -6,24 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Android Volley 研究综述(一) | Iamasoldier6&#39;s World</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Android 官网对 Volley 的一句话概括如下：
+  <meta name="description" content="今天的生活是由三年前我们的选择决定的，而今天我们的抉择将决定我们三年后的生活。
 
-Volley is an HTTP library that makes networking for Android apps easier and most importantly,     faster.Volley 是一个 HTTP 库，能让 Android apps 的网络操作更容易，并且最重要的是，更快捷。">
+Android 官网对 Volley 的一句话概括如下：
+Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.Volley 是一个 HTTP 库，能让 Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Volley 研究综述(一)">
 <meta property="og:url" content="http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述(一)/index.html">
 <meta property="og:site_name" content="Iamasoldier6's World">
-<meta property="og:description" content="Android 官网对 Volley 的一句话概括如下：
+<meta property="og:description" content="今天的生活是由三年前我们的选择决定的，而今天我们的抉择将决定我们三年后的生活。
 
-Volley is an HTTP library that makes networking for Android apps easier and most importantly,     faster.Volley 是一个 HTTP 库，能让 Android apps 的网络操作更容易，并且最重要的是，更快捷。">
+Android 官网对 Volley 的一句话概括如下：
+Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.Volley 是一个 HTTP 库，能让 Android">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_5.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_6.png">
-<meta property="og:updated_time" content="2016-11-18T15:21:15.000Z">
+<meta property="og:updated_time" content="2016-11-19T04:13:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(一)">
-<meta name="twitter:description" content="Android 官网对 Volley 的一句话概括如下：
+<meta name="twitter:description" content="今天的生活是由三年前我们的选择决定的，而今天我们的抉择将决定我们三年后的生活。
 
-Volley is an HTTP library that makes networking for Android apps easier and most importantly,     faster.Volley 是一个 HTTP 库，能让 Android apps 的网络操作更容易，并且最重要的是，更快捷。">
+Android 官网对 Volley 的一句话概括如下：
+Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.Volley 是一个 HTTP 库，能让 Android">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_5.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
@@ -227,10 +230,11 @@ Volley is an HTTP library that makes networking for Android apps easier and most
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Volley-的简介"><span class="toc-number">1.</span> <span class="toc-text">Volley 的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Volley-的准备"><span class="toc-number">2.</span> <span class="toc-text">Volley 的准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StringRequest-的使用"><span class="toc-number">3.</span> <span class="toc-text">StringRequest 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JsonRequest-的使用"><span class="toc-number">4.</span> <span class="toc-text">JsonRequest 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
-        <p>Android 官网对 Volley 的一句话概括如下：</p>
-<blockquote>
-<p>Volley is an HTTP library that makes networking for Android apps easier and most importantly,     faster.<br>Volley 是一个 HTTP 库，能让 Android apps 的网络操作更容易，并且最重要的是，更快捷。<a id="more"></a></p>
+        <blockquote>
+<p>今天的生活是由三年前我们的选择决定的，而今天我们的抉择将决定我们三年后的生活。</p>
 </blockquote>
+<p>Android 官网对 Volley 的一句话概括如下：</p>
+<p><code>Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.</code><br>Volley 是一个 HTTP 库，能让 Android apps 的网络操作更容易，并且最重要的是，更快捷。<a id="more"></a></p>
 <h2 id="Volley-的简介"><a href="#Volley-的简介" class="headerlink" title="Volley 的简介"></a><strong>Volley 的简介</strong></h2><p>Volley 于 2013 年 Google I/O 大会上推出，是一种新式的网络通信框架，具有以下优点：</p>
 <ul>
 <li>网络请求的自动调度。</li>
@@ -259,7 +263,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>这里的 RequestQueue 是一个请求队列对象，它可以缓存所有的 HTTP 请求，然后以一定的算法并发地发出这些请求。RequestQueue 内部的设计非常适合高并发，因此，不必为每一次的 HTTP 请求都创建一个 RequestQueue 对象，在每个需要和网络交互的 Activity 中创建一个 RequestQueue 对象基本足够。</p>
 <p>其次，为了要发出一条 HTTP 请求，再创建一个 StringRequest 对象：</p>
 <figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> url = <span class="string">"http://www.google.com"</span>;</span><br><span class="line"></span><br><span class="line">StringRequest stringRequest = <span class="keyword">new</span> StringRequest(url,</span><br><span class="line">        <span class="keyword">new</span> <span class="built_in">Response</span>.Listener&lt;<span class="built_in">String</span>&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> void onResponse(<span class="built_in">String</span> <span class="built_in">response</span>) &#123;</span><br><span class="line">                <span class="built_in">Log</span>.d(<span class="string">"TAG"</span>, <span class="built_in">response</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="keyword">new</span> <span class="built_in">Response</span>.ErrorListener() &#123;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> void onErrorResponse(VolleyError <span class="keyword">error</span>) &#123;</span><br><span class="line">        <span class="built_in">Log</span>.e(<span class="string">"TAG"</span>, <span class="keyword">error</span>.getMessage(), <span class="keyword">error</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>这里 new 出一个 StringRequest 对象，StringRequest() 方法中传入了三个参数，第一个是目标服务器的 URL 地址，第二个是服务器响应成功的回调，第三个是服务器响应失败的回调。具体来说，目标服务器地址填的是 Google 的首页（需要翻墙），然后，在响应成功的回调里，打印出服务器返回的内容；在响应失败的回调里，打印出失败的详细信息。</p>
+<p>这里 new 出一个 StringRequest 对象，StringRequest() 方法中传入了三个参数，第一个是目标服务器的 URL 地址，第二个是服务器响应成功的回调，第三个是服务器响应失败的回调。具体来说，目标服务器地址填的是 Google 的首页(需要翻墙)，然后，在响应成功的回调里，打印出服务器返回的内容；在响应失败的回调里，打印出失败的详细信息。</p>
 <p>最后，将该 StringRequest 对象添加到 RequestQueue 里面即可：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>.add(stringRequest);</span><br></pre></td></tr></table></figure>
 <p>另外，Volley 要访问网络，在 AndroidManifest.xml 文件中添加一条权限：</p>
@@ -279,7 +283,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StringRequest stringRequest = <span class="literal">new</span> StringRequest(Method.POST, url, listener, errorListener) &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	<span class="keyword">protected</span> <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; getParams() throws AuthFailureError &#123;</span><br><span class="line">		<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; <span class="built_in">map</span> = <span class="literal">new</span> HashMap&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt;();</span><br><span class="line">		<span class="built_in">map</span>.put(<span class="string">"params1"</span>, <span class="string">"value1"</span>);</span><br><span class="line">		<span class="built_in">map</span>.put(<span class="string">"params2"</span>, <span class="string">"value2"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">map</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>虽然没有设置 Post 参数的方法，但是由于 Volley 开源，可以自由地添加和修改，定制出所需的 Volley 版本。</p>
 <h2 id="JsonRequest-的使用"><a href="#JsonRequest-的使用" class="headerlink" title="JsonRequest 的使用"></a><strong>JsonRequest 的使用</strong></h2><p>JsonRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> JsonRequestDemo</a>，只有 JsonObjectRequest 的使用，JsonArrayObject 的使用，类比即可。</p>
-<p>同 StringRequest 一样，JsonRequest 也是继承于 Request 类，但是，JsonRequest 是一个抽象类，无法直接创建实例，得从子类入手。其有两个直接的子类，JsonObjectRequest (用于请求一段 JSON 数据) 和 JsonArrayRequest (用于请求一段JSON 数组) 。具体如下：</p>
+<p>同 StringRequest 一样，JsonRequest 也是继承于 Request 类，但是，JsonRequest 是一个抽象类，无法直接创建实例，得从子类入手。其有两个直接的子类，JsonObjectRequest (用于请求一段 JSON 数据) 和 JsonArrayRequest (用于请求一段 JSON 数组) 。具体如下：</p>
 <p>第一步同上述 StringRequest 的第一步一样。</p>
 <p>然后，再 new 出一个 JsonObjectRequest 对象：</p>
 <figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> url = <span class="string">"http://www.weather.com.cn/data/sk/101010100.html"</span>;</span><br><span class="line"></span><br><span class="line">JsonObjectRequest jsonObjectRequest = <span class="keyword">new</span> JsonObjectRequest(url, <span class="literal">null</span>,</span><br><span class="line">        <span class="keyword">new</span> <span class="built_in">Response</span>.Listener&lt;JSONObject&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> void onResponse(JSONObject <span class="built_in">response</span>) &#123;</span><br><span class="line">                <span class="built_in">Log</span>.d(<span class="string">"TAG"</span>, <span class="built_in">response</span>.toString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="keyword">new</span> <span class="built_in">Response</span>.ErrorListener() &#123;</span><br><span class="line"></span><br><span class="line">   @Override</span><br><span class="line">   <span class="keyword">public</span> void onErrorResponse(VolleyError <span class="keyword">error</span>) &#123;</span><br><span class="line">       <span class="built_in">Log</span>.e(<span class="string">"TAG"</span>, <span class="keyword">error</span>.getMessage(), <span class="keyword">error</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
