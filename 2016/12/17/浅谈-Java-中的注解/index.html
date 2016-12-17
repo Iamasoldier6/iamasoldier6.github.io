@@ -18,7 +18,7 @@
 
 引言部分源自无意间看到的一段话，觉得蛮有意思的。
 上次谈到了 Java 中的反射机制，就着公司重构项目即将用到的 Dagger，本期接着谈一谈 Java 中的注解。其实，许多开源库都用到了注解的方式，简化代码以提高开发效率。">
-<meta property="og:updated_time" content="2016-12-17T06:42:12.000Z">
+<meta property="og:updated_time" content="2016-12-17T06:45:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Java 中的注解">
 <meta name="twitter:description" content="人啊，就是要学会装逼，装着装着就牛逼了。
@@ -401,7 +401,8 @@
 </tbody>
 </table>
 <p>比如，上面源码 @Target 的定义中有一行<code>@Target(ElementType.ANNOTATION_TYPE)</code>，意思即是指当前注解的元素类型是注解类型。</p>
-<h2 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a><strong>自定义注解</strong></h2><p>上面了解了注解，下面来尝试自定义注解。</p>
+<h2 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a><strong>自定义注解</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/JavaQuizzes" target="_blank" rel="external">AnnotationDemo</a>。</p>
+<p>上面了解了注解，下面来尝试自定义注解。</p>
 <p>自定义注解与创建接口类似，注解要以 @ 开头。</p>
 <p>首先，声明一个自定义注解如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> CoderZebron &#123;</span><br><span class="line"></span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">String <span class="title">host</span><span class="params">()</span> <span class="keyword">default</span> "iamasoldier6.com"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">level</span><span class="params">()</span> <span class="keyword">default</span> 1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
