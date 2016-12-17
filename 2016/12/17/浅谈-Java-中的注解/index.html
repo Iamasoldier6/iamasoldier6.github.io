@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>浅谈 Java 中的注解 | Iamasoldier6&#39;s World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="人啊，就是要学会装逼，装着装着就牛逼了。
+
+引言部分源自无意间看到的一段话，觉得蛮有意思的。
+上次谈到了 Java 中的反射机制，就着公司重构项目即将用到的 Dagger，本期接着谈一谈 Java 中的注解。其实，许多开源库都用到了注解的方式，简化代码以提高开发效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 Java 中的注解">
+<meta property="og:url" content="http://iamasoldier6.com/2016/12/17/浅谈-Java-中的注解/index.html">
+<meta property="og:site_name" content="Iamasoldier6's World">
+<meta property="og:description" content="人啊，就是要学会装逼，装着装着就牛逼了。
+
+引言部分源自无意间看到的一段话，觉得蛮有意思的。
+上次谈到了 Java 中的反射机制，就着公司重构项目即将用到的 Dagger，本期接着谈一谈 Java 中的注解。其实，许多开源库都用到了注解的方式，简化代码以提高开发效率。">
+<meta property="og:updated_time" content="2016-12-17T06:42:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈 Java 中的注解">
+<meta name="twitter:description" content="人啊，就是要学会装逼，装着装着就牛逼了。
+
+引言部分源自无意间看到的一段话，觉得蛮有意思的。
+上次谈到了 Java 中的反射机制，就着公司重构项目即将用到的 Dagger，本期接着谈一谈 Java 中的注解。其实，许多开源库都用到了注解的方式，简化代码以提高开发效率。">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s World" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004083648797" title="facebook">facebook</a>
+					        
+								<a class="google" target="_blank" href="https://plus.google.com/u/0/117011872816026464790" title="google">google</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Event/" style="font-size: 12.5px;">Event</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 12.5px;">Pattern</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 10px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 17.5px;">Source Code</a> <a href="/tags/Volley/" style="font-size: 17.5px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100004083648797" title="facebook">facebook</a>
+			        
+						<a class="google" target="_blank" href="https://plus.google.com/u/0/117011872816026464790" title="google">google</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-浅谈-Java-中的注解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/17/浅谈-Java-中的注解/" class="article-date">
+  	<time datetime="2016-12-17T00:02:55.000Z" itemprop="datePublished">2016-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈 Java 中的注解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Annotation/">Annotation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介注解"><span class="toc-number">1.</span> <span class="toc-text">简介注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解分类"><span class="toc-number">2.</span> <span class="toc-text">注解分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义注解"><span class="toc-number">3.</span> <span class="toc-text">自定义注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见示例"><span class="toc-number">4.</span> <span class="toc-text">常见示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>人啊，就是要学会装逼，装着装着就牛逼了。</p>
+</blockquote>
+<p>引言部分源自无意间看到的一段话，觉得蛮有意思的。</p>
+<p>上次谈到了 Java 中的反射机制，就着公司重构项目即将用到的 Dagger，本期接着谈一谈 Java 中的注解。其实，许多开源库都用到了注解的方式，简化代码以提高开发效率。<a id="more"></a></p>
+<h2 id="简介注解"><a href="#简介注解" class="headerlink" title="简介注解"></a><strong>简介注解</strong></h2><p>Java 注解又称 Java 标注，是 Java 语言 5.0 版本开始支持加入源代码的特殊语法元数据。Java 语言中的类、方法、变量、参数和包等都可以被标注。Java 标注和 Javadoc 不同，标注有自反性。在编译器生成类文件时，标注可以被嵌入到字节码中，由 Java 虚拟机执行时获取到标注。</p>
+<p>以上来源于维基百科。</p>
+<p>注解可以由解析工具或编译工具解析，不同于注释。注意，当一个接口直接继承 java.lang.annotation.Annotation 接口时，仍是接口，而非注解。要想自定义注解类型，只能通过<code>@interface</code>关键字的方式，事实上，通过该方式会隐含地继承 .Annotation 接口。</p>
+<h2 id="注解分类"><a href="#注解分类" class="headerlink" title="注解分类"></a><strong>注解分类</strong></h2><p>一般分为标准注解和元注解。</p>
+<p>标准注解：指 Java 自带的几个注解，常用的包括 Override、Deprecated 和 SuppressWarnings，是重写函数，不鼓励使用(有更好方式、使用有风险或已不再维护)，忽略某项 Warning。</p>
+<p>元注解：指用来定义注解的注解，包括 Documented、Inherited、Retention 和 Target。</p>
+<p><strong>「标准注解」</strong></p>
+<p>Java 提供了多种内建的标准注解，下面介绍几个常用的注解，分别为 Override、Deprecated 和 SuppressWarnings，如下：</p>
+<p><strong><em>Override</em></strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.SOURCE)</span><br><span class="line">public <span class="variable">@interface</span> Override &#123;</span><br><span class="line">  	<span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Overrride：告知编译器，需要重写父类的当前方法。若某个方法带有该注解，但没有重写父类相应的方法，则编译器会生成一条错误信息。</p>
+<p>@Override 适用元素为方法，仅保留在 Java 源文件中。</p>
+<p><strong><em>Deprecated</em></strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@Document</span></span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Target</span>(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</span><br><span class="line">public <span class="variable">@interface</span> Deprecated &#123;</span><br><span class="line">  	<span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Deprecated：告知编译器，某一程序元素(比如方法或成员变量)不建议使用。Java 在 Javadoc 中推荐使用该注解，一般提供不推荐该方法的原因及相应的替代方法。</p>
+<p>@Deprecarted 适用于除注解类型声明之外的所有元素，保留时长为运行时 VM。</p>
+<p><strong><em>SuppressWarnings</em></strong></p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">Target</span>(&#123;<span class="keyword">TYPE</span>, FIELD, METHOD, <span class="keyword">PARAMETER</span>, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.SOURCE)</span><br><span class="line"><span class="keyword">public</span> @<span class="keyword">interface</span> SuppressWarnings &#123;</span><br><span class="line">  	String[] <span class="keyword">value</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@SuppressWarings：压制警告，告知编译器忽略特定的警告信息，如在泛型中使用原生数据类型。</p>
+<p>@SuppressWarnings 适用于除注解类型声明和包名之外的所有元素，仅保留在 Java 源文件中。</p>
+<p>此注解有方法<code>value</code>，支持多个字符串参数，如：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@SupressWarnings(<span class="keyword">value</span>=&#123;<span class="string">"uncheck"</span>,<span class="string">"deprecation"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>前面所述，@Override 和 @Deprecated 都是无需参数的，而 @SuppressWarnings (压制警告)需要带有参数，参数如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deprecation</td>
+<td>使用了过时的类或方法时的警告</td>
+</tr>
+<tr>
+<td>unchecked</td>
+<td>执行了未检查的转换时的警告</td>
+</tr>
+<tr>
+<td>fallthrough</td>
+<td>switch 程序块进入下一个 case，没有 break 时的警告</td>
+</tr>
+<tr>
+<td>path</td>
+<td>局部变量声明</td>
+</tr>
+<tr>
+<td>serial</td>
+<td>方法声明</td>
+</tr>
+<tr>
+<td>finally</td>
+<td>包声明</td>
+</tr>
+<tr>
+<td>all</td>
+<td>参数声明</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>对比</em></strong></p>
+<table>
+<thead>
+<tr>
+<th>标准注解</th>
+<th>Target</th>
+<th>Retention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Override</td>
+<td>METHOD</td>
+<td>SOURCE</td>
+</tr>
+<tr>
+<td>SuppressWarnings</td>
+<td>除 ANNOTATION_TYPE 和 PACKAGE 外的所有</td>
+<td>SOURCE</td>
+</tr>
+<tr>
+<td>Deprecated</td>
+<td>除 ANNOTATION_TYPE 外的所有</td>
+<td>RUNTIME</td>
+</tr>
+</tbody>
+</table>
+<p><strong>「元注解」</strong></p>
+<p>元注解类型共 4 种，分别为 Documented、Inherited、Retention 和 Target，从 JDK 1.7 的源码角度说明如下：</p>
+<p><strong><em>Documented</em></strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Target</span>(ElementType.ANNOTATION_TYPE)</span><br><span class="line">public <span class="variable">@interface</span> Documented &#123;</span><br><span class="line">  	<span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Documented：表示拥有该注解的元素可以通过 Javadoc 此类的工具文档化。该类型用来注解影响用户使用的，且带注释( comment )的元素声明的类型。若类型声明是用 Documented 注解的，则该类型的注解作为被标注程序成员的公共 API。</p>
+<p>比如，上面源码 @Retention 定义中的一行<code>@Documented</code>，意思即是指当前注解的元素会被 Javadoc 工具文档化，而后，在 Java API 文档中可以查看到该注解元素。</p>
+<p><strong><em>Inherited</em></strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Target</span>(ElementType.ANNOTATION_TYPE)</span><br><span class="line">public <span class="variable">@interface</span> Inherited &#123;</span><br><span class="line">  	<span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Inherited：表示该注解类型被自动继承。若用户在当前类中查询这个元注解类型，并且，当前类的声明中不包含这个元注解类型，则将自动查询到当前类的父类是否存在 Inherited 元注解，该动作将被重复执行，直到找到这个标注类型，或是查询到顶层的父类。</p>
+<p><strong><em>Retention</em></strong></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Retention &#123;</span><br><span class="line">  	<span class="function">RetentionPolicy <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Retention：表示该注解类型中注解保留的时长。若注解类型声明中没有 @Retention 元注解，则默认保留策略为 RetentionPolicy.CLASS。其中，保留政策( RetentionPolicy )是枚举类型，共定义 3 种保留政策如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">RetentionPolicy</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">仅存在 Java 源文件，经编译器后便丢弃相应的注解。</td>
+</tr>
+<tr>
+<td style="text-align:left">CLASS</td>
+<td style="text-align:left">存在 Java 源文件及编译生成的 Class 字节码文件，运行时 VM 不再保留注释。</td>
+</tr>
+<tr>
+<td style="text-align:left">RUNTIME</td>
+<td style="text-align:left">存在 Java 源文件及编译生成的 Class 字节码文件，留在运行时 VM 中，反射性地读取。</td>
+</tr>
+</tbody>
+</table>
+<p>比如，上面源码 @Retention 的一行<code>@Retention(RetentionPolicy.RUNTIME)</code>，意思即是指当前注释的保留政策为 RUNTIME，即存在 Java 源文件，也存在经编译器编译生成的 Class 字节码文件，同时，在运行时虚拟机( VM )中也保留该注解，可通过反射机制获取当前注解内容。</p>
+<p><strong><em>Target</em></strong></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Target &#123;</span><br><span class="line">  	ElementType[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Target：表示该注解类型所使用的程序元素类型。当注解类型声明中没有 @Target 元注解，则默认为可适用所有的程序元素；若存在指定的 @Target 元注解，则编译器强制实施相应的使用限制。程序元素( ElementType ) 是枚举类型，共定义 8 种程序元素如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ElementType</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ANNOTATION_TYPE</td>
+<td style="text-align:left">注解类型声明</td>
+</tr>
+<tr>
+<td style="text-align:left">CONSTRUCTOR</td>
+<td style="text-align:left">构造方法声明</td>
+</tr>
+<tr>
+<td style="text-align:left">FIELD</td>
+<td style="text-align:left">字段声明(包括枚举常量）</td>
+</tr>
+<tr>
+<td style="text-align:left">LOCAL_VARIABLE</td>
+<td style="text-align:left">局部变量声明</td>
+</tr>
+<tr>
+<td style="text-align:left">METHOD</td>
+<td style="text-align:left">方法声明</td>
+</tr>
+<tr>
+<td style="text-align:left">PACKAGE</td>
+<td style="text-align:left">包声明</td>
+</tr>
+<tr>
+<td style="text-align:left">PARAMETER</td>
+<td style="text-align:left">参数声明</td>
+</tr>
+<tr>
+<td style="text-align:left">TYPE</td>
+<td style="text-align:left">类、接口(包括注解类型)或枚举声明</td>
+</tr>
+</tbody>
+</table>
+<p>比如，上面源码 @Target 的定义中有一行<code>@Target(ElementType.ANNOTATION_TYPE)</code>，意思即是指当前注解的元素类型是注解类型。</p>
+<h2 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a><strong>自定义注解</strong></h2><p>上面了解了注解，下面来尝试自定义注解。</p>
+<p>自定义注解与创建接口类似，注解要以 @ 开头。</p>
+<p>首先，声明一个自定义注解如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> CoderZebron &#123;</span><br><span class="line"></span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">String <span class="title">host</span><span class="params">()</span> <span class="keyword">default</span> "iamasoldier6.com"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">level</span><span class="params">()</span> <span class="keyword">default</span> 1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<p>1.注解方法不带参数，没有修饰符，实际上，只允许 public 和 abstract 修饰符，默认为 public，不允许抛异常，比如 name()、host()；</p>
+<p>2.注解方法返回值类型为基本类型，String、Class、annotation、enumeration 及这些类型的数组类型；</p>
+<p>3.注解方法可以有默认值，如<code>default &quot;iamasoldier6.com&quot;</code>，默认 host=”iamasoldier6.com”；</p>
+<p>4.若只有一个默认属性，可直接用 value() 函数，一个属性都没有表示该注解为 Mark Annotation。</p>
+<p>其次，有了自定义注解 @CoderZebron 后，在代码中使用如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@CoderZebron</span>(name = <span class="string">"Iamasoldier6"</span>, host = <span class="string">"iamasoldier6.com"</span>, level = <span class="number">1</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"I am main method"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"unchecked"</span>, <span class="string">"deprecation"</span> &#125;)</span><br><span class="line">	<span class="meta">@CoderZebron</span>(name = <span class="string">"Iamasoldier6"</span>, host = <span class="string">"iamasoldier6.com"</span>, level = <span class="number">2</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">demo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"I am demo method"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该注解的保留政策为<code>RetentionPolicy.RUNTIME</code>，故可在运行期通过反射来使用。</p>
+<p>最后，通过反射机制来解析自定义注解 @CoderZeron，反射类位于包 java.lang.reflect 中，其中有一个接口<code>AnnotatedElement</code>，该接口定义了注解相关的几个方法如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">返回值</th>
+<th style="text-align:left">方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">T</td>
+<td style="text-align:left">getAnnotation(Class annotationClass)</td>
+<td>当存在该元素的指定类型注解，则返回相应注释，否则返回 null。</td>
+</tr>
+<tr>
+<td style="text-align:left">Annotation[]</td>
+<td style="text-align:left">getAnnotations()</td>
+<td>返回此元素上存在的所有注解。</td>
+</tr>
+<tr>
+<td style="text-align:left">Annotation[]</td>
+<td style="text-align:left">getDeclaredAnnotations()</td>
+<td>返回直接存在于此元素上的所有注解。</td>
+</tr>
+<tr>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass)</td>
+<td>当存在该元素的指定类型注解，则返回 true，否则返回 false。</td>
+</tr>
+</tbody>
+</table>
+<p>前面自定义的注解，适用对象为 Method，Method 继承自类 AccessibleObject，同时，类 AccessibleObject 实现了 AnnotatedElement 接口，则利用反射方法，来实现解析 @CoderZebron 的功能，如下所示：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class <span class="type">AnnotationParser</span> &#123;</span><br><span class="line">	public <span class="keyword">static</span> <span class="built_in">void</span> main(<span class="type">String</span>[] args) throws <span class="type">SecurityException</span>, <span class="type">ClassNotFoundException</span> &#123;</span><br><span class="line">		<span class="type">String</span> clazz = <span class="string">"AnnotationDemo"</span>;</span><br><span class="line">		<span class="type">Method</span>[] methods = <span class="type">AnnotationParser</span>.class.getClassLoader().loadClass(clazz).getMethods();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">Method</span> <span class="keyword">method</span> : methods) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">method</span>.isAnnotationPresent(<span class="type">CoderZebron</span>.class)) &#123;</span><br><span class="line">				<span class="type">CoderZebron</span> coder = <span class="keyword">method</span>.getAnnotation(<span class="type">CoderZebron</span>.class);</span><br><span class="line">				<span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"method: "</span> + <span class="keyword">method</span>);</span><br><span class="line">				<span class="type">System</span>.<span class="keyword">out</span>.println(</span><br><span class="line">						<span class="string">"name= "</span> + coder.name() + <span class="string">", website= "</span> + coder.host() + <span class="string">", revision= "</span> + coder.level());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行后的输出结果为：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">method</span>:</span> <span class="keyword">public</span> <span class="keyword">static</span> void AnnotationDemo.main(java.lang.String[])</span><br><span class="line">name= Iamasoldier6, host= iamasoldier6.com, revision= <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">method</span>:</span> <span class="keyword">public</span> void AnnotationDemo.demo()</span><br><span class="line">name= Iamasoldier6, host= iamasoldier6.com, revision= <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>通过反射将注解直接输出，不过这里只是一个简单的 Demo，注解信息可用来做很多事。</p>
+<h2 id="常见示例"><a href="#常见示例" class="headerlink" title="常见示例"></a><strong>常见示例</strong></h2><p>Android 中的常见示例如下：</p>
+<p><code>Override</code></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Retrofit</code></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@GET</span>(<span class="string">"/users/&#123;username&#125;"</span>)</span><br><span class="line">User getUser(<span class="variable">@Path</span>(<span class="string">"username"</span>) String username);</span><br></pre></td></tr></table></figure>
+<p><code>ButterKnife</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">InjectView(R.id.user)</span></span><br><span class="line">EditText mEtUsername;</span><br></pre></td></tr></table></figure>
+<p>至此，关于 Java 中的注解探究并总结完毕。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong><br><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://docs.oracle.com/javase/7/docs/api/" target="_blank" rel="external">http://docs.oracle.com/javase/7/docs/api/</a></p>
+<p>2.<a href="http://t.cn/R4b4Fsr" target="_blank" rel="external">http://t.cn/R4b4Fsr</a></p>
+<p>3.<a href="http://gityuan.com/2016/01/23/java-annotation/" target="_blank" rel="external">http://gityuan.com/2016/01/23/java-annotation/</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/03/浅谈-Java-中的反射机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈 Java 中的反射机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   博主沥血作文章，客官随性打钱赏。左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/12/17/浅谈-Java-中的注解/" target="_blank" title="浅谈 Java 中的注解">浅谈 Java 中的注解</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2016/12/17/浅谈-Java-中的注解/" target="_blank" title="浅谈 Java 中的注解">http://iamasoldier6.com/2016/12/17/浅谈-Java-中的注解/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="浅谈-Java-中的注解" data-title="浅谈 Java 中的注解" data-url="http://iamasoldier6.com/2016/12/17/浅谈-Java-中的注解/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iamasoldier6"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4548ab92471a76e452c9750997a514f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
