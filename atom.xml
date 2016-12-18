@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2016-12-17T06:57:32.000Z</updated>
+  <updated>2016-12-18T01:08:32.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2016/12/17/%E6%B5%85%E8%B0%88-Java-%E4%B8%AD%E7%9A%84%E6%B3%A8%E8%A7%A3/"/>
     <id>http://iamasoldier6.com/2016/12/17/浅谈-Java-中的注解/</id>
     <published>2016-12-17T00:02:55.000Z</published>
-    <updated>2016-12-17T06:57:32.000Z</updated>
+    <updated>2016-12-18T01:08:32.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;人啊，就是要学会装逼，装着装着就牛逼了。&lt;/p&gt;
@@ -42,7 +42,7 @@
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Deprecated&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight less&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;@Document&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;@Retention&lt;/span&gt;(RetentionPolicy.RUNTIME)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;variable&quot;&gt;@Target&lt;/span&gt;(value = &amp;#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public &lt;span class=&quot;variable&quot;&gt;@interface&lt;/span&gt; Deprecated &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;@Deprecated：告知编译器，某一程序元素(比如方法或成员变量)不建议使用。Java 在 Javadoc 中推荐使用该注解，一般提供不推荐该方法的原因及相应的替代方法。&lt;/p&gt;
-&lt;p&gt;@Deprecarted 适用于除注解类型声明之外的所有元素，保留时长为运行时 VM。&lt;/p&gt;
+&lt;p&gt;@Deprecated 适用于除注解类型声明之外的所有元素，保留时长为运行时 VM。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;SuppressWarnings&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight fortran&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@&lt;span class=&quot;keyword&quot;&gt;Target&lt;/span&gt;(&amp;#123;&lt;span class=&quot;keyword&quot;&gt;TYPE&lt;/span&gt;, FIELD, METHOD, &lt;span class=&quot;keyword&quot;&gt;PARAMETER&lt;/span&gt;, CONSTRUCTOR, LOCAL_VARIABLE&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@Retention(RetentionPolicy.SOURCE)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; @&lt;span class=&quot;keyword&quot;&gt;interface&lt;/span&gt; SuppressWarnings &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    String[] &lt;span class=&quot;keyword&quot;&gt;value&lt;/span&gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;@SuppressWarings：压制警告，告知编译器忽略特定的警告信息，如在泛型中使用原生数据类型。&lt;/p&gt;
@@ -126,7 +126,7 @@
 &lt;p&gt;@Inherited：表示该注解类型被自动继承。若用户在当前类中查询这个元注解类型，并且，当前类的声明中不包含这个元注解类型，则将自动查询到当前类的父类是否存在 Inherited 元注解，该动作将被重复执行，直到找到这个标注类型，或是查询到顶层的父类。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Retention&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight aspectj&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Documented&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Retention&lt;/span&gt;(RetentionPolicy.RUNTIME)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Target&lt;/span&gt;(ElementType.ANNOTATION_TYPE)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;meta&quot;&gt;@interface&lt;/span&gt; Retention &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;RetentionPolicy &lt;span class=&quot;title&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;@Retention：表示该注解类型中注解保留的时长。若注解类型声明中没有 @Retention 元注解，则默认保留策略为 RetentionPolicy.CLASS。其中，保留政策( RetentionPolicy )是枚举类型，共定义 3 种保留政策如下表：&lt;/p&gt;
+&lt;p&gt;@Retention：表示该注解类型中注解保留的时长。若注解类型声明中没有 @Retention 元注解，则默认保留政策为 RetentionPolicy.CLASS。其中，保留政策( RetentionPolicy )是枚举类型，共定义 3 种保留政策如下表：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;

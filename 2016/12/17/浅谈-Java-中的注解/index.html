@@ -18,7 +18,7 @@
 
 引言部分源自无意间看到的一段话，觉得蛮有意思的。
 上次谈到了 Java 中的反射机制，就着公司重构项目即将用到的 Dagger，本期接着谈一谈 Java 中的注解。其实，许多开源库都用到了注解的方式，简化代码以提高开发效率。">
-<meta property="og:updated_time" content="2016-12-17T06:57:32.000Z">
+<meta property="og:updated_time" content="2016-12-18T01:08:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Java 中的注解">
 <meta name="twitter:description" content="人啊，就是要学会装逼，装着装着就牛逼了。
@@ -247,7 +247,7 @@
 <p><strong><em>Deprecated</em></strong></p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@Document</span></span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Target</span>(value = &#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</span><br><span class="line">public <span class="variable">@interface</span> Deprecated &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>@Deprecated：告知编译器，某一程序元素(比如方法或成员变量)不建议使用。Java 在 Javadoc 中推荐使用该注解，一般提供不推荐该方法的原因及相应的替代方法。</p>
-<p>@Deprecarted 适用于除注解类型声明之外的所有元素，保留时长为运行时 VM。</p>
+<p>@Deprecated 适用于除注解类型声明之外的所有元素，保留时长为运行时 VM。</p>
 <p><strong><em>SuppressWarnings</em></strong></p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">Target</span>(&#123;<span class="keyword">TYPE</span>, FIELD, METHOD, <span class="keyword">PARAMETER</span>, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.SOURCE)</span><br><span class="line"><span class="keyword">public</span> @<span class="keyword">interface</span> SuppressWarnings &#123;</span><br><span class="line">    String[] <span class="keyword">value</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>@SuppressWarings：压制警告，告知编译器忽略特定的警告信息，如在泛型中使用原生数据类型。</p>
@@ -331,7 +331,7 @@
 <p>@Inherited：表示该注解类型被自动继承。若用户在当前类中查询这个元注解类型，并且，当前类的声明中不包含这个元注解类型，则将自动查询到当前类的父类是否存在 Inherited 元注解，该动作将被重复执行，直到找到这个标注类型，或是查询到顶层的父类。</p>
 <p><strong><em>Retention</em></strong></p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Retention &#123;</span><br><span class="line">    <span class="function">RetentionPolicy <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>@Retention：表示该注解类型中注解保留的时长。若注解类型声明中没有 @Retention 元注解，则默认保留策略为 RetentionPolicy.CLASS。其中，保留政策( RetentionPolicy )是枚举类型，共定义 3 种保留政策如下表：</p>
+<p>@Retention：表示该注解类型中注解保留的时长。若注解类型声明中没有 @Retention 元注解，则默认保留政策为 RetentionPolicy.CLASS。其中，保留政策( RetentionPolicy )是枚举类型，共定义 3 种保留政策如下表：</p>
 <table>
 <thead>
 <tr>
