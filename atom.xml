@@ -717,11 +717,11 @@
   </entry>
   
   <entry>
-    <title>浅析 Android 中的三大模式：MVC , MVP 和 MVVM (二)</title>
+    <title>浅析 Android 中的三大模式：MVC, MVP 和 MVVM (二)</title>
     <link href="http://iamasoldier6.com/2016/09/25/%E6%B5%85%E6%9E%90-Android-%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A8%A1%E5%BC%8F%EF%BC%9AMVC-MVP-%E5%92%8C-MVVM(%E4%BA%8C)/"/>
     <id>http://iamasoldier6.com/2016/09/25/浅析-Android-中的三大模式：MVC-MVP-和-MVVM(二)/</id>
     <published>2016-09-25T04:18:37.000Z</published>
-    <updated>2016-11-19T04:01:23.000Z</updated>
+    <updated>2016-12-25T02:39:09.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;你爬得高、走得远，不是为了被世界看到，而是看到整个世界。看得多了，也就知道怎么选了；走得远了，也就知道自己要的是什么了。漂泊的意义，大致就是为了有所选择。&lt;/p&gt;
@@ -780,11 +780,11 @@
   </entry>
   
   <entry>
-    <title>浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)</title>
+    <title>浅析 Android 中的三大模式：MVC, MVP 和 MVVM (一)</title>
     <link href="http://iamasoldier6.com/2016/09/10/%E6%B5%85%E6%9E%90-Android-%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A8%A1%E5%BC%8F%EF%BC%9AMVC-MVP-%E5%92%8C-MVVM(%E4%B8%80)/"/>
     <id>http://iamasoldier6.com/2016/09/10/浅析-Android-中的三大模式：MVC-MVP-和-MVVM(一)/</id>
     <published>2016-09-10T01:02:44.000Z</published>
-    <updated>2016-12-15T13:06:14.000Z</updated>
+    <updated>2016-12-25T02:38:56.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;日拱一卒，功不唐捐。&lt;/p&gt;
@@ -959,9 +959,9 @@
     
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
-      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
-    
       <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
+    
+      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
     
   </entry>
   
