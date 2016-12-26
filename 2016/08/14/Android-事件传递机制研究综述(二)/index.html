@@ -8,20 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="追求卓越，成功就会在不经意间追上你。
 
-半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一) 博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
+半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一)博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 事件传递机制研究综述(二)">
 <meta property="og:url" content="http://iamasoldier6.com/2016/08/14/Android-事件传递机制研究综述(二)/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="追求卓越，成功就会在不经意间追上你。
 
-半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一) 博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
-<meta property="og:updated_time" content="2016-11-19T04:08:18.000Z">
+半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一)博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
+<meta property="og:updated_time" content="2016-12-26T13:16:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 事件传递机制研究综述(二)">
 <meta name="twitter:description" content="追求卓越，成功就会在不经意间追上你。
 
-半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一) 博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
+半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一)博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -219,7 +219,7 @@
         <blockquote>
 <p>追求卓越，成功就会在不经意间追上你。</p>
 </blockquote>
-<p>半个月前，在时隔很久以后，更新了一篇<a href="http://955.cc/dAZVF" target="_blank" rel="external"> Android 事件传递机制研究综述(一) </a>博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。<a id="more"></a></p>
+<p>半个月前，在时隔很久以后，更新了一篇<a href="http://955.cc/dAZVF" target="_blank" rel="external"> Android 事件传递机制研究综述(一)</a>博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。<a id="more"></a></p>
 <h2 id="关于-View"><a href="#关于-View" class="headerlink" title="关于 View"></a><strong>关于 View</strong></h2><p>首先，且看 View 中 dispatchTouchEvent() 方法的源码：</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> boolean <span class="title">dispatchTouchEvent</span>(<span class="params">MotionEvent <span class="keyword">event</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mOnTouchListener != <span class="keyword">null</span> &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED &amp;&amp;</span><br><span class="line">    mOnTouchListener.onTouch(<span class="keyword">this</span>, <span class="keyword">event</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   	<span class="keyword">return</span> onTouchEvent(<span class="keyword">event</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>方法内，进行一个判断，若 mOnTouchListener != null，(mViewFlags &amp; ENABLED_MASK) == ENABLED 和     mOnTouchListener.onTouch(this, event) 同时成立，则返回 true，否则执行 onTouchEvent(event) 方法，再返回。View 里，寻找到 mOnTouchListener 如下：</p>
