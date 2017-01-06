@@ -389,7 +389,7 @@
     <link href="http://iamasoldier6.com/2016/12/03/%E6%B5%85%E8%B0%88-Java-%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/"/>
     <id>http://iamasoldier6.com/2016/12/03/浅谈-Java-中的反射机制/</id>
     <published>2016-12-03T10:49:59.000Z</published>
-    <updated>2016-12-04T01:58:29.000Z</updated>
+    <updated>2017-01-06T15:01:42.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;火跳动着绝望/谁在低声吟唱/说遗忘者的哀伤 /用战斗证明希望&lt;/p&gt;
@@ -397,9 +397,9 @@
 &lt;p&gt;说起 Java 中的反射机制，初学者或者 Java 基础不扎实的人或许会有点懵，甚至唯恐避之不及。事实上，Java 的反射机制很重要，许多开发框架都是基于反射来实现对目标对象的操作，反射配合注解，用好用活，能大大提升代码的效率和性能，并且，如今 Android 中一些高效的注解库也与此反射机制有着极大的关联，这期就来探究并总结下。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;简介反射&quot;&gt;&lt;a href=&quot;#简介反射&quot; class=&quot;headerlink&quot; title=&quot;简介反射&quot;&gt;&lt;/a&gt;&lt;strong&gt;简介反射&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;说及反射，先说说内省。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;内省&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;指计算机程序在运行时( Run time )检查对象( Object )类型的一种能力，也称为运行时类型检查。&lt;/p&gt;
+&lt;p&gt;指计算机程序在运行时 (Run time) 检查对象 (Object) 类型的一种能力，也称为运行时类型检查。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;反射&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;指计算机程序在运行时( Run time )可以访问、检测和修改它本身状态或行为的一种能力。用比喻来说，程序能够”观察“并且修改自己的行为。&lt;/p&gt;
+&lt;p&gt;指计算机程序在运行时 (Run time) 可以访问、检测和修改它本身状态或行为的一种能力。用比喻来说，程序能够”观察“并且修改自己的行为。&lt;/p&gt;
 &lt;p&gt;一些编程语言比如 Java 具有反射特性，而 C++ 不具有反射特性只具有内省特性。&lt;/p&gt;
 &lt;p&gt;以上来源于维基百科。&lt;/p&gt;
 &lt;p&gt;就 Java 中的反射，其可以让我们在运行时获取类的方法、属性、父类和接口等 Class 内部的信息。同时，其还可以让我们在运行期实例化对象，调用方法，如通过调用 get/set 方法获取变量的值，甚至属性或方法是私有的也可以。其中，“看透 Class” 的能力即为内省了。反射多用于以下场景：&lt;/p&gt;
@@ -425,7 +425,7 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Student me = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Student(&lt;span class=&quot;string&quot;&gt;&quot;Iamasoldier6&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class&amp;lt;?&amp;gt; clazz = me.getClass();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;若在编译期获取不到目标类型，但是知其完整类路径，则可以通过如下的形式来获取 Class 对象：&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Class&amp;lt;?&amp;gt; myObjectClass = Class.forName(&lt;span class=&quot;string&quot;&gt;&quot;com.iamasoldier6.Student&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;以上在使用 Class.forName() 方法时，必须提供一个类的全名，包括类所在包的名字，如 Student 类位于 com.iamasoldier6 包，则其完整类路径为 com.iamasoldier6.Student。另外，调用 Class.forName() 方法时，未在编译路径( classpath )下找到对应的类，则会抛出 ClassNotFoundException。&lt;/p&gt;
+&lt;p&gt;以上在使用 Class.forName() 方法时，必须提供一个类的全名，包括类所在包的名字，如 Student 类位于 com.iamasoldier6 包，则其完整类路径为 com.iamasoldier6.Student。另外，调用 Class.forName() 方法时，未在编译路径 (classpath)下找到对应的类，则会抛出 ClassNotFoundException。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;接口说明&lt;/code&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 加载指定的 Class 对象，参数为要加载类的完整路径，如 &quot;com.iamasoldier6.Student&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; Class&amp;lt;?&amp;gt; forName(String className);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 加载指定的 Class 对象，参数一为要加载类的完整路径，如 &quot;com.iamasoldier6.Student&quot;，参数二为是否要初&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 始化该 Class 对象，参数三为指定加载该类的 ClassLoader&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; Class&amp;lt;?&amp;gt; forName(String className, &lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; shouldInitialize, ClassLoader classLoader);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;II. 通过 Class 对象构造目标类型的对象&lt;/p&gt;
