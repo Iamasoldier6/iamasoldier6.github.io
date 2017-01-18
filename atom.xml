@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-01-17T15:53:37.000Z</updated>
+  <updated>2017-01-18T15:18:57.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2017/01/14/%E6%B5%85%E6%8E%A2-Android-%E4%B8%AD%E7%9A%84-Context/"/>
     <id>http://iamasoldier6.com/2017/01/14/浅探-Android-中的-Context/</id>
     <published>2017-01-14T06:47:32.000Z</published>
-    <updated>2017-01-17T15:53:37.000Z</updated>
+    <updated>2017-01-18T15:18:57.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Nobody can go back and start a new beginning, but anyone can start today and make a new ending.&lt;/p&gt;
@@ -74,7 +74,7 @@
 &lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Activity&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; static &lt;span class=&quot;type&quot;&gt;Drawable&lt;/span&gt; mDrawable;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; void onCreate(&lt;span class=&quot;type&quot;&gt;Bundle&lt;/span&gt; savedInstanceState) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onCreate(savedInstanceState);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    setContentView(&lt;span class=&quot;type&quot;&gt;R&lt;/span&gt;.layout.activity_main);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;type&quot;&gt;ImageView&lt;/span&gt; image = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;ImageView&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    mDrawable = getResources().getDrawable(&lt;span class=&quot;type&quot;&gt;R&lt;/span&gt;.drawable.ic_launcher);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    image.setImageDrawable(mDrawable);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;将一个静态的 Drawable 对象当 ImageView，设置这个 Drawable 时，ImageView 保存了 mDrawable 的引用，而 ImageView 传入的 this 是 MainActivity 的 mContext，由于 static 修饰的 mDrawable 是常驻内存的，MainActivity 是它的间接引用，当 MainActivity 被销毁时，无法被 GC 掉，故造成内存泄漏。&lt;/p&gt;
 &lt;p&gt;III. &lt;strong&gt;使用 Context 的正确姿势&lt;/strong&gt;：&lt;/p&gt;
-&lt;p&gt;一般使用 Context 造成的内存泄漏，几乎都是当 Context 销毁时，其被引用导致销毁失败。总结得出使用 Context 的正确方法如下：&lt;/p&gt;
+&lt;p&gt;一般使用 Context 造成的内存泄漏，几乎都是当 Context 销毁时，由于其被引用导致销毁失败。总结得出使用 Context 的正确方法如下：&lt;/p&gt;
 &lt;p&gt;(1) 由于 Application 的 Context 对象是随着应用程序进程存在的，故在 Application 的 Context 适用的情况下，对于生命周期长的对象，优先使用 Application 的 Context。&lt;/p&gt;
 &lt;p&gt;(2) 不要让生命周期比 Activity 长的对象持有 Activity 的饮用。&lt;/p&gt;
 &lt;p&gt;(3) 最好不要在 Activity 中使用非静态内部类，由于非静态内部类会隐式持有外部类实例的引用，如果使用静态内部类，将外部实例引用作为弱引用持有。&lt;/p&gt;

@@ -18,7 +18,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 Context 在我们的 Android 开发中，真是无处不在：加载资源、启动一个新的 Activity、获取系统服务和创建 View 操作等。那么问题来了，Context 究竟是什么，具体怎么使用，又有">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/Context_Capability.png">
-<meta property="og:updated_time" content="2017-01-17T15:53:37.000Z">
+<meta property="og:updated_time" content="2017-01-18T15:18:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅探 Android 中的 Context">
 <meta name="twitter:description" content="Nobody can go back and start a new beginning, but anyone can start today and make a new ending.
@@ -271,7 +271,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> static <span class="type">Drawable</span> mDrawable;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> void onCreate(<span class="type">Bundle</span> savedInstanceState) &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(<span class="type">R</span>.layout.activity_main);</span><br><span class="line">    <span class="type">ImageView</span> image = <span class="keyword">new</span> <span class="type">ImageView</span>(<span class="keyword">this</span>);</span><br><span class="line">    mDrawable = getResources().getDrawable(<span class="type">R</span>.drawable.ic_launcher);</span><br><span class="line">    image.setImageDrawable(mDrawable);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将一个静态的 Drawable 对象当 ImageView，设置这个 Drawable 时，ImageView 保存了 mDrawable 的引用，而 ImageView 传入的 this 是 MainActivity 的 mContext，由于 static 修饰的 mDrawable 是常驻内存的，MainActivity 是它的间接引用，当 MainActivity 被销毁时，无法被 GC 掉，故造成内存泄漏。</p>
 <p>III. <strong>使用 Context 的正确姿势</strong>：</p>
-<p>一般使用 Context 造成的内存泄漏，几乎都是当 Context 销毁时，其被引用导致销毁失败。总结得出使用 Context 的正确方法如下：</p>
+<p>一般使用 Context 造成的内存泄漏，几乎都是当 Context 销毁时，由于其被引用导致销毁失败。总结得出使用 Context 的正确方法如下：</p>
 <p>(1) 由于 Application 的 Context 对象是随着应用程序进程存在的，故在 Application 的 Context 适用的情况下，对于生命周期长的对象，优先使用 Application 的 Context。</p>
 <p>(2) 不要让生命周期比 Activity 长的对象持有 Activity 的饮用。</p>
 <p>(3) 最好不要在 Activity 中使用非静态内部类，由于非静态内部类会隐式持有外部类实例的引用，如果使用静态内部类，将外部实例引用作为弱引用持有。</p>
