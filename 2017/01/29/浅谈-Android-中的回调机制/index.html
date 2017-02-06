@@ -16,7 +16,7 @@
 <meta property="og:description" content="生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。
 
 由于回老家过年，博客的更新迟到了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人说到回调函数，那么到底什么是回调函数？">
-<meta property="og:updated_time" content="2017-02-05T09:40:02.000Z">
+<meta property="og:updated_time" content="2017-02-06T15:23:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Android 中的回调机制">
 <meta name="twitter:description" content="生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。
@@ -221,7 +221,7 @@
 </blockquote>
 <p>由于回老家过年，博客的更新迟到了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人说到回调函数，那么到底什么是回调函数？<a id="more"></a></p>
 <h2 id="简介回调"><a href="#简介回调" class="headerlink" title="简介回调"></a><strong>简介回调</strong></h2><p>在知乎看到个排第一的通俗<a href="https://www.zhihu.com/question/19801131" target="_blank" rel="external">解释</a>，点赞数两千多，引用如下(有些许变动)：</p>
-<p><strong><em>场景</em></strong>：你到一个商店买东西，刚好你要的东西没有货，于是，你在店员那里留下了电话。过了几天，店里有货了，店员就打了你的电话，然后，你接到电话后就到店里取了货。</p>
+<p><strong><em>场景</em></strong>：你到一个商店买东西，刚好要的东西没有货，于是，你在店员那里留下了电话。过了几天，店里有货了，店员就打了你的电话，然后，你接到电话后就到店里取了货。</p>
 <p><strong><em>解析</em></strong>：你的电话号码叫做<strong>回调函数</strong>，你把电话留给店员叫做<strong>登记回调函数</strong>，店里后来有货了叫做<strong>触发回调关联的事件</strong>，店员给你打电话叫做<strong>调用回调函数</strong>，你到店里取货叫做<strong>响应回调事件</strong>。</p>
 <p>还有个更简明通俗的解释，即类似 Hollywood principle 的 “Don’t call us, we’ll call you”。</p>
 <p>好，再看看维基百科中正式的书面解释：</p>
