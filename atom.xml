@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-02-06T15:23:38.000Z</updated>
+  <updated>2017-02-07T15:40:22.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://iamasoldier6.com/2017/01/29/%E6%B5%85%E8%B0%88-Android-%E4%B8%AD%E7%9A%84%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6/"/>
     <id>http://iamasoldier6.com/2017/01/29/浅谈-Android-中的回调机制/</id>
     <published>2017-01-29T03:25:40.000Z</published>
-    <updated>2017-02-06T15:23:38.000Z</updated>
+    <updated>2017-02-07T15:40:22.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;由于回老家过年，博客的更新迟到了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人说到回调函数，那么到底什么是回调函数？&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;由于回老家过年，博客的更新迟了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人说到回调函数，那么到底什么是回调函数？&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;简介回调&quot;&gt;&lt;a href=&quot;#简介回调&quot; class=&quot;headerlink&quot; title=&quot;简介回调&quot;&gt;&lt;/a&gt;&lt;strong&gt;简介回调&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;在知乎看到个排第一的通俗&lt;a href=&quot;https://www.zhihu.com/question/19801131&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;解释&lt;/a&gt;，点赞数两千多，引用如下(有些许变动)：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;场景&lt;/em&gt;&lt;/strong&gt;：你到一个商店买东西，刚好要的东西没有货，于是，你在店员那里留下了电话。过了几天，店里有货了，店员就打了你的电话，然后，你接到电话后就到店里取了货。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;解析&lt;/em&gt;&lt;/strong&gt;：你的电话号码叫做&lt;strong&gt;回调函数&lt;/strong&gt;，你把电话留给店员叫做&lt;strong&gt;登记回调函数&lt;/strong&gt;，店里后来有货了叫做&lt;strong&gt;触发回调关联的事件&lt;/strong&gt;，店员给你打电话叫做&lt;strong&gt;调用回调函数&lt;/strong&gt;，你到店里取货叫做&lt;strong&gt;响应回调事件&lt;/strong&gt;。&lt;/p&gt;
@@ -74,7 +74,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;由于回老家过年，博客的更新迟到了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人说到回调函数，那么到底什么是回调函数？
+&lt;p&gt;由于回老家过年，博客的更新迟了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人说到回调函数，那么到底什么是回调函数？
     
     </summary>
     
