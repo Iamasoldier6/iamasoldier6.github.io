@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-02-09T15:44:06.000Z</updated>
+  <updated>2017-02-12T09:36:19.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -14,6 +14,112 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Debug 的简单小结</title>
+    <link href="http://iamasoldier6.com/2017/02/12/Android-Debug-%E7%9A%84%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://iamasoldier6.com/2017/02/12/Android-Debug-的简单小结/</id>
+    <published>2017-02-12T05:14:19.000Z</published>
+    <updated>2017-02-12T09:36:19.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Debug 能力是软件开发过程中分析代码、解决 Bug 的一种核心素质之一。&lt;a href=&quot;https://www.zhihu.com/question/42842799&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;知乎&lt;/a&gt;上有这么一段话说得很好(有微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，那就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，侦探的第六感和经验至关重要。“&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;简介-Debug&quot;&gt;&lt;a href=&quot;#简介-Debug&quot; class=&quot;headerlink&quot; title=&quot;简介 Debug&quot;&gt;&lt;/a&gt;&lt;strong&gt;简介 Debug&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Debug 即调试，又称除错，是发现和减少计算机程序错误的一个过程。&lt;/p&gt;
+&lt;p&gt;调试的基本步骤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发现程序错误的存在&lt;/li&gt;
+&lt;li&gt;以隔离、消除的方式对错误进行定位&lt;/li&gt;
+&lt;li&gt;确定错误产生的原因&lt;/li&gt;
+&lt;li&gt;提出纠正错误的解决办法&lt;/li&gt;
+&lt;li&gt;对程序错误予以改正，重新测试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Android-Debug&quot;&gt;&lt;a href=&quot;#Android-Debug&quot; class=&quot;headerlink&quot; title=&quot;Android Debug&quot;&gt;&lt;/a&gt;&lt;strong&gt;Android Debug&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; Android Studio 目前已是最主流的 Android 开发工具，其自带有强大的 Debug 功能，对运行在 Android Emulator 或相连 Android 设备上的应用进行调试，下面来一探究竟。&lt;/p&gt;
+&lt;p&gt;看看 Android Studio 提供的调试面板(试举一例)：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_one.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;大体提供了 7 个功能区，分别为断点管理区、线程栈帧区、调试功能区、求值表达式、对象变量区和变量观察区。详细看以下几个区：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;断点管理区&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;从上往下来看，介绍主要几个：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_resume2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Resume Program&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;该操作意思是恢复程序，有两种行为：&lt;/p&gt;
+&lt;p&gt;1.程序处在暂停状态下，点击该按钮将恢复程序运行。&lt;/p&gt;
+&lt;p&gt;2.很多情况下，会设置多个断点调试。某些情况时，需要从当前断点移动到下一个断点处，两个断点之间的代码被自动执行，这样就不需要一步步调试到下一个断点了。举例如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight aspectj&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    test1();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    test2();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;假设在第 2 行和第 4 行添加了断点。若此时我们的调试在第 2 行，点击该按钮执行操作，当前的调试位置会自动执行到第 4 行，即第 2 行到第 4 行之间的代码会自动被执行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_pause.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Pause Program&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;点击该按钮将暂停程序的执行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_stop.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Stop &amp;#39;app&amp;#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;点击该按钮，会关闭相关的脚本终止当前进程。在 Android 项目中，点击该按钮，意味着 App 结束运行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_break2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;View Breakpoints&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;点击该按钮会进入断点管理界面，在这里可以查看所有断点，管理或者配置断点的行为，如：删除、修改属性信息等，如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_break_zone.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_mute.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Mute Breakpoints&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;使用该按钮，来切换断点的状态：启动或者禁用。调试过程中，可以暂时禁用所有的断点，实现程序正常地运行。比如在调试过程中，不想让断点干扰关心的流程时，可以临时禁用断点。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_dump.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Get thread dump&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;获取线程 Dump，点击该按钮将进入线程 Dump 界面如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_thread.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;调试功能区&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;该区提供了调试的主要操作，分别如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_execution.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Show Execution Point&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;点击该按钮，光标将定位到当前正在调试的位置。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_over.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Step Over&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;单步跳过，点击该按钮后，程序向下执行一行。若当前行是一个方法调用，此行调用的方法被执行完毕后再到下一行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_into.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Step Into&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;单步跳入，执行该操作后，程序向下执行一行。若该行有自定义的方法，则进入该方法内部继续执行，注意的是，若是类库中的方法，则不会进入方法内部。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_force.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Force Step Into&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;强制单步跳入，和 Step Into 功能类似，主要区别是，若当前行有任何方法，则不管该方法是自行定义还是类库提供的，都能跳入到方法内部继续执行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_frame.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Drop Frame&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;中断执行，并返回到方法执行的初始点，在这个过程中，该方法对应的栈帧会从栈中移除。换句话说，若该方法是被调用的，则返回到当前方法被调用的地方，并且所有上下文变量的值也恢复到该方法未执行时的状态。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_cursor.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Run to Cursor&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;忽视已经存在的断点，跳转到光标所在处。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;求值表达式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_calculate.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Evaluate Expression&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;点击该按钮，会在当前调试的语句处嵌入一个交互式解释器，在其中，可以执行任何想要执行的表达式进行求值操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;变量观察区&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;该区域将显示你所感兴趣的变量值。在调试模式下，可以通过 Add to Watches 将某个变量添加到观察区，该值的变化将会在变量观察区显示。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;调试的两种方式&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_mode1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如上图，圈出来的部分从左到右为&lt;code&gt;Debug &amp;#39;app&amp;#39;&lt;/code&gt;和&lt;code&gt;Attach debugger to Android process&lt;/code&gt;两种调试方式。&lt;/p&gt;
+&lt;p&gt;两者的区别主要如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Debug ‘app’ ：以调试模式安装运行，断点可以在运行前设置，也可以在运行后设置。&lt;/li&gt;
+&lt;li&gt;Attach debugger to Android process：和 Debug 方式相比，可以将调试器 Attach 到任何正在运行的进程。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总之，个人觉得，Debug 能力的提升非一朝一夕之功，需要在各种项目遭遇各种情况时锤炼，以上只是常用操作的小结，详细部分参见 Google 官方&lt;a href=&quot;https://developer.android.google.cn/studio/debug/index.html?hl=zh-cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;调试您的应用&lt;/a&gt; 和 &lt;a href=&quot;http://blog.csdn.net/dd864140130/article/details/51560664&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Studio 代码调试大全&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;至此，关于 Android Debug 的简单小结完毕。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/dd864140130/article/details/51560664&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/dd864140130/article/details/51560664&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Debug 能力是软件开发过程中分析代码、解决 Bug 的一种核心素质之一。&lt;a href=&quot;https://www.zhihu.com/question/42842799&quot;&gt;知乎&lt;/a&gt;上有这么一段话说得很好(有微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，那就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，侦探的第六感和经验至关重要。“
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+      <category term="Debug" scheme="http://iamasoldier6.com/tags/Debug/"/>
+    
+  </entry>
   
   <entry>
     <title>浅谈 Android 中的回调机制</title>
