@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-02-12T09:36:19.000Z</updated>
+  <updated>2017-02-13T14:50:23.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Android Debug 的简单小结</title>
-    <link href="http://iamasoldier6.com/2017/02/12/Android-Debug-%E7%9A%84%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
-    <id>http://iamasoldier6.com/2017/02/12/Android-Debug-的简单小结/</id>
+    <title>Android Debug 简单小结</title>
+    <link href="http://iamasoldier6.com/2017/02/12/Android-Debug-%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://iamasoldier6.com/2017/02/12/Android-Debug-简单小结/</id>
     <published>2017-02-12T05:14:19.000Z</published>
-    <updated>2017-02-12T09:36:19.000Z</updated>
+    <updated>2017-02-13T14:50:23.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
