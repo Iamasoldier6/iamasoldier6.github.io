@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-02-13T14:50:23.000Z</updated>
+  <updated>2017-02-14T15:20:42.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://iamasoldier6.com/2017/02/12/Android-Debug-%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
     <id>http://iamasoldier6.com/2017/02/12/Android-Debug-简单小结/</id>
     <published>2017-02-12T05:14:19.000Z</published>
-    <updated>2017-02-13T14:50:23.000Z</updated>
+    <updated>2017-02-14T15:20:42.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Debug 能力是软件开发过程中分析代码、解决 Bug 的一种核心素质之一。&lt;a href=&quot;https://www.zhihu.com/question/42842799&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;知乎&lt;/a&gt;上有这么一段话说得很好(有微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，那就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，侦探的第六感和经验至关重要。“&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之一。&lt;a href=&quot;https://www.zhihu.com/question/42842799&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;知乎&lt;/a&gt;上有这么一段话说得很好(有微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，那就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，侦探的第六感和经验至关重要。“&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;简介-Debug&quot;&gt;&lt;a href=&quot;#简介-Debug&quot; class=&quot;headerlink&quot; title=&quot;简介 Debug&quot;&gt;&lt;/a&gt;&lt;strong&gt;简介 Debug&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Debug 即调试，又称除错，是发现和减少计算机程序错误的一个过程。&lt;/p&gt;
 &lt;p&gt;调试的基本步骤：&lt;/p&gt;
 &lt;ul&gt;
@@ -110,7 +110,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Debug 能力是软件开发过程中分析代码、解决 Bug 的一种核心素质之一。&lt;a href=&quot;https://www.zhihu.com/question/42842799&quot;&gt;知乎&lt;/a&gt;上有这么一段话说得很好(有微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，那就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，侦探的第六感和经验至关重要。“
+&lt;p&gt;Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之一。&lt;a href=&quot;https://www.zhihu.com/question/42842799&quot;&gt;知乎&lt;/a&gt;上有这么一段话说得很好(有微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，那就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，侦探的第六感和经验至关重要。“
     
     </summary>
     
