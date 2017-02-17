@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-02-15T15:56:58.000Z</updated>
+  <updated>2017-02-17T15:58:37.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2017/02/12/Android-Debug-%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
     <id>http://iamasoldier6.com/2017/02/12/Android-Debug-简单小结/</id>
     <published>2017-02-12T05:14:19.000Z</published>
-    <updated>2017-02-15T15:56:58.000Z</updated>
+    <updated>2017-02-17T15:58:37.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
@@ -35,7 +35,7 @@
 &lt;li&gt;提出纠正错误的解决办法&lt;/li&gt;
 &lt;li&gt;对程序错误予以改正，重新测试&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;Android-Debug&quot;&gt;&lt;a href=&quot;#Android-Debug&quot; class=&quot;headerlink&quot; title=&quot;Android Debug&quot;&gt;&lt;/a&gt;&lt;strong&gt;Android Debug&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; Android Studio 目前已是最主流的 Android 开发工具，其自带有强大的 Debug 功能，对运行在 Android Emulator 或相连 Android 设备上的应用进行调试，下面来一探究竟。&lt;/p&gt;
+&lt;h2 id=&quot;Android-Debug&quot;&gt;&lt;a href=&quot;#Android-Debug&quot; class=&quot;headerlink&quot; title=&quot;Android Debug&quot;&gt;&lt;/a&gt;&lt;strong&gt;Android Debug&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt; Android Studio 目前已是最主流的 Android 开发工具，其自带有强大的 Debug 功能，可以对运行在 Android Emulator 或相连 Android 设备上的应用进行调试，下面来一探究竟。&lt;/p&gt;
 &lt;p&gt;看看 Android Studio 提供的调试面板(试举一例)：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/debug_one.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;大体提供了 7 个功能区，分别为断点管理区、线程栈帧区、调试功能区、求值表达式、对象变量区和变量观察区。详细看以下几个区：&lt;/p&gt;
@@ -1328,9 +1328,9 @@
     
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
-      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
-    
       <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
+    
+      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
     
   </entry>
   
