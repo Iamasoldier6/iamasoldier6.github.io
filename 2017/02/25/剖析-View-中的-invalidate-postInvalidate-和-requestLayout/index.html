@@ -8,21 +8,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="大巧无工，重剑无锋。
 
-View 在我们的 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestL">
+View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">
 <meta property="og:url" content="http://iamasoldier6.com/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="大巧无工，重剑无锋。
 
-View 在我们的 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestL">
+View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate.png">
-<meta property="og:updated_time" content="2017-02-25T05:44:59.000Z">
+<meta property="og:updated_time" content="2017-02-26T14:32:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">
 <meta name="twitter:description" content="大巧无工，重剑无锋。
 
-View 在我们的 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestL">
+View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
@@ -221,7 +221,7 @@ View 在我们的 Android 开发中，有着极其重要的地位，甚至比常
         <blockquote>
 <p>大巧无工，重剑无锋。</p>
 </blockquote>
-<p>View 在我们的 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayout() 的究竟。<a id="more"></a></p>
+<p>View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayout() 的究竟。<a id="more"></a></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a><strong>引言</strong></h2><p>先从一道经典的面试题开始，“请描述 invalidate()、postInvalidate() 和 requestLayout() 的异同”，当初我甚至以为 invalidate() 是立即触发重绘，而 postInvalidate() 是延迟一段时间触发重绘，requestLayout() 都不知道是干嘛的，丢脸丢大发了。简略正确的回答应该大致如下：</p>
 <p>I. Android 中实现 View 的更新有两种方法，一种是 invalidate()，另一种是 postInvalidate()，invalidate() 是在 UI 线程自身中使用，而 postInvalidate() 是在非 UI 线程中使用。</p>
 <p>II. 当 View 确定自身不再适合现有的区域时，会调用 requestLayout() 方法要求 Parent View 重新调用其 onMeasure() 和 onLayout() 方法来重新设置自己的位置，尤其当 View 的 LayoutParams 发生改变，且其值尚未应用到 View 上时。</p>
