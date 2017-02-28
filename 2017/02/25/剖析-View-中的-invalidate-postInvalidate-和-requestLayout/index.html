@@ -17,7 +17,7 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 
 View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate.png">
-<meta property="og:updated_time" content="2017-02-26T14:32:46.000Z">
+<meta property="og:updated_time" content="2017-02-28T15:25:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">
 <meta name="twitter:description" content="大巧无工，重剑无锋。
@@ -262,7 +262,7 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = <span class="keyword">true</span>;</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>又走到了 scheduleTraversals() 方法！同样的分析又可以在上文提到的部分继续下去。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate.png" alt=""></p>
-<p>如上流程图所示，一目了然。若 View 自身不再适用于当前区域，如其 LayoutParams 发生了改变，需要父布局对其重新测量、布局和绘制，往往使用 requestLayout()。而 invalidate() 或者 postInvalidate() 则是刷新当前 View，对当前的 View 进行重绘，不会进行测量与布局流程。因此，若 View 只需要重绘而不用测量和布局的时候，使用 invalidate() 比 requestLayout() 更加高效。</p>
+<p>如上流程图所示，一目了然。若 View 自身不适用于当前区域，如其 LayoutParams 发生了改变，需要父布局对其重新测量、布局和绘制，往往使用 requestLayout()。而 invalidate() 或者 postInvalidate() 则是刷新当前 View，对当前的 View 进行重绘，不会进行测量与布局流程。因此，若 View 只需要重绘而不用测量和布局的时候，使用 invalidate() 比 requestLayout() 更加高效。</p>
 <p>至此，从源码角度对 invalidate，postInvalidate 和 requestLayout 的剖析完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <p><br></p>
