@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>剖析 View 中的 invalidate, postInvalidate 和 requestLayout | Iamasoldier6&#39;s Column</title>
+  <title>剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout | Iamasoldier6&#39;s Column</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="大巧无工，重剑无锋。
 
 View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">
-<meta property="og:url" content="http://iamasoldier6.com/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/index.html">
+<meta property="og:title" content="剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout">
+<meta property="og:url" content="http://iamasoldier6.com/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="大巧无工，重剑无锋。
 
 View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate.png">
-<meta property="og:updated_time" content="2017-03-09T15:22:12.000Z">
+<meta property="og:updated_time" content="2017-03-21T15:38:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">
+<meta name="twitter:title" content="剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout">
 <meta name="twitter:description" content="大巧无工，重剑无锋。
 
 View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
@@ -175,10 +175,10 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-剖析-View-中的-invalidate-postInvalidate-和-requestLayout" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/" class="article-date">
+      <a href="/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/" class="article-date">
   	<time datetime="2017-02-25T02:04:13.000Z" itemprop="datePublished">2017-02-25</time>
 </a>
     </div>
@@ -192,7 +192,7 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
         
   
     <h1 class="article-title" itemprop="name">
-      剖析 View 中的 invalidate, postInvalidate 和 requestLayout
+      剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout
     </h1>
   
 
@@ -327,9 +327,9 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 <div class="article-footer-copyright">
 <left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
 
-<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/" target="_blank" title="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">剖析 View 中的 invalidate, postInvalidate 和 requestLayout</a></b></left>
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/" target="_blank" title="剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout">剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout</a></b></left>
 
-<left><br/>本文链接：<b><a href="/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/" target="_blank" title="剖析 View 中的 invalidate, postInvalidate 和 requestLayout">http://iamasoldier6.com/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/</a></b></left>
+<left><br/>本文链接：<b><a href="/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/" target="_blank" title="剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout">http://iamasoldier6.com/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/</a></b></left>
 </div>
 <! -- 添加版权信息 -->
     
@@ -361,7 +361,7 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="剖析-View-中的-invalidate-postInvalidate-和-requestLayout" data-title="剖析 View 中的 invalidate, postInvalidate 和 requestLayout" data-url="http://iamasoldier6.com/2017/02/25/剖析-View-中的-invalidate-postInvalidate-和-requestLayout/"></div>
+	<div class="ds-thread" data-thread-key="剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout" data-title="剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout" data-url="http://iamasoldier6.com/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
