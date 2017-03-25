@@ -173,7 +173,7 @@
     <link href="http://iamasoldier6.com/2017/02/25/%E5%89%96%E6%9E%90-View-%E4%B8%AD%E7%9A%84-Invalidate-PostInvalidate-%E5%92%8C-RequestLayout/"/>
     <id>http://iamasoldier6.com/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/</id>
     <published>2017-02-25T04:06:26.000Z</published>
-    <updated>2017-03-25T04:07:23.000Z</updated>
+    <updated>2017-03-25T04:14:49.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;大巧无工，重剑无锋。&lt;/p&gt;
@@ -235,6 +235,12 @@
     
     </summary>
     
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+      <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
+    
+      <category term="View" scheme="http://iamasoldier6.com/tags/View/"/>
     
   </entry>
   
