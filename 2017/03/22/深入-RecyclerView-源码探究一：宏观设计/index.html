@@ -18,7 +18,9 @@
 时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png">
-<meta property="og:updated_time" content="2017-03-25T03:53:39.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png">
+<meta property="og:updated_time" content="2017-03-25T13:41:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究一：宏观设计">
 <meta name="twitter:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
@@ -216,13 +218,13 @@
         
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计目的"><span class="toc-number">1.</span> <span class="toc-text">设计目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宏观设计"><span class="toc-number">2.</span> <span class="toc-text">宏观设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于数据展示"><span class="toc-number">2.0.1.</span> <span class="toc-text">关于数据展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于-Flexible"><span class="toc-number">2.0.2.</span> <span class="toc-text">关于 Flexible</span></a></li></ol></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计目的"><span class="toc-number">1.</span> <span class="toc-text">设计目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宏观设计"><span class="toc-number">2.</span> <span class="toc-text">宏观设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于数据展示"><span class="toc-number">2.0.1.</span> <span class="toc-text">关于数据展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于-Flexible"><span class="toc-number">2.0.2.</span> <span class="toc-text">关于 Flexible</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于视图复用"><span class="toc-number">2.0.3.</span> <span class="toc-text">关于视图复用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
         <blockquote>
 <p>生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。</p>
 </blockquote>
-<p>时间如白驹过隙，大半年前，曾写过一篇<a href="http://t.cn/R6Gn9Kv" target="_blank" rel="external">从 ListView 到 RecyclerView 的用法浅析</a>，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几期来探讨下，这期且谈一谈其宏观设计。<a id="more"></a></p>
+<p>时间如白驹过隙，大半年前，曾写过一篇<a href="http://t.cn/R6Gn9Kv" target="_blank" rel="external">从 ListView 到 RecyclerView 的用法浅析</a>，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几篇来探讨下，这期且谈一谈其宏观设计。<a id="more"></a></p>
 <h2 id="设计目的"><a href="#设计目的" class="headerlink" title="设计目的"></a><strong>设计目的</strong></h2><p><strong><em>A flexible view for providing a limited window into a large data set.</em></strong></p>
 <p>以上简短的一句话来自官网。一言以蔽之，即一个给大型数据集提供有限窗口的弹性视图。</p>
 <p>总结两点：</p>
@@ -247,7 +249,26 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.draw(c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mItemDecorations.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        mItemDecorations.get(i).onDrawOver(c, <span class="keyword">this</span>, mState);</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最后，在计算 itemView 的 padding 时，将 getItemOffsets 得到的 Rect 加入其中，这样空出装饰内容的区域。开发者可以自定义 ItemDecoration，以实现各种各样的装饰。</p>
 <p><strong>III. 动画</strong></p>
-<p><strong>(未完待续，提交以修复另一篇显示博客找不到的 Bug)</strong></p>
+<p>通过 ItemAnimator 可以控制 Item 增删的动画。</p>
+<p>当添加、删除甚至更改 Item 时，可以通过动画来体现这种变化，RecyclerView 提供了一种非常灵活的动画机制。结构图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png" alt=""></p>
+<p>数据改变触发动画，通常调用 Adapter 中的 notify 系列方法。notify 系列的方法可以看作是发出一个事件，这里，Adapter 和 RecyclerView 的工作机制是一个典型的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/ObserverPatternDemo" target="_blank" rel="external">观察者模式</a>。</p>
+<p>RecyclerView 是观察者，Adapter 是可观察的，设置 Adapter 时，RecyclerView 订阅观察事件，Adapter 中的数据发生改变时，会通知 RecyclerView，其获取通知后，调用一系列方法，触发重新布局。接着，布局过程中，再调用一系列方法，将动画信息存储到 ViewInfoStore 中。最后，布局结束时，ViewInfoStore 统一处理，通过 Callback 中的方法调用 ItemAnimator 中的方法，再执行动画。</p>
+<p>ItemAnimator 铸就了 RecyclerView 动画的灵活性，开发者通过继承 ItemAnimator，实现或重写其方法，来生成各种各样的效果。</p>
+<h4 id="关于视图复用"><a href="#关于视图复用" class="headerlink" title="关于视图复用"></a><strong>关于视图复用</strong></h4><p>有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png" alt=""></p>
+<p>橙色列表是一个 Recycler，底部还有个 RecycledViewPool。</p>
+<p><strong><em>Recycler</em></strong></p>
+<p>A Recycler is responsible for managing scrapped or detached item views for reuse.</p>
+<p>大意即 Recycler 负责管理成为碎片的视图或者 detached 视图的复用。</p>
+<p><strong><em>RecycledViewPool</em></strong></p>
+<p>RecycledViewPool lets you share Views between multiple RecyclerViews.</p>
+<p>大意即 RecycledViewPool 能让你在多个 RecyclerView 之间分享视图。</p>
+<p>实际上，ViewHolder 的创建和绑定都由 Recycler 执行。此外，LayoutManager 获得 ViewHolder 的 itemView，也由 Recycler 提供。Recycler 里有几个 ViewHolder 的容器，用来存储不同状态的 ViewHolder，以便复用。其中，通过 ViewCacheExtension 类，开发者可以自定义复用机制。而 RecycledViewPool，可以从外部对多个 RecyclerView 设置同一个 RecycledViewPool，以实现多个 RecyclerView 中 ViewHolder 的复用。</p>
+<p>至此，关于 RecyclerView 的宏观设计探究完毕，后续将分几篇从主要流程和机制方面展开探究。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<p><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://www.jianshu.com/p/9ddfdffee5d3" target="_blank" rel="external">http://www.jianshu.com/p/9ddfdffee5d3</a></p>
 
       
     </div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-03-25T03:53:39.000Z</updated>
+  <updated>2017-03-25T13:41:14.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://iamasoldier6.com/2017/03/22/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%B8%80%EF%BC%9A%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1/"/>
     <id>http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/</id>
     <published>2017-03-22T11:35:29.000Z</published>
-    <updated>2017-03-25T03:53:39.000Z</updated>
+    <updated>2017-03-25T13:41:14.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几期来探讨下，这期且谈一谈其宏观设计。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几篇来探讨下，这期且谈一谈其宏观设计。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;设计目的&quot;&gt;&lt;a href=&quot;#设计目的&quot; class=&quot;headerlink&quot; title=&quot;设计目的&quot;&gt;&lt;/a&gt;&lt;strong&gt;设计目的&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;A flexible view for providing a limited window into a large data set.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;以上简短的一句话来自官网。一言以蔽之，即一个给大型数据集提供有限窗口的弹性视图。&lt;/p&gt;
 &lt;p&gt;总结两点：&lt;/p&gt;
@@ -50,7 +50,26 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;draw&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Canvas c)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.draw(c);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; count = mItemDecorations.size();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; count; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mItemDecorations.get(i).onDrawOver(c, &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, mState);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  	&lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;最后，在计算 itemView 的 padding 时，将 getItemOffsets 得到的 Rect 加入其中，这样空出装饰内容的区域。开发者可以自定义 ItemDecoration，以实现各种各样的装饰。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;III. 动画&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;(未完待续，提交以修复另一篇显示博客找不到的 Bug)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过 ItemAnimator 可以控制 Item 增删的动画。&lt;/p&gt;
+&lt;p&gt;当添加、删除甚至更改 Item 时，可以通过动画来体现这种变化，RecyclerView 提供了一种非常灵活的动画机制。结构图如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;数据改变触发动画，通常调用 Adapter 中的 notify 系列方法。notify 系列的方法可以看作是发出一个事件，这里，Adapter 和 RecyclerView 的工作机制是一个典型的&lt;a href=&quot;https://github.com/Iamasoldier6/DesignPattern/tree/master/ObserverPatternDemo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;观察者模式&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;RecyclerView 是观察者，Adapter 是可观察的，设置 Adapter 时，RecyclerView 订阅观察事件，Adapter 中的数据发生改变时，会通知 RecyclerView，其获取通知后，调用一系列方法，触发重新布局。接着，布局过程中，再调用一系列方法，将动画信息存储到 ViewInfoStore 中。最后，布局结束时，ViewInfoStore 统一处理，通过 Callback 中的方法调用 ItemAnimator 中的方法，再执行动画。&lt;/p&gt;
+&lt;p&gt;ItemAnimator 铸就了 RecyclerView 动画的灵活性，开发者通过继承 ItemAnimator，实现或重写其方法，来生成各种各样的效果。&lt;/p&gt;
+&lt;h4 id=&quot;关于视图复用&quot;&gt;&lt;a href=&quot;#关于视图复用&quot; class=&quot;headerlink&quot; title=&quot;关于视图复用&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于视图复用&lt;/strong&gt;&lt;/h4&gt;&lt;p&gt;有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;橙色列表是一个 Recycler，底部还有个 RecycledViewPool。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Recycler&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A Recycler is responsible for managing scrapped or detached item views for reuse.&lt;/p&gt;
+&lt;p&gt;大意即 Recycler 负责管理成为碎片的视图或者 detached 视图的复用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;RecycledViewPool&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;RecycledViewPool lets you share Views between multiple RecyclerViews.&lt;/p&gt;
+&lt;p&gt;大意即 RecycledViewPool 能让你在多个 RecyclerView 之间分享视图。&lt;/p&gt;
+&lt;p&gt;实际上，ViewHolder 的创建和绑定都由 Recycler 执行。此外，LayoutManager 获得 ViewHolder 的 itemView，也由 Recycler 提供。Recycler 里有几个 ViewHolder 的容器，用来存储不同状态的 ViewHolder，以便复用。其中，通过 ViewCacheExtension 类，开发者可以自定义复用机制。而 RecycledViewPool，可以从外部对多个 RecyclerView 设置同一个 RecycledViewPool，以实现多个 RecyclerView 中 ViewHolder 的复用。&lt;/p&gt;
+&lt;p&gt;至此，关于 RecyclerView 的宏观设计探究完毕，后续将分几篇从主要流程和机制方面展开探究。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/9ddfdffee5d3&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/9ddfdffee5d3&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -58,7 +77,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几期来探讨下，这期且谈一谈其宏观设计。
+&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几篇来探讨下，这期且谈一谈其宏观设计。
     
     </summary>
     
