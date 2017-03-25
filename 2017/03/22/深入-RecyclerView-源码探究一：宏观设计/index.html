@@ -4,34 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>我的 Android 训练馆 | Iamasoldier6&#39;s Column</title>
+  <title>深入 RecyclerView 源码探究一：宏观设计 | Iamasoldier6&#39;s Column</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。">
+  <meta name="description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
+
+时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的 Android 训练馆">
-<meta property="og:url" content="http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/index.html">
+<meta property="og:title" content="深入 RecyclerView 源码探究一：宏观设计">
+<meta property="og:url" content="http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
-<meta property="og:description" content="当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spurs.jpg">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvvmgithub.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/lockwake.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/tulingrobot.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/logindemo.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/gesturelock.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/circleavatar.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wheelselect.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wechatpopup.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/fragmenttab.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/pulldownrefresh.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/cusprogress.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/extendlistview.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/autoslide.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/verticalview.gif">
-<meta property="og:updated_time" content="2016-11-19T03:58:14.000Z">
+<meta property="og:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
+
+时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png">
+<meta property="og:updated_time" content="2017-03-25T03:53:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的 Android 训练馆">
-<meta name="twitter:description" content="当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spurs.jpg">
+<meta name="twitter:title" content="深入 RecyclerView 源码探究一：宏观设计">
+<meta name="twitter:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
+
+时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -183,11 +176,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-我的 Android-训练馆" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-深入-RecyclerView-源码探究一：宏观设计" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/11/05/我的 Android-训练馆/" class="article-date">
-  	<time datetime="2016-11-05T09:14:26.000Z" itemprop="datePublished">2016-11-05</time>
+      <a href="/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/" class="article-date">
+  	<time datetime="2017-03-22T11:35:29.000Z" itemprop="datePublished">2017-03-22</time>
 </a>
     </div>
   
@@ -200,7 +193,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      我的 Android 训练馆
+      深入 RecyclerView 源码探究一：宏观设计
     </h1>
   
 
@@ -209,7 +202,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RecyclerView/">RecyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/">Source Code</a></li></ul>
 	</div>
 
         
@@ -223,47 +216,38 @@
         
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计目的"><span class="toc-number">1.</span> <span class="toc-text">设计目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宏观设计"><span class="toc-number">2.</span> <span class="toc-text">宏观设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于数据展示"><span class="toc-number">2.0.1.</span> <span class="toc-text">关于数据展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于-Flexible"><span class="toc-number">2.0.2.</span> <span class="toc-text">关于 Flexible</span></a></li></ol></li></ol></li></ol>
   </div>
 
         <blockquote>
-<p>当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。<a id="more"></a></p>
+<p>生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。</p>
 </blockquote>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/spurs.jpg" alt=""></p>
-<p>以上是 NBA 马刺队更衣室里的格言。</p>
-<p>欢迎来到我的 Android 训练馆！自搭建博客至今，已悄然过去半年有余。陆陆续续的，这半年间，也有不少放到 GitHub 上的 Android Demo，包括研读沪江网 Android 工程师<a href="http://blog.csdn.net/eclipsexys" target="_blank" rel="external">徐宜生</a>《 Android 群英传》的绝大部分 Demo、研读优秀 Android 工程师如<a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external">郭霖</a>、<a href="http://blog.csdn.net/lmj623565791" target="_blank" rel="external">张鸿洋</a>等人部分博客的 Demo 以及自己工作学习中写的部分 Demo。今天稍作整理，总结所得，将其中一些 Demo 示例效果放至博客上，供有需要的人参考。</p>
-<p>Demo 仓库地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">AndroidExerciseDemos</a>，这里是我挥洒汗水与激情的训练馆，示以强迫症式的优雅的代码以及详尽的注释，<strong>依照时间顺序由近及远，持续更新中</strong>。</p>
-<p>1.博客<a href="http://t.cn/RfvjIYG" target="_blank" rel="external">浅析 Android 中的三大模式：MVC , MVP 和 MVVM (二)</a>中的 <code>MVVMGitHubDemo</code>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/mvvmgithub.gif" alt=""></p>
-<p>MVP + Data Binding 改进版的 <code>MVPDataBindDemo</code> 示例效果一样。</p>
-<p>2.点击设定按钮，屏幕锁定黑屏，定时 5 秒后，自动解锁唤醒，点亮屏幕。(<code>LockWakeScreenDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/lockwake.gif" alt=""></p>
-<p>3.类似微软小冰，智能问答式的图灵机器人，需要在<a href="http://www.tuling123.com/" target="_blank" rel="external">图灵机器人</a>官网注册后，选择创建自己的机器人，再从个人中心取得自己的 APIkey。(<code>TulingRobotDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/tulingrobot.gif" alt=""></p>
-<p>4.博客<a href="http://t.cn/Rcel4ly" target="_blank" rel="external">浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)</a> 中的<code>MVPLoginDemo</code>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/logindemo.gif" alt=""></p>
-<p>5.自定义的手势锁，可以指定 N * N 的锁点、锁的颜色变化和尝试解锁的次数等。(<code>CusGestureLockDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/gesturelock.gif" alt=""></p>
-<p>6.图片为圆形或者自定义圆角，适用于应用中头像的自定义使用。(<code>CusCircleAvatarDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/circleavatar.gif" alt=""></p>
-<p>7.使用滚轮选择器控件，实现类似淘宝手机客户端，可以选择收获地址的省市区三级联动组件。(<code>WheelSelectDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wheelselect.gif" alt=""></p>
-<p>8.类似微信主界面，点击顶部标题栏右边加号，弹出个小窗口。(<code>WeChatPopupWindowDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wechatpopup.gif" alt=""></p>
-<p>9.利用 Fragment ，实现了项目常用的 Tab 切换，如一个主界面，其下面四个 Tab 页，互相切换，类似微信。(<code>FragTabDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/fragmenttab.gif" alt=""></p>
-<p>10.实现下拉刷新，可显示刷新后的文字与时间描述，方便做后续的扩展。(<code>PullDownRefreshDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/pulldownrefresh.gif" alt=""></p>
-<p>11.自定义圆环形进度更新圈。(<code>CusProgressCircle</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/cusprogress.gif" alt=""></p>
-<p>12.对 ListView 的扩展，在 ListView 上滑动就可以显示出一个删除按钮，点击按钮就会删除相应的数据。(<code>ExtendListViewDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/extendlistview.gif" alt=""></p>
-<p>13.自定义图片轮播控件，类似淘宝客户端中图片滚动播放器的效果，不过图片滚动到最后一张时，是迅速地回滚到第一张图片，再从头开始滚动。(<code>PicAutoSlideDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/autoslide.gif" alt=""></p>
-<p>14.竖直上下滑动来切换界面的 VerticalViewPager 控件。(<code>VerticalViewPagerDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/verticalview.gif" alt=""></p>
-<p>想查看更多实用有趣的 Demo，欢迎访问我的训练馆：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">AndroidExerciseDemos</a>。</p>
-<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<p>时间如白驹过隙，大半年前，曾写过一篇<a href="http://t.cn/R6Gn9Kv" target="_blank" rel="external">从 ListView 到 RecyclerView 的用法浅析</a>，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几期来探讨下，这期且谈一谈其宏观设计。<a id="more"></a></p>
+<h2 id="设计目的"><a href="#设计目的" class="headerlink" title="设计目的"></a><strong>设计目的</strong></h2><p><strong><em>A flexible view for providing a limited window into a large data set.</em></strong></p>
+<p>以上简短的一句话来自官网。一言以蔽之，即一个给大型数据集提供有限窗口的弹性视图。</p>
+<p>总结两点：</p>
+<ul>
+<li>limited window, large data set.</li>
+<li>flexible view.</li>
+</ul>
+<p>下面看看其精美的宏观设计。</p>
+<h2 id="宏观设计"><a href="#宏观设计" class="headerlink" title="宏观设计"></a><strong>宏观设计</strong></h2><h4 id="关于数据展示"><a href="#关于数据展示" class="headerlink" title="关于数据展示"></a><strong>关于数据展示</strong></h4><p>RecyclerView 的目的之一就是在有限的窗口能够展示大量数据，和 ListView 一样，运用了设计模式中的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/AdapterPatternDemo" target="_blank" rel="external">适配器模式</a>。结构图如下所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png" alt=""></p>
+<p>RecyclerView 继承自 ViewGroup，是装载子 View 的容器之一，其通过 Adapter，整合要展示数据的内容和类型，生成相应的 ViewHolder，再设置相应的 itemView，从而展示出来。其中，通过实现 Adapter 中的 onCreateViewHolder() 创建 ViewHolder，onBindViewHolder() 绑定数据，Data 才能转化生成用于展示 View 的 ViewHolder。</p>
+<h4 id="关于-Flexible"><a href="#关于-Flexible" class="headerlink" title="关于 Flexible"></a><strong>关于 Flexible</strong></h4><p>RecyclerView 高度解耦，异常灵活，从其布局、装饰和动画上能体现其极好的弹性。</p>
+<p><strong>I. 布局</strong></p>
+<p>通过布局管理器 LayoutManager 可以控制其显示方式。结构图如下所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png" alt=""></p>
+<p>RecyclerView 的布局全权由 LayoutManager 负责，其获取 ViewHolder 中的 itemView，根据定义好的布局模式(包括线性布局、网格布局和瀑布流布局)，对 itemView 进行布局，最后添加到 RecyclerView 中显示出来。此外，开发者可以根据自己的需求，重写相关的方法，进行自定义布局。</p>
+<p><strong>II. 装饰</strong></p>
+<p>通过 ItemDecoration 可以控制 Item 间的间隔(可绘制)。</p>
+<p>装饰需要实现 ItemDecoration 类中的抽象函数。RecyclerView 内部调用 onDraw() 方法时执行 ItemDecoraton 的 onDraw() 方法，源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDraw(c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mItemDecorations.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        mItemDecorations.get(i).onDraw(c, <span class="keyword">this</span>, mState);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而后，在 draw 的时候执行 ItemDecoration 的 onDrawOver() 方法。源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.draw(c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mItemDecorations.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        mItemDecorations.get(i).onDrawOver(c, <span class="keyword">this</span>, mState);</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，在计算 itemView 的 padding 时，将 getItemOffsets 得到的 Rect 加入其中，这样空出装饰内容的区域。开发者可以自定义 ItemDecoration，以实现各种各样的装饰。</p>
+<p><strong>III. 动画</strong></p>
+<p><strong>(未完待续，提交以修复另一篇显示博客找不到的 Bug)</strong></p>
 
       
     </div>
@@ -273,18 +257,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/11/20/从-Android-WebView-谈开去/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          从 Android WebView 谈开去
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/22/React-Native-For-Android-之初体验/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React Native for Android 之初体验</div>
+    <a href="/2017/03/11/浅谈-Java-中的泛型/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈 Java 中的泛型</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -324,9 +299,9 @@
 <div class="article-footer-copyright">
 <left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
 
-<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/11/05/我的 Android-训练馆/" target="_blank" title="我的 Android 训练馆">我的 Android 训练馆</a></b></left>
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/" target="_blank" title="深入 RecyclerView 源码探究一：宏观设计">深入 RecyclerView 源码探究一：宏观设计</a></b></left>
 
-<left><br/>本文链接：<b><a href="/2016/11/05/我的 Android-训练馆/" target="_blank" title="我的 Android 训练馆">http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/</a></b></left>
+<left><br/>本文链接：<b><a href="/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/" target="_blank" title="深入 RecyclerView 源码探究一：宏观设计">http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/</a></b></left>
 </div>
 <! -- 添加版权信息 -->
     
@@ -358,7 +333,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="我的 Android-训练馆" data-title="我的 Android 训练馆" data-url="http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/"></div>
+	<div class="ds-thread" data-thread-key="深入-RecyclerView-源码探究一：宏观设计" data-title="深入 RecyclerView 源码探究一：宏观设计" data-url="http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
