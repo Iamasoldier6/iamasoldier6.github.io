@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-03-25T13:47:09.000Z</updated>
+  <updated>2017-03-25T13:49:26.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2017/03/22/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%B8%80%EF%BC%9A%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1/"/>
     <id>http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/</id>
     <published>2017-03-22T11:35:29.000Z</published>
-    <updated>2017-03-25T13:47:09.000Z</updated>
+    <updated>2017-03-25T13:49:26.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
@@ -68,8 +68,6 @@
 &lt;p&gt;实际上，ViewHolder 的创建和绑定都由 Recycler 执行。此外，LayoutManager 获得 ViewHolder 的 itemView，也由 Recycler 提供。Recycler 里有几个 ViewHolder 的容器，用来存储不同状态的 ViewHolder，以便复用。其中，通过 ViewCacheExtension 类，开发者可以自定义复用机制。而 RecycledViewPool，可以从外部对多个 RecyclerView 设置同一个 RecycledViewPool，以实现多个 RecyclerView 中 ViewHolder 的复用。&lt;/p&gt;
 &lt;p&gt;至此，关于 RecyclerView 的宏观设计探究完毕，后续将分几篇从主要流程和机制方面展开探究。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/9ddfdffee5d3&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/9ddfdffee5d3&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
