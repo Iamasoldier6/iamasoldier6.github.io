@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-03-25T13:49:26.000Z</updated>
+  <updated>2017-03-26T08:20:48.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2017/03/22/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%B8%80%EF%BC%9A%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1/"/>
     <id>http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/</id>
     <published>2017-03-22T11:35:29.000Z</published>
-    <updated>2017-03-25T13:49:26.000Z</updated>
+    <updated>2017-03-26T08:20:48.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
@@ -34,10 +34,10 @@
 &lt;li&gt;flexible view.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;下面看看其精美的宏观设计。&lt;/p&gt;
-&lt;h2 id=&quot;宏观设计&quot;&gt;&lt;a href=&quot;#宏观设计&quot; class=&quot;headerlink&quot; title=&quot;宏观设计&quot;&gt;&lt;/a&gt;&lt;strong&gt;宏观设计&lt;/strong&gt;&lt;/h2&gt;&lt;h4 id=&quot;关于数据展示&quot;&gt;&lt;a href=&quot;#关于数据展示&quot; class=&quot;headerlink&quot; title=&quot;关于数据展示&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于数据展示&lt;/strong&gt;&lt;/h4&gt;&lt;p&gt;RecyclerView 的目的之一就是在有限的窗口能够展示大量数据，和 ListView 一样，运用了设计模式中的&lt;a href=&quot;https://github.com/Iamasoldier6/DesignPattern/tree/master/AdapterPatternDemo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;适配器模式&lt;/a&gt;。结构图如下所示：&lt;/p&gt;
+&lt;h2 id=&quot;宏观设计&quot;&gt;&lt;a href=&quot;#宏观设计&quot; class=&quot;headerlink&quot; title=&quot;宏观设计&quot;&gt;&lt;/a&gt;&lt;strong&gt;宏观设计&lt;/strong&gt;&lt;/h2&gt;&lt;h3 id=&quot;关于数据展示&quot;&gt;&lt;a href=&quot;#关于数据展示&quot; class=&quot;headerlink&quot; title=&quot;关于数据展示&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于数据展示&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;RecyclerView 的目的之一就是在有限的窗口能够展示大量数据，和 ListView 一样，运用了设计模式中的&lt;a href=&quot;https://github.com/Iamasoldier6/DesignPattern/tree/master/AdapterPatternDemo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;适配器模式&lt;/a&gt;。结构图如下所示：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;RecyclerView 继承自 ViewGroup，是装载子 View 的容器之一，其通过 Adapter，整合要展示数据的内容和类型，生成相应的 ViewHolder，再设置相应的 itemView，从而展示出来。其中，通过实现 Adapter 中的 onCreateViewHolder() 创建 ViewHolder，onBindViewHolder() 绑定数据，Data 才能转化生成用于展示 View 的 ViewHolder。&lt;/p&gt;
-&lt;h4 id=&quot;关于-Flexible&quot;&gt;&lt;a href=&quot;#关于-Flexible&quot; class=&quot;headerlink&quot; title=&quot;关于 Flexible&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于 Flexible&lt;/strong&gt;&lt;/h4&gt;&lt;p&gt;RecyclerView 高度解耦，异常灵活，从其布局、装饰和动画上能体现其极好的弹性。&lt;/p&gt;
+&lt;h3 id=&quot;关于-Flexible&quot;&gt;&lt;a href=&quot;#关于-Flexible&quot; class=&quot;headerlink&quot; title=&quot;关于 Flexible&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于 Flexible&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;RecyclerView 高度解耦，异常灵活，从其布局、装饰和动画上能体现其极好的弹性。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;I. 布局&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;通过布局管理器 LayoutManager 可以控制其显示方式。结构图如下所示：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -56,7 +56,7 @@
 &lt;p&gt;数据改变触发动画，通常调用 Adapter 中的 notify 系列方法。notify 系列的方法可以看作是发出一个事件，这里，Adapter 和 RecyclerView 的工作机制是一个典型的&lt;a href=&quot;https://github.com/Iamasoldier6/DesignPattern/tree/master/ObserverPatternDemo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;观察者模式&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;RecyclerView 是观察者，Adapter 是可观察的，设置 Adapter 时，RecyclerView 订阅观察事件，Adapter 中的数据发生改变时，会通知 RecyclerView，其获取通知后，调用一系列方法，触发重新布局。接着，布局过程中，再调用一系列方法，将动画信息存储到 ViewInfoStore 中。最后，布局结束时，ViewInfoStore 统一处理，通过 Callback 中的方法调用 ItemAnimator 中的方法，再执行动画。&lt;/p&gt;
 &lt;p&gt;ItemAnimator 铸就了 RecyclerView 动画的灵活性，开发者通过继承 ItemAnimator，实现或重写其方法，来生成各种各样的效果。&lt;/p&gt;
-&lt;h4 id=&quot;关于视图复用&quot;&gt;&lt;a href=&quot;#关于视图复用&quot; class=&quot;headerlink&quot; title=&quot;关于视图复用&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于视图复用&lt;/strong&gt;&lt;/h4&gt;&lt;p&gt;有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：&lt;/p&gt;
+&lt;h3 id=&quot;关于视图复用&quot;&gt;&lt;a href=&quot;#关于视图复用&quot; class=&quot;headerlink&quot; title=&quot;关于视图复用&quot;&gt;&lt;/a&gt;&lt;strong&gt;关于视图复用&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;橙色列表是一个 Recycler，底部还有个 RecycledViewPool。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Recycler&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;

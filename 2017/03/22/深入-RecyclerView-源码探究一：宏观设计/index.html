@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png">
-<meta property="og:updated_time" content="2017-03-25T13:49:26.000Z">
+<meta property="og:updated_time" content="2017-03-26T08:20:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究一：宏观设计">
 <meta name="twitter:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
@@ -218,7 +218,7 @@
         
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计目的"><span class="toc-number">1.</span> <span class="toc-text">设计目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宏观设计"><span class="toc-number">2.</span> <span class="toc-text">宏观设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于数据展示"><span class="toc-number">2.0.1.</span> <span class="toc-text">关于数据展示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于-Flexible"><span class="toc-number">2.0.2.</span> <span class="toc-text">关于 Flexible</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于视图复用"><span class="toc-number">2.0.3.</span> <span class="toc-text">关于视图复用</span></a></li></ol></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计目的"><span class="toc-number">1.</span> <span class="toc-text">设计目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宏观设计"><span class="toc-number">2.</span> <span class="toc-text">宏观设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于数据展示"><span class="toc-number">2.1.</span> <span class="toc-text">关于数据展示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-Flexible"><span class="toc-number">2.2.</span> <span class="toc-text">关于 Flexible</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于视图复用"><span class="toc-number">2.3.</span> <span class="toc-text">关于视图复用</span></a></li></ol></li></ol>
   </div>
 
         <blockquote>
@@ -233,10 +233,10 @@
 <li>flexible view.</li>
 </ul>
 <p>下面看看其精美的宏观设计。</p>
-<h2 id="宏观设计"><a href="#宏观设计" class="headerlink" title="宏观设计"></a><strong>宏观设计</strong></h2><h4 id="关于数据展示"><a href="#关于数据展示" class="headerlink" title="关于数据展示"></a><strong>关于数据展示</strong></h4><p>RecyclerView 的目的之一就是在有限的窗口能够展示大量数据，和 ListView 一样，运用了设计模式中的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/AdapterPatternDemo" target="_blank" rel="external">适配器模式</a>。结构图如下所示：</p>
+<h2 id="宏观设计"><a href="#宏观设计" class="headerlink" title="宏观设计"></a><strong>宏观设计</strong></h2><h3 id="关于数据展示"><a href="#关于数据展示" class="headerlink" title="关于数据展示"></a><strong>关于数据展示</strong></h3><p>RecyclerView 的目的之一就是在有限的窗口能够展示大量数据，和 ListView 一样，运用了设计模式中的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/AdapterPatternDemo" target="_blank" rel="external">适配器模式</a>。结构图如下所示：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png" alt=""></p>
 <p>RecyclerView 继承自 ViewGroup，是装载子 View 的容器之一，其通过 Adapter，整合要展示数据的内容和类型，生成相应的 ViewHolder，再设置相应的 itemView，从而展示出来。其中，通过实现 Adapter 中的 onCreateViewHolder() 创建 ViewHolder，onBindViewHolder() 绑定数据，Data 才能转化生成用于展示 View 的 ViewHolder。</p>
-<h4 id="关于-Flexible"><a href="#关于-Flexible" class="headerlink" title="关于 Flexible"></a><strong>关于 Flexible</strong></h4><p>RecyclerView 高度解耦，异常灵活，从其布局、装饰和动画上能体现其极好的弹性。</p>
+<h3 id="关于-Flexible"><a href="#关于-Flexible" class="headerlink" title="关于 Flexible"></a><strong>关于 Flexible</strong></h3><p>RecyclerView 高度解耦，异常灵活，从其布局、装饰和动画上能体现其极好的弹性。</p>
 <p><strong>I. 布局</strong></p>
 <p>通过布局管理器 LayoutManager 可以控制其显示方式。结构图如下所示：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png" alt=""></p>
@@ -255,7 +255,7 @@
 <p>数据改变触发动画，通常调用 Adapter 中的 notify 系列方法。notify 系列的方法可以看作是发出一个事件，这里，Adapter 和 RecyclerView 的工作机制是一个典型的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/ObserverPatternDemo" target="_blank" rel="external">观察者模式</a>。</p>
 <p>RecyclerView 是观察者，Adapter 是可观察的，设置 Adapter 时，RecyclerView 订阅观察事件，Adapter 中的数据发生改变时，会通知 RecyclerView，其获取通知后，调用一系列方法，触发重新布局。接着，布局过程中，再调用一系列方法，将动画信息存储到 ViewInfoStore 中。最后，布局结束时，ViewInfoStore 统一处理，通过 Callback 中的方法调用 ItemAnimator 中的方法，再执行动画。</p>
 <p>ItemAnimator 铸就了 RecyclerView 动画的灵活性，开发者通过继承 ItemAnimator，实现或重写其方法，来生成各种各样的效果。</p>
-<h4 id="关于视图复用"><a href="#关于视图复用" class="headerlink" title="关于视图复用"></a><strong>关于视图复用</strong></h4><p>有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：</p>
+<h3 id="关于视图复用"><a href="#关于视图复用" class="headerlink" title="关于视图复用"></a><strong>关于视图复用</strong></h3><p>有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png" alt=""></p>
 <p>橙色列表是一个 Recycler，底部还有个 RecycledViewPool。</p>
 <p><strong><em>Recycler</em></strong></p>
