@@ -1576,9 +1576,9 @@
     
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
-      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
-    
       <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
+    
+      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
     
   </entry>
   
@@ -1762,7 +1762,7 @@
     <link href="http://iamasoldier6.com/2016/06/12/%E5%A4%8D%E7%9B%98Mac-OS-X-%E4%B8%8BAndroid-6-0-%E6%BA%90%E7%A0%81%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E7%BC%96%E8%AF%91/"/>
     <id>http://iamasoldier6.com/2016/06/12/复盘Mac-OS-X-下Android-6-0-源码的下载与编译/</id>
     <published>2016-06-12T04:26:35.000Z</published>
-    <updated>2016-11-19T03:58:02.000Z</updated>
+    <updated>2017-03-29T14:58:47.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;复盘是棋类术语，指对局完毕后，复演该盘棋的记录，以检查对局中着法的优劣与得失关键，同时提出假设，再找出最佳方案。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1815,14 +1815,14 @@
 &lt;p&gt;解决办法：&lt;/p&gt;
 &lt;figure class=&quot;highlight stata&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;cd&lt;/span&gt; external/iptables/extensions/../&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt;/linux/netfilter&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s xt_dscp.&lt;span class=&quot;keyword&quot;&gt;h&lt;/span&gt; xt_DSCP.&lt;span class=&quot;built_in&quot;&gt;h&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;再返回 AOSP 目录，重新 &lt;code&gt;make -j4&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;出现问题，解决，再 &lt;code&gt;make -j4&lt;/code&gt;，循环往复，直到最终编译完成。不用管出现的多个 warning，有 error 时解决完继续下去。编译全程，花了一半小时多点。最后，令人激动的时刻来临！&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/success_hhh.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;编译成功！Congratulations！！！此时，可以写入模拟器或真机进行调试了。&lt;/p&gt;
+&lt;p&gt;出现问题，解决，再 &lt;code&gt;make -j4&lt;/code&gt;，循环往复，直到最终编译完成。不用管出现的多个 warning，有 error 时解决完继续下去。编译全程，花了一半小时多点。最后，令人激动的时刻来临！&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/success_hhh1.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;编译成功！Congratulations！！！此时，可以写入模拟器或真机进行调试了。&lt;/p&gt;
 &lt;h2 id=&quot;阅读源码&quot;&gt;&lt;a href=&quot;#阅读源码&quot; class=&quot;headerlink&quot; title=&quot;阅读源码&quot;&gt;&lt;/a&gt;&lt;strong&gt;阅读源码&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;阅读源码的工具种类繁多，这里，姑且只谈谈使用 Android Studio 阅读源码。&lt;/p&gt;
 &lt;p&gt;源码根目录下，&lt;/p&gt;
 &lt;figure class=&quot;highlight coffeescript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ mmm development&lt;span class=&quot;regexp&quot;&gt;/tools/idegen/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;稍等片刻，接着&lt;/p&gt;
 &lt;figure class=&quot;highlight dts&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sh .&lt;span class=&quot;meta-keyword&quot;&gt;/development/&lt;/span&gt;tools&lt;span class=&quot;meta-keyword&quot;&gt;/idegen/&lt;/span&gt;idegen.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;最终完成后，打开 Android Studio，选择打开一个现有的 Android Studio 项目，选择 Android 源码的根目录，导入 android.irp 文件，Bingo！精美的源码世界。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/source_world.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/source_world1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;后记&quot;&gt;&lt;a href=&quot;#后记&quot; class=&quot;headerlink&quot; title=&quot;后记&quot;&gt;&lt;/a&gt;&lt;strong&gt;后记&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;“源码在手，天下我有”，想想还有点小激动呢。拍拍身上的灰尘，活动完筋骨，继续前行。“路漫漫其修远兮，吾将上下而求索”。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://source.android.com/source/requirements.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://source.android.com/source/requirements.html&lt;/a&gt;&lt;/p&gt;
