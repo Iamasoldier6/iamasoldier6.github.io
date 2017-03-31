@@ -16,14 +16,14 @@
 <meta property="og:description" content="人生是一场马拉松，要认准目标，去稳步前行，切勿急躁，良好的节奏很重要。
 
 不知大家发现没有，笔试或面试时，常会遇到这样一个问题，即让你谈谈对 Android 异步消息处理机制的理解。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message.png">
-<meta property="og:updated_time" content="2016-11-19T04:01:59.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message1.png">
+<meta property="og:updated_time" content="2017-03-31T15:00:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Android 异步消息处理机制">
 <meta name="twitter:description" content="人生是一场马拉松，要认准目标，去稳步前行，切勿急躁，良好的节奏很重要。
 
 不知大家发现没有，笔试或面试时，常会遇到这样一个问题，即让你谈谈对 Android 异步消息处理机制的理解。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message.png">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message1.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -248,7 +248,7 @@
 <p>第 5 行，若 mCallback 不为空，则调用 mCallback 的 handleMessage() 方法，否则调用 Handler 的 handleMessage() 方法，将消息对象作为参数传递过去。</p>
 <p>参看 Android 的官方文档，最标准的异步消息处理线程的写法如下：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LooperThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;  </span><br><span class="line">      public <span class="type">Handler</span> mHandler;  </span><br><span class="line">      public void run() &#123;  </span><br><span class="line">          <span class="type">Looper</span>.prepare();  </span><br><span class="line">          mHandler = <span class="keyword">new</span> <span class="type">Handler</span>() &#123;  </span><br><span class="line">              public void handleMessage(<span class="type">Message</span> msg) &#123;  </span><br><span class="line">                  <span class="comment">// process incoming messages here  </span></span><br><span class="line">              &#125;  </span><br><span class="line">          &#125;;  </span><br><span class="line">          <span class="type">Looper</span>.loop();  </span><br><span class="line">      &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示意图如下图所示：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message.png" alt=""></p>
+<p>示意图如下图所示：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/handler_message1.png" alt=""></p>
 <p>除了发送消息，还有以下几种方法可以在子线程中进行 UI 操作：Handler 的 post()，View 的 post() 和 Activity 的 runOnUiThread() 方法。</p>
 <p>Handler 的 post() 方法代码如下：</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">post</span><span class="params">(Runnable r)</span>  </span><br><span class="line"></span>&#123;  </span><br><span class="line">   <span class="keyword">return</span>  sendMessageDelayed(getPostMessage(r), <span class="number">0</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
