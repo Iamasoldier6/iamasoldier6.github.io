@@ -11,7 +11,7 @@
 时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 RecyclerView 源码探究一：宏观设计">
-<meta property="og:url" content="http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/index.html">
+<meta property="og:url" content="http://iamasoldier6.com/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
 
@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png">
-<meta property="og:updated_time" content="2017-03-26T08:24:09.000Z">
+<meta property="og:updated_time" content="2017-04-02T03:49:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究一：宏观设计">
 <meta name="twitter:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
@@ -181,8 +181,8 @@
       <div class="body-wrap"><article id="post-深入-RecyclerView-源码探究一：宏观设计" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/" class="article-date">
-  	<time datetime="2017-03-22T11:35:29.000Z" itemprop="datePublished">2017-03-22</time>
+      <a href="/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/" class="article-date">
+  	<time datetime="2017-03-25T11:35:29.000Z" itemprop="datePublished">2017-03-25</time>
 </a>
     </div>
   
@@ -320,9 +320,9 @@
 <div class="article-footer-copyright">
 <left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
 
-<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/" target="_blank" title="深入 RecyclerView 源码探究一：宏观设计">深入 RecyclerView 源码探究一：宏观设计</a></b></left>
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/" target="_blank" title="深入 RecyclerView 源码探究一：宏观设计">深入 RecyclerView 源码探究一：宏观设计</a></b></left>
 
-<left><br/>本文链接：<b><a href="/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/" target="_blank" title="深入 RecyclerView 源码探究一：宏观设计">http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/</a></b></left>
+<left><br/>本文链接：<b><a href="/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/" target="_blank" title="深入 RecyclerView 源码探究一：宏观设计">http://iamasoldier6.com/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/</a></b></left>
 </div>
 <! -- 添加版权信息 -->
     
@@ -354,7 +354,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="深入-RecyclerView-源码探究一：宏观设计" data-title="深入 RecyclerView 源码探究一：宏观设计" data-url="http://iamasoldier6.com/2017/03/22/深入-RecyclerView-源码探究一：宏观设计/"></div>
+	<div class="ds-thread" data-thread-key="深入-RecyclerView-源码探究一：宏观设计" data-title="深入 RecyclerView 源码探究一：宏观设计" data-url="http://iamasoldier6.com/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
