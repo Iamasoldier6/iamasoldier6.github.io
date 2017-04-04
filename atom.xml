@@ -1338,13 +1338,13 @@
     <link href="http://iamasoldier6.com/2016/09/25/%E6%B5%85%E6%9E%90-Android-%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E6%A8%A1%E5%BC%8F%EF%BC%9AMVC-MVP-%E5%92%8C-MVVM(%E4%BA%8C)/"/>
     <id>http://iamasoldier6.com/2016/09/25/浅析-Android-中的三大模式：MVC-MVP-和-MVVM(二)/</id>
     <published>2016-09-25T04:18:37.000Z</published>
-    <updated>2016-12-25T02:39:09.000Z</updated>
+    <updated>2017-04-04T15:20:05.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;你爬得高、走得远，不是为了被世界看到，而是看到整个世界。看得多了，也就知道怎么选了；走得远了，也就知道自己要的是什么了。漂泊的意义，大致就是为了有所选择。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;上篇&lt;a href=&quot;http://t.cn/Rcel4ly&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)&lt;/a&gt;中，只是谈了 MVC 和 MVP 模式，现在换个实例，谈一谈剩下来的 MVVM 模式。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;MVVM-模式&quot;&gt;&lt;a href=&quot;#MVVM-模式&quot; class=&quot;headerlink&quot; title=&quot;MVVM 模式&quot;&gt;&lt;/a&gt;&lt;strong&gt;MVVM 模式&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;MVVM，即 Model View ViewModel。该模式最早由 MicroSoft 推出，近期 Google 推出 Data Binding 框架后，也让 MVVM 开始火起来。如下图所示：&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/mvvm1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;MVVM-模式&quot;&gt;&lt;a href=&quot;#MVVM-模式&quot; class=&quot;headerlink&quot; title=&quot;MVVM 模式&quot;&gt;&lt;/a&gt;&lt;strong&gt;MVVM 模式&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;MVVM，即 Model View ViewModel。该模式最早由 MicroSoft 推出，近期 Google 推出 Data Binding 框架后，也让 MVVM 开始火起来。如下图所示：&lt;br&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/mvvm2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;由图，该模式和 MVP 模式的区别看起来不大，只是 Presenter 层换成了 ViewModel 层。此外，View 层和 ViewModel 层相互绑定，亦即更新 ViewModel 层的数据时，View 层会相应地变动 UI 部分。MVP 与 MVVM 这两个 MVC 的变形究竟孰优孰劣，也得具体情况具体分析。本部分需要对 Data Binding 框架有基本的了解，参考&lt;a href=&quot;https://github.com/LyndonChin/MasteringAndroidDataBinding&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;精通 Android Data Binding&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;假设有这样一个需求，要求实现：点击一个按钮 A，获取 GitHub 上目标公司对应仓库中贡献排行第一人的名字，再点击另一个按钮 B，该第一人的名字会换成指定的名字。Demo 地址：&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MVVMGitHubDemo&lt;/a&gt;，部分代码如下：&lt;/p&gt;
 &lt;p&gt;首先，View 层即是 XML 和 Activity，多了数据绑定：&lt;/p&gt;

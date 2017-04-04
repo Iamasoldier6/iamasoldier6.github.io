@@ -16,14 +16,14 @@
 <meta property="og:description" content="你爬得高、走得远，不是为了被世界看到，而是看到整个世界。看得多了，也就知道怎么选了；走得远了，也就知道自己要的是什么了。漂泊的意义，大致就是为了有所选择。
 
 上篇浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)中，只是谈了 MVC 和 MVP 模式，现在换个实例，谈一谈剩下来的 MVVM 模式。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvvm1.png">
-<meta property="og:updated_time" content="2016-12-25T02:39:09.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvvm2.png">
+<meta property="og:updated_time" content="2017-04-04T15:20:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析 Android 中的三大模式：MVC, MVP 和 MVVM (二)">
 <meta name="twitter:description" content="你爬得高、走得远，不是为了被世界看到，而是看到整个世界。看得多了，也就知道怎么选了；走得远了，也就知道自己要的是什么了。漂泊的意义，大致就是为了有所选择。
 
 上篇浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)中，只是谈了 MVC 和 MVP 模式，现在换个实例，谈一谈剩下来的 MVVM 模式。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvvm1.png">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvvm2.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -222,7 +222,7 @@
 <p>你爬得高、走得远，不是为了被世界看到，而是看到整个世界。看得多了，也就知道怎么选了；走得远了，也就知道自己要的是什么了。漂泊的意义，大致就是为了有所选择。</p>
 </blockquote>
 <p>上篇<a href="http://t.cn/Rcel4ly" target="_blank" rel="external">浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)</a>中，只是谈了 MVC 和 MVP 模式，现在换个实例，谈一谈剩下来的 MVVM 模式。<a id="more"></a></p>
-<h2 id="MVVM-模式"><a href="#MVVM-模式" class="headerlink" title="MVVM 模式"></a><strong>MVVM 模式</strong></h2><p>MVVM，即 Model View ViewModel。该模式最早由 MicroSoft 推出，近期 Google 推出 Data Binding 框架后，也让 MVVM 开始火起来。如下图所示：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/mvvm1.png" alt=""></p>
+<h2 id="MVVM-模式"><a href="#MVVM-模式" class="headerlink" title="MVVM 模式"></a><strong>MVVM 模式</strong></h2><p>MVVM，即 Model View ViewModel。该模式最早由 MicroSoft 推出，近期 Google 推出 Data Binding 框架后，也让 MVVM 开始火起来。如下图所示：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/mvvm2.png" alt=""></p>
 <p>由图，该模式和 MVP 模式的区别看起来不大，只是 Presenter 层换成了 ViewModel 层。此外，View 层和 ViewModel 层相互绑定，亦即更新 ViewModel 层的数据时，View 层会相应地变动 UI 部分。MVP 与 MVVM 这两个 MVC 的变形究竟孰优孰劣，也得具体情况具体分析。本部分需要对 Data Binding 框架有基本的了解，参考<a href="https://github.com/LyndonChin/MasteringAndroidDataBinding" target="_blank" rel="external">精通 Android Data Binding</a>。</p>
 <p>假设有这样一个需求，要求实现：点击一个按钮 A，获取 GitHub 上目标公司对应仓库中贡献排行第一人的名字，再点击另一个按钮 B，该第一人的名字会换成指定的名字。Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">MVVMGitHubDemo</a>，部分代码如下：</p>
 <p>首先，View 层即是 XML 和 Activity，多了数据绑定：</p>
