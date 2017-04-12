@@ -17,8 +17,8 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 
 Context 在我们的 Android 开发中，真是无处不在：加载资源、启动一个新的 Activity、获取系统服务和创建 View 操作等。那么问题来了，Context 究竟是什么，具体怎么使用，又有">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/Context_Capability.png">
-<meta property="og:updated_time" content="2017-01-18T15:18:57.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context_capability.png">
+<meta property="og:updated_time" content="2017-04-12T15:46:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅探 Android 中的 Context">
 <meta name="twitter:description" content="Nobody can go back and start a new beginning, but anyone can start today and make a new ending.
@@ -251,7 +251,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <p><code>注意</code>：常说的四大组件中，Broadcast Receiver 和 Content Provider 并不是 Context 的子类，它们持有的 Context 都是其他地方传过去的，并不计入 Context 总数。</p>
 <p><strong><em>Context 的作用域</em></strong></p>
 <p>总结如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/Context_Capability.png" alt=""></p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/context_capability.png" alt=""></p>
 <p>注意到 NO 右上角有数字，其实从能力上来说是 YES 的，关于标明 NO 的解释如下：</p>
 <p>数字1：应用可以从这里启动一个 Activity，但要求创建一个新的任务。这样，或许适用于特殊的使用实例，但是会在应用程序里创建非标准的返回栈行为，通常不推荐。</p>
 <p>数字2：用在这里是可以的，但会在运行的系统上加载默认的主题，而不是加载应用程序里自定义的主题。</p>
