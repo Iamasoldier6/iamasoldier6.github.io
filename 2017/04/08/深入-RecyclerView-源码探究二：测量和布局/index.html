@@ -17,7 +17,7 @@ RecyclerView 的基本使用，只需要提供一个 Adapter 处理数据集与 
 
 RecyclerView 的基本使用，只需要提供一个 Adapter 处理数据集与 itemView 的绑定和一个 LayoutManager 测量并给 itemView 布局。本篇在深入 RecyclerView 源码探究一：宏观设计的">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recy_orien.png">
-<meta property="og:updated_time" content="2017-04-18T15:59:03.000Z">
+<meta property="og:updated_time" content="2017-04-20T15:28:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究二：测量和布局">
 <meta name="twitter:description" content="Life is not about how to live through the storm, but how to dance in the rain.
@@ -281,7 +281,7 @@ RecyclerView 的基本使用，只需要提供一个 Adapter 处理数据集与 
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><strong>小结</strong></h2><p>1.在 RecyclerView 的测量和布局阶段，填充 itemView 的算法即：向父容器中添加子控件；测量子控件的大小，执行 setMeasuredDimensionFromChildren() 方法，由子控件的大小确定 RecyclerView 的大小；给子控件布局，给锚点布局并向当前布局方向平移子控件大小，重复直至 RecyclerView 的可绘制空间消耗完或者子控件填充完毕。其中，可绘制空间即父容器对 RecyclerView 布局大小的要求，通过 MeasureSpec.getSize() 方法获取。</p>
 <p>2.由 onMeasure() 方法以及对 skipMeasure 的判断，若支持 WRAP_CONTENT，则子控件的测量和布局会在 RecyclerView 的测量方法中提前执行完成，即先确定子控件的大小和位置，再设置 RecyclerView 的大小；若是其他情况，如测量模式为 EXACTLY，子控件的测量和布局会延迟到 RecyclerView 的布局 (onLayout()) 过程中执行。</p>
 <p>3.RecyclerView 本身并未对内部的 View 执行布局，而是交给 LayoutManager 做具体的布局操作，此外，开发者可以通过实现重写 onLayoutChildren() 方法，自定义 LayoutManager。</p>
-<p>4.RecyclerView 的布局过程中，有着很多动画相关的处理，其数据改变的动画是在布局过程的第三步中统一触发，而不是在一调用 notify 之后立马触发的。</p>
+<p>4.RecyclerView 的布局过程中，有着很多动画相关的处理，其数据改变的动画是在布局过程的第三步中统一触发，而不是在一调用 notify 之后就立马触发的。</p>
 <p>至此，关于 RecyclerView 的测量和布局过程探究完毕，后续将从绘制和滑动机制方面展开探究。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <p><br></p>

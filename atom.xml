@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-04-18T15:59:03.000Z</updated>
+  <updated>2017-04-20T15:28:03.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2017/04/08/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9A%E6%B5%8B%E9%87%8F%E5%92%8C%E5%B8%83%E5%B1%80/"/>
     <id>http://iamasoldier6.com/2017/04/08/深入-RecyclerView-源码探究二：测量和布局/</id>
     <published>2017-04-08T15:54:32.000Z</published>
-    <updated>2017-04-18T15:59:03.000Z</updated>
+    <updated>2017-04-20T15:28:03.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Life is not about how to live through the storm, but how to dance in the rain.&lt;/p&gt;
@@ -85,7 +85,7 @@
 &lt;h2 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;&lt;strong&gt;小结&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.在 RecyclerView 的测量和布局阶段，填充 itemView 的算法即：向父容器中添加子控件；测量子控件的大小，执行 setMeasuredDimensionFromChildren() 方法，由子控件的大小确定 RecyclerView 的大小；给子控件布局，给锚点布局并向当前布局方向平移子控件大小，重复直至 RecyclerView 的可绘制空间消耗完或者子控件填充完毕。其中，可绘制空间即父容器对 RecyclerView 布局大小的要求，通过 MeasureSpec.getSize() 方法获取。&lt;/p&gt;
 &lt;p&gt;2.由 onMeasure() 方法以及对 skipMeasure 的判断，若支持 WRAP_CONTENT，则子控件的测量和布局会在 RecyclerView 的测量方法中提前执行完成，即先确定子控件的大小和位置，再设置 RecyclerView 的大小；若是其他情况，如测量模式为 EXACTLY，子控件的测量和布局会延迟到 RecyclerView 的布局 (onLayout()) 过程中执行。&lt;/p&gt;
 &lt;p&gt;3.RecyclerView 本身并未对内部的 View 执行布局，而是交给 LayoutManager 做具体的布局操作，此外，开发者可以通过实现重写 onLayoutChildren() 方法，自定义 LayoutManager。&lt;/p&gt;
-&lt;p&gt;4.RecyclerView 的布局过程中，有着很多动画相关的处理，其数据改变的动画是在布局过程的第三步中统一触发，而不是在一调用 notify 之后立马触发的。&lt;/p&gt;
+&lt;p&gt;4.RecyclerView 的布局过程中，有着很多动画相关的处理，其数据改变的动画是在布局过程的第三步中统一触发，而不是在一调用 notify 之后就立马触发的。&lt;/p&gt;
 &lt;p&gt;至此，关于 RecyclerView 的测量和布局过程探究完毕，后续将从绘制和滑动机制方面展开探究。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
