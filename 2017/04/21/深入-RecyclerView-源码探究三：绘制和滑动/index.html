@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>深入 RecyclerView 源码探究三：绘制和滑动 | Iamasoldier6&#39;s Column</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="If you keep on doing what you’ve always done, you’ll keep gettting what you’ve always got.
+
+View 在测量和布局完成后，接下来开始执行绘制。本篇在深入 RecyclerView 源码探究二：测量和布局的基础上继续展开，分析 RecyclerView 的绘制和滑动过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入 RecyclerView 源码探究三：绘制和滑动">
+<meta property="og:url" content="http://iamasoldier6.com/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/index.html">
+<meta property="og:site_name" content="Iamasoldier6's Column">
+<meta property="og:description" content="If you keep on doing what you’ve always done, you’ll keep gettting what you’ve always got.
+
+View 在测量和布局完成后，接下来开始执行绘制。本篇在深入 RecyclerView 源码探究二：测量和布局的基础上继续展开，分析 RecyclerView 的绘制和滑动过程。">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/item_offset2.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/item_scroll.png">
+<meta property="og:updated_time" content="2017-04-21T13:29:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入 RecyclerView 源码探究三：绘制和滑动">
+<meta name="twitter:description" content="If you keep on doing what you’ve always done, you’ll keep gettting what you’ve always got.
+
+View 在测量和布局完成后，接下来开始执行绘制。本篇在深入 RecyclerView 源码探究二：测量和布局的基础上继续展开，分析 RecyclerView 的绘制和滑动过程。">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/item_offset2.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 10px;">Annual</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/Event/" style="font-size: 12px;">Event</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 14px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 12px;">Pattern</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 16px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 10px;">Summary</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 16px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-深入-RecyclerView-源码探究三：绘制和滑动" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/" class="article-date">
+  	<time datetime="2017-04-21T13:19:30.000Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入 RecyclerView 源码探究三：绘制和滑动
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RecyclerView/">RecyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/">Source Code</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#绘制过程"><span class="toc-number">1.</span> <span class="toc-text">绘制过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#滑动过程"><span class="toc-number">2.</span> <span class="toc-text">滑动过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>If you keep on doing what you’ve always done, you’ll keep gettting what you’ve always got.</p>
+</blockquote>
+<p>View 在测量和布局完成后，接下来开始执行绘制。本篇在<a href="http://t.cn/RXKTCRy" target="_blank" rel="external">深入 RecyclerView 源码探究二：测量和布局</a>的基础上继续展开，分析 RecyclerView 的绘制和滑动过程。<a id="more"></a></p>
+<h2 id="绘制过程"><a href="#绘制过程" class="headerlink" title="绘制过程"></a><strong>绘制过程</strong></h2><p><a href="http://t.cn/RXbdDk2" target="_blank" rel="external">深入 RecyclerView 源码探究一：宏观设计</a>中简单提到此<strong>装饰</strong>过程，该部分将作较为详细的探究。RecyclerView 的绘制过程分两部分来看：其一，RecyclerView 负责 ItemDecoration 即分割线集合的绘制；其二，ViewGroup 负责 itemView 的绘制。绘制则是 Android 里常规的逻辑流程。源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.draw(c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mItemDecorations.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        mItemDecorations.get(i).onDrawOver(c, <span class="keyword">this</span>, mState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  	<span class="comment">// If some views are animating, ItemDecorators are likely to move/change with them.</span></span><br><span class="line">	<span class="comment">// Invalidate RecyclerView to re-draw decorators. This is still efficient because 		// children's display lists are not invalidated.</span></span><br><span class="line">	<span class="keyword">if</span> (!needsInvalidate &amp;&amp; mItemAnimator != <span class="keyword">null</span> &amp;&amp; mItemDecorations.size() &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">        mItemAnimator.isRunning()) &#123;</span><br><span class="line">        needsInvalidate = <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (needsInvalidate) &#123;</span><br><span class="line">    	ViewCompat.postInvalidateOnAnimation(<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDraw(c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mItemDecorations.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        mItemDecorations.get(i).onDraw(c, <span class="keyword">this</span>, mState);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>绘制 ItemDecoration 并不复杂，RecyclerView.ItemDecoration 的设计也十分灵活。在 RecyclerView 大小及位置确定的情况下，可以在其内部自定义绘制任何东西。这里，前文提到的 measureChildWithMargins() 方法的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureChildWithMargins</span><span class="params">(View child, <span class="keyword">int</span> widthUsed, <span class="keyword">int</span> heightUsed)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Rect insets = mRecyclerView.getItemDecorInsetsForChild(child);</span><br><span class="line">    widthUsed += insets.left + insets.right;</span><br><span class="line">    heightUsed += insets.top + insets.bottom;</span><br><span class="line"></span><br><span class="line">   	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">if</span> (shouldMeasureChild(child, widthSpec, heightSpec, lp)) &#123;</span><br><span class="line">        child.measure(widthSpec, heightSpec);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关乎父 RecyclerView 的 padding，任一添加的 ItemDecoration 和子控件边距，测量子控件采用标准的测量策略。再看里面的 getItemDecorInsetsForChild() 方法的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Rect <span class="title">getItemDecorInsetsForChild</span><span class="params">(View child)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">final</span> Rect insets = lp.mDecorInsets;</span><br><span class="line">    insets.set(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> decorCount = mItemDecorations.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; decorCount; i++) &#123;</span><br><span class="line">        mTempRect.set(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        mItemDecorations.get(i).getItemOffsets(mTempRect, child, <span class="keyword">this</span>, mState);</span><br><span class="line">        insets.left += mTempRect.left;</span><br><span class="line">        insets.top += mTempRect.top;</span><br><span class="line">        insets.right += mTempRect.right;</span><br><span class="line">        insets.bottom += mTempRect.bottom;</span><br><span class="line">    &#125;</span><br><span class="line">    lp.mInsetsDirty = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">return</span> insets;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，getItemOffsets() 方法的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getItemOffsets</span><span class="params">(Rect outRect, View view, RecyclerView parent, State state)</span> </span>&#123;</span><br><span class="line">    getItemOffsets(outRect, ((LayoutParams)view.getLayoutParams())			      		             		.getViewLayoutPosition(), parent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法在实现一个 RecyclerView.ItemDecoration 时可以重写，目的是不让 itemView 挡住分割线。通过 mTempRect，能为每个 itemView 设置位置偏移量，该偏移量最终会参与计算 itemView 的大小，换句话说，itemView 的大小是包括此位置偏移量的。这里，有细致的地方是，itemView 本身绘制区域并不大，其留出的地方是透明的，于是 ItemDecoration 就透过 itemView 显示出来。<strong>更有意思的是</strong>，若 ItemDecoration 的偏移量设置为 0，则 itemView 会挡住 ItemDecoration，那么当 itemView 在增加或删除的时候，会短暂地消失(呈透明态)，这时候就可以透过 itemView 看到 ItemDecoration 的样子(利用这个特点能做出一些有趣的动画效果)！在重写 getItemOffsets() 时，可以指定任意数值的偏移量，简图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/item_offset2.png" alt=""></p>
+<p>四个方向的位置偏移量分别和 mTempRect 的四个属性 (left, top, right, bottom) 一一对应。以 left offset 的值在水平线性布局中的应用举例来说，若 left offset 值为 0，则 itemView 之间无空隙；若 left offset 值大于 0，则 itemView 之间有空隙；若 left offset 小于 0，则 itemView 之间部分重叠。</p>
+<p>事实上，在实现 RecyclerView.ItemDecoration 时，不一定要重写 getItemOffsets()，也不一定要重写 RecyclerView.ItemDecoration.onDraw() 或 RecyclerView.ItemDecoration.onDrawOver() 方法，这几种方法和设置位置偏移量之间无任何联系。如下实现一个 RecyclerView.ItemDecoration：在垂直线性布局下，绘制一条处于 itemView 之间、6 个像素宽、只有 itemView 一半长且与 itemView 居中对齐的红色分割线，分割线位于 itemView 内部 top 位置，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas c, RecyclerView parent, RecyclerView.State state)</span> </span>&#123;</span><br><span class="line">	Paint paint = <span class="keyword">new</span> Paint();</span><br><span class="line">	paint.setColor(Color.RED);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parent.getLayoutManager().getChildCount(); i++) &#123;</span><br><span class="line">		<span class="keyword">final</span> View child = parent.getChildAt(i);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">float</span> left = child.getLeft() + (child.getRight() - child.getLeft()) / <span class="number">4</span>;</span><br><span class="line">		<span class="keyword">float</span> top = child.getTop();</span><br><span class="line">		<span class="keyword">float</span> right = left + (child.getRight() - child.getLeft()) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">float</span> bottom = top + <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">		c.drawRect(left, top, right, bottom, paint);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getItemOffsets</span><span class="params">(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)</span> </span>&#123;</span><br><span class="line">	outRect.set(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="滑动过程"><a href="#滑动过程" class="headerlink" title="滑动过程"></a><strong>滑动过程</strong></h2><p>RecylerView 的滑动过程分两个阶段：其一为 scroll，即手指在屏幕上移动，使 RecyclerView 滑动；其二为 fling，即手指离开屏幕时，RecyclerView 会继续滑动一段距离。RecyclerView 触屏事件处理的 onTouchEvent() 方法源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent e)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ... </span></span><br><span class="line">    <span class="keyword">if</span> (mVelocityTracker == <span class="keyword">null</span>) &#123;</span><br><span class="line">        mVelocityTracker = VelocityTracker.obtain();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> eventAddedToVelocityTracker = <span class="keyword">false</span>;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">switch</span> (action) &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE: &#123;</span><br><span class="line">          	<span class="comment">// ...</span></span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> x = (<span class="keyword">int</span>) (e.getX(index) + <span class="number">0.5f</span>);</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> y = (<span class="keyword">int</span>) (e.getY(index) + <span class="number">0.5f</span>);</span><br><span class="line">            <span class="keyword">int</span> dx = mLastTouchX - x;</span><br><span class="line">            <span class="keyword">int</span> dy = mLastTouchY - y;</span><br><span class="line">			<span class="comment">// ...</span></span><br><span class="line">            <span class="keyword">if</span> (mScrollState != SCROLL_STATE_DRAGGING) &#123;</span><br><span class="line">                <span class="keyword">boolean</span> startScroll = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">if</span> (canScrollHorizontally &amp;&amp; Math.abs(dx) &gt; mTouchSlop) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (dx &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        dx -= mTouchSlop;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        dx += mTouchSlop;</span><br><span class="line">                    &#125;</span><br><span class="line">                    startScroll = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (canScrollVertically &amp;&amp; Math.abs(dy) &gt; mTouchSlop) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (dy &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        dy -= mTouchSlop;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        dy += mTouchSlop;</span><br><span class="line">                    &#125;</span><br><span class="line">                    startScroll = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (startScroll) &#123;</span><br><span class="line">                    setScrollState(SCROLL_STATE_DRAGGING);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mScrollState == SCROLL_STATE_DRAGGING) &#123;</span><br><span class="line">                mLastTouchX = x - mScrollOffset[<span class="number">0</span>];</span><br><span class="line">                mLastTouchY = y - mScrollOffset[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (scrollByInternal(</span><br><span class="line">                        canScrollHorizontally ? dx : <span class="number">0</span>,</span><br><span class="line">                        canScrollVertically ? dy : <span class="number">0</span>,</span><br><span class="line">                        vtev)) &#123;</span><br><span class="line">                    getParent().requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP: &#123;</span><br><span class="line">            mVelocityTracker.addMovement(vtev);</span><br><span class="line">            eventAddedToVelocityTracker = <span class="keyword">true</span>;</span><br><span class="line">            mVelocityTracker.computeCurrentVelocity(<span class="number">1000</span>, mMaxFlingVelocity);</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">float</span> xvel = canScrollHorizontally ?</span><br><span class="line">                    -VelocityTrackerCompat.getXVelocity(mVelocityTracker, mScrollPointerId) : <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">float</span> yvel = canScrollVertically ?</span><br><span class="line">                    -VelocityTrackerCompat.getYVelocity(mVelocityTracker, mScrollPointerId) : <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!((xvel != <span class="number">0</span> || yvel != <span class="number">0</span>) &amp;&amp; fling((<span class="keyword">int</span>) xvel, (<span class="keyword">int</span>) yvel))) &#123;</span><br><span class="line">                setScrollState(SCROLL_STATE_IDLE);</span><br><span class="line">            &#125;</span><br><span class="line">            resetTouch();</span><br><span class="line">        &#125; <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL: &#123;</span><br><span class="line">            cancelTouch();</span><br><span class="line">        &#125; <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以垂直方向的滑动举例说明，当手指开始滑动即 RecyclerView 接收到 ACTION_MOVE 事件后，首先会计算出手指移动距离 (dy)，然后与滑动阀值 (mTouchSlop) 比较，若大于该阀值(默认为 8 个像素)时，将滑动状态置为 SCROLL_STATE_DRAGGING，最后调用到 scrollByInternal() 方法，该方法里调用了 LinearLayoutManager.scrollBy() 方法使得 RecyclerView 开始滑动，此为第一阶段的 scroll；当手指离开屏幕即 RecyclerView 接收到 ACTION_UP 事件后，会由之前的滑动距离和时间，通过 VelocityTracker 计算出一个速度 yvel，接下来调用方法 fling()，此为第二阶段的 fling。很显然，滑动过程中关键的两个方法即 scrollByInternal() 与 fling()。重点看 fling() 方法的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">fling</span><span class="params">(<span class="keyword">int</span> velocityX, <span class="keyword">int</span> velocityY)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> canScrollHorizontal = mLayout.canScrollHorizontally();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> canScrollVertical = mLayout.canScrollVertically();</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">if</span> (!dispatchNestedPreFling(velocityX, velocityY)) &#123;</span><br><span class="line">      	<span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">if</span> (canScroll) &#123;</span><br><span class="line">			<span class="comment">// ...</span></span><br><span class="line">            mViewFlinger.fling(velocityX, velocityY);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>标准的 fling 沿着坐标轴，应有着数个像素每秒的初始速度，若速度小于系统定义的最小速度，则不会触发 fling。源码中，mViewFlinger 是一个实现了 Runnable 接口的 ViewFlinger 对象，RecylerView 中 fling 过程的算法由其控制。先看 ViewFlinger 中下面方法的源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOnAnimation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (mEatRunOnAnimationRequest) &#123;</span><br><span class="line">		mReSchedulePostAnimationCallback = <span class="keyword">true</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		removeCallbacks(<span class="keyword">this</span>);</span><br><span class="line">		ViewCompat.postOnAnimation(RecyclerView.<span class="keyword">this</span>, <span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fling</span><span class="params">(<span class="keyword">int</span> velocityX, <span class="keyword">int</span> velocityY)</span> </span>&#123;</span><br><span class="line">	setScrollState(SCROLL_STATE_SETTLING);</span><br><span class="line">	mLastFlingX = mLastFlingY = <span class="number">0</span>;</span><br><span class="line">	mScroller.fling(<span class="number">0</span>, <span class="number">0</span>, velocityX, velocityY, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE,</span><br><span class="line">			Integer.MAX_VALUE);</span><br><span class="line">	postOnAnimation();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，postOnAnimation() 方法即在将来的某个时刻执行给定的实现 Runnable 接口 的 mViewFlinger 对象。此外，能清楚地看到，fling 是由 Scroller 实现的。重点看看 ViewFlinger 中的 run() 方法，源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// keep a local reference so that if it is changed during onAnimation method, it won't</span></span><br><span class="line">    <span class="comment">// cause unexpected behaviors</span></span><br><span class="line">    <span class="keyword">final</span> ScrollerCompat scroller = mScroller;</span><br><span class="line">    <span class="keyword">final</span> SmoothScroller smoothScroller = mLayout.mSmoothScroller;</span><br><span class="line">    <span class="keyword">if</span> (scroller.computeScrollOffset()) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> x = scroller.getCurrX();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> y = scroller.getCurrY();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> dx = x - mLastFlingX;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> dy = y - mLastFlingY;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">if</span> (mAdapter != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="comment">// ... </span></span><br><span class="line">            <span class="keyword">if</span> (dy != <span class="number">0</span>) &#123;</span><br><span class="line">                vresult = mLayout.scrollVerticallyBy(dy, mRecycler, mState);</span><br><span class="line">                overscrollY = dy - vresult;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">if</span> (!awakenScrollBars()) &#123;</span><br><span class="line">            invalidate();</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">if</span> (scroller.isFinished() || !fullyConsumedAny) &#123;</span><br><span class="line">            setScrollState(SCROLL_STATE_IDLE); <span class="comment">// setting state to idle will stop this.</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            postOnAnimation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// call this after the onAnimation is complete not to have inconsistent callbacks etc.</span></span><br><span class="line">    <span class="keyword">if</span> (smoothScroller != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (smoothScroller.isPendingInitialRun()) &#123;</span><br><span class="line">            smoothScroller.onAnimation(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!mReSchedulePostAnimationCallback) &#123;</span><br><span class="line">            smoothScroller.stop(); <span class="comment">//stop if it does not trigger any scroll</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    enableRunOnAnimationRequests();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中有个方法 mLayout.scrollVerticalBy()，其最终也会走到 LinearLayoutManager.scrollBy() 方法。显然，这里可以得到，RecyclerView 的滑动虽然分为两个阶段，最终都会走到一处，即有着同样的实现。再仔细看上面代码，其一，dy 即竖直滑动偏移量，即由 Scroller.fling() 根据开始时刻到当前时刻计算出来的，同理，若是 RecyclerView 的 scroll 阶段，则该滑动偏移量即手指滑动距离；其二，上面代码会多次执行，直到 Scroller 判断滑动结束或已滑到边界。注意，postOnAnimation() 保证 RecyclerView 流畅地滑动，这里，涉及到 Android View 里所谓的 “16ms” 机制，即上段代码会以 16ms 一次的速度执行，则 Scroller 每次计算的滑动偏移量是很小的一部分，此时，RecyclerView 会根据该偏移量确定是<strong>仅仅平移 itemView</strong>，还是<strong>除了平移外，另会创建新的 itemView</strong>。简单的示意图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/item_scroll.png" alt=""></p>
+<p>重点看看几次提到的 LinearLayoutManager.scrollBy() 方法，其源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">scrollBy</span><span class="params">(<span class="keyword">int</span> dy, RecyclerView.Recycler recycler, RecyclerView.State state)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> absDy = Math.abs(dy);</span><br><span class="line">    updateLayoutState(layoutDirection, absDy, <span class="keyword">true</span>, state);</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> consumed = mLayoutState.mScrollingOffset</span><br><span class="line">            + fill(recycler, mLayoutState, state, <span class="keyword">false</span>);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> scrolled = absDy &gt; consumed ? layoutDirection * consumed : dy;</span><br><span class="line">    mOrientationHelper.offsetChildren(-scrolled);</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> scrolled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，fill() 方法的作用即是向可绘制即滑动偏移量形成的区域填充 itemView，mOrientationHelper.offsetChildren() 的作用即是平移 itemView。</p>
+<p>至此，关于 RecyclerView 的绘制和滑动过程探究完毕，最后一篇将从回收复用和动画机制方面展开探究。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<p><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/qq_23012315/article/details/50807224" target="_blank" rel="external">http://blog.csdn.net/qq_23012315/article/details/50807224</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/08/深入-RecyclerView-源码探究二：测量和布局/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入 RecyclerView 源码探究二：测量和布局</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   博主沥血作文章，客官随性打钱赏。左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/" target="_blank" title="深入 RecyclerView 源码探究三：绘制和滑动">深入 RecyclerView 源码探究三：绘制和滑动</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/" target="_blank" title="深入 RecyclerView 源码探究三：绘制和滑动">http://iamasoldier6.com/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="深入-RecyclerView-源码探究三：绘制和滑动" data-title="深入 RecyclerView 源码探究三：绘制和滑动" data-url="http://iamasoldier6.com/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iamasoldier6"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4548ab92471a76e452c9750997a514f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
