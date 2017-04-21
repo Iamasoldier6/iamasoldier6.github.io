@@ -19,7 +19,7 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/failure3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader4.png">
-<meta property="og:updated_time" content="2017-03-28T15:09:46.000Z">
+<meta property="og:updated_time" content="2017-04-21T13:56:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(二)">
 <meta name="twitter:description" content="Nothing is given, everything is earned, you work for what you have.
@@ -223,7 +223,7 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
         <blockquote>
 <p>Nothing is given, everything is earned, you work for what you have.</p>
 </blockquote>
-<p>Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley，可以实现类似的效果，并且，在性能上也毫不逊色。<a id="more"></a>本篇在<a href="http://iamasoldier6.com/2016/04/30/Android-Volley-研究综述（一）/"> Android Volley 研究综述(一) </a>的基础上继续展开，分析关于 Volley 加载网络图片。</p>
+<p>Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley，可以实现类似的效果，并且，在性能上也毫不逊色。<a id="more"></a>本篇在<a href="http://sina.lt/eV4C" target="_blank" rel="external"> Android Volley 研究综述(一) </a>的基础上继续展开，分析关于 Volley 加载网络图片。</p>
 <h2 id="ImageRequest-的使用"><a href="#ImageRequest-的使用" class="headerlink" title="ImageRequest 的使用"></a><strong>ImageRequest 的使用</strong></h2><p>ImageRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> ImageRequestDemo</a>。</p>
 <p>ImageRequest，指定一个 URL，并在响应回调中接收一张图片。具体来说，ImageRequest 是一个封装好的 request，用来在给定的 URL 中获得一张图片，同时调回一张解码过的位图。它也提供了些便捷的特性，如指定一种大小来重新裁剪。其主要优点是，Volley 的线程调度确保昂贵的图片操作(解码，重新裁剪)自动地在工作线程中发生。</p>
 <p>以上来自官网，总结来说，同 StringRequest 和 JsonRequest 类似，使用大体分以下三步：</p>

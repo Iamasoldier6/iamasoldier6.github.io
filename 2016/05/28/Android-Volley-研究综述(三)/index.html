@@ -16,7 +16,7 @@
 <meta property="og:description" content="种一棵树最好的时间是十年前，其次是现在 。
 
 众多请求在工具箱里随时准备使用实施；如果你的响应是字符串，图片，或者是 JSON，你或许不需要实现自定义请求。">
-<meta property="og:updated_time" content="2016-12-03T10:50:52.000Z">
+<meta property="og:updated_time" content="2017-04-21T13:57:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(三)">
 <meta name="twitter:description" content="种一棵树最好的时间是十年前，其次是现在 。
@@ -219,7 +219,7 @@
         <blockquote>
 <p>种一棵树最好的时间是十年前，其次是现在 。</p>
 </blockquote>
-<p>众多请求在工具箱里随时准备使用实施；如果你的响应是字符串，图片，或者是 JSON，你或许不需要实现自定义请求。<a id="more"></a>本篇在<a href="http://iamasoldier6.com/2016/05/04/Android-Volley-研究综述（二）/"> Android Volley 研究综述(二) </a>的基础上继续展开，分析关于 Volley 实现自定义的请求。</p>
+<p>众多请求在工具箱里随时准备使用实施；如果你的响应是字符串，图片，或者是 JSON，你或许不需要实现自定义请求。<a id="more"></a>本篇在<a href="http://sina.lt/eV4D" target="_blank" rel="external"> Android Volley 研究综述(二) </a>的基础上继续展开，分析关于 Volley 实现自定义的请求。</p>
 <p>对于你需要实现自定义请求的场合，这是所有你需要做的：</p>
 <ul>
 <li>继承 <code>Request&lt;T&gt;</code> 类，<code>&lt;T&gt;</code>代表请求预期所解析过响应的类型。因此，例如，假设你解析的响应是一个字符串，通过继承 <code>Request&lt;String&gt;</code>来创建你的自定义请求。查看 Volley 工具类 StringRequest 和 ImageRequest，来作为继承 <code>Request&lt;T&gt;</code>的例子。</li>
