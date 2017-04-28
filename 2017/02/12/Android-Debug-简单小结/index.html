@@ -16,15 +16,15 @@ Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之
 <meta property="og:description" content="每一个你不满意的现在，都有一个你没有努力的曾经。
 
 Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之一。知乎上有这么一段话说得很好(微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_one.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_two.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_resume2.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_pause.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_stop.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_break2.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_break_zone.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_break_zone1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_mute.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_dump.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_thread.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_thread1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_execution.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_over.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_into.png">
@@ -33,13 +33,13 @@ Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_cursor.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_calculate.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_mode1.png">
-<meta property="og:updated_time" content="2017-02-23T15:58:32.000Z">
+<meta property="og:updated_time" content="2017-04-28T13:12:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Debug 简单小结">
 <meta name="twitter:description" content="每一个你不满意的现在，都有一个你没有努力的曾经。
 
 Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之一。知乎上有这么一段话说得很好(微改)：“每个程序员，都是一个侦探，Log 是凶发现场的线索与证据，凶犯不是特别狡猾时，基本都可以找到真凶。但是总有例外，就需要还原现场 Debug，好比真凶在你的监控下再次模拟行凶，Debug 根据 Log 总能找到问题。打断点就像列举嫌疑人，">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_one.png">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/debug_two.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -249,7 +249,7 @@ Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之
 </ul>
 <h2 id="Android-Debug"><a href="#Android-Debug" class="headerlink" title="Android Debug"></a><strong>Android Debug</strong></h2><p> Android Studio 已是目前最主流的 Android 开发工具，其自带有强大的 Debug 功能，可以对运行在 Android Emulator 或相连 Android 设备上的应用进行调试，下面来一探究竟。</p>
 <p>看看 Android Studio 提供的调试面板(试举一例)：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_one.png" alt=""></p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_two.png" alt=""></p>
 <p>大体提供了 7 个功能区，分别为断点管理区、线程栈帧区、调试功能区、求值表达式、对象变量区和变量观察区。详细看以下几个区：</p>
 <p><strong>断点管理区</strong></p>
 <p>从上往下来看，介绍主要几个：</p>
@@ -269,14 +269,14 @@ Debug 能力是软件开发过程中分析代码、解决 Bug 的核心素质之
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_break2.png" alt=""></p>
 <p><code>View Breakpoints</code></p>
 <p>点击该按钮会进入断点管理界面，在这里可以查看所有断点，管理或者配置断点的行为，如：删除、修改属性信息等，如下所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_break_zone.png" alt=""></p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_break_zone1.png" alt=""></p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_mute.png" alt=""></p>
 <p><code>Mute Breakpoints</code></p>
 <p>使用该按钮，来切换断点的状态：启动或者禁用。调试过程中，可以暂时禁用所有的断点，实现程序正常地运行。比如在调试过程中，不想让断点干扰关心的流程时，可以临时禁用断点。</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_dump.png" alt=""></p>
 <p><code>Get thread dump</code></p>
 <p>获取线程 Dump，点击该按钮将进入线程 Dump 界面如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_thread.png" alt=""></p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_thread1.png" alt=""></p>
 <p><strong>调试功能区</strong></p>
 <p>该区提供了调试的主要操作，分别如下：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/debug_execution.png" alt=""></p>
