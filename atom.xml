@@ -253,7 +253,7 @@
     <link href="http://iamasoldier6.com/2017/03/11/%E6%B5%85%E8%B0%88-Java-%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/"/>
     <id>http://iamasoldier6.com/2017/03/11/浅谈-Java-中的泛型/</id>
     <published>2017-03-11T02:49:46.000Z</published>
-    <updated>2017-03-11T09:15:02.000Z</updated>
+    <updated>2017-05-01T15:38:54.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;不积跬步，无以至千里；不积小流，无以成江海。&lt;/p&gt;
@@ -321,7 +321,7 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &amp;lt;T extends Comparable&amp;lt;T&amp;gt;&amp;gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;countBigger&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(T[] array, T elem)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; count = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (T t : array) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (t.compareTo(elem) &amp;gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;) &amp;#123; &lt;span class=&quot;comment&quot;&gt;// 能通过编译&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ++count;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; count;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;strong&gt;VIII. 泛型的继承与子类型&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;1.Integer 是 Number 的子类，但 Box&lt;integer&gt; 并不是 Box&lt;number&gt; 的子类。&lt;/number&gt;&lt;/integer&gt;&lt;/p&gt;
-&lt;p&gt;2.泛型的 “extends” 与继承的 “extends” 并不同，泛型的 “extends” 后可以是一个类(如 T extends Number)，也可以是一个接口(如 T extends List&lt;t&gt;)。&lt;/t&gt;&lt;/p&gt;
+&lt;p&gt;2.泛型的 “extends” 与继承的 “extends” 不同，泛型的 “extends” 后可以是一个类(如 T extends Number)，也可以是一个接口(如 T extends List&lt;t&gt;)。&lt;/t&gt;&lt;/p&gt;
 &lt;p&gt;3.泛型的 “extends” 代表子类型，而不是子类，或许可以将其等同于 “extends (继承)” 和 “implement” 的并集。&lt;/p&gt;
 &lt;p&gt;4.泛型里，也存在子类型，前提是其泛型参数的限制并没有改变。&lt;/p&gt;
 &lt;p&gt;至此，关于 Java 中的泛型总结完毕。&lt;/p&gt;
@@ -1734,9 +1734,9 @@
     
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
-      <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
-    
       <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
+    
+      <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
     
   </entry>
   
