@@ -178,12 +178,12 @@
     <link href="http://iamasoldier6.com/2017/03/25/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%B8%80%EF%BC%9A%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1/"/>
     <id>http://iamasoldier6.com/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/</id>
     <published>2017-03-25T11:35:29.000Z</published>
-    <updated>2017-04-02T03:49:03.000Z</updated>
+    <updated>2017-05-02T14:57:09.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几篇来探讨下，这期且谈一谈其宏观设计。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要，打算分几篇来探讨下，这期且谈一谈其宏观设计。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;设计目的&quot;&gt;&lt;a href=&quot;#设计目的&quot; class=&quot;headerlink&quot; title=&quot;设计目的&quot;&gt;&lt;/a&gt;&lt;strong&gt;设计目的&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;A flexible view for providing a limited window into a large data set.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;以上简短的一句话来自官网。一言以蔽之，即一个给大型数据集提供有限窗口的弹性视图。&lt;/p&gt;
 &lt;p&gt;总结两点：&lt;/p&gt;
@@ -235,7 +235,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几篇来探讨下，这期且谈一谈其宏观设计。
+&lt;p&gt;时间如白驹过隙，大半年前，曾写过一篇&lt;a href=&quot;http://t.cn/R6Gn9Kv&quot;&gt;从 ListView 到 RecyclerView 的用法浅析&lt;/a&gt;，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要，打算分几篇来探讨下，这期且谈一谈其宏观设计。
     
     </summary>
     
@@ -1734,9 +1734,9 @@
     
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
-      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
-    
       <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
+    
+      <category term="Event" scheme="http://iamasoldier6.com/tags/Event/"/>
     
   </entry>
   

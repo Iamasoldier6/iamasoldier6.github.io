@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png">
-<meta property="og:updated_time" content="2017-04-02T03:49:03.000Z">
+<meta property="og:updated_time" content="2017-05-02T14:57:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究一：宏观设计">
 <meta name="twitter:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
@@ -224,7 +224,7 @@
         <blockquote>
 <p>生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。</p>
 </blockquote>
-<p>时间如白驹过隙，大半年前，曾写过一篇<a href="http://t.cn/R6Gn9Kv" target="_blank" rel="external">从 ListView 到 RecyclerView 的用法浅析</a>，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要了，打算分几篇来探讨下，这期且谈一谈其宏观设计。<a id="more"></a></p>
+<p>时间如白驹过隙，大半年前，曾写过一篇<a href="http://t.cn/R6Gn9Kv" target="_blank" rel="external">从 ListView 到 RecyclerView 的用法浅析</a>，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此，在会用的前提下，结合源码深入探究 RecyclerView 便很有必要，打算分几篇来探讨下，这期且谈一谈其宏观设计。<a id="more"></a></p>
 <h2 id="设计目的"><a href="#设计目的" class="headerlink" title="设计目的"></a><strong>设计目的</strong></h2><p><strong><em>A flexible view for providing a limited window into a large data set.</em></strong></p>
 <p>以上简短的一句话来自官网。一言以蔽之，即一个给大型数据集提供有限窗口的弹性视图。</p>
 <p>总结两点：</p>
