@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>重温 Activity 分析一：生命周期 | Iamasoldier6&#39;s Column</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="If you can’t fly then run, can’t run then walk, can’t walk then crawl, just keep moving forward.
+
+记得当初学习 Android 开发的时候，接触的四大组件的第一个就是 Activity，这么久过去了，有时候会问自己，你真得掌握了 Activity 吗？回答是没有。”勿以浮沙筑高台“，借此机会，好好反">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重温 Activity 分析一：生命周期">
+<meta property="og:url" content="http://iamasoldier6.com/2017/05/21/重温-Activity-分析一：生命周期/index.html">
+<meta property="og:site_name" content="Iamasoldier6's Column">
+<meta property="og:description" content="If you can’t fly then run, can’t run then walk, can’t walk then crawl, just keep moving forward.
+
+记得当初学习 Android 开发的时候，接触的四大组件的第一个就是 Activity，这么久过去了，有时候会问自己，你真得掌握了 Activity 吗？回答是没有。”勿以浮沙筑高台“，借此机会，好好反">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life_normal.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life_dialog1.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_frame.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mishap.png">
+<meta property="og:updated_time" content="2017-05-29T07:04:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重温 Activity 分析一：生命周期">
+<meta name="twitter:description" content="If you can’t fly then run, can’t run then walk, can’t walk then crawl, just keep moving forward.
+
+记得当初学习 Android 开发的时候，接触的四大组件的第一个就是 Activity，这么久过去了，有时候会问自己，你真得掌握了 Activity 吗？回答是没有。”勿以浮沙筑高台“，借此机会，好好反">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 10px;">Annual</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/Event/" style="font-size: 11.67px;">Event</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.67px;">Pattern</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 16.67px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.33px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 10px;">Summary</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 15px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-重温-Activity-分析一：生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/21/重温-Activity-分析一：生命周期/" class="article-date">
+  	<time datetime="2017-05-21T06:41:59.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      重温 Activity 分析一：生命周期
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介生命周期"><span class="toc-number">1.</span> <span class="toc-text">简介生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归纳生命周期"><span class="toc-number">2.</span> <span class="toc-text">归纳生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深入生命周期"><span class="toc-number">3.</span> <span class="toc-text">深入生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>If you can’t fly then run, can’t run then walk, can’t walk then crawl, just keep moving forward.</p>
+</blockquote>
+<p>记得当初学习 Android 开发的时候，接触的四大组件的第一个就是 Activity，这么久过去了，有时候会问自己，你真得掌握了 Activity 吗？回答是没有。”勿以浮沙筑高台“，借此机会，好好反刍整理下，姑且先谈一谈 Activity 的生命周期。<a id="more"></a></p>
+<h2 id="简介生命周期"><a href="#简介生命周期" class="headerlink" title="简介生命周期"></a><strong>简介生命周期</strong></h2><p>月有阴晴圆缺，人有生老病死，自然界中无时无刻不在发生着各种“生命”的诞生和湮灭。如果将程序代码看作是有生命的话，那么我们这里的 Activity 也有着自己的一套生命周期。话不多说，先上实例，ActivityLifeCycleDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">ActivityLifeCycleDemo</a>。</p>
+<p>主要看该部分代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Intent mIntent;</span><br><span class="line">    <span class="keyword">private</span> Button mBtnNormal, mBtnDialog;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MAIN_ACTIVITY"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        Log.d(TAG, <span class="string">"onCreate"</span>);</span><br><span class="line"></span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        mBtnNormal = (Button) findViewById(R.id.btn_start_normal);</span><br><span class="line">        mBtnDialog = (Button) findViewById(R.id.btn_start_dialog);</span><br><span class="line"></span><br><span class="line">        mBtnNormal.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        mBtnDialog.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (v.getId()) &#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.btn_start_normal:</span><br><span class="line">                mIntent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, NormalActivity.class);</span><br><span class="line">                startActivity(mIntent);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> R.id.btn_start_dialog:</span><br><span class="line">                mIntent = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, DialogActivity.class);</span><br><span class="line">                startActivity(mIntent);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart();</span><br><span class="line">        Log.d(TAG, <span class="string">"onStart"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line">        Log.d(TAG, <span class="string">"onResume"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onPause();</span><br><span class="line">        Log.d(TAG, <span class="string">"onPause"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onStop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop();</span><br><span class="line">        Log.d(TAG, <span class="string">"onStop"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">        Log.d(TAG, <span class="string">"onDestroy"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onRestart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onRestart();</span><br><span class="line">        Log.d(TAG, <span class="string">"onRestart"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，效果如下图：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life.png" alt=""></p>
+<p>查看 Android Monitor 中的 logcat 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">19</span>:<span class="number">22.710</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onCreate</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">19</span>:<span class="number">22.715</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onStart</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">19</span>:<span class="number">22.715</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onResume</span><br></pre></td></tr></table></figure>
+<p>显然，当 MainActivity 第一次被创建的时候，会依次执行<code>onCreate()</code>—&gt;<code>onStart()</code>—&gt;<code>onResume()</code>方法。接着，点击第一个按钮，启动 NormalActivity，如图所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life_normal.png" alt=""></p>
+<p>此时 logcat 中打印：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">26</span>:<span class="number">49.128</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onPause</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">26</span>:<span class="number">49.652</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onStop</span><br></pre></td></tr></table></figure>
+<p>原因是 NormalActivity 将 MainActivity 完全遮挡住了，因此依次执行<code>onPause()</code>—&gt;<code>onStop()</code>方法。然后，按下 Back 键返回 MainActivity，logcat 中打印：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">34</span>:<span class="number">20.779</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onRestart</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">34</span>:<span class="number">20.779</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onStart</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">34</span>:<span class="number">20.779</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onResume</span><br></pre></td></tr></table></figure>
+<p>之前 MainActivity 已经进入了停止状态，此时，并没有重新创建。因此，这时候执行<code>onRestart()</code>方法，而不执行<code>onCreate()</code>方法。即依次执行<code>onRestart()</code>—&gt;<code>onStart()</code>—&gt;<code>onResume()</code>方法。再点击第二个按钮，启动 DialogActivity，如图所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_life_dialog1.png" alt=""></p>
+<p>logcat 中打印出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">41</span>:<span class="number">59.861</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onPause</span><br></pre></td></tr></table></figure>
+<p>由于 DialogActivity 并没有完全遮挡住 MainActivity，MainActivity 只是进入了暂停状态，没有进入停止状态。故只执行了<code>onPause()</code>方法，未执行<code>onStop()</code>方法。自然，按下 Back 键返回 MainActivity 只有 onResume() 方法执行，如 logcat 中所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">49</span>:<span class="number">33.079</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onResume</span><br></pre></td></tr></table></figure>
+<p>最后，在 MainActivity 界面按下 Back 键退出程序，logcat 中所示如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">51</span>:<span class="number">19.488</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onPause</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">51</span>:<span class="number">19.491</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onStop</span><br><span class="line"><span class="number">05</span>-<span class="number">28</span> <span class="number">05</span>:<span class="number">51</span>:<span class="number">19.491</span> <span class="number">17557</span>-<span class="number">17557</span>/com.iamasoldier6.activitylifecycledemo D/MAIN_ACTIVITY: onDestroy</span><br></pre></td></tr></table></figure>
+<p>依次会执行<code>onPause()</code>—&gt;<code>onStop()</code>—&gt;<code>onDestroy()</code>方法，最终销毁 MainActivity。</p>
+<p>如此，便完整地走了一遍 Activity 的生命周期。</p>
+<h2 id="归纳生命周期"><a href="#归纳生命周期" class="headerlink" title="归纳生命周期"></a><strong>归纳生命周期</strong></h2><p>Activity 的生命周期通过实现上述的回调方法来进行管理。Activity 的生命周期会直接受到其本身与其他 Activity、其本身的任务及返回栈关联性的影响。Activity 基本上以三种状态存在：</p>
+<p><strong><em>运行</em></strong></p>
+<p>此 Activity 位于屏幕前台并具有用户焦点。</p>
+<p><strong><em>暂停</em></strong></p>
+<p>另一个 Activity B 位于屏幕前台，且具有用户焦点，但此 Activity 仍然可见。也就是说，另一个 Activity B 显示在此 Activity 上方，并且该 Activity B 部分透明或未覆盖整个屏幕，比如前文提及的对话框形式的活动 DialogActivity。<strong>暂停的 Activity 处于完全活动状态，Activity 对象保留在内存中，其保留了所有状态和成员信息，并与窗口管理器保持连接</strong>。注意，<code>在内存极度不足的情况下，可能会被系统终止</code>。</p>
+<p><strong><em>停止</em></strong></p>
+<p>该 Activity 被另一个 Activity 完全遮盖，该 Activity 目前位于“后台”。<strong>已停止的 Activity 同样仍处于活动状态，Activity 对象保存在内存中，其保留了所有状态和成员信息，但<code>未</code>与窗口管理器连接</strong>。注意，<code>其对用户不在可见，在别的地方需要内存时，可能会被系统终止</code>。</p>
+<p>若 Activity 处于暂停或停止状态，系统可通过要求其结束，调用其 finish() 方法或直接终止其进程，将其从内存中删除。将其结束或终止后，再次打开此 Activity 时，必须要重建。</p>
+<p>下面作出归纳整理和小结，参见 Android 官网自己整理的图：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_frame.png" alt=""></p>
+<p>归纳及总结如下：</p>
+<p><strong>完整生命周期</strong></p>
+<p><code>onCreate()~onDestroy()</code> 之间。Activity 在 onCreate() 中执行“全局”状态设置(如定义布局)，完成各种初始化操作；在 onDestroy() 中释放所有其余资源。例如，Activity 有一个在后台运行的线程，用于从网络上下载数据，可能会在 onCreate() 中创建线程，然后在 onDestroy() 中停止线程。</p>
+<p><strong>可见生命周期</strong></p>
+<p><code>onStart()~onStop()</code>之间。用户可以在屏幕上看到 Activity 并与其交互，开发者可以在这两个方法之间保留向用户显示 Activity 所需的资源。例如，可以在 onStart() 中注册一个 BroadcastReceiver 以监控影响 UI 的变化，并在用户无法看到显示的内容时在 onStop() 中将其取消注册。</p>
+<p><strong>前台生命周期</strong></p>
+<p><code>onResume()~onPause()之间</code>。Activity 位于屏幕上的所有其他 Activity 之前，并具有用户输入焦点。Activity 可以频繁地转入和转出前台。例如，当设备转入休眠状态或出现对话框时，系统会调用 onPause()。注意，由于此状态可能经常发生转变，故这两个方法中应采用适度轻量级的算法，避免因为转变速度慢让用户等待。</p>
+<p>细分来看每个回调方法如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">回调方法</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">onCreate()</td>
+<td style="text-align:left">Activity 正在被创建。首次创建 Activity 时调用，在该方法中执行所有正常的静态设置，如创建视图、初始化所需数据等。系统向此方法传递一个 Bundle 对象，其中包含 Activity 的上一状态，前提是捕获了该状态。<code>始终后接 onStart()</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">onRestart()</td>
+<td style="text-align:left">Activity 正在重新启动。在 Activity 已停止并即将再次启动前调用，即一般情况下，当前 Activity 从不可见重新变为可见状态时调用。比如，用户按 Home 键切换到桌面或者用户打开一个新的 Activity，当前的 Activity 就会暂停，即执行了 onPause() 和 onStop() 方法，接着用户重新回到这个 Activity，就会出现该情况。<code>始终后接 onStart()</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">onStart()</td>
+<td style="text-align:left">Activity 正在被启动。在 Activity 即将对用户可见之前调用，其实，这时候 Activity 已经可见了，但是还没有出现在前台，还无法和用户交互。<code>若 Activity 转入前台，则后接 onResume()；若 Activity 转入隐藏状态，则后接 onStop()</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">onResume()</td>
+<td style="text-align:left">Activity 已经可见，出现在前台并开始活动。在 Activity 即将开始与用户进行交互之前调用，此时，Activity 处于 Activity 堆栈的顶层，并具有用户输入焦点。<strong>注意</strong>，虽然 onStart() 和 onResume() 都表示 Activity 已经可见，但是 onStart() 时 Activity 还在后台，onResume() 时才显示到前台。<code>始终后接 onPause()</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">onPause()</td>
+<td style="text-align:left">Activity 正在暂停。当系统即将开始另一个 Activity 时调用，该方法通常<strong>用于确认对持久性数据的未保存更改、停止动画以及其他可能消耗 CPU 的内容</strong>。注意不能太耗时，应该非常迅速地执行所需操作。<code>若 Activity 返回前台，则后接 onResume()，但该操作属于极端情况，用户操作很难重现；若 Activity 转入对用户不可见状态，则后接 onStop()</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">onStop()</td>
+<td style="text-align:left">Activity 即将停止。在 Activity 对用户不再可见时调用。若 Activity 被销毁，或另一个 Activity (一个现有 Activity 或新 Acitivity) 继续执行并将其覆盖，会发生该情况。这里，可以做一些稍微重量级的回收工作，同样不能太耗时。<code>若 Activity 恢复与用户的交互，则后接 onRestart()；若 Activity 被销毁，则后接 onDestroy()</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">onDestroy()</td>
+<td style="text-align:left">Activity 即将被销毁。在 Activity 被销毁前调用，这是 Activity 将收到的最后调用。<code>当 Activity 结束(对 Activity 调用了 finish())，或系统为节省空间而暂时销毁该 Activity 实例时，可能调用它</code>。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="深入生命周期"><a href="#深入生命周期" class="headerlink" title="深入生命周期"></a><strong>深入生命周期</strong></h2><p>前文分析了典型情况下 Activity 的生命周期，接着来探讨下 Activity 在异常情况下的生命周期。我们知道，Activity 除了受用户操作所导致的正常的生命周期方法调度，还有一些异常情况，比如当资源相关的系统配置发生改变以及系统内存不足时，Activity 就可能被杀死。</p>
+<p><strong>I. 资源相关的系统配置发生改变导致 Activity 被杀死并重新创建</strong></p>
+<p>我们知道，手机在横屏和竖屏时会拿到资源文件中两张不同的图片(设定了 landscape 或 portrait 时的图片)。若当前 Activity 处于竖屏状态，突然旋转屏幕，由于系统配置发生了改变，在默认情况下，Activity 就会被销毁并重新创建，我们可以采取相应的处理方法阻止系统重新创建。</p>
+<p>默认情况时，Activity 不做特殊处理，则当系统配置发生改变后，Activity 就会被销毁并重新创建，如图所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mishap.png" alt=""></p>
+<p>当系统配置改变后，Activity 会被销毁，其 onPause()、onStop() 和 onDestroy() 都被调用，同时，由于 Activity 是在异常情况下终止的，系统会调用 onSaveInstanceState() 来保存当前 Activity 的状态。<strong>注意，这个方法的调用时机是在 onStop() 之前，和 onPause() 没有特定的时序关系，既可能在 onPause() 之前调用，也可能在 onPause() 之后调用。更需要强调的是，这个方法只会出现在 Activity 被异常终止的情况下，正常情况下系统不会回调这个方法</strong>。当 Activity 被重新创建后，系统会调用 onRestoreInstanceState()，此时，Activity 销毁时 onSaveInstanceState() 方法所保存的 Bundle 对象作为参数同时传递给 onRestoreInstanceState() 和 onCreate() 方法。因此，可以通过 onRestoreInstanceState() 和 onCreate() 方法判断 Activity 是否被重建，若被重建了，就可以取出之前保存的数据并恢复。<strong>注意，onRestoreInstanceState() 的调用在 onStart() 之后</strong>。</p>
+<p><strong>系统只在 Activity 异常终止的时候才会调用 onSaveInstanceState() 和 onRestoreInstanceState() 来存储和恢复数据，其他情况不会触发这个过程</strong>。</p>
+<p><strong>II. 资源内存不足导致优先级低的 Activity 被杀死</strong></p>
+<p>其数据存储和恢复过程与情况 I 一致。Activity 优先级从高到低，分为如下三种：</p>
+<p>(1) 前台 Activity ——— 正在和用户交互的 Activity，优先级最高；</p>
+<p>(2) 可见但不是前台 Activity ——— 比如，Activity 中弹出了一个对话框，导致 Activity 可见但是位于后台，无法和用户直接交互；</p>
+<p>(3) 后台 Activity ——— 已经被暂停的 Activity，比如调用了 onStop()，优先级最低。</p>
+<p>若系统内存不足时，系统会按照上述优先级去杀死目标 Activity 所在的进程，然后在后续通过 onSaveInstanceState() 和 onRestoreInstanceState() 来存储和恢复数据。</p>
+<p>实际上，系统配置中有很多内容，若某项内容发生改变后，不想系统重新创建 Activity，可以给 Activity 指定 configChanges 属性。</p>
+<p>至此，关于 Activity 的生命周期归纳分析完毕，下一篇是对 Activity 的启动模式的归纳分析。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<p><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://developer.android.google.cn/guide/components/activities.html?hl=zh-cn" target="_blank" rel="external">https://developer.android.google.cn/guide/components/activities.html?hl=zh-cn</a></p>
+<p>2.<a href="https://item.jd.com/11020606530.html?jd_pop=e985a1db-5b68-4b6c-b7c5-d827d1633f3e&amp;abt=0" target="_blank" rel="external">第一行代码</a></p>
+<p>3.<a href="https://item.jd.com/11760209.html" target="_blank" rel="external">Android 开发艺术探索</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/05/06/深入-RecyclerView-源码探究四：回收复用和动画/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入 RecyclerView 源码探究四：回收复用和动画</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   博主沥血作文章，客官随性打钱赏。左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/05/21/重温-Activity-分析一：生命周期/" target="_blank" title="重温 Activity 分析一：生命周期">重温 Activity 分析一：生命周期</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/05/21/重温-Activity-分析一：生命周期/" target="_blank" title="重温 Activity 分析一：生命周期">http://iamasoldier6.com/2017/05/21/重温-Activity-分析一：生命周期/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="重温-Activity-分析一：生命周期" data-title="重温 Activity 分析一：生命周期" data-url="http://iamasoldier6.com/2017/05/21/重温-Activity-分析一：生命周期/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iamasoldier6"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4548ab92471a76e452c9750997a514f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
