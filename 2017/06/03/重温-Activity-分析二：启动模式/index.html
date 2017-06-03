@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>重温 Activity 分析二：启动模式 | Iamasoldier6&#39;s Column</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="循序渐进才能赢得时间，细水长流才能直达永恒。
+
+Activity 的生命周期知晓后，其启动模式也是重难点，有时候为了满足项目的特殊需求，必须使用 Activity 的启动模式。本篇继重温 Activity 分析一：生命周期的基础上展开，聊一聊 Activity 中的启动模式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重温 Activity 分析二：启动模式">
+<meta property="og:url" content="http://iamasoldier6.com/2017/06/03/重温-Activity-分析二：启动模式/index.html">
+<meta property="og:site_name" content="Iamasoldier6's Column">
+<meta property="og:description" content="循序渐进才能赢得时间，细水长流才能直达永恒。
+
+Activity 的生命周期知晓后，其启动模式也是重难点，有时候为了满足项目的特殊需求，必须使用 Activity 的启动模式。本篇继重温 Activity 分析一：生命周期的基础上展开，聊一聊 Activity 中的启动模式。">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_standard.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_singletop1.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_singletask.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_singletop_dump.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_singleinstance.png">
+<meta property="og:updated_time" content="2017-06-03T00:30:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重温 Activity 分析二：启动模式">
+<meta name="twitter:description" content="循序渐进才能赢得时间，细水长流才能直达永恒。
+
+Activity 的生命周期知晓后，其启动模式也是重难点，有时候为了满足项目的特殊需求，必须使用 Activity 的启动模式。本篇继重温 Activity 分析一：生命周期的基础上展开，聊一聊 Activity 中的启动模式。">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_standard.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.67px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 10px;">Annual</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/Event/" style="font-size: 11.67px;">Event</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.67px;">Pattern</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 16.67px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.33px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 10px;">Summary</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 15px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-重温-Activity-分析二：启动模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/03/重温-Activity-分析二：启动模式/" class="article-date">
+  	<time datetime="2017-06-03T00:15:40.000Z" itemprop="datePublished">2017-06-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      重温 Activity 分析二：启动模式
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#standard-模式"><span class="toc-number">1.</span> <span class="toc-text">standard 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTop-模式"><span class="toc-number">2.</span> <span class="toc-text">singleTop 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTask-模式"><span class="toc-number">3.</span> <span class="toc-text">singleTask 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleInstance-模式"><span class="toc-number">4.</span> <span class="toc-text">singleInstance 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>循序渐进才能赢得时间，细水长流才能直达永恒。</p>
+</blockquote>
+<p>Activity 的生命周期知晓后，其启动模式也是重难点，有时候为了满足项目的特殊需求，必须使用 Activity 的启动模式。本篇继<a href="http://t.cn/RSbP3A4" target="_blank" rel="external">重温 Activity 分析一：生命周期</a>的基础上展开，聊一聊 Activity 中的启动模式。<a id="more"></a></p>
+<p>我们知道，默认情况下，多次启动同一个 Activity 时，系统会创建多个实例，然后把它们一一放入返回栈 (Back Stack) 中。当单击 Back 键时，这些 Activity 会一一回退。<strong>返回栈是一种“后进先出”的栈结构，每按下一次 Back 键就会有一个 Activity 出栈，直到栈空为止。当栈中无任何 Activity 的时候，系统便会回收这个返回栈</strong>。显然，多次启动同一个 Activity，系统重复创建多个实例，这样不合理。Android 在设计时，提供了 4 种启动模式来丰富系统这一默认行为。</p>
+<p>目前这 4 种启动模式分别为：standard、singleTop、singleTask、singleInstance，接下来结合实例一一介绍。代码地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">ActivityLaunchModeDemo &amp; ActivityLaunchModeDemo2</a>。</p>
+<p>首先定义一个基础 BaseActivity，在其 onCreate() 和 onNewIntent() 方法中打印出当前 Activity 的日志信息，主要包括所在的 task、当前类的 hashCode 和 taskAffinity 的值。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"Iamasoldier6"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        Log.d(TAG, <span class="string">"------ onCreate() ------"</span>);</span><br><span class="line">        Log.d(TAG, <span class="string">"onCreate: "</span> + getClass().getSimpleName() + <span class="string">", taskId: "</span> + getTaskId() + <span class="string">", hashCode: "</span></span><br><span class="line">                + <span class="keyword">this</span>.hashCode());</span><br><span class="line"></span><br><span class="line">        dumpTaskAffinity();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line"></span><br><span class="line">        Log.d(TAG, <span class="string">"------ onNewIntent() ------"</span>);</span><br><span class="line">        Log.d(TAG, <span class="string">"onNewIntent: "</span> + getClass().getSimpleName() + <span class="string">", taskId: "</span> + getTaskId() + <span class="string">", hashCode: "</span></span><br><span class="line">                + <span class="keyword">this</span>.hashCode());</span><br><span class="line"></span><br><span class="line">        dumpTaskAffinity();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dumpTaskAffinity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ActivityInfo info = <span class="keyword">this</span>.getPackageManager().getActivityInfo(getComponentName()</span><br><span class="line">                    , PackageManager.GET_META_DATA);</span><br><span class="line">            Log.d(TAG, <span class="string">"taskAffinity: "</span> + info.taskAffinity);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="standard-模式"><a href="#standard-模式" class="headerlink" title="standard 模式"></a><strong>standard 模式</strong></h2><p>标准模式，是默认的启动模式。<strong>每次启动一个 Activity 都会创建一个新的实例，无论这个实例是否已经存在</strong>。一种典型的多实例实现，<strong>一个返回栈中可以有多个实例，每个实例也可以属于不同的返回栈</strong>。<code>该模式下，谁启动了这个 Activity，这个 Activity 就运行在启动它的那个 Activity 所在的栈中</code>。比如，Activity A 启动了 Activity B (B 是标准模式)，则 B 就会进入到 A 所在的栈中。此时，被创建实例的生命周期符合典型情况下 Activity 的生命周期，onCreate()、onStart() 和 onResume() 都会被调用。</p>
+<p><strong><em>配置</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".StandardActivity"</span> <span class="attr">android:launchMode</span>=<span class="string">"standard"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>示例</em></strong></p>
+<p>其实，standard 模式中，android:launchMode 可以不用声明，默认就是 standard。</p>
+<p>StandardActivity 的代码如下，主界面中点击按钮进入 StandardActivity。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StandardActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Button mButton;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_standard);</span><br><span class="line"></span><br><span class="line">        mButton = (Button) findViewById(R.id.btn_activity_standard);</span><br><span class="line">        mButton.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, StandardActivity.class);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入 StandardActivity 后，再点击 2 次其中的按钮。界面如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_standard.png" alt=""></p>
+<p>logcat 中的日志如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">05-29 06:01:36.286 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 06:01:36.287 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: MainActivity, taskId: 664, hashCode: 43714559</span><br><span class="line">05-29 06:01:36.287 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 06:02:11.705 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 06:02:11.706 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: StandardActivity, taskId: 664, hashCode: 166152621</span><br><span class="line">05-29 06:02:11.706 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 06:02:26.611 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 06:02:26.611 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: StandardActivity, taskId: 664, hashCode: 245161438</span><br><span class="line">05-29 06:02:26.612 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 06:02:44.686 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 06:02:44.687 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: StandardActivity, taskId: 664, hashCode: 73602629</span><br><span class="line">05-29 06:02:44.689 27156-27156/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br></pre></td></tr></table></figure>
+<p>显然，日志包括 1 次 MainActivity 和 3 次 StandardActivity，从 MainActivity 进入 StandardActivity 时 1 次，后来又点击 2 次其中的按钮，共 3 次 StandardActivity 的日志，其所属返回栈的 taskId 都是 664，即验证了<strong>谁启动了这个 Activity，这个 Activity 就运行在启动它的那个 Activity 所在的栈中</strong>。启动 StandardActivity 的是 MainActivity，其 taskId 是 664，后续两个 StandardActivity 是被 StandardActivity 启动的，故 taskId 还是 664。此外，每个 Activity 的 hashCode 都是不同的，则它们都是不同的实例，即验证了<strong>每次启动一个 Activity 都会创建一个新的实例</strong>。</p>
+<h2 id="singleTop-模式"><a href="#singleTop-模式" class="headerlink" title="singleTop 模式"></a><strong>singleTop 模式</strong></h2><p>栈顶复用模式。该模式下，<strong>若新的 Activity 已经位于返回栈的栈顶，则此 Activity 不会被重新创建，同时其 onNewIntent() 方法会被回调，通过此方法的参数可以取出当前请求的信息</strong>。<code>注意，该 Activity 的 onCreate() 和 onStart() 方法不会被系统调用，因为没有发生改变</code>。<strong>若新 Activity 的实例已经存在但不是位于栈顶，则新 Activity 仍然会重新创建</strong>。举例说明，假设目前栈内的情况为 A-B-C-D，其中 A-B-C-D 是 4 个 Activity，A 位于栈底，D 位于栈顶。这时候，要再次启动 D，若 D 具有默认的 ”standard“ 启动模式，则会启动该类的新实例，堆栈会变成 A-B-C-D-D；若 D 的启动模式为 “singleTop”，则 D 的现有实例会通过 onNewIntent() 接收 Intent，因为它位于堆栈的顶部，而堆栈仍然为 A-B-C-D。<strong>但是，若收到针对 B 类 Activity 的 Intent，则会向堆栈添加 B 的实例，即便其启动模式为 “singleTop” 也是如此</strong>。</p>
+<p><strong><em>配置</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".SingleTopActivity"</span> <span class="attr">android:launchMode</span>=<span class="string">"singleTop"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>示例</em></strong></p>
+<p>SingleTopActivity 类如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleTopActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Button mButton1, mButton2;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_singletop);</span><br><span class="line"></span><br><span class="line">        mButton1 = (Button) findViewById(R.id.btn_activity_singletop);</span><br><span class="line">        mButton2 = (Button) findViewById(R.id.btn_activity_other_top);</span><br><span class="line"></span><br><span class="line">        mButton1.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        mButton2.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (v.getId()) &#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.btn_activity_singletop:</span><br><span class="line">                Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, SingleTopActivity.class);</span><br><span class="line">                startActivity(intent);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> R.id.btn_activity_other_top:</span><br><span class="line">                Intent intent1 = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, OtherTopActivity.class);</span><br><span class="line">                startActivity(intent1);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OtherTopActivity 类如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OtherTopActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Button mButton;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_othertop);</span><br><span class="line"></span><br><span class="line">        mButton = (Button) findViewById(R.id.btn_activity_other_top);</span><br><span class="line">        mButton.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, SingleTopActivity.class);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>界面如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_singletop1.png" alt=""></p>
+<p>logcat 中的日志如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">05-29 09:14:25.954 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 09:14:25.956 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: SingleTopActivity, taskId: 672, hashCode: 102765885</span><br><span class="line">05-29 09:14:25.956 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 09:14:32.532 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onNewIntent() ------</span><br><span class="line">05-29 09:14:32.532 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onNewIntent: SingleTopActivity, taskId: 672, hashCode: 102765885</span><br><span class="line">05-29 09:14:32.533 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 09:14:35.018 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onNewIntent() ------</span><br><span class="line">05-29 09:14:35.019 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onNewIntent: SingleTopActivity, taskId: 672, hashCode: 102765885</span><br><span class="line">05-29 09:14:35.019 4480-4480/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br></pre></td></tr></table></figure>
+<p>显然，第一次进入 SingleTopActivity 时，输出的是 onCreate() 方法中的日志，后续的都是调用了 onNewIntent() 方法，并未调用 onCreate() 方法，两个日志的 hashCode 相同，则栈中只有一个实例。这是因为第一次进入的时候，栈中没有该实例，创建后，后续两次发现栈顶有该实例，就直接复用，且调用 onNewIntent() 方法。</p>
+<p>再看看栈中有实例，但是实例不在栈顶的情况：先从 MainActivity 跳至 SingleTopActivity，然后再跳至 OtherTopActivity，再从 OtherTopActivity 跳回 SingleTopActivity，最后从 SingleTopActivity 跳至本身 SingleTopActivity。</p>
+<p>logcat 中的日志如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">05-29 09:30:53.918 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 09:30:53.918 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: MainActivity, taskId: 678, hashCode: 820289</span><br><span class="line">05-29 09:30:53.918 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 09:32:06.690 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 09:32:06.691 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: SingleTopActivity, taskId: 678, hashCode: 267630492</span><br><span class="line">05-29 09:32:06.691 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 09:32:34.217 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 09:32:34.217 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: OtherTopActivity, taskId: 678, hashCode: 71793903</span><br><span class="line">05-29 09:32:34.218 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 09:33:22.985 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 09:33:22.987 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: SingleTopActivity, taskId: 678, hashCode: 13390986</span><br><span class="line">05-29 09:33:22.987 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 09:33:58.867 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onNewIntent() ------</span><br><span class="line">05-29 09:33:58.869 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onNewIntent: SingleTopActivity, taskId: 678, hashCode: 13390986</span><br><span class="line">05-29 09:33:58.869 23803-23803/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br></pre></td></tr></table></figure>
+<p>显然，从 MainActivity 进入到 SingleTopActivity 时，新建了一个 SingleTopActivity 对象，并且 taskId 与 MainActivity 是一致的。接着，从 SingleTopActivity 跳至 OtherTopActivity 时，新建了一个 OtherTopActivity。此时，栈中存在 3 个 Activity，从栈底到栈顶依次为 MainActivity-SingleTopActivity-OtherTopActivity。<strong>从上述日志的 hashCode 可以看出</strong>，若再跳到 SingleTopActivity，即使栈中已经有 SingleTopActivity 实例，但是仍然会创建一个新的 SingleTopActivity 实例，因为此时 SingleTopActivity 不在栈顶。<strong>注意</strong>，若再次跳到 SingleTopActivity 时，就会复用栈顶的 SingleTopActivity，即会调用 SingleTopActivity 的 onNewIntent() 方法。</p>
+<h2 id="singleTask-模式"><a href="#singleTask-模式" class="headerlink" title="singleTask 模式"></a><strong>singleTask 模式</strong></h2><p>栈内复用模式。这是一种单实例模式，在该模式下，<strong>只要 Activity 在一个栈中存在，则多次启动此 Activity 都不会重新创建实例，系统会调用现有实例的 onNewIntent() 方法向其传送 Intent</strong>。具体一点，当一个具有 singleTask 模式的 Activity A 请求启动后，系统首先会寻找是否存在 A 想要的返回栈。若不存在，就重新创建一个返回栈，然后创建 A 的实例后把 A 放入栈中；若存在 A 所需的返回栈，看 A 是否在栈中有实例存在，如果有实例存在，则系统就会把 A 调到栈顶，并调用它的 onNewIntent() 方法，如果实例不存在，就创建 A 的实例并把 A 压入栈中。此外，这个过程还存在一个返回栈的匹配，因为这个模式启动时，会在自己需要的任务栈中寻找实例，该任务栈通过 taskAffinity 属性指定。举几个例子：</p>
+<ul>
+<li>目前返回栈 S1 中的情况为 A-B-C，这时 Activity D 以 singleTask 模式请求启动，其所需要的返回栈为 S2，因为 S2 和 D 的实例都不存在，故<strong>系统会先创建返回栈 S2，再创建 D 的实例，并将其入栈到 S2 中</strong>。</li>
+<li>假设 D 所需要的返回栈为 S1，其他情况如上例，则由于 S1 已存在，故<strong>系统会直接创建 D 的实例，并将其入栈到 S1 中</strong>。</li>
+<li>假设 D 所需的返回栈为 S1，并且当前返回栈 S1 的情况为 A-D-B-C，由栈内复用的原则，<strong>此时 D 不会重新创建，系统会把 D 切换到栈顶并调用其 onNewIntent() 方法</strong>。<code>注意，由于 singleTask 默认具有 clearTop 的作用，会导致栈内所有在 D 上面的 Activity 全部出栈，故最终 S1 中的情况为 AD</code>。</li>
+</ul>
+<p><strong><em>配置</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".SingleTaskActivity"</span> <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>示例</em></strong></p>
+<p> SingleTaskActivity 类如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleTaskActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Button mButton1, mButton2;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_singletask);</span><br><span class="line"></span><br><span class="line">        mButton1 = (Button) findViewById(R.id.btn_activity_singletask);</span><br><span class="line">        mButton2 = (Button) findViewById(R.id.btn_activity_other_task);</span><br><span class="line"></span><br><span class="line">        mButton1.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        mButton2.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (v.getId()) &#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.btn_activity_singletask:</span><br><span class="line">                Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, SingleTaskActivity.class);</span><br><span class="line">                startActivity(intent);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> R.id.btn_activity_other_task:</span><br><span class="line">                Intent intent1 = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, OtherTaskActivity.class);</span><br><span class="line">                startActivity(intent1);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先不指定任何 taskAffinity 属性，从 MainActivity 进入 SingleTaskActivity，然后跳到 OtherTaskActivity，再跳回到 SingleTaskActivity，界面如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_mode_singletask.png" alt=""></p>
+<p>logcat 中的日志如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">05-29 11:14:13.797 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 11:14:13.798 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: MainActivity, taskId: 688, hashCode: 118642126</span><br><span class="line">05-29 11:14:13.798 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 11:10:21.624 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 11:10:21.624 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: SingleTaskActivity, taskId: 688, hashCode: 172100416</span><br><span class="line">05-29 11:10:21.624 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 11:12:10.507 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 11:12:10.508 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: OtherTaskActivity, taskId: 688, hashCode: 237329972</span><br><span class="line">05-29 11:12:10.509 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 11:12:54.284 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onNewIntent() ------</span><br><span class="line">05-29 11:12:54.284 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onNewIntent: SingleTaskActivity, taskId: 688, hashCode: 172100416</span><br><span class="line">05-29 11:12:54.285 16237-16237/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br></pre></td></tr></table></figure>
+<p>从 MainActivity 进入到 SingleTaskActivity，再进入 OtherTaskActivity 后，此时栈中有 3 个 Activity 实例，且 SingleTaskActivity 不在栈顶，在 OtherTaskActivity 跳到 SingleTaskActivity 时，并没有创建一个新的 SingleTaskActivity，而是复用了该实例，并回调了 onNewIntent() 方法，原来的 OtherTaskActivity 出栈了。外接模拟器或真机，Terminal 输入<code>adb shell dumpsys activity activities</code>验证如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_singletop_dump.png" alt=""></p>
+<p>显然，当前栈中只有两个 Activity，原先栈中位于 SingleTaskActivity 之上的 Activity 统统出栈了。</p>
+<p>我们观察到，使用 singleTask 模式启动一个 Activity，其还是在原来的 task 中启动。我们并没有指定 taskAffinity 属性，即和默认值包名一样。MainActivity 没有指定 taskAffinity，其启动时创建的 task 名字就是包名。当启动 SingleTaskActivity 时，首先会搜寻其需要的任务栈是否存在，即 taskAffinity 指定的值(这里为包名)，存在的话，就不会再创建新的 task，直接使用。此外，该 task 中存在该 Activity 实例时会复用此实例。</p>
+<p><strong>换一种情况</strong>，若指定 SingleTaskActivity 的 taskAffinity 的值如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".OtherTaskActivity"</span> <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span></span><br><span class="line">                <span class="attr">android:taskAffinity</span>=<span class="string">"com.iamasoldier6.activitylaunchmodedemo.singletask"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>操作如之前，日志如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">05-29 21:28:46.355 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 21:28:46.356 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: MainActivity, taskId: 695, hashCode: 266150012</span><br><span class="line">05-29 21:28:46.357 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 21:28:56.373 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 21:28:56.373 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: SingleTaskActivity, taskId: 696, hashCode: 247265590</span><br><span class="line">05-29 21:28:56.374 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo.singletask</span><br><span class="line"></span><br><span class="line">05-29 21:29:01.723 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 21:29:01.723 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onCreate: OtherTaskActivity, taskId: 695, hashCode: 26426314</span><br><span class="line">05-29 21:29:01.725 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo</span><br><span class="line"></span><br><span class="line">05-29 21:29:29.994 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: ------ onNewIntent() ------</span><br><span class="line">05-29 21:29:29.994 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: onNewIntent: SingleTaskActivity, taskId: 696, hashCode: 247265590</span><br><span class="line">05-29 21:29:29.995 3700-3700/com.iamasoldier6.activitylaunchmodedemo D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo.singletask</span><br></pre></td></tr></table></figure>
+<p>显然，SingleTaskActivity 所属的任务栈的 taskId 发生了变化，即开启了一个新的 task。</p>
+<p><strong>此外</strong>，可以将两个不同 App 的 Activity 设置为相同的 taskAffinity，虽然在不同的应用中，但是 Activity 会被分配到同一个 task 中。</p>
+<h2 id="singleInstance-模式"><a href="#singleInstance-模式" class="headerlink" title="singleInstance 模式"></a><strong>singleInstance 模式</strong></h2><p>单实例模式， <strong>一种加强的 singleTask 模式</strong>。除了具有 singleTask 模式的所有特性，<strong>还新增一点</strong>，具有该模式的 Activity 只能单独地位于一个返回栈中，具有全局唯一性，即整个系统中就这么一个实例。比如，Activity A 是 singleInstance 模式，当 A 启动后，系统会为它创建一个新的返回栈，然后 A 独自在这个新的返回栈中。若再启动这样的 Activity 时，已经存在一个实例，则会把它所在的任务调度到前台，重用这个实例。因为具有栈内复用的特点，接下来的请求都不会创建新的 Activity，除非该独特的任务栈被系统销毁掉。</p>
+<p>新建一个 App 名为 ActivityLaunchModeDemo2，MainActivity 仍然继承自 BaseActivity，不在话下。看看 SingleInstanceActivity：</p>
+<p><strong><em>配置</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".SingleInstanceActivity"</span></span><br><span class="line">          <span class="attr">android:launchMode</span>=<span class="string">"singleInstance"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.iamasoldier6.activitylaunchmodedemo2.singleinstance"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>示例</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleInstanceActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_singleinstance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在两个 App 中设置启动的代码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(<span class="string">"com.iamasoldier6.activitylaunchmodedemo2.singleinstance"</span>);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+<p>界面如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_singleinstance.png" alt=""></p>
+<p>logcat 中的日志如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// ActivityLaunchModeDemo2 中打开</span><br><span class="line">05-29 23:28:01.519 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 23:28:01.521 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: onCreate: MainActivity, taskId: 713, hashCode: 266150012</span><br><span class="line">05-29 23:28:01.523 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo2</span><br><span class="line"></span><br><span class="line">05-29 23:28:08.702 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: ------ onCreate() ------</span><br><span class="line">05-29 23:28:08.702 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: onCreate: SingleInstanceActivity, taskId: 714, hashCode: 11051282</span><br><span class="line">05-29 23:28:08.703 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo2</span><br><span class="line"></span><br><span class="line">// ActivityLaunchModeDemo 中打开</span><br><span class="line">05-29 23:28:27.744 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: ------ onNewIntent() ------</span><br><span class="line">05-29 23:28:27.745 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: onNewIntent: SingleInstanceActivity, taskId: 714, hashCode: 11051282</span><br><span class="line">05-29 23:28:27.745 31192-31192/com.iamasoldier6.activitylaunchmodedemo2 D/Iamasoldier6: taskAffinity: com.iamasoldier6.activitylaunchmodedemo2</span><br></pre></td></tr></table></figure>
+<p>显然，ActivityLaunchModeDemo2 启动 SingleInstanceActivity 时，因为系统中不存在这个实例，故新建了一个 task。按 Home 键，使用 ActivityLaunchModeDemo，点击按钮进入 SingleInstanceActivity，因为系统中已经存在了一个实例，则不会再创建新的 task，直接复用该实例，并且回调 onNewIntent() 方法，从其 hashCode 中可以看出是同一个实例，即<strong>SingleInstance 模式启动的 Activity 在系统中具有全局唯一性</strong>。</p>
+<p>至此，关于 Activity 的启动模式归纳分析完毕，重温 Activity 系列两篇文章到此结束。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<p><br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://developer.android.google.cn/guide/components/tasks-and-back-stack.html?hl=zh-cn" target="_blank" rel="external">https://developer.android.google.cn/guide/components/tasks-and-back-stack.html?hl=zh-cn</a></p>
+<p>2.<a href="https://item.jd.com/11760209.html" target="_blank" rel="external">Android 开发艺术探索</a></p>
+<p>3.<a href="http://blog.csdn.net/mynameishuangshuai/article/details/51491074" target="_blank" rel="external">http://blog.csdn.net/mynameishuangshuai/article/details/51491074</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/05/21/重温-Activity-分析一：生命周期/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">重温 Activity 分析一：生命周期</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   博主沥血作文章，客官随性打钱赏。左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/06/03/重温-Activity-分析二：启动模式/" target="_blank" title="重温 Activity 分析二：启动模式">重温 Activity 分析二：启动模式</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/06/03/重温-Activity-分析二：启动模式/" target="_blank" title="重温 Activity 分析二：启动模式">http://iamasoldier6.com/2017/06/03/重温-Activity-分析二：启动模式/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="重温-Activity-分析二：启动模式" data-title="重温 Activity 分析二：启动模式" data-url="http://iamasoldier6.com/2017/06/03/重温-Activity-分析二：启动模式/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iamasoldier6"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4548ab92471a76e452c9750997a514f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
