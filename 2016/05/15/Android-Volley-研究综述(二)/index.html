@@ -395,11 +395,23 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
 
 
   
-    <div class="netease"></div>
+  <!-- 网易云跟帖评论插件通用代码 -->
+<div class="netease">
+	<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+	<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+	<script>
+	var cloudTieConfig = {
+	  url: document.location.href, 
+	  sourceId: "",
+	  productKey: "36796c60292648f9a78d167e003ed5b2",
+	  target: "cloud-tie-wrapper"
+	};
+	var yunManualLoad = true;
+	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+	</script>
+</div>
+<!-- 网易云跟帖代码结束了 -->
   
-
-
-<!-- 网易云跟帖 -->
 
 
 
