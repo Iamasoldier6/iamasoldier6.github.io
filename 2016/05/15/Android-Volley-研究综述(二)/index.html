@@ -19,7 +19,7 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/failure3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/imageloader4.png">
-<meta property="og:updated_time" content="2017-04-21T13:56:29.000Z">
+<meta property="og:updated_time" content="2017-07-29T11:44:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(二)">
 <meta name="twitter:description" content="Nothing is given, everything is earned, you work for what you have.
@@ -294,7 +294,9 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
 <p>setImageUrl() 方法接收两个参数，第一个指定图片的 URL 地址，第二个是前面创建好的 ImageLoader 对象，姑且使用未设置图片缓存的代码。然后一些基本事项无需赘述，运行程序，看到效果与 ImageLoader 的效果是一样的。</p>
 <p>值得注意的是，使用 ImageRequest 和 ImageLoader 两种方式加载图片都可以传入一个最大宽度和最大高度的参数来对图片进行压缩。然而，对于 NetworkImageView，并不需要提供任何设置最大宽高的方法也能对加载的图片进行压缩。它是一个控件，在加载图片的时候会自动获取自身的宽高，然后对比网络图片的宽高，再决定是否需要对图片进行压缩。整个压缩过程在内部是完全自动化的，其呈现给我们的始终是一张大小刚好的图片，不会多占用任何一点内存。</p>
 <p>当然，不愿压缩图片的话，只需要在布局文件中将 layout_width 和 layout_height 都设置成 wrap_content 即可。至此，关于 Android Volley 研究综述(二)到此结束，(三)未完待续。 </p>
-<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong><br><br></p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><br></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://developer.android.com/training/volley/request.html" target="_blank" rel="external">http://developer.android.com/training/volley/request.html</a></p>
 <p>2.<a href="http://developer.android.com/training/volley/requestqueue.html" target="_blank" rel="external">http://developer.android.com/training/volley/requestqueue.html</a></p>
 <p>3.<a href="http://blog.csdn.net/guolin_blog/article/details/17482165" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/17482165</a></p>

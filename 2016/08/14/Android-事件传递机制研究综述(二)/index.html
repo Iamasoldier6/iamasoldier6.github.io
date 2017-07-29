@@ -16,7 +16,7 @@
 <meta property="og:description" content="追求卓越，成功就会在不经意间追上你。
 
 半个月前，在时隔很久以后，更新了一篇 Android 事件传递机制研究综述(一)博文，然而，分析大多留于表层，未进行深入挖掘。本篇在上篇的基础上继续深入，从相关源码角度分析事件的分发、拦截以及处理机制，不过，源码基于 Android 早期版本，如今源代码虽有所改动，但大体思想精髓一致。">
-<meta property="og:updated_time" content="2016-12-28T15:34:56.000Z">
+<meta property="og:updated_time" content="2017-07-29T11:46:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 事件传递机制研究综述(二)">
 <meta name="twitter:description" content="追求卓越，成功就会在不经意间追上你。
@@ -240,6 +240,7 @@
 <p>代码同样很长，挑重要的看。13 行中一个条件判断，若 disallowIntercept 和 !onInterceptTouchEvent(ev) 一者为 true，则进入条件判断。disallowIntercept 即禁用事件拦截功能，默认为 false，可以通过 requestDisallowInterceptTouchEvent() 方法修改该值。那么，第一个值为 false 时，会完全依赖第二个值决定是否进入判断内部。第二个值，即对 onInterceptTouchEvent() 方法的返回值取反。判断内部，19 行通过一个 for 循环，遍历当前 ViewGroup 下的所有子 View，然后，24 行判断当前遍历的 View 是否为正在点击的 View，是的话进入到条件判断的内部，再接着，在 29 行调用 View 的 dispatchTouchEvent() 方法，后续流程如 View。</p>
 <p>至此，关于事件的分发、拦截以及处理机制研究综述全部完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
 
       
     </div>

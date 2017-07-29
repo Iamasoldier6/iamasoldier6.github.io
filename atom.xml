@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-07-29T10:00:21.000Z</updated>
+  <updated>2017-07-29T11:56:16.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2017/07/29/Android-EventBus-%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93/"/>
     <id>http://iamasoldier6.com/2017/07/29/Android-EventBus-使用小结/</id>
     <published>2017-07-29T09:58:36.000Z</published>
-    <updated>2017-07-29T10:00:21.000Z</updated>
+    <updated>2017-07-29T11:56:16.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;人们眼中的天才，并非卓越非凡，而是付出了持续不断的努力，一万小时的锤炼是任何人从平凡变成超凡的必要条件。&lt;/p&gt;
@@ -91,6 +91,7 @@
 &lt;p&gt;5.其实，EventBus 是内部用 Map 存储，Post 消息的时候，照实参从 Map 里寻找方法，再反射调用的。&lt;/p&gt;
 &lt;p&gt;至此，关于 Android EventBus 的使用小结到此结束，下一篇打算翻看源码，以深入理解 EventBus。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://github.com/greenrobot/EventBus&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/greenrobot/EventBus&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://www.cnblogs.com/angeldevil/p/3715934.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/angeldevil/p/3715934.html&lt;/a&gt;&lt;/p&gt;
@@ -118,7 +119,7 @@
     <link href="http://iamasoldier6.com/2017/07/15/%E9%87%8D%E6%B8%A9-Fragment-%E5%88%86%E6%9E%90%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
     <id>http://iamasoldier6.com/2017/07/15/重温-Fragment-分析二：使用及注意事项/</id>
     <published>2017-07-15T02:19:45.000Z</published>
-    <updated>2017-07-15T02:21:25.000Z</updated>
+    <updated>2017-07-29T11:55:56.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Everything is OK in the end. If it’s not OK, then it’s not the end.&lt;/p&gt;
@@ -212,6 +213,7 @@
 &lt;p&gt;Fragment 中也提供了一个 getContext() 方法，来返回 Context 对象，若不使用具体的宿主 Activity 对象，可用这个方法获取 Context 对象。&lt;/p&gt;
 &lt;p&gt;至此，关于 Fragment 常见的使用和注意事项分析完毕，重温 Fragment 系列两篇文章到此结束。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://developer.android.com/guide/components/fragments.html?hl=zh-cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://developer.android.com/guide/components/fragments.html?hl=zh-cn&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/37992017&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/lmj623565791/article/details/37992017&lt;/a&gt;&lt;/p&gt;
@@ -239,7 +241,7 @@
     <link href="http://iamasoldier6.com/2017/06/30/%E9%87%8D%E6%B8%A9-Fragment-%E5%88%86%E6%9E%90%E4%B8%80%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://iamasoldier6.com/2017/06/30/重温-Fragment-分析一：生命周期/</id>
     <published>2017-06-30T10:13:44.000Z</published>
-    <updated>2017-06-30T14:00:14.000Z</updated>
+    <updated>2017-07-29T11:55:34.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;天下古今之庸人，皆以一惰字致败；天下古今之才人，皆以一傲字致败。&lt;/p&gt;
@@ -287,6 +289,7 @@
 &lt;p&gt;综合 Activity 与 Fragment 之间生命周期回调方法的对应同步关系，参见 GitHub 上 &lt;a href=&quot;https://github.com/xxv/android-lifecycle/blob/master/complete_android_fragment_lifecycle.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;The Complete Android Activity / Fragment Lifecycle&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;至此，关于 Fragment 的生命周期，其简单的回顾与归纳分析完毕，下一篇是对 Fragment 的使用方面的总结。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://developer.android.com/guide/components/fragments.html?hl=zh-cn#Creating&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://developer.android.com/guide/components/fragments.html?hl=zh-cn#Creating&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/8881711&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/8881711&lt;/a&gt;&lt;/p&gt;
@@ -313,7 +316,7 @@
     <link href="http://iamasoldier6.com/2017/06/17/Android-Unit-Test-%E6%96%B9%E6%A1%88%E5%B0%8F%E7%BB%93%EF%BC%9AJUnit-Mockito-PowerMock/"/>
     <id>http://iamasoldier6.com/2017/06/17/Android-Unit-Test-方案小结：JUnit-Mockito-PowerMock/</id>
     <published>2017-06-17T03:00:37.000Z</published>
-    <updated>2017-06-17T03:17:31.000Z</updated>
+    <updated>2017-07-29T11:55:12.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;天之道，损有余而补不足，是故虚胜实，不足胜有余。&lt;/p&gt;
@@ -476,6 +479,7 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;testCompile &lt;span class=&quot;string&quot;&gt;&#39;junit:junit:4.11&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// Mockito for unit tests&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;testCompile &lt;span class=&quot;string&quot;&gt;&#39;org.mockito:mockito-core:1.9.5&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// Powermock for unit tests&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;testCompile &lt;span class=&quot;string&quot;&gt;&#39;org.powermock:powermock-module-junit4:1.5.6&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;testCompile &lt;span class=&quot;string&quot;&gt;&#39;org.powermock:powermock-module-junit4-rule:1.5.6&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;testCompile &lt;span class=&quot;string&quot;&gt;&#39;org.powermock:powermock-api-mockito:1.5.6&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;至此，关于 Android Unit Test 方案小结到此结束，JUnit &amp;amp; Mockito &amp;amp; PowerMock 即为最佳实践。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/6631bd826677&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/6631bd826677&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://www.snowdream.tech/2016/08/03/android-mock-test/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.snowdream.tech/2016/08/03/android-mock-test/&lt;/a&gt;&lt;/p&gt;
@@ -502,7 +506,7 @@
     <link href="http://iamasoldier6.com/2017/06/03/%E9%87%8D%E6%B8%A9-Activity-%E5%88%86%E6%9E%90%E4%BA%8C%EF%BC%9A%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/"/>
     <id>http://iamasoldier6.com/2017/06/03/重温-Activity-分析二：启动模式/</id>
     <published>2017-06-03T00:15:40.000Z</published>
-    <updated>2017-06-08T14:02:51.000Z</updated>
+    <updated>2017-07-29T11:54:39.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;循序渐进才能赢得时间，细水长流才能直达永恒。&lt;/p&gt;
@@ -581,6 +585,7 @@
 &lt;p&gt;显然，ActivityLaunchModeDemo2 启动 SingleInstanceActivity 时，因为系统中不存在这个实例，故新建了一个 task。按 Home 键，使用 ActivityLaunchModeDemo，点击按钮进入 SingleInstanceActivity，因为系统中已经存在了一个实例，则不会再创建新的 task，直接复用该实例，并且回调 onNewIntent() 方法，从其 hashCode 中可以看出是同一个实例，即 &lt;strong&gt;SingleInstance 模式启动的 Activity 在系统中具有全局唯一性&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;至此，关于 Activity 的启动模式归纳分析完毕，重温 Activity 系列两篇文章到此结束。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://developer.android.google.cn/guide/components/tasks-and-back-stack.html?hl=zh-cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://developer.android.google.cn/guide/components/tasks-and-back-stack.html?hl=zh-cn&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;https://item.jd.com/11760209.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android 开发艺术探索&lt;/a&gt;&lt;/p&gt;
@@ -608,7 +613,7 @@
     <link href="http://iamasoldier6.com/2017/05/21/%E9%87%8D%E6%B8%A9-Activity-%E5%88%86%E6%9E%90%E4%B8%80%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://iamasoldier6.com/2017/05/21/重温-Activity-分析一：生命周期/</id>
     <published>2017-05-21T06:41:59.000Z</published>
-    <updated>2017-05-29T07:15:11.000Z</updated>
+    <updated>2017-07-29T11:54:20.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;If you can’t fly then run, can’t run then walk, can’t walk then crawl, just keep moving forward.&lt;/p&gt;
@@ -709,6 +714,7 @@
 &lt;p&gt;实际上，系统配置中有很多内容，若某项内容发生改变后，不想系统重新创建 Activity，可以给 Activity 指定 configChanges 属性。&lt;/p&gt;
 &lt;p&gt;至此，关于 Activity 的生命周期归纳分析完毕，下一篇是对 Activity 的启动模式的归纳分析。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://developer.android.google.cn/guide/components/activities.html?hl=zh-cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://developer.android.google.cn/guide/components/activities.html?hl=zh-cn&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;https://item.jd.com/11020606530.html?jd_pop=e985a1db-5b68-4b6c-b7c5-d827d1633f3e&amp;amp;abt=0&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;第一行代码&lt;/a&gt;&lt;/p&gt;
@@ -736,7 +742,7 @@
     <link href="http://iamasoldier6.com/2017/05/06/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E5%9B%9B%EF%BC%9A%E5%9B%9E%E6%94%B6%E5%A4%8D%E7%94%A8%E5%92%8C%E5%8A%A8%E7%94%BB/"/>
     <id>http://iamasoldier6.com/2017/05/06/深入-RecyclerView-源码探究四：回收复用和动画/</id>
     <published>2017-05-06T14:38:32.000Z</published>
-    <updated>2017-05-28T06:42:39.000Z</updated>
+    <updated>2017-07-29T11:53:55.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;只要有初恋般的热情和宗教般的意志方能成就某种事业。&lt;/p&gt;
@@ -785,6 +791,7 @@
 &lt;p&gt;关于动画，文中提到的对数据集的 4 种操作，在 DefaultItemAnimator 中给出了对应的默认实现，即改变透明度，实现淡入淡出的效果。&lt;/p&gt;
 &lt;p&gt;至此，关于 RecyclerView 的回收复用和动画过程探究完毕，整个 RecyclerView 的源码探究系列也到此结束，需要深究、拓展与实践的点还有很多。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/qq_23012315/article/details/50807224&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qq_23012315/article/details/50807224&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;https://www.kymjs.com/code/2016/07/10/01/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.kymjs.com/code/2016/07/10/01/&lt;/a&gt;&lt;/p&gt;
@@ -813,7 +820,7 @@
     <link href="http://iamasoldier6.com/2017/04/21/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%B8%89%EF%BC%9A%E7%BB%98%E5%88%B6%E5%92%8C%E6%BB%91%E5%8A%A8/"/>
     <id>http://iamasoldier6.com/2017/04/21/深入-RecyclerView-源码探究三：绘制和滑动/</id>
     <published>2017-04-21T13:19:30.000Z</published>
-    <updated>2017-05-04T12:59:57.000Z</updated>
+    <updated>2017-07-29T11:53:34.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;If you keep on doing what you’ve always done, you’ll keep gettting what you’ve always got.&lt;/p&gt;
@@ -848,6 +855,7 @@
 &lt;p&gt;其中，fill() 方法的作用即是向可绘制即滑动偏移量形成的区域填充 itemView，mOrientationHelper.offsetChildren() 的作用即是平移 itemView。&lt;/p&gt;
 &lt;p&gt;至此，关于 RecyclerView 的绘制和滑动过程探究完毕，最后一篇将从回收复用和动画机制方面展开探究。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/qq_23012315/article/details/50807224&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qq_23012315/article/details/50807224&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -875,7 +883,7 @@
     <link href="http://iamasoldier6.com/2017/04/08/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9A%E6%B5%8B%E9%87%8F%E5%92%8C%E5%B8%83%E5%B1%80/"/>
     <id>http://iamasoldier6.com/2017/04/08/深入-RecyclerView-源码探究二：测量和布局/</id>
     <published>2017-04-08T15:54:32.000Z</published>
-    <updated>2017-05-03T15:28:09.000Z</updated>
+    <updated>2017-07-29T11:53:15.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Life is not about how to live through the storm, but how to dance in the rain.&lt;/p&gt;
@@ -943,6 +951,7 @@
 &lt;p&gt;4.RecyclerView 的布局过程中，有着很多动画相关的处理，其数据改变的动画是在布局过程的第三步中统一触发，而不是在一调用 notify 之后就立马触发的。&lt;/p&gt;
 &lt;p&gt;至此，关于 RecyclerView 的测量和布局过程探究完毕，后续将从绘制和滑动机制方面展开探究。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/qq_23012315/article/details/50807224&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qq_23012315/article/details/50807224&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/898479f103b6&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/898479f103b6&lt;/a&gt;&lt;/p&gt;
@@ -971,7 +980,7 @@
     <link href="http://iamasoldier6.com/2017/03/25/%E6%B7%B1%E5%85%A5-RecyclerView-%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6%E4%B8%80%EF%BC%9A%E5%AE%8F%E8%A7%82%E8%AE%BE%E8%AE%A1/"/>
     <id>http://iamasoldier6.com/2017/03/25/深入-RecyclerView-源码探究一：宏观设计/</id>
     <published>2017-03-25T11:35:29.000Z</published>
-    <updated>2017-05-02T14:57:09.000Z</updated>
+    <updated>2017-07-29T11:52:58.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。&lt;/p&gt;
@@ -1019,6 +1028,7 @@
 &lt;p&gt;实际上，ViewHolder 的创建和绑定都由 Recycler 执行。此外，LayoutManager 获得 ViewHolder 的 itemView，也由 Recycler 提供。Recycler 里有几个 ViewHolder 的容器，用来存储不同状态的 ViewHolder，以便复用。其中，通过 ViewCacheExtension 类，开发者可以自定义复用机制。而 RecycledViewPool，可以从外部对多个 RecyclerView 设置同一个 RecycledViewPool，以实现多个 RecyclerView 中 ViewHolder 的复用。&lt;/p&gt;
 &lt;p&gt;至此，关于 RecyclerView 的宏观设计探究完毕，后续将分几篇从主要流程和机制方面展开探究。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/9ddfdffee5d3&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/9ddfdffee5d3&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -1046,7 +1056,7 @@
     <link href="http://iamasoldier6.com/2017/03/11/%E6%B5%85%E8%B0%88-Java-%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/"/>
     <id>http://iamasoldier6.com/2017/03/11/浅谈-Java-中的泛型/</id>
     <published>2017-03-11T02:49:46.000Z</published>
-    <updated>2017-05-01T15:38:54.000Z</updated>
+    <updated>2017-07-29T11:52:37.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;不积跬步，无以至千里；不积小流，无以成江海。&lt;/p&gt;
@@ -1118,7 +1128,9 @@
 &lt;p&gt;3.泛型的 “extends” 代表子类型，而不是子类，或许可以将其等同于 “extends (继承)” 和 “implement” 的并集。&lt;/p&gt;
 &lt;p&gt;4.泛型里，也存在子类型，前提是其泛型参数的限制并没有改变。&lt;/p&gt;
 &lt;p&gt;至此，关于 Java 中的泛型总结完毕。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://peiquan.blog.51cto.com/7518552/1302898&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://peiquan.blog.51cto.com/7518552/1302898&lt;/a&gt;&lt;/p&gt;
 </content>
     
@@ -1143,7 +1155,7 @@
     <link href="http://iamasoldier6.com/2017/02/25/%E5%89%96%E6%9E%90-View-%E4%B8%AD%E7%9A%84-Invalidate-PostInvalidate-%E5%92%8C-RequestLayout/"/>
     <id>http://iamasoldier6.com/2017/02/25/剖析-View-中的-Invalidate-PostInvalidate-和-RequestLayout/</id>
     <published>2017-02-25T04:06:26.000Z</published>
-    <updated>2017-04-29T15:46:43.000Z</updated>
+    <updated>2017-07-29T11:52:17.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;大巧无工，重剑无锋。&lt;/p&gt;
@@ -1192,6 +1204,7 @@
 &lt;p&gt;如上流程图所示，一目了然。若 View 自身不再适用于当前区域，比如其 LayoutParams 发生改变，需要父布局对其重新测量、布局和绘制，往往使用 requestLayout()。而 invalidate() 或者 postInvalidate() 则是刷新当前 View，对当前的 View 进行重绘，不会进行测量与布局流程。因此，若 View 只需要重绘而不用测量和布局的时候，使用 invalidate() 比 requestLayout() 更加高效。&lt;/p&gt;
 &lt;p&gt;至此，从源码角度对 invalidate，postInvalidate 和 requestLayout 的剖析完毕。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/effe9b4333de&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/effe9b4333de&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -1219,7 +1232,7 @@
     <link href="http://iamasoldier6.com/2017/02/12/Android-Debug-%E7%AE%80%E5%8D%95%E5%B0%8F%E7%BB%93/"/>
     <id>http://iamasoldier6.com/2017/02/12/Android-Debug-简单小结/</id>
     <published>2017-02-12T05:14:19.000Z</published>
-    <updated>2017-04-28T13:12:26.000Z</updated>
+    <updated>2017-07-29T11:51:56.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;每一个你不满意的现在，都有一个你没有努力的曾经。&lt;/p&gt;
@@ -1300,7 +1313,9 @@
 &lt;/ul&gt;
 &lt;p&gt;总之，个人觉得，Debug 能力的提升非一朝一夕之功，需要在各种项目里遭遇各种情况时锤炼，以上只是常用操作的小结，详细部分参照 Google 官方&lt;a href=&quot;https://developer.android.google.cn/studio/debug/index.html?hl=zh-cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;调试您的应用&lt;/a&gt; 和 &lt;a href=&quot;http://blog.csdn.net/dd864140130/article/details/51560664&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Studio 代码调试大全&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;至此，关于 Android Debug 的简单小结完毕。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/dd864140130/article/details/51560664&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/dd864140130/article/details/51560664&lt;/a&gt;&lt;/p&gt;
 </content>
     
@@ -1325,7 +1340,7 @@
     <link href="http://iamasoldier6.com/2017/01/29/%E6%B5%85%E8%B0%88-Android-%E4%B8%AD%E7%9A%84%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6/"/>
     <id>http://iamasoldier6.com/2017/01/29/浅谈-Android-中的回调机制/</id>
     <published>2017-01-29T03:25:40.000Z</published>
-    <updated>2017-04-27T15:39:03.000Z</updated>
+    <updated>2017-07-29T11:51:29.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。&lt;/p&gt;
@@ -1369,7 +1384,9 @@
 &lt;h2 id=&quot;回调的作用&quot;&gt;&lt;a href=&quot;#回调的作用&quot; class=&quot;headerlink&quot; title=&quot;回调的作用&quot;&gt;&lt;/a&gt;&lt;strong&gt;回调的作用&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;一般来说，类的成员变量都是数据对象，主要是用来传递数据的。回调是将一段程序作为成员变量，在特定的场合使用该段程序，此为回调的核心。&lt;/p&gt;
 &lt;p&gt;Java 是一门面向对象语言，“万事万物皆为对象”，将普通事物的共性抽取出来，而这些共性中又充斥着特性，每个不同的特性就需要交给特定的情况去处理，暴露接口可以减少很多重复，使得代码更加优雅。比如，View 具有被点击的通性，但是每个点击事件会产生不一样的事件处理，因此，Android 对外暴露一个接口中有个 onClick() 方法，需要处理什么写什么，View 不管如何实现，其只负责调用该回调方法。&lt;/p&gt;
 &lt;p&gt;至此，关于 Android 中的回调机制综述完毕。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.jianshu.com/p/3f86b7949f20&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/3f86b7949f20&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/xsf50717/article/details/50520462&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/xsf50717/article/details/50520462&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -1395,7 +1412,7 @@
     <link href="http://iamasoldier6.com/2017/01/14/%E6%B5%85%E6%8E%A2-Android-%E4%B8%AD%E7%9A%84-Context/"/>
     <id>http://iamasoldier6.com/2017/01/14/浅探-Android-中的-Context/</id>
     <published>2017-01-14T06:47:32.000Z</published>
-    <updated>2017-04-12T15:46:04.000Z</updated>
+    <updated>2017-07-29T11:50:56.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Nobody can go back and start a new beginning, but anyone can start today and make a new ending.&lt;/p&gt;
@@ -1454,7 +1471,9 @@
 &lt;p&gt;(2) 不要让生命周期比 Activity 长的对象持有 Activity 的饮用。&lt;/p&gt;
 &lt;p&gt;(3) 最好不要在 Activity 中使用非静态内部类，由于非静态内部类会隐式持有外部类实例的引用，如果使用静态内部类，将外部实例引用作为弱引用持有。&lt;/p&gt;
 &lt;p&gt;至此，浅探 Android 中的 Context 到此结束。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/47028975&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/guolin_blog/article/details/47028975&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://www.jianshu.com/p/94e0f9ab3f1d&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/94e0f9ab3f1d&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;3.&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/40481055&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/lmj623565791/article/details/40481055&lt;/a&gt;&lt;/p&gt;
@@ -1588,7 +1607,7 @@
     <link href="http://iamasoldier6.com/2016/12/17/%E6%B5%85%E8%B0%88-Java-%E4%B8%AD%E7%9A%84%E6%B3%A8%E8%A7%A3/"/>
     <id>http://iamasoldier6.com/2016/12/17/浅谈-Java-中的注解/</id>
     <published>2016-12-17T00:02:55.000Z</published>
-    <updated>2016-12-18T01:08:32.000Z</updated>
+    <updated>2017-07-29T11:50:09.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;人啊，就是要学会装逼，装着装着就牛逼了。&lt;/p&gt;
@@ -1822,7 +1841,9 @@
 &lt;p&gt;&lt;code&gt;ButterKnife&lt;/code&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight css&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@&lt;span class=&quot;keyword&quot;&gt;InjectView(R.id.user)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EditText mEtUsername;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;至此，关于 Java 中的注解探究并总结完毕。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://docs.oracle.com/javase/7/docs/api/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://t.cn/R4b4Fsr&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://t.cn/R4b4Fsr&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;3.&lt;a href=&quot;http://gityuan.com/2016/01/23/java-annotation/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://gityuan.com/2016/01/23/java-annotation/&lt;/a&gt;&lt;/p&gt;
@@ -1850,7 +1871,7 @@
     <link href="http://iamasoldier6.com/2016/12/03/%E6%B5%85%E8%B0%88-Java-%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/"/>
     <id>http://iamasoldier6.com/2016/12/03/浅谈-Java-中的反射机制/</id>
     <published>2016-12-03T10:49:59.000Z</published>
-    <updated>2017-04-26T15:00:45.000Z</updated>
+    <updated>2017-07-29T11:49:46.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;火跳动着绝望/谁在低声吟唱/说遗忘者的哀伤 /用战斗证明希望&lt;/p&gt;
@@ -1941,7 +1962,9 @@
 &lt;p&gt;&lt;code&gt;接口说明&lt;/code&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 获取指定类型的注解&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &amp;lt;A extends Annotation&amp;gt; &lt;span class=&quot;function&quot;&gt;A &lt;span class=&quot;title&quot;&gt;getAnnotation&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Class&amp;lt;A&amp;gt; annotationClass)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 获取 Class 对象中的所有注解&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; Annotation[] getAnnotations();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;至此，关于 Java 中的反射机制探究并总结完毕。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.cnblogs.com/rollenholt/archive/2011/09/02/2163758.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/rollenholt/archive/2011/09/02/2163758.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.&lt;a href=&quot;http://t.cn/Rf1q5Ej&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://t.cn/Rf1q5Ej&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -1967,7 +1990,7 @@
     <link href="http://iamasoldier6.com/2016/11/20/%E4%BB%8E-Android-WebView-%E8%B0%88%E5%BC%80%E5%8E%BB/"/>
     <id>http://iamasoldier6.com/2016/11/20/从-Android-WebView-谈开去/</id>
     <published>2016-11-20T09:55:07.000Z</published>
-    <updated>2016-12-03T10:59:14.000Z</updated>
+    <updated>2017-07-29T11:49:22.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;目标赋予我们生命的意义和目的。有了目标，我们才会把注意力集中在追求喜悦，而不是在避免痛苦上。&lt;/p&gt;
@@ -2028,6 +2051,7 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;AppCompatActivity&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; WebView mWebView;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; LinearLayout llLayout;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; EditText etInput;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; String url = &lt;span class=&quot;string&quot;&gt;&quot;file:///android_asset/JsSample.html&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onCreate(savedInstanceState);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        setContentView(R.layout.activity_main);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        llLayout = (LinearLayout) findViewById(R.id.ll_root);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        etInput = (EditText) findViewById(R.id.et_input);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        initView();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;initView&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// 动态创建 WebView 添加到整体布局中&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; WebView(getApplication());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        LinearLayout.LayoutParams params = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; LinearLayout.LayoutParams(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.setLayoutParams(params);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        llLayout.addView(mWebView);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// 当前 WebView 展示，不跳转到系统浏览器&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.setWebViewClient(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; WebViewClient() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        WebSettings settings = mWebView.getSettings();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        settings.setJavaScriptEnabled(&lt;span class=&quot;keyword&quot;&gt;true&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.loadUrl(url);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.addJavascriptInterface(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; JsInterface(), &lt;span class=&quot;string&quot;&gt;&quot;Java&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;confirm&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(View view)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// Java 调用 JS&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.loadUrl(&lt;span class=&quot;string&quot;&gt;&quot;javascript:javaCallJs(&quot;&lt;/span&gt; + &lt;span class=&quot;string&quot;&gt;&quot;&#39;&quot;&lt;/span&gt; + etInput.getText().toString() + &lt;span class=&quot;string&quot;&gt;&quot;&#39;&quot;&lt;/span&gt; + &lt;span class=&quot;string&quot;&gt;&quot;)&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 页面销毁时，移除 WebView&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onDestroy&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onDestroy();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        llLayout.removeView(mWebView);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.stopLoading();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.removeAllViews();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mWebView.destroy();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;JsInterface&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// JS 调用 Java&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;meta&quot;&gt;@JavascriptInterface&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;showAlert&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String str)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Toast.makeText(MainActivity.&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, str, Toast.LENGTH_LONG).show();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;至此，浅谈 Android WebView 到此结束，关于使用 WebView 的一些注意事项参见&lt;a href=&quot;http://blog.csdn.net/hytfly/article/details/48489251&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;安卓 webview 的一些坑&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;http://blog.csdn.net/qq_24530405/article/details/52067474&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/qq_24530405/article/details/52067474&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -2055,7 +2079,7 @@
     <link href="http://iamasoldier6.com/2016/11/05/%E6%88%91%E7%9A%84%20Android-%E8%AE%AD%E7%BB%83%E9%A6%86/"/>
     <id>http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/</id>
     <published>2016-11-05T09:14:26.000Z</published>
-    <updated>2017-04-10T15:38:44.000Z</updated>
+    <updated>2017-07-29T11:48:56.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -2095,6 +2119,7 @@
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/verticalview.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;想查看更多实用有趣的 Demo，欢迎访问我的训练馆：&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AndroidExerciseDemos&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 </content>
     
     <summary type="html">

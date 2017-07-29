@@ -16,7 +16,7 @@
 <meta property="og:description" content="生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。
 
 由于回老家过年，博客的更新迟了一周，本篇应该为大年初一更新出来，如今更改时间线，作为上周博客的补更。这次，谈一谈 Android 中的回调机制，经常听人提到回调函数，那么到底什么是回调函数？">
-<meta property="og:updated_time" content="2017-04-27T15:39:03.000Z">
+<meta property="og:updated_time" content="2017-07-29T11:51:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Android 中的回调机制">
 <meta name="twitter:description" content="生活的悲欢离合永远在地平线之外，而眺望是一种青春的姿态。
@@ -258,7 +258,9 @@
 <h2 id="回调的作用"><a href="#回调的作用" class="headerlink" title="回调的作用"></a><strong>回调的作用</strong></h2><p>一般来说，类的成员变量都是数据对象，主要是用来传递数据的。回调是将一段程序作为成员变量，在特定的场合使用该段程序，此为回调的核心。</p>
 <p>Java 是一门面向对象语言，“万事万物皆为对象”，将普通事物的共性抽取出来，而这些共性中又充斥着特性，每个不同的特性就需要交给特定的情况去处理，暴露接口可以减少很多重复，使得代码更加优雅。比如，View 具有被点击的通性，但是每个点击事件会产生不一样的事件处理，因此，Android 对外暴露一个接口中有个 onClick() 方法，需要处理什么写什么，View 不管如何实现，其只负责调用该回调方法。</p>
 <p>至此，关于 Android 中的回调机制综述完毕。</p>
-<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong><br><br></p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><br></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://www.jianshu.com/p/3f86b7949f20" target="_blank" rel="external">http://www.jianshu.com/p/3f86b7949f20</a></p>
 <p>2.<a href="http://blog.csdn.net/xsf50717/article/details/50520462" target="_blank" rel="external">http://blog.csdn.net/xsf50717/article/details/50520462</a></p>
 

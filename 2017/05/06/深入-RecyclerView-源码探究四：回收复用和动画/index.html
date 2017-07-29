@@ -16,7 +16,7 @@
 <meta property="og:description" content="只要有初恋般的热情和宗教般的意志方能成就某种事业。
 
 前面几期分析都谈到过 Recycler，其作用就是重用 itemView。本篇在深入 RecyclerView 源码探究三：绘制和滑动的基础上继续展开，分析 RecyclerView 的回收复用和动画过程。">
-<meta property="og:updated_time" content="2017-05-28T06:42:39.000Z">
+<meta property="og:updated_time" content="2017-07-29T11:53:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究四：回收复用和动画">
 <meta name="twitter:description" content="只要有初恋般的热情和宗教般的意志方能成就某种事业。
@@ -263,6 +263,7 @@
 <p>关于动画，文中提到的对数据集的 4 种操作，在 DefaultItemAnimator 中给出了对应的默认实现，即改变透明度，实现淡入淡出的效果。</p>
 <p>至此，关于 RecyclerView 的回收复用和动画过程探究完毕，整个 RecyclerView 的源码探究系列也到此结束，需要深究、拓展与实践的点还有很多。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/qq_23012315/article/details/50807224" target="_blank" rel="external">http://blog.csdn.net/qq_23012315/article/details/50807224</a></p>
 <p>2.<a href="https://www.kymjs.com/code/2016/07/10/01/" target="_blank" rel="external">https://www.kymjs.com/code/2016/07/10/01/</a></p>
