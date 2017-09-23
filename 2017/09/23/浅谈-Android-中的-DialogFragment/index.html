@@ -8,25 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="If you don’t like where you are, change it. You’re not a tree.
 
-Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。
-简介 DialogFragmentDialogFragment 自 A">
+Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈 Android 中的 DialogFragment">
 <meta property="og:url" content="http://iamasoldier6.com/2017/09/23/浅谈-Android-中的-DialogFragment/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="If you don’t like where you are, change it. You’re not a tree.
 
-Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。
-简介 DialogFragmentDialogFragment 自 A">
+Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/dialogfragment_ok.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/dialogfragment_login.png">
-<meta property="og:updated_time" content="2017-09-17T10:24:52.000Z">
+<meta property="og:updated_time" content="2017-09-23T12:56:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Android 中的 DialogFragment">
 <meta name="twitter:description" content="If you don’t like where you are, change it. You’re not a tree.
 
-Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。
-简介 DialogFragmentDialogFragment 自 A">
+Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/dialogfragment_ok.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
@@ -225,7 +222,7 @@ Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使�
         <blockquote>
 <p>If you don’t like where you are, change it. You’re not a tree.</p>
 </blockquote>
-<p>Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。</p>
+<p>Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。<a id="more"></a></p>
 <h2 id="简介-DialogFragment"><a href="#简介-DialogFragment" class="headerlink" title="简介 DialogFragment"></a><strong>简介 DialogFragment</strong></h2><p>DialogFragment 自 Android 3.0 引入，是一种特殊的 Fragment，参见之前的两篇博客：<a href="http://t.cn/RonWO0o" target="_blank" rel="external">重温 Fragment 分析一：生命周期</a>和<a href="http://t.cn/RK3BJOj" target="_blank" rel="external">重温 Fragment 分析二：使用及注意事项</a>。DialogFragment 能够在 Activity 的内容之上展示一个特定的对话框，此 Fragment 包含一个 Dialog 对象，其基于 Fragment 的状态作展示。此外，控制 dialog 如决定展示、隐藏和去除时机，应调用这里的 API，而不是直接调用 Dialog。</p>
 <p>用 DialogFragment 来管理对话框，当旋转屏幕和按下后退键时，能很好地管理其生命周期，因为它和普通的 Fragment 有着基本一致的生命周期。并且，DialogFragment 中，Dialog 可作为内嵌的组件重用。</p>
 <h2 id="Demo-用法"><a href="#Demo-用法" class="headerlink" title="Demo 用法"></a><strong>Demo 用法</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">DialogFragmentDemo</a>。</p>

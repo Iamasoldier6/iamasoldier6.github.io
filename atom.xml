@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2017-09-17T10:24:52.000Z</updated>
+  <updated>2017-09-23T12:56:03.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://iamasoldier6.com/2017/09/23/%E6%B5%85%E8%B0%88-Android-%E4%B8%AD%E7%9A%84-DialogFragment/"/>
     <id>http://iamasoldier6.com/2017/09/23/浅谈-Android-中的-DialogFragment/</id>
     <published>2017-09-23T03:10:51.000Z</published>
-    <updated>2017-09-17T10:24:52.000Z</updated>
+    <updated>2017-09-23T12:56:03.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;If you don’t like where you are, change it. You’re not a tree.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。&lt;/p&gt;
+&lt;p&gt;Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;简介-DialogFragment&quot;&gt;&lt;a href=&quot;#简介-DialogFragment&quot; class=&quot;headerlink&quot; title=&quot;简介 DialogFragment&quot;&gt;&lt;/a&gt;&lt;strong&gt;简介 DialogFragment&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;DialogFragment 自 Android 3.0 引入，是一种特殊的 Fragment，参见之前的两篇博客：&lt;a href=&quot;http://t.cn/RonWO0o&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;重温 Fragment 分析一：生命周期&lt;/a&gt;和&lt;a href=&quot;http://t.cn/RK3BJOj&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;重温 Fragment 分析二：使用及注意事项&lt;/a&gt;。DialogFragment 能够在 Activity 的内容之上展示一个特定的对话框，此 Fragment 包含一个 Dialog 对象，其基于 Fragment 的状态作展示。此外，控制 dialog 如决定展示、隐藏和去除时机，应调用这里的 API，而不是直接调用 Dialog。&lt;/p&gt;
 &lt;p&gt;用 DialogFragment 来管理对话框，当旋转屏幕和按下后退键时，能很好地管理其生命周期，因为它和普通的 Fragment 有着基本一致的生命周期。并且，DialogFragment 中，Dialog 可作为内嵌的组件重用。&lt;/p&gt;
 &lt;h2 id=&quot;Demo-用法&quot;&gt;&lt;a href=&quot;#Demo-用法&quot; class=&quot;headerlink&quot; title=&quot;Demo 用法&quot;&gt;&lt;/a&gt;&lt;strong&gt;Demo 用法&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Demo 地址：&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DialogFragmentDemo&lt;/a&gt;。&lt;/p&gt;
@@ -74,7 +74,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;If you don’t like where you are, change it. You’re not a tree.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Di
+&lt;p&gt;Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使用 Dialog 类创建对话框的前提下，且来浅谈一谈 Android 中创建 Dialog 的 DialogFragment。
     
     </summary>
     
