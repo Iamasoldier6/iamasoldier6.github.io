@@ -798,9 +798,9 @@
     
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
-      <category term="EventBus" scheme="http://iamasoldier6.com/tags/EventBus/"/>
-    
       <category term="Source Code" scheme="http://iamasoldier6.com/tags/Source-Code/"/>
+    
+      <category term="EventBus" scheme="http://iamasoldier6.com/tags/EventBus/"/>
     
   </entry>
   
@@ -1402,7 +1402,7 @@
     <link href="http://iamasoldier6.com/2017/05/21/%E9%87%8D%E6%B8%A9-Activity-%E5%88%86%E6%9E%90%E4%B8%80%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://iamasoldier6.com/2017/05/21/重温-Activity-分析一：生命周期/</id>
     <published>2017-05-21T06:41:59.000Z</published>
-    <updated>2017-07-29T11:54:20.000Z</updated>
+    <updated>2017-12-15T03:03:32.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;If you can’t fly then run, can’t run then walk, can’t walk then crawl, just keep moving forward.&lt;/p&gt;
@@ -1437,7 +1437,7 @@
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;暂停&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;另一个 Activity B 位于屏幕前台，且具有用户焦点，但此 Activity 仍然可见。也就是说，另一个 Activity B 显示在此 Activity 上方，并且该 Activity B 部分透明或未覆盖整个屏幕，比如前文提及的对话框形式的活动 DialogActivity。&lt;strong&gt;暂停的 Activity 处于完全活动状态，Activity 对象保留在内存中，其保留了所有状态和成员信息，并与窗口管理器保持连接&lt;/strong&gt;。注意，&lt;code&gt;在内存极度不足的情况下，可能会被系统终止&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;停止&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;该 Activity 被另一个 Activity 完全遮盖，该 Activity 目前位于“后台”。&lt;strong&gt;已停止的 Activity 同样仍处于活动状态，Activity 对象保存在内存中，其保留了所有状态和成员信息，但&lt;code&gt;未&lt;/code&gt;与窗口管理器连接&lt;/strong&gt;。注意，&lt;code&gt;其对用户不在可见，在别的地方需要内存时，可能会被系统终止&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;该 Activity 被另一个 Activity 完全遮盖，该 Activity 目前位于“后台”。&lt;strong&gt;已停止的 Activity 同样仍处于活动状态，Activity 对象保存在内存中，其保留了所有状态和成员信息，但&lt;code&gt;未&lt;/code&gt;与窗口管理器连接&lt;/strong&gt;。注意，&lt;code&gt;其对用户不再可见，在别的地方需要内存时，可能会被系统终止&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;若 Activity 处于暂停或停止状态，系统可通过要求其结束，调用其 finish() 方法或直接终止其进程，将其从内存中删除。将其结束或终止后，再次打开此 Activity 时，必须要重建。&lt;/p&gt;
 &lt;p&gt;下面作出归纳整理和小结，参见 Android 官网自己整理的图：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/activity_frame.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -1447,7 +1447,7 @@
 &lt;p&gt;&lt;strong&gt;可见生命周期&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;onStart()~onStop()&lt;/code&gt;之间。用户可以在屏幕上看到 Activity 并与其交互，开发者可以在这两个方法之间保留向用户显示 Activity 所需的资源。例如，可以在 onStart() 中注册一个 BroadcastReceiver 以监控影响 UI 的变化，并在用户无法看到显示的内容时在 onStop() 中将其取消注册。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;前台生命周期&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;onResume()~onPause()之间&lt;/code&gt;。Activity 位于屏幕上的所有其他 Activity 之前，并具有用户输入焦点。Activity 可以频繁地转入和转出前台。例如，当设备转入休眠状态或出现对话框时，系统会调用 onPause()。注意，由于此状态可能经常发生转变，故这两个方法中应采用适度轻量级的算法，避免因为转变速度慢让用户等待。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;onResume()~onPause()&lt;/code&gt;之间。Activity 位于屏幕上的所有其他 Activity 之前，并具有用户输入焦点。Activity 可以频繁地转入和转出前台。例如，当设备转入休眠状态或出现对话框时，系统会调用 onPause()。注意，由于此状态可能经常发生转变，故这两个方法中应采用适度轻量级的算法，避免因为转变速度慢让用户等待。&lt;/p&gt;
 &lt;p&gt;细分来看每个回调方法如下表格所示：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
