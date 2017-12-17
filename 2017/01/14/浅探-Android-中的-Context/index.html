@@ -18,7 +18,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 Context 在我们的 Android 开发中，真是无处不在：加载资源、启动一个新的 Activity、获取系统服务和创建 View 操作等。那么问题来了，Context 究竟是什么，具体怎么使用，又有">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context_capability.png">
-<meta property="og:updated_time" content="2017-07-29T11:50:56.000Z">
+<meta property="og:updated_time" content="2017-12-17T08:33:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅探 Android 中的 Context">
 <meta name="twitter:description" content="Nobody can go back and start a new beginning, but anyone can start today and make a new ending.
@@ -231,7 +231,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <p>上面的描述还是有些抽象，不妨这么形象地阐述下，也许不太恰当：</p>
 <p>Android 应用程序如同一场篮球比赛，传球、抢篮板和得分等(类比于启动一个 Activity、发送广播等一切发生在应用程序里的行为)，都得发生在 Context 这块场地上，没有 Context 这块场地，精彩的比赛就无法进行。</p>
 <h2 id="探索-Context"><a href="#探索-Context" class="headerlink" title="探索 Context"></a><strong>探索 Context</strong></h2><p><strong><em>Context 的类型</em></strong></p>
-<p>由前文的简单介绍，我们已经知道，虽然 Android 应用程序是由 Java 语言编写的，但是 Android 程序不像 Java 程序那样，创建一个类，写个 main() 方法就能运行了，还要配套有一个完整的工程环境。这样，Activity、Service 和 Broadcast Receiver 等系统组件才能正常工作。Context 可以说是 Android 程序中维持各组件正常运行的一个核心功能类。</p>
+<p>由前文的简单介绍，我们已经知道，虽然 Android 应用程序是由 Java 语言编写的，但是 Android 程序不像 Java 程序那样，创建一个类，写个 main() 方法就能运行了，还要配套有一个完整的工程环境。这样，Activity、Service 和 BroadcastReceiver 等系统组件才能正常工作。Context 可以说是 Android 程序中维持各组件正常运行的一个核心功能类。</p>
 <p>简单的结构图如下：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/context.png" alt=""></p>
 <p>Context 有两个子类，分别为 ContextWrapper 和 ContextImpl。</p>
@@ -248,7 +248,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <p>Context 中共有 Application、Activity 和 Service 三种类型，故一个应用程序中 Context 数量的计算公式如下：</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N(<span class="name">Context</span>) = N(<span class="name">Activity</span>) + N(<span class="name">Service</span>) + <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>N 代表数量，1 即 Application 的数量，一个 Android 应用程序只有一个 Application。上述公式意义即 Context 的数量为应用程序中多个 Activity 的数量加上多个 Service 的数量，再加上 1。</p>
-<p><code>注意</code>：常说的四大组件中，Broadcast Receiver 和 Content Provider 并不是 Context 的子类，它们持有的 Context 都是其他地方传过去的，并不计入 Context 总数。</p>
+<p><code>注意</code>：常说的四大组件中，BroadcastReceiver 和 ContentProvider 并不是 Context 的子类，它们持有的 Context 都是其他地方传过去的，并不计入 Context 总数。</p>
 <p><strong><em>Context 的作用域</em></strong></p>
 <p>总结如下：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/context_capability.png" alt=""></p>
