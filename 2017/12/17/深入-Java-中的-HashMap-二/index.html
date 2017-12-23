@@ -17,10 +17,10 @@
 
 上一篇深入 Java 中的 HashMap (一)中，对 HashMap 作了简单的介绍，着重分析了其存储 put() 和读取 get()。这一篇主要谈谈 HashMap 的扩容机制和线程安全性。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_calculation2.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_resize_example.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_resize_example2.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_jdk1.8_resize.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_index2.png">
-<meta property="og:updated_time" content="2017-12-23T15:33:34.000Z">
+<meta property="og:updated_time" content="2017-12-23T15:43:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Java 中的 HashMap (二)">
 <meta name="twitter:description" content="我们一定要过一段无怨无悔的人生，将来一定要出海，然后随心所欲的活着，比谁都要自由。
@@ -242,7 +242,7 @@
 <p>以上说明示意图如下：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_calculation2.png" alt=""></p>
 <p>好，举例说明下扩容过程。假定 hash 算法是简单地用 key mod 一下表的大小，即数组的长度。其中，哈希桶数组 table 的 size = 2，故 key 分别为 3、7、5，put 顺序依次为 5、7、3，mod 2 后都在 table[1] 里产生冲突。这里，假设负载因子 loadFactor 为 1，即当键值对的实际大小 size 大于 table 的实际大小时扩容。接着，哈希桶数组 resize 成 4，而后，所有的 Node 重新 rehash。示意图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_resize_example.png" alt=""></p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_resize_example2.png" alt=""></p>
 <p>作为对比，看 JDK 1.8 中，使用的是 2 次幂的扩展，即长度扩为原来的 2 倍，故元素的位置是在原位置或在原位置再移动 2 次幂的位置。示例图如下，n 为 table 的长度，图一为<strong>扩容前</strong> key1 和 key2 两种 key 确定索引位置的示例，图二为<strong>扩容后</strong> key1 和 key2 两种 key 确定索引位置的示例。其中，hash1 是 key1 对应的哈希与高位运算的结果。示意图如下：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_jdk1.8_resize.png" alt=""></p>
 <p>元素在重新计算 hash 后，由于 n 变为 2 倍，则 n -1 的 mask 范围在高位多 1 bit(为红色)，index 发生的变化如下：</p>
