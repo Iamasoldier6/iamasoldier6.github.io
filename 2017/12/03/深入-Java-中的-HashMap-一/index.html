@@ -12,7 +12,7 @@
 个人觉得，要写出别人能读懂的程序，不仅要知其然，也要知其所以然。好，这期就来谈谈我们 Android 乃至 Java 开发中使用再频繁不过的的 HashMap (本篇分析基于 JDK 1.8)，做到会用，且知">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Java 中的 HashMap (一)">
-<meta property="og:url" content="http://iamasoldier6.com/2017/12/03/深入-Java-中的-HashMap(一)/index.html">
+<meta property="og:url" content="http://iamasoldier6.com/2017/12/03/深入-Java-中的-HashMap-一/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="任何一个傻瓜都能写出计算机能理解的程序，而优秀的程序员却能写出别人能读懂的程序。
 
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 10px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 15.71px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 17.14px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 10px;">Summary</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 11.43px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 15.71px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 17.14px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 11.43px;">Summary</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
 					</div>
 				</section>
 				
@@ -178,10 +178,10 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-深入-Java-中的-HashMap(一)" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-深入-Java-中的-HashMap-一" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/12/03/深入-Java-中的-HashMap(一)/" class="article-date">
+      <a href="/2017/12/03/深入-Java-中的-HashMap-一/" class="article-date">
   	<time datetime="2017-12-03T14:35:52.000Z" itemprop="datePublished">2017-12-03</time>
 </a>
     </div>
@@ -337,9 +337,9 @@
 <div class="article-footer-copyright">
 <left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
 
-<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/12/03/深入-Java-中的-HashMap(一)/" target="_blank" title="深入 Java 中的 HashMap (一)">深入 Java 中的 HashMap (一)</a></b></left>
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/12/03/深入-Java-中的-HashMap-一/" target="_blank" title="深入 Java 中的 HashMap (一)">深入 Java 中的 HashMap (一)</a></b></left>
 
-<left><br/>本文链接：<b><a href="/2017/12/03/深入-Java-中的-HashMap(一)/" target="_blank" title="深入 Java 中的 HashMap (一)">http://iamasoldier6.com/2017/12/03/深入-Java-中的-HashMap(一)/</a></b></left>
+<left><br/>本文链接：<b><a href="/2017/12/03/深入-Java-中的-HashMap-一/" target="_blank" title="深入 Java 中的 HashMap (一)">http://iamasoldier6.com/2017/12/03/深入-Java-中的-HashMap-一/</a></b></left>
 </div>
 <! -- 添加版权信息 -->
     
