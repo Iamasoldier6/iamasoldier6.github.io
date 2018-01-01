@@ -17,7 +17,8 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 
 Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 SDK 中也有一个 WebView 组件。因此，一部分原生的功能改为 HTML5 开发，Android 与 HTML5 互相通信，实现混合开发。这样，该部分功能能够在不升级 App 的情况下动态更新，同时，可以在 Androi">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/javaandjs.gif">
-<meta property="og:updated_time" content="2017-07-29T11:49:22.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
+<meta property="og:updated_time" content="2018-01-01T14:18:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 Android WebView 谈开去">
 <meta name="twitter:description" content="目标赋予我们生命的意义和目的。有了目标，我们才会把注意力集中在追求喜悦，而不是在避免痛苦上。
@@ -225,7 +226,7 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <h2 id="WebView-的简介"><a href="#WebView-的简介" class="headerlink" title="WebView 的简介"></a><strong>WebView 的简介</strong></h2><p>WebView，即显示网页的视图。基于该视图组件，我们可以在 Activity 中滚动 Web 浏览器，或者简单地展现一些在线内容。同时，WebView 使用 WebKit 渲染引擎来显示网页，包括通过历史记录向前和向后浏览、缩小和放大、执行文本搜索等方法。</p>
 <p>以上来自官网。</p>
 <p>使用 WebView，首先得在 AndroidManifest.xml 中添加访问网络权限如下(使用本地 assets 目录下的 html 文件除外)：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="built_in">name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>其次，访问页面中有 JavaScript，则设置支持 JavaScript：</p>
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WebSettings webSettings = mWebView.getSetting()<span class="comment">;</span></span><br><span class="line">webSettings.setJavaScriptEnabled(true)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>最后，WebView 的常用方法如下：</p>
@@ -278,7 +279,8 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <p>至此，浅谈 Android WebView 到此结束，关于使用 WebView 的一些注意事项参见<a href="http://blog.csdn.net/hytfly/article/details/48489251" target="_blank" rel="external">安卓 webview 的一些坑</a>。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><br></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/qq_24530405/article/details/52067474" target="_blank" rel="external">http://blog.csdn.net/qq_24530405/article/details/52067474</a></p>
 
       

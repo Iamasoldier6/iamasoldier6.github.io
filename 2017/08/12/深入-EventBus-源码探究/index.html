@@ -18,7 +18,8 @@
 上一篇对 Android EventBus 的使用作了简单的小结，我们也知道，EventBus 一直以来也很受开发者的欢迎。EventBus 自 3.0 版本开始，事件的订阅从方法名换成了注解的方式。本篇将解析 EventBus 的源码，以深入理解该框架的实现。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/event_bus_register.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/event_bus_post.png">
-<meta property="og:updated_time" content="2017-08-12T02:20:17.000Z">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
+<meta property="og:updated_time" content="2018-01-01T14:26:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 EventBus 源码探究">
 <meta name="twitter:description" content="学问积年而成，而每日不自知。
@@ -271,7 +272,8 @@
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><strong>小结</strong></h2><p>EventBus 里使用注解处理器，预处理获取订阅信息，其将订阅者的方法缓存到<code>METHOD_CACHE</code>里避免重复查找。其最大的作用即是“通讯”，在同进程中进行不同线程间的通讯，简化了 Handler 的操作。但是，在不同进程之间，该通信方法便无法继续，只能借助广播来完成，是由于不同进程中无法维持一个事件单列。至此，深入 EventBus 的源码探究完毕，EventBus 的使用小结和源码探究两篇文章到此结束。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><br></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://p.codekk.com/blogs/detail/54cfab086c4761e5001b2538" target="_blank" rel="external">http://p.codekk.com/blogs/detail/54cfab086c4761e5001b2538</a></p>
 <p>2.<a href="http://blog.csdn.net/lmj623565791/article/details/40920453" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/40920453</a></p>
 <p>3.<a href="http://t.cn/RGaG7AG" target="_blank" rel="external">http://t.cn/RGaG7AG</a></p>
