@@ -4,35 +4,28 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>我的 Android 训练馆 | Iamasoldier6&#39;s Column</title>
+  <title>Java 中的 I/O 小结 | Iamasoldier6&#39;s Column</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。">
+  <meta name="description" content="虽有嘉肴，弗食，不知其旨也；虽有至道，弗学，不知其善也。是故学然后知不足，教然后知困。知不足，然后能自反也；知困，然后能自强也。
+
+Java 中的 I/O 操作主要指使用 Java 进行输入和输出的操作。Java 的 I/O 机制是基于数据流进行输入和输出的，数据流即表示字符或者字节数据的流动序列。初学的时候感觉繁杂，难以摸清规律，而今，对 Java 中的 I/O 作一简单小结。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的 Android 训练馆">
-<meta property="og:url" content="http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/index.html">
+<meta property="og:title" content="Java 中的 I/O 小结">
+<meta property="og:url" content="http://iamasoldier6.com/2018/02/25/Java-中的-I-O-小结/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
-<meta property="og:description" content="当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spurs1.jpg">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/mvvmgithub.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/lockwake.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/tulingrobot.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/logindemo.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/gesturelock.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/circleavatar.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wheelselect.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wechatpopup.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/fragmenttab.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/pulldownrefresh.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/cusprogress.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/extendlistview.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/autoslide.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/verticalview.gif">
+<meta property="og:description" content="虽有嘉肴，弗食，不知其旨也；虽有至道，弗学，不知其善也。是故学然后知不足，教然后知困。知不足，然后能自反也；知困，然后能自强也。
+
+Java 中的 I/O 操作主要指使用 Java 进行输入和输出的操作。Java 的 I/O 机制是基于数据流进行输入和输出的，数据流即表示字符或者字节数据的流动序列。初学的时候感觉繁杂，难以摸清规律，而今，对 Java 中的 I/O 作一简单小结。">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/java_io.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/java_io_frame.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:18:29.000Z">
+<meta property="og:updated_time" content="2018-02-25T09:41:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的 Android 训练馆">
-<meta name="twitter:description" content="当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spurs1.jpg">
+<meta name="twitter:title" content="Java 中的 I/O 小结">
+<meta name="twitter:description" content="虽有嘉肴，弗食，不知其旨也；虽有至道，弗学，不知其善也。是故学然后知不足，教然后知困。知不足，然后能自反也；知困，然后能自强也。
+
+Java 中的 I/O 操作主要指使用 Java 进行输入和输出的操作。Java 的 I/O 机制是基于数据流进行输入和输出的，数据流即表示字符或者字节数据的流动序列。初学的时候感觉繁杂，难以摸清规律，而今，对 Java 中的 I/O 作一简单小结。">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/java_io.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -184,11 +177,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-我的 Android-训练馆" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Java-中的-I-O-小结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/11/05/我的 Android-训练馆/" class="article-date">
-  	<time datetime="2016-11-05T09:14:26.000Z" itemprop="datePublished">2016-11-05</time>
+      <a href="/2018/02/25/Java-中的-I-O-小结/" class="article-date">
+  	<time datetime="2018-02-25T04:57:44.000Z" itemprop="datePublished">2018-02-25</time>
 </a>
     </div>
   
@@ -201,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      我的 Android 训练馆
+      Java 中的 I/O 小结
     </h1>
   
 
@@ -210,7 +203,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/I-O/">I/O</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 	</div>
 
         
@@ -224,50 +217,119 @@
         
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-I-O"><span class="toc-number">1.</span> <span class="toc-text">简介 I/O</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详谈-I-O"><span class="toc-number">2.</span> <span class="toc-text">详谈 I/O</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#InputStream"><span class="toc-number">2.1.</span> <span class="toc-text">InputStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OutputStream"><span class="toc-number">2.2.</span> <span class="toc-text">OutputStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reader"><span class="toc-number">2.3.</span> <span class="toc-text">Reader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Writer"><span class="toc-number">2.4.</span> <span class="toc-text">Writer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
   </div>
 
         <blockquote>
-<p>当一切看起来无济于事时，我去看一个石匠敲石头。他一连敲了一百次，石头依然纹丝不动。但当他敲第一百零一次的时候，石头裂成两半。我知道，让石头裂开的不是那最后一击，而是前面一百次敲击的结果。<a id="more"></a></p>
+<p>虽有嘉肴，弗食，不知其旨也；虽有至道，弗学，不知其善也。是故学然后知不足，教然后知困。知不足，然后能自反也；知困，然后能自强也。</p>
 </blockquote>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/spurs1.jpg" alt=""></p>
-<p>以上是 NBA 马刺队更衣室里的格言。</p>
-<p>欢迎来到我的 Android 训练馆！自搭建博客至今，已悄然过去半年有余。陆陆续续的，这半年间，也有不少放到 GitHub 上的 Android Demo，包括研读沪江网 Android 工程师<a href="http://blog.csdn.net/eclipsexys" target="_blank" rel="external">徐宜生</a>《 Android 群英传》的绝大部分 Demo、研读优秀 Android 工程师如<a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external">郭霖</a>、<a href="http://blog.csdn.net/lmj623565791" target="_blank" rel="external">张鸿洋</a>等人部分博客的 Demo 以及自己工作学习中写的部分 Demo。今天稍作整理，总结所得，将其中一些 Demo 示例效果放至博客上，供有需要的人参考。</p>
-<p>Demo 仓库地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">AndroidExerciseDemos</a>，这里是我挥洒汗水与激情的训练馆，示以强迫症式的优雅的代码以及详尽的注释，<strong>依照时间顺序由近及远，持续更新中</strong>。</p>
-<p>1.博客<a href="http://t.cn/RfvjIYG" target="_blank" rel="external">浅析 Android 中的三大模式：MVC , MVP 和 MVVM (二)</a>中的 <code>MVVMGitHubDemo</code>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/mvvmgithub.gif" alt=""></p>
-<p>MVP + Data Binding 改进版的 <code>MVPDataBindDemo</code> 示例效果一样。</p>
-<p>2.点击设定按钮，屏幕锁定黑屏，定时 5 秒后，自动解锁唤醒，点亮屏幕。(<code>LockWakeScreenDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/lockwake.gif" alt=""></p>
-<p>3.类似微软小冰，智能问答式的图灵机器人，需要在<a href="http://www.tuling123.com/" target="_blank" rel="external">图灵机器人</a>官网注册后，选择创建自己的机器人，再从个人中心取得自己的 APIkey。(<code>TulingRobotDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/tulingrobot.gif" alt=""></p>
-<p>4.博客<a href="http://t.cn/Rcel4ly" target="_blank" rel="external">浅析 Android 中的三大模式：MVC , MVP 和 MVVM (一)</a> 中的<code>MVPLoginDemo</code>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/logindemo.gif" alt=""></p>
-<p>5.自定义的手势锁，可以指定 N * N 的锁点、锁的颜色变化和尝试解锁的次数等。(<code>CusGestureLockDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/gesturelock.gif" alt=""></p>
-<p>6.图片为圆形或者自定义圆角，适用于应用中头像的自定义使用。(<code>CusCircleAvatarDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/circleavatar.gif" alt=""></p>
-<p>7.使用滚轮选择器控件，实现类似淘宝手机客户端，可以选择收获地址的省市区三级联动组件。(<code>WheelSelectDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wheelselect.gif" alt=""></p>
-<p>8.类似微信主界面，点击顶部标题栏右边加号，弹出个小窗口。(<code>WeChatPopupWindowDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wechatpopup.gif" alt=""></p>
-<p>9.利用 Fragment ，实现了项目常用的 Tab 切换，如一个主界面，其下面四个 Tab 页，互相切换，类似微信。(<code>FragTabDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/fragmenttab.gif" alt=""></p>
-<p>10.实现下拉刷新，可显示刷新后的文字与时间描述，方便做后续的扩展。(<code>PullDownRefreshDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/pulldownrefresh.gif" alt=""></p>
-<p>11.自定义圆环形进度更新圈。(<code>CusProgressCircle</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/cusprogress.gif" alt=""></p>
-<p>12.对 ListView 的扩展，在 ListView 上滑动就可以显示出一个删除按钮，点击按钮就会删除相应的数据。(<code>ExtendListViewDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/extendlistview.gif" alt=""></p>
-<p>13.自定义图片轮播控件，类似淘宝客户端中图片滚动播放器的效果，不过图片滚动到最后一张时，是迅速地回滚到第一张图片，再从头开始滚动。(<code>PicAutoSlideDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/autoslide.gif" alt=""></p>
-<p>14.竖直上下滑动来切换界面的 VerticalViewPager 控件。(<code>VerticalViewPagerDemo</code>)</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/verticalview.gif" alt=""></p>
-<p>想查看更多实用有趣的 Demo，欢迎访问我的训练馆：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">AndroidExerciseDemos</a>。</p>
+<p>Java 中的 I/O 操作主要指使用 Java 进行输入和输出的操作。Java 的 I/O 机制是基于数据流进行输入和输出的，数据流即表示字符或者字节数据的流动序列。初学的时候感觉繁杂，难以摸清规律，而今，对 Java 中的 I/O 作一简单小结。<a id="more"></a></p>
+<h2 id="简介-I-O"><a href="#简介-I-O" class="headerlink" title="简介 I/O"></a><strong>简介 I/O</strong></h2><p><strong>数据流</strong>即一串连续不断的数据的集合，如同水管里的水流一样，一端一点点地供水，而另一端可以看到源源不断的水流。</p>
+<p>数据<strong>写入程序</strong>时，可以一段段地向数据流管道中写入数据，这些数据会按着先后顺序，形成一个长的数据流。</p>
+<p>对数据<strong>读取程序</strong>来说，看不到数据流在写入时的分段情况，每次可以读取其中任意长度的数据，但是，只能<strong><em>先读取前面的数据，再读取后面的数据</em></strong> (<code>不能随机读取</code>)。</p>
+<p>此外，<strong>注意</strong>，无论写入时是将数据分多次写入，还是作为一个整体一次性写入，读取时的效果是完全一样的。</p>
+<p>数据流分类：</p>
+<p>流序列中的数据既可以是未经加工的原始二进制数据，也可以是经过特定编码处理后，符合某种格式规定的特定数据。</p>
+<ul>
+<li>字节流：数据流中最小的数据单元是字节</li>
+<li>字符流：数据流中最小的数据单元是字符</li>
+</ul>
+<p>Java 中，字符是 Unicode 编码，一个字符占用两个字节。</p>
+<p>java.io 包中，最重要的即 5 个类和 1 个接口。</p>
+<ul>
+<li>5 个类：OutputStream、InputStream、Writer、Reader 和 File</li>
+<li>1 个接口：Serializable</li>
+</ul>
+<p>分为以下 3 个层次：</p>
+<ul>
+<li>最主要的流式：OutputStream、InputStream、Writer 和 Reader</li>
+<li>非流式：比如 File 类、RandomAccessFile 类和 FileDescriptor 类</li>
+<li>文件读取部分，及与安全相关的类：比如 SerializablePermission 类</li>
+</ul>
+<p>如下所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/java_io.png" alt=""></p>
+<h2 id="详谈-I-O"><a href="#详谈-I-O" class="headerlink" title="详谈 I/O"></a><strong>详谈 I/O</strong></h2><p>如下图：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/java_io_frame.png" alt=""></p>
+<p>按照来源／去向分类为：</p>
+<ul>
+<li>File：FileInputStream, FileOutputStream, FileReader, FileWriter</li>
+<li>byte[]: ByteArrayInputStream, ByteArrayOutputStream</li>
+<li>Char[]: CharArrayReader, CharArrayWriter</li>
+<li>String: StringBufferInputStream, StringReader, StringWriter</li>
+<li>网络数据流：InputStream, OutputStream, Reader, Writer</li>
+</ul>
+<h3 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a><strong>InputStream</strong></h3><p>输入流，为字节流，二进制格式。抽象类，基于字节的输入操作，是所有输入流的父类，依靠其子类实现各种功能。</p>
+<p>上图几种不同的 InputStream：</p>
+<ul>
+<li>FileInputStream：从文件中读取内容，把一个文件作为 InputStream</li>
+<li>FilterInputStream：抽象类，作为所谓“装饰器”的接口</li>
+<li>PipedInputStream：实现了管道化的概念，在线程中使用</li>
+<li>SequenceInputStream：将多个 InputStream 顺序连接起来</li>
+<li>StringBufferInputStream：将一个 String 对象作为 InputStream，<strong>已废弃</strong></li>
+<li>ByteArrayInputStream：将内存中的一个缓冲区作为 InputStream 使用</li>
+</ul>
+<p>常用方法如下：</p>
+<ul>
+<li>public abstract int read()：读取一个字节的数据，返回值是高位补 0 的 int 类型值，若返回 -1，则说明未读取到任何字节，读取工作结束</li>
+<li>public int read(byte b[])：读取 b.length 个字节的数据，放入到 b 数组中，返回值即是读取的字节数</li>
+<li>public int read(byte b[], int off, int len)：从输入流中最多读取 len 个字节的数据，存放到偏移量为 off 的 b 数组中</li>
+<li>public int available()：返回输入流中可以读取的字节数。<strong>注意</strong>，若输入阻塞，当前所在的线程会被挂起；若 InputStream 对象调用该方法，只会返回 0。<strong>该方法必须由继承 InputStream 类的子类对象调用才有用</strong></li>
+<li>public void close()：完成后，需要关闭打开的流</li>
+</ul>
+<h3 id="OutputStream"><a href="#OutputStream" class="headerlink" title="OutputStream"></a><strong>OutputStream</strong></h3><p>输出流，为字节流，二进制格式。抽象类，基于字节的输出操作，是所有输出流的父类，依靠其子类实现各种功能。</p>
+<p>上图几种不同的 OutputStream：</p>
+<ul>
+<li>FileOutputStream：将数据写入到文件中</li>
+<li>FilterOutputStream：抽象类，作为装饰器的接口</li>
+<li>PipedOutputStream：所有写到其中的内容，会自动作为 “PipedInputStream” 的输出</li>
+<li>ByteArrayOutputStream：在内存中创建一个缓冲区，所有输出到“流”的内容都放置在此区域</li>
+</ul>
+<p>常用方法如下：</p>
+<ul>
+<li>public abstract void write(int b)：先将 int 转换为 byte 类型，把低字节写入到输出流中</li>
+<li>public void write(byte b[])：将参数 b 中的字节写到输出流中</li>
+<li>public void write(byte b[], int off, int len)：将参数 b 从偏移量 off 开始的 len 个字节写到输出流中</li>
+<li>public void flush()：将数据缓冲区中的数据全部输出，并清空缓冲区</li>
+<li>public void close()：关闭输出流，并释放与流相关的系统资源</li>
+</ul>
+<h3 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a><strong>Reader</strong></h3><p>与 InputStream 类似，只是 Reader 是针对字符的。</p>
+<p><strong>注意</strong>两个：</p>
+<ul>
+<li>InputStreamReader：从输入流中读取字节，再将它们转换成字符</li>
+<li>BufferedReader：Reader 对象作为参数，对其添加字符缓冲器，使用 readline() 读取一行</li>
+</ul>
+<h3 id="Writer"><a href="#Writer" class="headerlink" title="Writer"></a><strong>Writer</strong></h3><p>与 OutputStream 类似，针对字符，多了 append 操作，也是针对字符的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>如何选择合适的 I/O 流，步骤依次为：</p>
+<ul>
+<li><p>确定输入还是输出</p>
+<p>输<strong>入</strong>：InputStream, Reader</p>
+<p>输<strong>出</strong>：OutputStream, Writer</p>
+</li>
+<li><p>确定操作的数据对象是否为纯文本</p>
+<p>是的：字符流，Reader, Writer</p>
+<p>不是：字节流，InputStream, OutputStream</p>
+</li>
+<li><p>确定具体细节</p>
+<p>比如<strong>文件</strong></p>
+<p>读：FileInputStream, FileReader</p>
+<p>写：FileOutputStream, FileWriter</p>
+</li>
+<li><p>确定是否需要转换流</p>
+<p>需要的话，使用转换流，如 InputStreamReader, OutputStreamWriter</p>
+</li>
+<li><p>确定是否需要缓冲提高效率</p>
+<p>需要的话，如 BufferedInputStream, BufferedReader 等</p>
+</li>
+<li><p>确定是否需要格式化输出</p>
+</li>
+</ul>
+<p>至此，关于 Java 中的 I/O 简单小结完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
 <p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html" target="_blank" rel="external">https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html</a></p>
+<p>2.<a href="https://docs.oracle.com/javase/tutorial/essential/io/" target="_blank" rel="external">https://docs.oracle.com/javase/tutorial/essential/io/</a></p>
 
       
     </div>
@@ -277,18 +339,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/11/20/从-Android-WebView-谈开去/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          从 Android WebView 谈开去
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/22/React-Native-For-Android-之初体验/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React Native for Android 之初体验</div>
+    <a href="/2018/02/11/浅探美团点评的模块化框架-Shield/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅探美团点评的模块化框架 Shield</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -328,9 +381,9 @@
 <div class="article-footer-copyright">
 <left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
 
-<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/11/05/我的 Android-训练馆/" target="_blank" title="我的 Android 训练馆">我的 Android 训练馆</a></b></left>
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2018/02/25/Java-中的-I-O-小结/" target="_blank" title="Java 中的 I/O 小结">Java 中的 I/O 小结</a></b></left>
 
-<left><br/>本文链接：<b><a href="/2016/11/05/我的 Android-训练馆/" target="_blank" title="我的 Android 训练馆">http://iamasoldier6.com/2016/11/05/我的 Android-训练馆/</a></b></left>
+<left><br/>本文链接：<b><a href="/2018/02/25/Java-中的-I-O-小结/" target="_blank" title="Java 中的 I/O 小结">http://iamasoldier6.com/2018/02/25/Java-中的-I-O-小结/</a></b></left>
 </div>
 <! -- 添加版权信息 -->
     
