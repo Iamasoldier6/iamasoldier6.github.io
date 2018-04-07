@@ -17,7 +17,7 @@
 
 开发中，遇到同步时，用的最多的就是 synchronized，以控制一段代码的并发访问。synchronized 既可以加在一段代码上，也可以加在方法上，下面进入正题，来浅析 synchronized。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-03-23T14:36:39.000Z">
+<meta property="og:updated_time" content="2018-04-07T03:38:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 并发编程梳理二：浅析 synchronized">
 <meta name="twitter:description" content="Some play to play, some play to win, who are you?
@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 11.43px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Concurrency/" style="font-size: 11.43px;">Concurrency</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 10px;">Framework</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/I-O/" style="font-size: 10px;">I/O</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 17.14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 15.71px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 11.43px;">Summary</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 11.43px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Concurrency/" style="font-size: 12.86px;">Concurrency</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 10px;">Framework</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/I-O/" style="font-size: 10px;">I/O</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 17.14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 15.71px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 11.43px;">Summary</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
 					</div>
 				</section>
 				
@@ -269,7 +269,7 @@
 <p>synchronized 代码块与此同理。</p>
 <p>代码较上面略作改动。syncMethodAA() <strong>有</strong> synchronized 修饰，methodBB() <strong>无</strong> synchronized 修饰，新建子线程 t1 和 t2，t1 中访问该对象的一个 synchronized 方法，t2 中访问该对象的另一个<strong>非</strong> synchronized 方法，t1 运行时，t2 并没有被阻塞，是因为 t2 并没有用到同步锁。验证了<strong>一个线程访问对象 o 的 synchronized 域时，其他线程继续可以访问该对象 o 的非同步代码块</strong>。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><strong>小结</strong></h2><p>综上及开发中的使用，虽然 synchronized 的使用时机很难定义，但是有一个常见情况如，程序中取出一个对象，且需要判断对象的内容值，再更新对象的内容时，大都需要 synchronized 来保护。举例，如使用 ATM 机取款，先取出用户的账户余额，扣除提款的金额，再更新一下。这种情况需要用到 synchronized 保护，想想看，以免账户有两个动作时，导致金额异常！</p>
-<p>至此，至此，关于 Java 并发编程梳理二完毕。</p>
+<p>至此，关于 Java 并发编程梳理二完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
 <p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
@@ -284,6 +284,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/04/07/Java-并发编程梳理三：浅谈-volatile/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java 并发编程梳理三：浅谈 volatile
+        
+      </div>
+    </a>
   
   
     <a href="/2018/03/10/Java-并发编程梳理一：迈进大门/" id="article-nav-older" class="article-nav-link-wrap">
