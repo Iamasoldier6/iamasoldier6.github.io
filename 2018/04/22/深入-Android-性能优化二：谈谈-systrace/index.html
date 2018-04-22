@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace4.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-04-22T04:40:08.000Z">
+<meta property="og:updated_time" content="2018-04-22T04:44:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Android 性能优化二：谈谈 systrace">
 <meta name="twitter:description" content="干就完了。
@@ -255,14 +255,12 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">-h \</td>
-<td style="text-align:left">–help</td>
-<td>显示帮助信息</td>
+<td style="text-align:left">-h 或  –help</td>
+<td style="text-align:left">显示帮助信息</td>
 </tr>
 <tr>
-<td style="text-align:left">-l \</td>
-<td style="text-align:left">–list-categories</td>
-<td>列出所连设备可用的 tracing 种类</td>
+<td style="text-align:left">-l 或 –list-categories</td>
+<td style="text-align:left">列出所连设备可用的 tracing 种类</td>
 </tr>
 </tbody>
 </table>
@@ -280,33 +278,28 @@
 <td style="text-align:left">将 trace 的网页报告写到指定的文件中。若未指定该选项，systrace 会保存报告至与 systrace.py 相同的目录下，同时命名 trace.html</td>
 </tr>
 <tr>
-<td style="text-align:left">**-t N \</td>
-<td style="text-align:left">–time=N**</td>
-<td>Trace 设备活动的 N 秒时间。若未指定该选项，命令行中，通过敲 Enter 回车键来终止 trace 进程</td>
+<td style="text-align:left"><strong>-t N 或 –time=N</strong></td>
+<td style="text-align:left">Trace 设备活动的 N 秒时间。若未指定该选项，命令行中，通过敲 Enter 回车键来终止 trace 进程</td>
 </tr>
 <tr>
-<td style="text-align:left">-b N \</td>
-<td style="text-align:left">–buf-size=N</td>
-<td>使用 N 千字节的 trace 缓冲区大小。这个选项可以限制在 trace 期间总共收集数据的大小</td>
+<td style="text-align:left">-b N 或 –buf-size=N</td>
+<td style="text-align:left">使用 N 千字节的 trace 缓冲区大小。这个选项可以限制在 trace 期间总共收集数据的大小</td>
 </tr>
 <tr>
-<td style="text-align:left">-k functions\</td>
-<td style="text-align:left">–ktrace=functions</td>
-<td>Trace 指定内核方法的活动，指定于逗号分隔的列表</td>
+<td style="text-align:left">-k functions 或 –ktrace=functions</td>
+<td style="text-align:left">Trace 指定内核方法的活动，指定于逗号分隔的列表</td>
 </tr>
 <tr>
-<td style="text-align:left">**-a app-name\</td>
-<td style="text-align:left">–app=app-name**</td>
-<td>Apps 能够 tracing，指定为以逗号分隔进程名字的列表。Apps 必须包含来自 Trace 类的 tracing 工具调用。无论何时，如以 RecyclerView 等许多库构建的 App，都应该指定该选项，包括在 App 层面 tracing 时跟踪工具调用提供的有用信息。为了获取更多的信息，参考下面<strong>植入你 App 的代码</strong>一栏</td>
+<td style="text-align:left"><strong>-a app-name或 –app=app-name</strong></td>
+<td style="text-align:left">Apps 能够 tracing，指定为以逗号分隔进程名字的列表。Apps 必须包含来自 Trace 类的 tracing 工具调用。无论何时，如以 RecyclerView 等许多库构建的 App，都应该指定该选项，包括在 App 层面 tracing 时跟踪工具调用提供的有用信息。为了获取更多的信息，参考下面<strong>植入你 App 的代码</strong>一栏</td>
 </tr>
 <tr>
 <td style="text-align:left">–from-file=file-path</td>
 <td style="text-align:left">从一份文件里创建交互式的网页报告，如从包括原始 trace 数据的 TXT 文件，而不是运行着动态的 trace</td>
 </tr>
 <tr>
-<td style="text-align:left">-e device-serial\</td>
-<td style="text-align:left">–serial=device-serial</td>
-<td>根据设备的 serial number，在指定连接的设备上执行 trace</td>
+<td style="text-align:left">-e device-serial或 –serial=device-serial</td>
+<td style="text-align:left">根据设备的 serial number，在指定连接的设备上执行 trace</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>categories</strong></td>
