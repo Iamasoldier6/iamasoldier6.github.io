@@ -8,31 +8,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="干就完了。
 
-这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。
-以下大多内容翻译及加工自官网。
-简要介绍systrace 命令可以允许我们在系统层面上，对设备">
+这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Android 性能优化二：谈谈 systrace">
 <meta property="og:url" content="http://iamasoldier6.com/2018/04/22/深入-Android-性能优化二：谈谈-systrace/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="干就完了。
 
-这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。
-以下大多内容翻译及加工自官网。
-简要介绍systrace 命令可以允许我们在系统层面上，对设备">
+这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace2.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace3.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace4.png">
 <meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-04-22T04:38:43.000Z">
+<meta property="og:updated_time" content="2018-04-22T04:40:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Android 性能优化二：谈谈 systrace">
 <meta name="twitter:description" content="干就完了。
 
-这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。
-以下大多内容翻译及加工自官网。
-简要介绍systrace 命令可以允许我们在系统层面上，对设备">
+这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
@@ -231,7 +225,7 @@
         <blockquote>
 <p>干就完了。</p>
 </blockquote>
-<p>这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。</p>
+<p>这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。<a id="more"></a></p>
 <p><strong>以下大多内容翻译及加工自<a href="https://developer.android.com/studio/command-line/systrace.html#syntax" target="_blank" rel="external">官网</a></strong>。</p>
 <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a><strong>简要介绍</strong></h2><p>systrace 命令可以允许我们在系统层面上，对设备里所有进程的耗时信息进行收集和调研。systrace 结合的分析数据来源于 Android 内核，如 CPU 调度器、磁盘活动和 App 的线程等，会生成一份网页报告如下所示：</p>
 <p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png" alt=""></p>
