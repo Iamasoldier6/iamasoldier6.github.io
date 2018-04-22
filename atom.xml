@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2018-04-22T04:44:18.000Z</updated>
+  <updated>2018-04-22T04:47:02.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2018/04/22/%E6%B7%B1%E5%85%A5-Android-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%BA%8C%EF%BC%9A%E8%B0%88%E8%B0%88-systrace/"/>
     <id>http://iamasoldier6.com/2018/04/22/深入-Android-性能优化二：谈谈-systrace/</id>
     <published>2018-04-22T04:28:22.000Z</published>
-    <updated>2018-04-22T04:44:18.000Z</updated>
+    <updated>2018-04-22T04:47:02.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;干就完了。&lt;/p&gt;
@@ -55,11 +55,11 @@
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;-h 或  –help&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-h 或  - -help&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;显示帮助信息&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;-l 或 –list-categories&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-l 或 - -list-categories&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;列出所连设备可用的 tracing 种类&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
@@ -78,27 +78,27 @@
 &lt;td style=&quot;text-align:left&quot;&gt;将 trace 的网页报告写到指定的文件中。若未指定该选项，systrace 会保存报告至与 systrace.py 相同的目录下，同时命名 trace.html&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;&lt;strong&gt;-t N 或 –time=N&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;strong&gt;-t N 或 - -time=N&lt;/strong&gt;&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;Trace 设备活动的 N 秒时间。若未指定该选项，命令行中，通过敲 Enter 回车键来终止 trace 进程&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;-b N 或 –buf-size=N&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-b N 或 - -buf-size=N&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;使用 N 千字节的 trace 缓冲区大小。这个选项可以限制在 trace 期间总共收集数据的大小&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;-k functions 或 –ktrace=functions&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-k functions 或 - -ktrace=functions&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;Trace 指定内核方法的活动，指定于逗号分隔的列表&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;&lt;strong&gt;-a app-name或 –app=app-name&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;strong&gt;-a app-name或 - -app=app-name&lt;/strong&gt;&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;Apps 能够 tracing，指定为以逗号分隔进程名字的列表。Apps 必须包含来自 Trace 类的 tracing 工具调用。无论何时，如以 RecyclerView 等许多库构建的 App，都应该指定该选项，包括在 App 层面 tracing 时跟踪工具调用提供的有用信息。为了获取更多的信息，参考下面&lt;strong&gt;植入你 App 的代码&lt;/strong&gt;一栏&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;–from-file=file-path&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;- -from-file=file-path&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;从一份文件里创建交互式的网页报告，如从包括原始 trace 数据的 TXT 文件，而不是运行着动态的 trace&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;-e device-serial或 –serial=device-serial&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-e device-serial或 - -serial=device-serial&lt;/td&gt;
 &lt;td style=&quot;text-align:left&quot;&gt;根据设备的 serial number，在指定连接的设备上执行 trace&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
