@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2018-04-07T16:13:21.000Z</updated>
+  <updated>2018-04-22T04:38:43.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -14,6 +14,207 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入 Android 性能优化二：谈谈 systrace</title>
+    <link href="http://iamasoldier6.com/2018/04/22/%E6%B7%B1%E5%85%A5-Android-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%BA%8C%EF%BC%9A%E8%B0%88%E8%B0%88-systrace/"/>
+    <id>http://iamasoldier6.com/2018/04/22/深入-Android-性能优化二：谈谈-systrace/</id>
+    <published>2018-04-22T04:28:22.000Z</published>
+    <updated>2018-04-22T04:38:43.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;干就完了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;以下大多内容翻译及加工自&lt;a href=&quot;https://developer.android.com/studio/command-line/systrace.html#syntax&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网&lt;/a&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;简要介绍&quot;&gt;&lt;a href=&quot;#简要介绍&quot; class=&quot;headerlink&quot; title=&quot;简要介绍&quot;&gt;&lt;/a&gt;&lt;strong&gt;简要介绍&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;systrace 命令可以允许我们在系统层面上，对设备里所有进程的耗时信息进行收集和调研。systrace 结合的分析数据来源于 Android 内核，如 CPU 调度器、磁盘活动和 App 的线程等，会生成一份网页报告如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这是一份简单的 systrace 网页报告，显示了和 App 5 秒钟的交互，报告中高亮的帧是 systrace 认为没有合理渲染的地方。&lt;/p&gt;
+&lt;p&gt;事实上，生成的报告在给定的时间区间，描述了 Android 设备系统进程的全局图。同时，报告检查了抓到的 tracing 信息，并高亮化其观察到的问题，如展示动作或动画时的 UI 卡顿，会提供一些如何修复的建议。此外，systrace 也有它自身的局限性，其无法收集到 App 进程内的代码执行信息。为了获取更多的详细信息，如 App 运行时正在执行的方法、App 使用的 CPU 资源等，使用 Android Studio 内置的 &lt;a href=&quot;https://developer.android.com/studio/profile/cpu-profiler.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CPU profiler&lt;/a&gt;，或&lt;a href=&quot;https://developer.android.com/studio/profile/generate-trace-logs.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;生成的 trace 日志&lt;/a&gt;，然后使用 &lt;a href=&quot;https://developer.android.com/studio/profile/traceview.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Traceview&lt;/a&gt; 查看。&lt;/p&gt;
+&lt;p&gt;为了运行 systrace，需要完成下面这些：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Android Studio 上，下载安装最新的 Android SDK Tools&lt;/li&gt;
+&lt;li&gt;安装 Python，并包括在工作的执行路径下&lt;/li&gt;
+&lt;li&gt;连接 Android 4.3 (API level 18) 及以上的设备，打开 USB 调试模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;systrace 工具在 Android SDK Tools 的包里，位于&lt;code&gt;android-sdk/platform-tools/systrace/&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;具体使用&quot;&gt;&lt;a href=&quot;#具体使用&quot; class=&quot;headerlink&quot; title=&quot;具体使用&quot;&gt;&lt;/a&gt;&lt;strong&gt;具体使用&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;了解了 systrace 后，下面来看其具体的使用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;命令&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为了生成所需要的网页报告，需要在命令行使用下面的命令运行 systrace，即进入&lt;code&gt;android-sdk/platform-tools/systrace/&lt;/code&gt;后，执行：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;python systrace.py [options] [categories]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;举个例子，下面运行 systrace 来记录 10 秒期间设备的进程，包括图像进程，然后生成一份命名为 mynewtrace 的网页报告，执行：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;python systrace.py --time=10 -o mynewtrace.html gfx&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;若没指定任何类别或者选项，systrace 会生成一份报告，包括所有可用的种类，同时使用默认的设置。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;通用的选项&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;通用选项&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-h \&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–help&lt;/td&gt;
+&lt;td&gt;显示帮助信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-l \&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–list-categories&lt;/td&gt;
+&lt;td&gt;列出所连设备可用的 tracing 种类&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;命令和命令选项&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;命令和选项&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;strong&gt;-o file&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;将 trace 的网页报告写到指定的文件中。若未指定该选项，systrace 会保存报告至与 systrace.py 相同的目录下，同时命名 trace.html&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;**-t N \&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–time=N**&lt;/td&gt;
+&lt;td&gt;Trace 设备活动的 N 秒时间。若未指定该选项，命令行中，通过敲 Enter 回车键来终止 trace 进程&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-b N \&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–buf-size=N&lt;/td&gt;
+&lt;td&gt;使用 N 千字节的 trace 缓冲区大小。这个选项可以限制在 trace 期间总共收集数据的大小&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-k functions\&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–ktrace=functions&lt;/td&gt;
+&lt;td&gt;Trace 指定内核方法的活动，指定于逗号分隔的列表&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;**-a app-name\&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–app=app-name**&lt;/td&gt;
+&lt;td&gt;Apps 能够 tracing，指定为以逗号分隔进程名字的列表。Apps 必须包含来自 Trace 类的 tracing 工具调用。无论何时，如以 RecyclerView 等许多库构建的 App，都应该指定该选项，包括在 App 层面 tracing 时跟踪工具调用提供的有用信息。为了获取更多的信息，参考下面&lt;strong&gt;植入你 App 的代码&lt;/strong&gt;一栏&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–from-file=file-path&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;从一份文件里创建交互式的网页报告，如从包括原始 trace 数据的 TXT 文件，而不是运行着动态的 trace&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;-e device-serial\&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;–serial=device-serial&lt;/td&gt;
+&lt;td&gt;根据设备的 serial number，在指定连接的设备上执行 trace&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;strong&gt;categories&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;包括指定系统进程的 tracing 信息，如系统进程的 &lt;strong&gt;gfx&lt;/strong&gt; 渲染图像。事实上，连上设备后，可以执行 &lt;strong&gt;-l&lt;/strong&gt; 命令运行 trace，来查看可用的服务种类列表&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;调研 UI 的性能问题&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;systrace 尤其在调研 App 的 UI 性能上表现突出，因为其可以分析代码和帧率，来判定问题出现的区域，并给出可能的建议。大致步骤如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;连上设备，运行 App&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在&lt;code&gt;android-sdk/platform-tools/systrace/&lt;/code&gt;路径下，执行跑 systrace 的命令如：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;python systrace.py view --time=10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;手动与 App 交互，如滑动等。10 秒后，systrace 会生成一份网页报告&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用浏览器打开生成的网页报告&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以点击报告，来查看记录期间设备 CPU 的使用。下面给出怎样在报告中调研信息，来找到并修复 UI 的性能问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;审查帧和警告&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如下图所示，报告中列出了渲染 UI 帧的每个进程，显示了时间线里每幅渲染的帧。绿色帧圈的表明，在要求的 16.6 毫秒内保持稳定的 60 帧/秒渲染帧像；黄色或红色帧圈的表明，渲染帧像时花费了超过 16.6 毫秒。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/systrace2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;，在 Android 5.0 (API level 21) 及更高的设备上，渲染帧像的工作被分隔于 UI 主线程和渲染线程。以前的版本，创建帧像的工作都在 UI 主线程完成。&lt;/p&gt;
+&lt;p&gt;点击帧圈可以高亮化，提供系统完成渲染帧像额外的信息，包括警告。它也展示渲染帧像时系统正在执行的方法，因此可以根据这些方法来找出 UI 卡顿的原因。选择有问题的帧，trace 报告下面会展示问题详情的一个 alert。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/systrace3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;一目了然，trace 中会给出相关事件的链接，来解释在此期间系统运行的详情。&lt;/p&gt;
+&lt;p&gt;要看 trace 中工具发现的 alert，以及设备触发每个警告的次数，可以点击右上边上的 &lt;strong&gt;Alerts&lt;/strong&gt; tab。&lt;strong&gt;Alerts&lt;/strong&gt; 栏可以显示 trace 里发生的每一个问题和它们导致卡顿的频次。考虑到栏目里一系列待修复的 bugs，一片区域里，一个微小的变化或改进，可以忽略 App 中整个类的警告。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/systrace4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;若看到 UI 主线程中做了太多的工作，需要我们自己找出消耗 CPU 时间的那些方法，&lt;strong&gt;方法之一&lt;/strong&gt;是在认为导致性能瓶颈的地方，添加 trace 标记，来查看 trace 中出现的调用方法。若&lt;strong&gt;不确定&lt;/strong&gt;哪些方法或许导致 UI 主线程的瓶颈，使用 Android Studio 内置的 &lt;a href=&quot;https://developer.android.com/studio/profile/cpu-profiler.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CPU profiler&lt;/a&gt;，或&lt;a href=&quot;https://developer.android.com/studio/profile/generate-trace-logs.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;生成的 trace 日志&lt;/a&gt;，然后使用 &lt;a href=&quot;https://developer.android.com/studio/profile/traceview.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Traceview&lt;/a&gt; 查看。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;网页报告快捷键&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;下面列出查看 systrace 网页报告的一些快捷键：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;W&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;放大 trace 的时间线&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;S&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;缩小 trace 的时间线&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;定位在 trace 时间线的左边&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;D&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;定位在 trace 时间线的右边&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;E&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;在当前鼠标的位置，居中于 trace 时间线&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;G&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;在当前选中任务的开始处，显示网格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Shift + G&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;在当前选中任务的结束处，显示网格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;右箭头&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;在当前选中的时间线，选择下一个事件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;左箭头&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;在当前选中的时间线，选择前一个事件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;植入你 App 的代码&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于 systrace 只在系统层级显示进程的信息，因此很难通过网页报告知道给定的时间内，App 究竟执行了哪些方法。在 Android 4.3 (API level 18) 及以上，可以在代码中使用 Trace 类来在网页报告中标记执行的事件。事实上，不需要植入代码中，用 systrace 记录 traces，这样做能帮助我们定位，代码的哪一块也许是造成线程阻塞或 UI 卡顿的原因。这个方法和 Debug 类不同，Trace 类只是简单地在 systrace 报告中添加标记，而 Debug 类通过生成 .trace 文件帮助我们审查使用 App 时 CPU 详细的使用信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;，为了生成包括 trace 事件的 systrace 网页报告，需要指定 &lt;strong&gt;-a&lt;/strong&gt; 或 &lt;strong&gt;- -app&lt;/strong&gt; 的命令来运行 systrace，这样来指定 App 的包名。&lt;/p&gt;
+&lt;p&gt;下面给出如何使用 Trace 类来标记执行方法的示例，包括两个嵌套的代码块：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MyAdapter&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;RecyclerView&lt;/span&gt;.&lt;span class=&quot;title&quot;&gt;Adapter&lt;/span&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;MyViewHolder&lt;/span&gt;&amp;gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; MyViewHolder &lt;span class=&quot;title&quot;&gt;onCreateViewHolder&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(ViewGroup parent, &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; viewType)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Trace.beginSection(&lt;span class=&quot;string&quot;&gt;&quot;MyAdapter.onCreateViewHolder&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        MyViewHolder myViewHolder;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            myViewHolder = MyViewHolder.newInstance(parent);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;finally&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;comment&quot;&gt;// try...catch 语句中, 总是要调用 endSection(), 在 finally 语句&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          	&lt;span class=&quot;comment&quot;&gt;// 中调用以确保即使抛出异常时 endSection() 也能执行&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Trace.endSection();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; myViewHolder;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onBindViewHolder&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(MyViewHolder holder, &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; position)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Trace.beginSection(&lt;span class=&quot;string&quot;&gt;&quot;MyAdapter.onBindViewHolder&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                Trace.beginSection(&lt;span class=&quot;string&quot;&gt;&quot;MyAdapter.queryDatabase&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                RowItem rowItem = queryDatabase(position);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                mDataset.add(rowItem);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; &lt;span class=&quot;keyword&quot;&gt;finally&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                Trace.endSection();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            holder.bind(mDataset.get(position));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;finally&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Trace.endSection();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;，当多次调用 beginSection() 时，调用 endSection() 只终止最近一次调用的 beginSection() 方法。因此，对于嵌套调用，如上面的代码所示，&lt;strong&gt;确保每次调用 beginSection()，同样恰当地调用到 endSection()&lt;/strong&gt;。此外，&lt;strong&gt;不能在一个线程调用 beginSection()，然后从另一个线程终止，而应该在相同的线程调用到 endSection() 方法&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;至此，谈谈 systrace 完毕。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;您也可以关注我个人的微信公众号&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;AndroidEngineer&lt;/em&gt;&lt;/strong&gt;，&lt;strong&gt;&lt;em&gt;第一时间获得博客的更新通知，或后台留言与我交流&lt;/em&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;更多内容&quot;&gt;&lt;a href=&quot;#更多内容&quot; class=&quot;headerlink&quot; title=&quot;更多内容&quot;&gt;&lt;/a&gt;&lt;strong&gt;更多内容&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://t.cn/RuwUzHz&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入 Android 性能优化一：概要介绍&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;干就完了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
+    
+      <category term="Performance" scheme="http://iamasoldier6.com/tags/Performance/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 并发编程梳理三：浅谈 volatile</title>
@@ -1845,129 +2046,6 @@
       <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
     
       <category term="EventBus" scheme="http://iamasoldier6.com/tags/EventBus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>重温 Fragment 分析二：使用及注意事项</title>
-    <link href="http://iamasoldier6.com/2017/07/15/%E9%87%8D%E6%B8%A9-Fragment-%E5%88%86%E6%9E%90%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
-    <id>http://iamasoldier6.com/2017/07/15/重温-Fragment-分析二：使用及注意事项/</id>
-    <published>2017-07-15T02:19:45.000Z</published>
-    <updated>2018-01-01T14:25:47.000Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;
-&lt;p&gt;Everything is OK in the end. If it’s not OK, then it’s not the end.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;上一篇&lt;a href=&quot;http://t.cn/RonWO0o&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;重温 Fragment 分析一：生命周期&lt;/a&gt;中简单分析总结了 Fragment 的生命周期，这一期着重分析并归纳 Fragment 常见的使用及注意事项。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;我们知道，作为 Activity 界面的一部分，Fragment 的存在必须依附于 Activity，且与 Activity 一样，有着自己的生命周期，同时处理用户的交互动作。此外，同一个 Activity 可以有一个或多个 Fragment 作为界面内容，并且可以动态添加、删除 Fragment，灵活地控制 UI 内容，也可以用来解决部分屏幕适配的问题。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;需要注意的是&lt;/strong&gt;，support v4 包中也提供了 Fragment，兼容 Android 3.0 之前的系统，使用兼容包需要留意两点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Activity 须继承自 FragmentActivity；&lt;/li&gt;
-&lt;li&gt;须使用 getSupportFragmentManager() 方法获取 FragmentManager 对象。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;嵌入方式&quot;&gt;&lt;a href=&quot;#嵌入方式&quot; class=&quot;headerlink&quot; title=&quot;嵌入方式&quot;&gt;&lt;/a&gt;&lt;strong&gt;嵌入方式&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Fragment 向宿主 Activity 贡献一部分 UI，作为 Activity 总体视图层次结构的一部分嵌入 Activity 中，分为两种方式：布局静态嵌入和代码动态嵌入。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;布局静态嵌入&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在 Activity 的 Layout 布局中使用&lt;code&gt;&amp;lt;fragment&amp;gt;&lt;/code&gt;嵌入指定的 Fragment，如：&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;php&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;lt;?&lt;/span&gt;xml version=&lt;span class=&quot;string&quot;&gt;&quot;1.0&quot;&lt;/span&gt; encoding=&lt;span class=&quot;string&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&lt;span class=&quot;meta&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;FrameLayout&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;xmlns:android&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;http://schemas.android.com/apk/res/android&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;android:layout_width&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;android:layout_height&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;android:orientation&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;vertical&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;fragment&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;attr&quot;&gt;android:layout_width&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;attr&quot;&gt;android:layout_height&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;FrameLayout&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;当系统创建此 Activity 布局时，会实例化在布局中指定的每个 Fragment，并为每个 Fragment 调用 onCreateView() 方法，来检索每个 Fragment 的布局。系统会直接嵌入 Fragment 返回的 View 来替代&lt;code&gt;&amp;lt;fragment&amp;gt;&lt;/code&gt;元素。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;！&lt;/p&gt;
-&lt;p&gt;每个 Fragment 都需要一个唯一的标识符，重启 Activity 时，系统可以使用该标识符来恢复 Fragment (也可以使用标识符来捕获 Fragment 以执行某些事务，如将其移除)。一般通过三种方式为 Fragment 提供 ID：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;为 android:id 属性提供唯一的 ID；&lt;/li&gt;
-&lt;li&gt;为 android:tag 属性提供唯一的字符串；&lt;/li&gt;
-&lt;li&gt;若未给以上两个属性提供值，系统会使用容器视图的 ID。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;代码动态嵌入&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在 Activity 运行期间将 Fragment 添加到 Activity 布局中，需要指定将 Fragment 放入哪个 ViewGroup 中。&lt;/p&gt;
-&lt;p&gt;要想在 Activity 中执行 Fragment 事务(如添加、移除或替换 Fragment)，可以像下面这样从 Activity 中获取一个 FragmentTransaction 实例：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;FragmentManager fragmentManager = getFragmentManager();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;然后，可以使用 add() 方法添加一个 Fragment，指定要添加的 Fragment 以及将其插入哪个视图。如：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;DemoFragment fragment = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; DemoFragment();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;fragmentTransaction.add(R.id.fragment_container, fragment);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;fragmentTransaction.commit();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;传递到 add() 的第一个参数是 ViewGroup，即放置 Fragment 的位置，由资源 ID 指定；第二个参数是要添加的 Fragment。一旦通过 FragmentTransaction 作出了更改，须调用 commit() 使更改生效。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;小结如下：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;I.&lt;/strong&gt; 关于 Fragment 常用的三个类：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;android.app.Fragment&lt;/code&gt;：主要用于定义 Fragment；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;android.app.FragmentManager&lt;/code&gt;：主要用于在 Activity 中操作 Fragment；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;android.app.FragmentTransaction&lt;/code&gt;：保证一系列 Fragment 操作的原子性。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;II.&lt;/strong&gt; 获取 FragmentManager 的方式：&lt;/p&gt;
-&lt;p&gt;getFragmentManager()；v4 中，getSupportFragmentManager()。&lt;/p&gt;
-&lt;p&gt; &lt;strong&gt;III.&lt;/strong&gt; FragmentTransaction 的方法处理主要的操作：&lt;/p&gt;
-&lt;p&gt;FragmentTransaction transaction = fragmentManager.beginTransaction()；开启一个事务。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transaction.add()&lt;/code&gt;：向 Activity 中添加一个 Fragment；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transaction.remove()&lt;/code&gt;：从 Activity 中移除一个 Fragment，若被移除的 Fragment 未被添加到回退栈，则 Fragment 实例会被销毁；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transaction.replace()&lt;/code&gt;：用另一个 Fragment 替换当前的，即 remove() 和 add() 的共通操作；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transaction.hide()&lt;/code&gt;：隐藏当前的 Fragment，仅设为不可见，并不销毁；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transaction.show()&lt;/code&gt;：显示之前隐藏的 Fragment；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;detach()&lt;/code&gt;：将 View 从 UI 中移除，同 remove() 不一样，这时候，fragment 的状态仍然由 FragmentManager 维护；&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;attach()&lt;/code&gt;：重建 View 视图，依附至 UI 并显示：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transaction.commit()&lt;/code&gt;：提交一个事务，&lt;strong&gt;注意&lt;/strong&gt;，commit() 方法要在 Activity.onSaveInstance() 之前调用。&lt;/p&gt;
-&lt;p&gt;开发中注意的几点：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;a&lt;/strong&gt;. 若在 Fragment A 中的 EditText 中填充了一些数据，且 EditText 中未做特殊处理，先切换到 Fragment B，希望回到 Fragment A 时填充的数据还在，则适合调用的就是 hide() 和 show() 方法；&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;b&lt;/strong&gt;. 若不希望保留用户操作，可以先使用 remove()，然后 add()；或者，使用 replace()，和先 remove() 后 add() 的效果一致；&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;c&lt;/strong&gt;. remove() 和 detach() 的区别：不考虑回退栈的情况下，remove() 会销毁整个 Fragment 实例，而 detach() 只销毁其视图结构，不会销毁实例。&lt;/p&gt;
-&lt;h2 id=&quot;回退栈&quot;&gt;&lt;a href=&quot;#回退栈&quot; class=&quot;headerlink&quot; title=&quot;回退栈&quot;&gt;&lt;/a&gt;&lt;strong&gt;回退栈&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;我们知道，Android 系统为 Activity 维护了一个任务栈，同理，我们也可以通过 Activity 维护一个回退栈，以保存每次 Fragment 事务发生的变化。若将 Fragment 任务添加到回退栈，当用户点击返回按钮时，将看到上一次保存的 Fragment。紧接着，若 Fragment 完全从回退栈中弹出，用户再次点击返回按钮，则最终会退出 Activity。&lt;/p&gt;
-&lt;p&gt;为达到这样一个效果：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/fragment_back.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;点击按钮一，跳至界面二，再点击按钮二，跳至界面三，最后，点击 Back 键顺序返回。用户点击 Back 键，即是 Fragment 回退栈不断地弹栈。详见&lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;FragmentBackStackDemo&lt;/a&gt;，具体代码如下：&lt;/p&gt;
-&lt;p&gt;Activity 的布局文件：&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;php&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;lt;?&lt;/span&gt;xml version=&lt;span class=&quot;string&quot;&gt;&quot;1.0&quot;&lt;/span&gt; encoding=&lt;span class=&quot;string&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&lt;span class=&quot;meta&quot;&gt;?&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;RelativeLayout&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;xmlns:android&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;http://schemas.android.com/apk/res/android&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;android:layout_width&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;android:layout_height&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;FrameLayout&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;attr&quot;&gt;android:id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;@+id/fl_content&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;attr&quot;&gt;android:layout_width&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;attr&quot;&gt;android:layout_height&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;FrameLayout&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;RelativeLayout&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;Fragment 就显示在 FrameLayout 中，MainActivity 如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;AppCompatActivity&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onCreate(savedInstanceState);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        requestWindowFeature(Window.FEATURE_NO_TITLE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        setContentView(R.layout.activity_main);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentOne fragmentOne = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; FragmentOne();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentManager manager = getFragmentManager();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentTransaction transaction = manager.beginTransaction();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        transaction.add(R.id.fl_content, fragmentOne, &lt;span class=&quot;string&quot;&gt;&quot;One&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        transaction.commit();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;事实上，另一种更严谨的写法如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;AppCompatActivity&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; FragmentOne mFragmentOne;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onCreate(savedInstanceState);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        requestWindowFeature(Window.FEATURE_NO_TITLE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        setContentView(R.layout.activity_main);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentManager manager = getFragmentManager();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mFragmentOne = (FragmentOne) manager.findFragmentById(R.id.fl_content);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (mFragmentOne == &lt;span class=&quot;keyword&quot;&gt;null&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            mFragmentOne = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; FragmentOne();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            manager.beginTransaction().add(R.id.fl_content, mFragmentOne).commit();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;就是将 FragmentOne 添加到布局文件的 FrameLayout 中，这里没有调用 addToBackStack(String) 方法，为了避免在当前显示时，点击 Back 键出现白屏。FragmentOne 如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;FragmentOne&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Fragment&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;View&lt;/span&gt;.&lt;span class=&quot;title&quot;&gt;OnClickListener&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; Button mButton;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; View &lt;span class=&quot;title&quot;&gt;onCreateView&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        View view = inflater.inflate(R.layout.fragment_one, container, &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mButton = (Button) view.findViewById(R.id.btn_one);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mButton.setOnClickListener(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; view;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onClick&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(View v)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentTwo fragmentTwo = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; FragmentTwo();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentManager manager = getFragmentManager();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        FragmentTransaction transaction = manager.beginTransaction();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        transaction.replace(R.id.fl_content, fragmentTwo, &lt;span class=&quot;string&quot;&gt;&quot;TWO&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        transaction.addToBackStack(&lt;span class=&quot;keyword&quot;&gt;null&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        transaction.commit();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;点击 FragmentOne 中的按钮，调用 replace() 方法。事实上，若不添加任务到回退栈，前一个 Fragment 实例会被销毁；这里，调用 addToBackStack(null) 方法，将当前的事务添加到回退栈，&lt;strong&gt;FragmentOne 的实例不会被销毁，但是视图层次会被销毁，即调用到了 onDestroyView() 和 onCreateView()&lt;/strong&gt;，可以看到动图中，一开始在编辑框中输入的内容，再次返回到 FragmentOne 界面时消失了。&lt;/p&gt;
-&lt;p&gt;FragmentTwo 的代码就不贴出来了，和 FragmentOne 的区别在，点击时，没有使用 replace()，即先隐藏了当前的 Fragment，接着，添加了 FragmentThree 的实例，最后，将事务添加到回退栈。目的在于，不希望视图重绘，动图中，可以看到，在 FragmentTwo 的编辑框中输入的内容，用户点返回时，数据一直都在。&lt;/p&gt;
-&lt;p&gt;同样，FragmentThree 只是弹出一个 Toast，借此了解回退栈和 hide()，replace() 的应用场景。&lt;/p&gt;
-&lt;h2 id=&quot;通信方式&quot;&gt;&lt;a href=&quot;#通信方式&quot; class=&quot;headerlink&quot; title=&quot;通信方式&quot;&gt;&lt;/a&gt;&lt;strong&gt;通信方式&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Fragment 与 Activity 的通信有三种情形：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Activity 操作内嵌的 Fragment；&lt;/li&gt;
-&lt;li&gt;Fragment 操作宿主 Activity；&lt;/li&gt;
-&lt;li&gt;Fragment 操作同属 Activity 中的其他 Fragment。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;I&lt;/strong&gt;. Activity 持有所有内嵌的 Fragment 对象实例(创建实例时保存的 Fragment 对象，或者通过 FragmentManager 类提供的 findFragmentById() 和 findFragmentByTag() 方法获取到的 Fragment 对象)，故可以直接操作 Fragment；&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;II&lt;/strong&gt;. Fragment 通过 getActivity() 方法获取到宿主 Activity 对象(强制转换类型)，进而操作宿主 Activity；&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;III&lt;/strong&gt;. 获取到宿主 Activity 对象的 Fragment 可以方便地操作其他 Fragment 对象。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;注意&lt;/em&gt;&lt;/strong&gt;，在 Fragment 中需要 Context，则调用 getActivity()；若 Context 需要在 Activity 销毁后还存在，则使用 getActivity().getApplicationContext()。&lt;/p&gt;
-&lt;p&gt;下面关注下 &lt;strong&gt;Fragment 与 Activity 通信的最佳实践&lt;/strong&gt;：&lt;/p&gt;
-&lt;p&gt;上面的操作能够解决 Activity 与 Fragment 的通信，但是代码显得有点紊乱，也不具有&lt;strong&gt;&lt;em&gt;高内聚与低耦合&lt;/em&gt;&lt;/strong&gt;的特点，故推荐：Fragment 做自己该做的，其之间的控制显示操作，就交由宿主 Activity 统一管理。采用对外开放接口的形式将 Fragment 的一些对外面的操作传递给宿主 Activity。详见 &lt;a href=&quot;https://github.com/Iamasoldier6/AndroidExerciseDemos&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;FragmentAndActivityChatDemo&lt;/a&gt;，FragmentOne 重构后的代码如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;FragmentOne&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Fragment&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;View&lt;/span&gt;.&lt;span class=&quot;title&quot;&gt;OnClickListener&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; Button mButton;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; View &lt;span class=&quot;title&quot;&gt;onCreateView&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        View view = inflater.inflate(R.layout.fragment_one, container, &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mButton = (Button) view.findViewById(R.id.btn_one);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mButton.setOnClickListener(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; view;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     * 转交给宿主 Activity 处理&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; v&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onClick&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(View v)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (getActivity() &lt;span class=&quot;keyword&quot;&gt;instanceof&lt;/span&gt; ButtonOneClickListener) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ((ButtonOneClickListener) getActivity()).onButtonOneClick();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     * 按钮点击回调&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;ButtonOneClickListener&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onButtonOneClick&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;FragmentOne 不和任何 Activity 耦合，任何 Activity 都可以使用；同时，声明了一个接口，回调其点击事件，管理其点击事件的 Activity 可以实现此接口。在 onClick() 中有判断当前绑定的 Activity 是否实现接口，实现了则直接调用。&lt;/p&gt;
-&lt;p&gt;FragmentTwo 中，与 FragmentOne 的代码大体相似，新提供了设置监听器的方法，即 Activity 要实现接口，且要显示调用 mFragmentTwo.setButtonTwoClickListener(this)。&lt;/p&gt;
-&lt;p&gt;综上，Fragment 和 Activity 虽然通过 getActivity()、findFragmentById() 和 findFragmentByTag() 的方法执行任何相关的操作，也能在一个 Fragment 里操作另一个 Fragment，但是不提倡。Activity 在 Fragment 之间担任着主管一样的角色，其来决定操作 Fragment 的方式。即使 Fragment 无法响应 Intent，但是 Activity 能接收 Intent，由参数判断显示要显示的 Fragment。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;getActivity() 的引用&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;上面提到的，以及在日常开发中，在 Fragment 中通过 getActivity() 获取到宿主 Activity 对象，然而，没注意的话，会导致下面两个常见的问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Activity 实例的销毁。如 Fragment 中存在像网络请求一类的异步耗时任务，当任务执行完毕，回调 Fragment 的方法并回到宿主 Activity 对象时，有可能宿主 Activity 对象已销毁，从而引发 NPE 异常，甚至导致程序崩溃。因此，异步回调时要有注意添加空值的判断(如 getActivity() != null) 等，或者在 Fragment 创建实例时通过 getActivity().getApplicationContext() 方法来保存整个应用的上下文对象；&lt;/li&gt;
-&lt;li&gt;内存泄漏问题。若 Fragment 持有宿主 Activity 的引用，会导致宿主 Activity 无法回收，造成内存泄漏。故最好不要在 Fragment 中持有宿主 Activity 的引用。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;关于 Context 上下文的引用，Fragment 提供了一个 onAttach() 方法，此方法中获取 Context 对象，如：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onAttach&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Context context)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  	&lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onAttach(context);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  	&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.context = context;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;Fragment 中也提供了一个 getContext() 方法，来返回 Context 对象，若不使用具体的宿主 Activity 对象，可用这个方法获取 Context 对象。&lt;/p&gt;
-&lt;p&gt;至此，关于 Fragment 常见的使用和注意事项分析完毕，重温 Fragment 系列两篇文章到此结束。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;您也可以关注我个人的微信公众号&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;AndroidEngineer&lt;/em&gt;&lt;/strong&gt;，&lt;strong&gt;&lt;em&gt;第一时间获得博客的更新通知，或后台留言与我交流&lt;/em&gt;&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;参考文献&quot;&gt;&lt;a href=&quot;#参考文献&quot; class=&quot;headerlink&quot; title=&quot;参考文献&quot;&gt;&lt;/a&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;1.&lt;a href=&quot;https://developer.android.com/guide/components/fragments.html?hl=zh-cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://developer.android.com/guide/components/fragments.html?hl=zh-cn&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;2.&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/37992017&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/lmj623565791/article/details/37992017&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;3.&lt;a href=&quot;http://yifeng.studio/2016/12/15/android-fragment-attentions/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://yifeng.studio/2016/12/15/android-fragment-attentions/&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Everything is OK in the end. If it’s not OK, then it’s not the end.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;上一篇&lt;a href=&quot;http://t.cn/RonWO0o&quot;&gt;重温 Fragment 分析一：生命周期&lt;/a&gt;中简单分析总结了 Fragment 的生命周期，这一期着重分析并归纳 Fragment 常见的使用及注意事项。
-    
-    </summary>
-    
-    
-      <category term="Android" scheme="http://iamasoldier6.com/tags/Android/"/>
-    
-      <category term="Fragment" scheme="http://iamasoldier6.com/tags/Fragment/"/>
     
   </entry>
   
