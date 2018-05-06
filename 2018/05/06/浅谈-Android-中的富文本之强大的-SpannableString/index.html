@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>浅谈 Android 中的富文本之强大的 SpannableString | Iamasoldier6&#39;s Column</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如果你昨天的成绩了不起，说明你今天做得还不够好。
+
+至这一篇文章，我个人搭建的博客成功运营两年了，每两周更新一篇想写的冰山一角。两年，不长，好多都物是人非，莫忘初衷，就继续下去吧，Move on。好，开始正题。
+Android 中，显示文本都是基于 TextView 控件，往往样式没什么额外惊喜。若我们想自定义个性的颜色、样式，甚至带超链接等，就不得不请出将要谈到的 SpannableStrin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 Android 中的富文本之强大的 SpannableString">
+<meta property="og:url" content="http://iamasoldier6.com/2018/05/06/浅谈-Android-中的富文本之强大的-SpannableString/index.html">
+<meta property="og:site_name" content="Iamasoldier6's Column">
+<meta property="og:description" content="如果你昨天的成绩了不起，说明你今天做得还不够好。
+
+至这一篇文章，我个人搭建的博客成功运营两年了，每两周更新一篇想写的冰山一角。两年，不长，好多都物是人非，莫忘初衷，就继续下去吧，Move on。好，开始正题。
+Android 中，显示文本都是基于 TextView 控件，往往样式没什么额外惊喜。若我们想自定义个性的颜色、样式，甚至带超链接等，就不得不请出将要谈到的 SpannableStrin">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spannable_string2.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spannable_frame2.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
+<meta property="og:updated_time" content="2018-05-06T05:58:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈 Android 中的富文本之强大的 SpannableString">
+<meta name="twitter:description" content="如果你昨天的成绩了不起，说明你今天做得还不够好。
+
+至这一篇文章，我个人搭建的博客成功运营两年了，每两周更新一篇想写的冰山一角。两年，不长，好多都物是人非，莫忘初衷，就继续下去吧，Move on。好，开始正题。
+Android 中，显示文本都是基于 TextView 控件，往往样式没什么额外惊喜。若我们想自定义个性的颜色、样式，甚至带超链接等，就不得不请出将要谈到的 SpannableStrin">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/spannable_string2.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 11.43px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Concurrency/" style="font-size: 12.86px;">Concurrency</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 10px;">Framework</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/I-O/" style="font-size: 10px;">I/O</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 17.14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/Performance/" style="font-size: 11.43px;">Performance</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 15.71px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 11.43px;">Summary</a> <a href="/tags/Text/" style="font-size: 10px;">Text</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-浅谈-Android-中的富文本之强大的-SpannableString" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/06/浅谈-Android-中的富文本之强大的-SpannableString/" class="article-date">
+  	<time datetime="2018-05-06T01:57:33.000Z" itemprop="datePublished">2018-05-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈 Android 中的富文本之强大的 SpannableString
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Text/">Text</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简要介绍"><span class="toc-number">1.</span> <span class="toc-text">简要介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo-用法"><span class="toc-number">2.</span> <span class="toc-text">Demo 用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深入解读"><span class="toc-number">3.</span> <span class="toc-text">深入解读</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>如果你昨天的成绩了不起，说明你今天做得还不够好。</p>
+</blockquote>
+<p>至这一篇文章，我个人搭建的博客成功运营两年了，每两周更新一篇想写的冰山一角。两年，不长，好多都物是人非，莫忘初衷，就继续下去吧，Move on。好，开始正题。</p>
+<p>Android 中，显示文本都是基于 TextView 控件，往往样式没什么额外惊喜。若我们想自定义个性的颜色、样式，甚至带超链接等，就不得不请出将要谈到的 SpannableString。<a id="more"></a></p>
+<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a><strong>简要介绍</strong></h2><p>SpannableString 是 Android 内置的专门处理富文本的类，先简单看看其常用的方法：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>final char</td>
+<td style="text-align:left">charAt(int i)</td>
+<td style="text-align:left">和 String 一样，可以返回指定位置的字符值</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td style="text-align:left">equals(Object o)</td>
+<td style="text-align:left">和 String 一样，指示是否有别的对象和当前对象相等</td>
+</tr>
+<tr>
+<td>final void</td>
+<td style="text-align:left">getChars (int start, int end, char[] dest, int off)</td>
+<td style="text-align:left">和 String 一样，从字符序列中取出 <strong>start</strong> ~ <strong>end - 1</strong> 的字符，在偏移为 <strong>off</strong>  处，复制到 <strong>dest</strong> 数组中</td>
+</tr>
+<tr>
+<td>int</td>
+<td style="text-align:left">getSpanEnd(Object what)</td>
+<td style="text-align:left">返回指定标记对象依附文本范围的末端，若未依附则返回 -1</td>
+</tr>
+<tr>
+<td>int</td>
+<td style="text-align:left">getSpanFlags(Object what)</td>
+<td style="text-align:left">当 setSpan(Object, int, int, int) 用来依附指定的标记对象时，返回指定的 flags，若未依附则返回 0</td>
+</tr>
+<tr>
+<td>int</td>
+<td style="text-align:left">getSpanStart(Object what)</td>
+<td style="text-align:left">返回指定标记对象依附文本范围的开端，若未依附则返回 -1</td>
+</tr>
+<tr>
+<td><t> T[]</t></td>
+<td style="text-align:left">getSpans(int queryStart, int queryEnd, Class<t> kind)</t></td>
+<td style="text-align:left">返回依附指定序列块标记对象的数组，其类型是指定的类型，或者是子类</td>
+</tr>
+<tr>
+<td>int</td>
+<td style="text-align:left">hashCode()</td>
+<td style="text-align:left">返回对象的哈希值</td>
+</tr>
+<tr>
+<td>final int</td>
+<td style="text-align:left">length()</td>
+<td style="text-align:left">返回该字符序列的长度</td>
+</tr>
+</tbody>
+</table>
+<p>接下面，</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td style="text-align:left">nextSpanTransition(int start, int limit, Class kind)</td>
+<td style="text-align:left">在标记类对象类型开始或结束的地方，返回比 <strong>start</strong> 大的第一个偏移，或者是 <strong>limit</strong>，条件是没有 starts 或 ends 比 <strong>start</strong> 大，且比 <strong>limit</strong> 小</td>
+</tr>
+<tr>
+<td>void</td>
+<td style="text-align:left">removeSpan(Object what)</td>
+<td style="text-align:left">移除 Span</td>
+</tr>
+<tr>
+<td>void</td>
+<td style="text-align:left">setSpan(Object what, int start, int end, int flags)</td>
+<td style="text-align:left">设置 Span</td>
+</tr>
+<tr>
+<td>final CharSequence</td>
+<td style="text-align:left">subSequence(int start, int end)</td>
+<td style="text-align:left">返回当前序列截取后的子序列</td>
+</tr>
+<tr>
+<td>final String</td>
+<td style="text-align:left">toString()</td>
+<td style="text-align:left">返回当前对象转化成的 String</td>
+</tr>
+<tr>
+<td>static SpannableString</td>
+<td style="text-align:left">valueOf(CharSequence source)</td>
+<td style="text-align:left">生成 SpannableString 类型的值</td>
+</tr>
+</tbody>
+</table>
+<p>以上总结来自官网 <a href="https://developer.android.com/reference/android/text/SpannableString" target="_blank" rel="external">SpannableString</a>，若实现可拼接，见 <a href="https://developer.android.com/reference/android/text/SpannableStringBuilder" target="_blank" rel="external">SpannableStringBuilder</a>。</p>
+<h2 id="Demo-用法"><a href="#Demo-用法" class="headerlink" title="Demo 用法"></a><strong>Demo 用法</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">SpannableStringDemo</a>。</p>
+<p>显示如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/spannable_string2.png" alt=""></p>
+<p>点击“现在我仍然……都要努力”，响应点击事件；点击下方的“电话……进入地图”，分别跳转至相应的 URL 地址页面。</p>
+<p>代码如下，先看普通文本部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> SpannableString <span class="title">getNormalString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SpannableString ssNormal = <span class="keyword">new</span> SpannableString(<span class="string">"Hi，我是吉尔伯特·阿里纳斯，这是我的故事。 "</span> +</span><br><span class="line">            <span class="string">"职业生涯的前 40 场，我是在板凳上度过的。 他们认为我打不上比赛， 我想，他们根本没看到我的天赋。 "</span> +</span><br><span class="line">            <span class="string">"他们觉得我就是个 0，一无是处。 但是我并没有坐在那里怨天尤人，而是不断的训练，训练。 "</span> +</span><br><span class="line">            <span class="string">"在没有人相信你的时候，你的任何努力都会为自己加分。 这已经不是我能否打好篮球的问题了， 而是我要证明他们是错误的。 "</span> +</span><br><span class="line">            <span class="string">"现在我仍然穿着 0 号球衣，因为我要告诫自己每天都要努力。"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置字体: default, default-bold, monospace, serif, sans-serif</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> TypefaceSpan(<span class="string">"default"</span>), <span class="number">0</span>, <span class="number">2</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> TypefaceSpan(<span class="string">"default-bold"</span>), <span class="number">2</span>, <span class="number">4</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> TypefaceSpan(<span class="string">"monospace"</span>), <span class="number">4</span>, <span class="number">6</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> TypefaceSpan(<span class="string">"serif"</span>), <span class="number">6</span>, <span class="number">8</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> TypefaceSpan(<span class="string">"sans-serif"</span>), <span class="number">8</span>, <span class="number">10</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置字体大小</span></span><br><span class="line">    <span class="comment">// 绝对值, 20 为返回的物理像素</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> AbsoluteSizeSpan(<span class="number">20</span>), <span class="number">10</span>, <span class="number">12</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    <span class="comment">// 绝对值, 为 true, 则返回独立像素</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> AbsoluteSizeSpan(<span class="number">20</span>, <span class="keyword">true</span>), <span class="number">12</span>, <span class="number">14</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    <span class="comment">// 相对值, 0.5f 表示为默认字体大小的一半</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> RelativeSizeSpan(<span class="number">0.5f</span>), <span class="number">14</span>, <span class="number">16</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置字体前景色</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> ForegroundColorSpan(Color.RED), <span class="number">16</span>, <span class="number">18</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置字体背景色</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> BackgroundColorSpan(Color.GREEN), <span class="number">18</span>, <span class="number">20</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置字体样式: NORMAL, BOLD, ITALIC, BOLD_ITALIC</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> StyleSpan(Typeface.NORMAL), <span class="number">20</span>, <span class="number">21</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> StyleSpan(Typeface.BOLD), <span class="number">21</span>, <span class="number">22</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> StyleSpan(Typeface.ITALIC), <span class="number">22</span>, <span class="number">23</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> StyleSpan(Typeface.BOLD_ITALIC), <span class="number">23</span>, <span class="number">24</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置下划线</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> UnderlineSpan(), <span class="number">24</span>, <span class="number">26</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置删除线</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> StrikethroughSpan(), <span class="number">26</span>, <span class="number">28</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置上下标</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> SubscriptSpan(), <span class="number">28</span>, <span class="number">30</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> SuperscriptSpan(), <span class="number">30</span>, <span class="number">32</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置字体, 2.0f 为默认字体宽度的两倍, X 轴方向放大, 高度不变</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> ScaleXSpan(<span class="number">2.0f</span>), <span class="number">32</span>, <span class="number">34</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置项目符号</span></span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> BulletSpan(BulletSpan.STANDARD_GAP_WIDTH, Color.GREEN), <span class="number">0</span>, ssNormal.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置图片</span></span><br><span class="line">    Drawable drawable = getResources().getDrawable(R.drawable.ic_launcher_foreground);</span><br><span class="line">    drawable.setBounds(<span class="number">0</span>, <span class="number">0</span>, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());</span><br><span class="line">    ssNormal.setSpan(<span class="keyword">new</span> ImageSpan(drawable), <span class="number">44</span>, <span class="number">46</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置点击事件</span></span><br><span class="line">    ClickableSpan clickableSpan = <span class="keyword">new</span> ClickableSpan() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View widget)</span> </span>&#123;</span><br><span class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"我是可以点击的喔"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    ssNormal.setSpan(clickableSpan, ssNormal.length() - <span class="number">29</span>, ssNormal.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ssNormal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再看超链接部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> SpannableString <span class="title">getLinkString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SpannableString ssLink = <span class="keyword">new</span> SpannableString(<span class="string">"电话  邮件  百度一下  短信  彩信  进入地图"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 电话</span></span><br><span class="line">        ssLink.setSpan(<span class="keyword">new</span> URLSpan(<span class="string">"tel:8008820"</span>), <span class="number">0</span>, <span class="number">2</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">        <span class="comment">// 邮件</span></span><br><span class="line">        ssLink.setSpan(<span class="keyword">new</span> URLSpan(<span class="string">"mailto:zebron623@163.com"</span>), <span class="number">4</span>, <span class="number">6</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">        <span class="comment">// 网络</span></span><br><span class="line">        ssLink.setSpan(<span class="keyword">new</span> URLSpan(<span class="string">"http://www.baidu.com"</span>), <span class="number">8</span>, <span class="number">12</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">        <span class="comment">// 短信</span></span><br><span class="line">        ssLink.setSpan(<span class="keyword">new</span> URLSpan(<span class="string">"sms:10086"</span>), <span class="number">14</span>, <span class="number">16</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">        <span class="comment">// 彩信</span></span><br><span class="line">        ssLink.setSpan(<span class="keyword">new</span> URLSpan(<span class="string">"mms:10086"</span>), <span class="number">18</span>, <span class="number">20</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">        <span class="comment">// 地图</span></span><br><span class="line">        ssLink.setSpan(<span class="keyword">new</span> URLSpan(<span class="string">"geo:32.123456,-17.123456"</span>), <span class="number">22</span>, <span class="number">26</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ssLink;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="深入解读"><a href="#深入解读" class="headerlink" title="深入解读"></a><strong>深入解读</strong></h2><p>通过以上简单的使用，我们可以实现常规文本的定制化，进一步，来看看 Android 内部 TextView 富文本的实现。UML 图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/spannable_frame2.png" alt=""></p>
+<p>一目了然，先看 Demo 中用的最多的 setSpan() 方法，其走入的源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setSpan</span><span class="params">(Object what, <span class="keyword">int</span> start, <span class="keyword">int</span> end, <span class="keyword">int</span> flags</span><br><span class="line">, <span class="keyword">boolean</span> enforceParagraph)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (spans[i] == what) &#123;</span><br><span class="line">            <span class="keyword">int</span> ostart = data[i * COLUMNS + START];</span><br><span class="line">            <span class="keyword">int</span> oend = data[i * COLUMNS + END];</span><br><span class="line"></span><br><span class="line">            data[i * COLUMNS + START] = start;</span><br><span class="line">            data[i * COLUMNS + END] = end;</span><br><span class="line">            data[i * COLUMNS + FLAGS] = flags;</span><br><span class="line"></span><br><span class="line">            sendSpanChanged(what, ostart, oend, nstart, nend);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    mSpans[mSpanCount] = what;</span><br><span class="line">    mSpanData[mSpanCount * COLUMNS + START] = start;</span><br><span class="line">    mSpanData[mSpanCount * COLUMNS + END] = end;</span><br><span class="line">    mSpanData[mSpanCount * COLUMNS + FLAGS] = flags;</span><br><span class="line">    mSpanCount++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> Spannable)</span><br><span class="line">        sendSpanAdded(what, nstart, nend);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法内部主要改变了 mSpans，mSpanData 和 mSpanCount。其中，mSpanData 表示样式的首尾索引和 flags，mSpans 表示对应的样式。从源码中我们可以看到，mSpanData 将 start、end 和 flags 打包存在一起，根据对应的偏移地址取值。然而，SpannableStringBuilder 直接将四个相应的变量存在四个数组里。进一步，来看看富文本的绘制，走到 TextView 的 onDraw() 里：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ... 一些局部变量的声明</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mLayout == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 基于已测量好尺寸的 View 上生成新的布局</span></span><br><span class="line">        assumeLayout();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Layout layout = mLayout;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> cursorOffsetVertical = voffsetCursor - voffsetText;</span><br><span class="line"></span><br><span class="line">    Path highlight = getUpdatedHighlightPath();</span><br><span class="line">  	<span class="comment">// mEditor 是 TextView 处理可编辑 Text 的帮助类对象</span></span><br><span class="line">    <span class="keyword">if</span> (mEditor != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mEditor.onDraw(canvas, layout, highlight, mHighlightPaint, cursorOffsetVertical);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        layout.draw(canvas, highlight, mHighlightPaint, cursorOffsetVertical);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 恢复 Canvas 之前保存的状态, 防止 save 后, 对 Canvas 执行的操作影响后续的绘制</span></span><br><span class="line">    canvas.restore();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TextView 的绘制细节交给 mLayout，其由 makeSingleLayout() 赋值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Layout <span class="title">makeSingleLayout</span><span class="params">(<span class="keyword">int</span> wantWidth, BoringLayout.Metrics boring, <span class="keyword">int</span> ellipsisWidth,</span><br><span class="line">                                  Layout.Alignment alignment, <span class="keyword">boolean</span> shouldEllipsize, TruncateAt effectiveEllipsize,</span><br><span class="line">                                  <span class="keyword">boolean</span> useSaved)</span> </span>&#123;</span><br><span class="line">    Layout result = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (mText <span class="keyword">instanceof</span> Spannable) &#123;</span><br><span class="line">        result = <span class="keyword">new</span> DynamicLayout(mText, mTransformed, mTextPaint, wantWidth,</span><br><span class="line">                alignment, mTextDir, mSpacingMult, mSpacingAdd, mIncludePad,</span><br><span class="line">                mBreakStrategy, mHyphenationFrequency, mJustificationMode,</span><br><span class="line">                getKeyListener() == <span class="keyword">null</span> ? effectiveEllipsize : <span class="keyword">null</span>, ellipsisWidth);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着，走到 layout.draw() 的 draw() 方法里，在指定的 Canvas 上绘制布局，其背景和文本之间有着高亮的路径：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas canvas, Path highlight, Paint highlightPaint,</span><br><span class="line">                 <span class="keyword">int</span> cursorOffsetVertical)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">long</span> lineRange = getLineRangeForDraw(canvas);</span><br><span class="line">    <span class="keyword">int</span> firstLine = TextUtils.unpackRangeStartFromLong(lineRange);</span><br><span class="line">    <span class="keyword">int</span> lastLine = TextUtils.unpackRangeEndFromLong(lineRange);</span><br><span class="line">    <span class="keyword">if</span> (lastLine &lt; <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    drawBackground(canvas, highlight, highlightPaint, cursorOffsetVertical,</span><br><span class="line">            firstLine, lastLine);</span><br><span class="line">    drawText(canvas, firstLine, lastLine);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再走到绘制文本的方法 drawText() 里，Layout 计算好每一行的段落格式，如前面空出多少、居中还是靠右等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawText</span><span class="params">(Canvas canvas, <span class="keyword">int</span> firstLine, <span class="keyword">int</span> lastLine)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ... 一些变量的声明</span></span><br><span class="line"></span><br><span class="line">    TextLine tl = TextLine.obtain();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 一次绘制一根线, 基线是以下行的顶部减去当前行的下降部分</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> lineNum = firstLine; lineNum &lt;= lastLine; lineNum++) &#123;</span><br><span class="line">        <span class="comment">// ... 一些变量的初始化</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ... 一些段落格式的计算</span></span><br><span class="line">        </span><br><span class="line">        Alignment align = paraAlign;</span><br><span class="line">        <span class="keyword">if</span> (align == Alignment.ALIGN_LEFT) &#123;</span><br><span class="line">            align = (dir == DIR_LEFT_TO_RIGHT) ?</span><br><span class="line">                    Alignment.ALIGN_NORMAL : Alignment.ALIGN_OPPOSITE;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (align == Alignment.ALIGN_RIGHT) &#123;</span><br><span class="line">            align = (dir == DIR_LEFT_TO_RIGHT) ?</span><br><span class="line">                    Alignment.ALIGN_OPPOSITE : Alignment.ALIGN_NORMAL;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> indentWidth;</span><br><span class="line">        <span class="keyword">if</span> (align == Alignment.ALIGN_NORMAL) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dir == DIR_LEFT_TO_RIGHT) &#123;</span><br><span class="line">                indentWidth = getIndentAdjust(lineNum, Alignment.ALIGN_LEFT);</span><br><span class="line">                x = left + indentWidth;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                indentWidth = -getIndentAdjust(lineNum, Alignment.ALIGN_RIGHT);</span><br><span class="line">                x = right - indentWidth;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> max = (<span class="keyword">int</span>)getLineExtent(lineNum, tabStops, <span class="keyword">false</span>);</span><br><span class="line">            <span class="keyword">if</span> (align == Alignment.ALIGN_OPPOSITE) &#123;</span><br><span class="line">                <span class="keyword">if</span> (dir == DIR_LEFT_TO_RIGHT) &#123;</span><br><span class="line">                    indentWidth = -getIndentAdjust(lineNum, Alignment.ALIGN_RIGHT);</span><br><span class="line">                    x = right - max - indentWidth;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    indentWidth = getIndentAdjust(lineNum, Alignment.ALIGN_LEFT);</span><br><span class="line">                    x = left - max + indentWidth;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// Alignment.ALIGN_CENTER</span></span><br><span class="line">                indentWidth = getIndentAdjust(lineNum, Alignment.ALIGN_CENTER);</span><br><span class="line">                max = max &amp; ~<span class="number">1</span>;</span><br><span class="line">                x = ((right + left - max) &gt;&gt; <span class="number">1</span>) + indentWidth;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        paint.setHyphenEdit(getHyphen(lineNum));</span><br><span class="line">        Directions directions = getLineDirections(lineNum);</span><br><span class="line">        <span class="keyword">if</span> (directions == DIRS_ALL_LEFT_TO_RIGHT &amp;&amp; !mSpannedText &amp;&amp; !hasTab &amp;&amp; !justify) &#123;</span><br><span class="line">            <span class="comment">// <span class="doctag">XXX:</span> assumes there's nothing additional to be done</span></span><br><span class="line">            canvas.drawText(buf, start, end, x, lbaseline, paint);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            tl.set(paint, buf, start, end, dir, directions, hasTab, tabStops);</span><br><span class="line">            <span class="keyword">if</span> (justify) &#123;</span><br><span class="line">                tl.justify(right - left - indentWidth);</span><br><span class="line">            &#125;</span><br><span class="line">            tl.draw(canvas, x, ltop, lbaseline, lbottom);</span><br><span class="line">        &#125;</span><br><span class="line">        paint.setHyphenEdit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TextLine.recycle(tl);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再走到 TextLine 中，其负责文本绘制的文字显示样式，重点看 handleText() 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">float</span> <span class="title">handleText</span><span class="params">(TextPaint wp, <span class="keyword">int</span> start, <span class="keyword">int</span> end,</span><br><span class="line">                         <span class="keyword">int</span> contextStart, <span class="keyword">int</span> contextEnd, <span class="keyword">boolean</span> runIsRtl,</span><br><span class="line">                         Canvas c, <span class="keyword">float</span> x, <span class="keyword">int</span> top, <span class="keyword">int</span> y, <span class="keyword">int</span> bottom,</span><br><span class="line">                         FontMetricsInt fmi, <span class="keyword">boolean</span> needWidth, <span class="keyword">int</span> offset)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 设置间距</span></span><br><span class="line">    wp.setWordSpacing(mAddedWidth);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (c != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (runIsRtl) &#123;</span><br><span class="line">            x -= ret;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 背景</span></span><br><span class="line">        <span class="keyword">if</span> (wp.bgColor != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> previousColor = wp.getColor();</span><br><span class="line">            Paint.Style previousStyle = wp.getStyle();</span><br><span class="line"></span><br><span class="line">            wp.setColor(wp.bgColor);</span><br><span class="line">            wp.setStyle(Paint.Style.FILL);</span><br><span class="line">            c.drawRect(x, top, x + ret, bottom, wp);</span><br><span class="line"></span><br><span class="line">            wp.setStyle(previousStyle);</span><br><span class="line">            wp.setColor(previousColor);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 下划线</span></span><br><span class="line">        <span class="keyword">if</span> (wp.underlineColor != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// kStdUnderline_Offset = 1/9, defined in SkTextFormatParams.h</span></span><br><span class="line">            <span class="keyword">float</span> underlineTop = y + wp.baselineShift + (<span class="number">1.0f</span> / <span class="number">9.0f</span>) * wp.getTextSize();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> previousColor = wp.getColor();</span><br><span class="line">            Paint.Style previousStyle = wp.getStyle();</span><br><span class="line">            <span class="keyword">boolean</span> previousAntiAlias = wp.isAntiAlias();</span><br><span class="line"></span><br><span class="line">            wp.setStyle(Paint.Style.FILL);</span><br><span class="line">            wp.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">            wp.setColor(wp.underlineColor);</span><br><span class="line">            c.drawRect(x, underlineTop, x + ret, underlineTop + wp.underlineThickness, wp);</span><br><span class="line"></span><br><span class="line">            wp.setStyle(previousStyle);</span><br><span class="line">            wp.setColor(previousColor);</span><br><span class="line">            wp.setAntiAlias(previousAntiAlias);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用 Canvas 的 drawTextRun()</span></span><br><span class="line">        drawTextRun(c, wp, start, end, contextStart, contextEnd, runIsRtl,</span><br><span class="line">                x, y + wp.baselineShift);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> runIsRtl ? -ret : ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其在 handleRun() 里被执行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">float</span> <span class="title">handleRun</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> measureLimit,</span><br><span class="line">                        <span class="keyword">int</span> limit, <span class="keyword">boolean</span> runIsRtl, Canvas c, <span class="keyword">float</span> x, <span class="keyword">int</span> top, <span class="keyword">int</span> y,</span><br><span class="line">                        <span class="keyword">int</span> bottom, FontMetricsInt fmi, <span class="keyword">boolean</span> needWidth)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">float</span> originalX = x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = start, inext; i &lt; measureLimit; i = inext) &#123;</span><br><span class="line">        TextPaint wp = mWorkPaint;</span><br><span class="line">        wp.set(mPaint);</span><br><span class="line"></span><br><span class="line">        inext = mMetricAffectingSpanSpanSet.getNextTransition(mStart + i, mStart + limit) -</span><br><span class="line">                mStart;</span><br><span class="line">        <span class="keyword">int</span> mlimit = Math.min(inext, measureLimit);</span><br><span class="line"></span><br><span class="line">        ReplacementSpan replacement = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; mMetricAffectingSpanSpanSet.numberOfSpans; j++) &#123;</span><br><span class="line">            <span class="comment">// Both intervals [spanStarts..spanEnds] and [mStart + i..mStart + mlimit] are NOT</span></span><br><span class="line">            <span class="comment">// empty by construction. This special case in getSpans() explains the &gt;= &amp; &lt;= tests</span></span><br><span class="line">            <span class="keyword">if</span> ((mMetricAffectingSpanSpanSet.spanStarts[j] &gt;= mStart + mlimit) ||</span><br><span class="line">                    (mMetricAffectingSpanSpanSet.spanEnds[j] &lt;= mStart + i)) <span class="keyword">continue</span>;</span><br><span class="line">            MetricAffectingSpan span = mMetricAffectingSpanSpanSet.spans[j];</span><br><span class="line">            <span class="keyword">if</span> (span <span class="keyword">instanceof</span> ReplacementSpan) &#123;</span><br><span class="line">                replacement = (ReplacementSpan)span;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 使用绘制状态有一个替代, 否则测量状态就足够了</span></span><br><span class="line">                span.updateDrawState(wp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i, jnext; j &lt; mlimit; j = jnext) &#123;</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                CharacterStyle span = mCharacterStyleSpanSet.spans[k];</span><br><span class="line">                <span class="comment">// 直接设置 TextPaint 的属性</span></span><br><span class="line">                span.updateDrawState(wp);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            wp.setHyphenEdit(adjustHyphenEdit(j, jnext, wp.getHyphenEdit()));</span><br><span class="line"></span><br><span class="line">            x += handleText(wp, j, jnext, i, inext, runIsRtl, c, x,</span><br><span class="line">                    top, y, bottom, fmi, needWidth || jnext &lt; measureLimit, offset);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> x - originalX;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大体流程如此。至此，浅谈 Android 中的富文本之强大的 SpannableString 到此完毕，更多细节还需要在使用中体会。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://developer.android.com/reference/android/text/SpannableString" target="_blank" rel="external">https://developer.android.com/reference/android/text/SpannableString</a></p>
+<p>2.<a href="https://blog.csdn.net/lukejunandroid/article/details/25892737" target="_blank" rel="external">https://blog.csdn.net/lukejunandroid/article/details/25892737</a></p>
+<p>3.<a href="https://www.jianshu.com/p/aa53ee98d954" target="_blank" rel="external">https://www.jianshu.com/p/aa53ee98d954</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/22/深入-Android-性能优化二：谈谈-systrace/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入 Android 性能优化二：谈谈 systrace</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2018/05/06/浅谈-Android-中的富文本之强大的-SpannableString/" target="_blank" title="浅谈 Android 中的富文本之强大的 SpannableString">浅谈 Android 中的富文本之强大的 SpannableString</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2018/05/06/浅谈-Android-中的富文本之强大的-SpannableString/" target="_blank" title="浅谈 Android 中的富文本之强大的 SpannableString">http://iamasoldier6.com/2018/05/06/浅谈-Android-中的富文本之强大的-SpannableString/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+
+  
+    <div class="netease"></div>
+  
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4548ab92471a76e452c9750997a514f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
