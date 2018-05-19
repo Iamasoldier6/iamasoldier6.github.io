@@ -29,6 +29,10 @@
 个人觉得，要写出别人能读懂的程序，不仅要知其然，也要知其所以然。好，这期就来谈谈我们 Android 乃至 Java 开发中使用再频繁不过的的 HashMap (本篇分析基于 JDK 1.8)，做到会用，且知">
 <meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_save1.png">
   
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -41,7 +45,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img src="undefined" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
 			
 		</a>
 
@@ -54,6 +58,32 @@
 		
 
 		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
 
 		<div class="switch-area">
 			<div class="switch-wrap">
@@ -61,15 +91,35 @@
 					<nav class="header-menu">
 						<ul>
 						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
 						<div class="social">
 							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
 						</div>
 					</nav>
 				</section>
 				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 11.43px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Concurrency/" style="font-size: 12.86px;">Concurrency</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 10px;">Framework</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/I-O/" style="font-size: 10px;">I/O</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 17.14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/Performance/" style="font-size: 11.43px;">Performance</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 15.71px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 11.43px;">Summary</a> <a href="/tags/Text/" style="font-size: 10px;">Text</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 11.43px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
+					</div>
+				</section>
 				
 				
 				
@@ -91,7 +141,7 @@
 		<header id="header" class="inner">
 			<div class="profilepic">
 			
-				<img src="undefined" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
 			
 			</div>
 			<hgroup>
@@ -103,19 +153,227 @@
 			<nav class="header-menu">
 				<ul>
 				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
 		        <div class="clearfix"></div>
 				</ul>
 			</nav>
 			<nav class="header-nav">
 				<div class="social">
 					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
 				</div>
 			</nav>
 		</header>				
 	</div>
 </nav>
 
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-深入-Java-中的-HashMap-一" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/03/深入-Java-中的-HashMap-一/" class="article-date">
+  	<time datetime="2017-12-03T14:35:52.000Z" itemprop="datePublished">2017-12-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入 Java 中的 HashMap (一)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-HashMap"><span class="toc-number">1.</span> <span class="toc-text">简介 HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深入-HashMap"><span class="toc-number">2.</span> <span class="toc-text">深入 HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>任何一个傻瓜都能写出计算机能理解的程序，而优秀的程序员却能写出别人能读懂的程序。</p>
+</blockquote>
+<p>引言来自 ThoughtWorks 的首席科学家、《重构》等经典书籍的作者 Martin Fowler。</p>
+<p>个人觉得，要写出别人能读懂的程序，不仅要知其然，也要知其所以然。好，这期就来谈谈我们 Android 乃至 Java 开发中使用再频繁不过的的 HashMap (本篇分析<strong>基于 JDK 1.8</strong>)，做到会用，且知道为什么这么用，及其内部的工作机理。<a id="more"></a></p>
+<h2 id="简介-HashMap"><a href="#简介-HashMap" class="headerlink" title="简介 HashMap"></a><strong>简介 HashMap</strong></h2><p>Java 为数据结构中的映射，定义了一个接口 java.util.Map，其主要有 4 个常用的实现类，分为 HashMap、Hashtable、LinkedHashMap 和 TreeMap。我们着重来看 HashMap。</p>
+<p><strong>HashMap</strong> 是我们开发中使用频率最高的、用于映射(键值对)处理的数据类型。</p>
+<p>1.其根据键的 hashCode 值存储数据，大多数情况下，可以直接定位到它的值，故<strong>具有很快的访问速度</strong>，但<strong>遍历顺序却是不确定的</strong>；</p>
+<p>2.其<strong>最多只允许一条记录的键</strong>为 null，但<strong>允许多条记录的值</strong>为 null；</p>
+<p>3.其为<strong>非线程安全</strong>的，任一时刻，可以有<strong>多个线程</strong>同时访问 HashMap，或许会导致数据的不一致。不过，若要满足线程安全，可以调用 Collections 的 synchronizedMap 方法，使得 HashMap 获取线程安全的能力，此外，还可以使用 ConcurrentHashMap。</p>
+<p>借此，顺带扩展提一下 Hashtable。</p>
+<p><strong>Hashtable</strong> 是遗留类，很多映射的常用功能与 HashMap 类似。其与 HashMap <strong>不同</strong>的是它继承自 Dictionary 类，且是<strong>线程安全</strong>的，任一时刻，只有<strong>一个线程</strong>能访问 Hashtable，并发性不如 ConcurrentHashMap，是由于 ConcurrentHashMap 有着分段锁的机制。</p>
+<p><strong><em>注意的是</em></strong>，建议少使用或不使用 Hashtable，不要求线程安全的场合，可以替换成使用 HashMap；要求线程安全的场合，可以替换成使用 ConcurrentHashMap。此外，映射中的 key 须为<strong>不可变对象</strong>，即对象在创建后，它的哈希值不变，以免 Map 对象定位不到准确的映射位置。</p>
+<h2 id="深入-HashMap"><a href="#深入-HashMap" class="headerlink" title="深入 HashMap"></a><strong>深入 HashMap</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/JavaQuizzes" target="_blank" rel="external">HashMapSample</a>。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMapSample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">"Java"</span>, <span class="number">1</span>);</span><br><span class="line">        map.put(<span class="string">"C++"</span>, <span class="number">2</span>);</span><br><span class="line">        map.put(<span class="string">"Python"</span>, <span class="number">3</span>);</span><br><span class="line">        map.put(<span class="string">"JavaScript"</span>, <span class="number">4</span>);</span><br><span class="line">        map.put(<span class="string">"C"</span>, <span class="number">5</span>);</span><br><span class="line">        map.put(<span class="string">"PHP"</span>, <span class="number">6</span>);</span><br><span class="line">        map.put(<span class="string">"Golang"</span>, <span class="number">7</span>);</span><br><span class="line">        map.put(<span class="string">"Ruby"</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry.getKey() + <span class="string">": "</span> + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Golang: 7</span><br><span class="line">Java: 1</span><br><span class="line">C++: 2</span><br><span class="line">C: 5</span><br><span class="line">JavaScript: 4</span><br><span class="line">PHP: 6</span><br><span class="line">Ruby: 8</span><br><span class="line">Python: 3</span><br></pre></td></tr></table></figure>
+<p>有了直观的感受后，进一步，先来看 HashMap 的存储结构。</p>
+<p><strong>存储结构</strong></p>
+<p>HashMap 是数组 + 链表 + 红黑树( JDK 1.8 新增红黑树) 实现的，如下图所示：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_save1.png" alt=""></p>
+<p>顺带提一下以上几个概念：</p>
+<p><strong>数组</strong>：存储空间是<strong><em>连续</em></strong>的，占用内存<strong><em>严重</em></strong>，空间复杂度<strong><em>很大</em></strong>。但是，其二分查找时间复杂度<strong><em>小</em></strong>，为 O(nlogn)；其特点为<strong><em>寻址容易，插入和删除困难</em></strong>。</p>
+<p><strong>链表</strong>：存储空间是<strong><em>离散</em></strong>的，占用内存<strong><em>较宽松</em></strong>，空间复杂度<strong><em>很小</em></strong>。但是，其二分查询的时间复杂度<strong><em>很大</em></strong>；其特点为<strong><em>寻址困难，插入和删除容易</em></strong>。</p>
+<p><strong>红黑树</strong>：一种自平衡二叉查找树，典型的用途是实现关联数组。其是复杂的，但它的操作有着良好的最坏情况运行时间，并且在实践中是高效的；它可以在 O(nlogn) 时间内做查找、插入和删除，这里的 n 是树中元素的数目。</p>
+<p>接下来，看源码，注意到其中一个重要的字段，就是 Node[] table，即哈希桶数组，其是一个 JDK 1.8 中新增 Node 的数组，源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash; <span class="comment">// 定位数组索引位置</span></span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    HashMap.Node&lt;K, V&gt; next; <span class="comment">// 链表的下一个 node</span></span><br><span class="line"></span><br><span class="line">    Node(<span class="keyword">int</span> hash, K key, V value, HashMap.Node&lt;K, V&gt; next) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> K <span class="title">getKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> key + <span class="string">"="</span> + value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hashCode(key) ^ Objects.hashCode(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">setValue</span><span class="params">(V newValue)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Node 是 HashMap 的一个内部类，实现了 Map.Entry 接口，也就是一个映射(键值对)。上图中，每个橙色圆点就是一个 Node 对象。</p>
+<p>紧接着，来看 HashMap 默认构造器中<strong>几个重要的参数</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> threshold; <span class="comment">// 容纳的 key-value 对极限 </span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor; <span class="comment">// 负载因子</span></span><br><span class="line"><span class="keyword">int</span> modCount;</span><br><span class="line"><span class="keyword">int</span> size;</span><br></pre></td></tr></table></figure>
+<p>Node[] table 的初始化长度 length 默认为 16。</p>
+<p><strong><em>loadFactor</em></strong> 为负载因子，默认值为 0.75；</p>
+<p><strong><em>threshold</em></strong> 为 HashMap 所能容纳的<strong>最大数据量</strong>的 Node (键值对) 个数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">threshold = length * loadFactor</span><br></pre></td></tr></table></figure>
+<p>亦即在数组长度一定的情况下，负载因子越大，所能容纳的键值对个数越多。</p>
+<p>threshold 即在此 loadFactor 和 length (数组长度) 下所允许的最大元素数目，超过这个数目就得重新 resize (扩容)，扩容后的 HashMap 容量为之前容量的 <strong>2 倍</strong>。</p>
+<p><strong>需要注意的是</strong>，默认的负载因子 0.75 是对空间和时间效率的一个平衡选择。除非在时间和空间较特殊的情况下，若<strong>内存空间很多</strong>而又对<strong>时间效率要求很高</strong>时，可以<strong>降低</strong>负载因子 loadFactor 的值；相反，若<strong>内存空间紧张</strong>而对<strong>时间效率要求不高</strong>时，可以<strong>增加</strong>负载因子 loadFactor 的值，其值可以大于 1。</p>
+<p><strong><em>modCount</em></strong> 字段用来记录 HashMap 内部结构发生变化的次数，主用于迭代的快速失败。注意的是，内部结构发生变化即结构的变动，如 put 新键值对。但是，某个 key 对应的 value 值被覆盖<strong>不属于</strong>结构变化。</p>
+<p><strong><em>size</em></strong> 即 HashMap 中实际存在的键值对数量。然而，注意勿和 table 的长度 length、容纳最大键值对数量 threshold 的区别。</p>
+<p>紧接着，来看存储过程的核心方法 <strong>put()</strong>，进去源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// hash key 的 hashCode()</span></span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入 putVal() 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span><br><span class="line">               <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">    HashMap.Node&lt;K, V&gt;[] tab;</span><br><span class="line">    HashMap.Node&lt;K, V&gt; p;</span><br><span class="line">    <span class="keyword">int</span> n, i;</span><br><span class="line">    <span class="comment">// 判断键值对数组 table[i] 是否为空或为 null 值，是则调用 resize() 扩容</span></span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    <span class="comment">// 判断键值 key 计算 hash 值所得到插入的数组索引 i</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">        <span class="comment">// 新建节点添加</span></span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        HashMap.Node&lt;K, V&gt; e;</span><br><span class="line">        K k;</span><br><span class="line">        <span class="comment">// 判断 table[i] 的首个元素，其 hashCode 及 equals 是否和 key 一致</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">                ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="comment">// 覆盖 value</span></span><br><span class="line">            e = p;</span><br><span class="line">            <span class="comment">// 判断 table[i] 是否为红黑树</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> HashMap.TreeNode)</span><br><span class="line">            <span class="comment">// 树中插入键值对</span></span><br><span class="line">            e = ((HashMap.TreeNode&lt;K, V&gt;) p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 遍历 table[i]</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                    <span class="comment">// 判断链表长度是否大于 8</span></span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        <span class="comment">// 将链表转化为红黑树，在其中执行插入操作</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// key 已存在，则直接覆盖 value</span></span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                        ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    <span class="comment">// 插入成功后，判断实际存在的键值对数量 size 是否超过了最大容量限度 threshold</span></span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        <span class="comment">// 扩容</span></span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来看其读取结构。</p>
+<p><strong>读取结构</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    HashMap.Node&lt;K,V&gt; e;</span><br><span class="line">    <span class="keyword">return</span> (e = getNode(hash(key), key)) == <span class="keyword">null</span> ? <span class="keyword">null</span> : e.value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入 getNode() 方法内部：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> HashMap.<span class="function">Node&lt;K, V&gt; <span class="title">getNode</span><span class="params">(<span class="keyword">int</span> hash, Object key)</span> </span>&#123;</span><br><span class="line">    HashMap.Node&lt;K, V&gt;[] tab;</span><br><span class="line">    HashMap.Node&lt;K, V&gt; first, e;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    K k;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) != <span class="keyword">null</span> &amp;&amp; (n = tab.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">            (first = tab[(n - <span class="number">1</span>) &amp; hash]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 第一个节点，直接命中</span></span><br><span class="line">        <span class="keyword">if</span> (first.hash == hash &amp;&amp; <span class="comment">// always check first node</span></span><br><span class="line">                ((k = first.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="keyword">return</span> first;</span><br><span class="line">        <span class="keyword">if</span> ((e = first.next) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 判断第一个节点是否是红黑树</span></span><br><span class="line">            <span class="keyword">if</span> (first <span class="keyword">instanceof</span> HashMap.TreeNode)</span><br><span class="line">                <span class="keyword">return</span> ((HashMap.TreeNode&lt;K, V&gt;) first).getTreeNode(hash, key);</span><br><span class="line">            do &#123;</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                        ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">return</span> e;</span><br><span class="line">            &#125; <span class="keyword">while</span> ((e = e.next) != <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结即从 HashMap 中 get 元素时，先计算 key 的 hashCode，找到数组中对应位置的某一元素，再通过 key 的 equals 方法在对应位置的链表中找到需要的元素。</p>
+<p>至此，深入 Java 中的 HashMap (一) 对 HashMap 的简介，以及重点谈到的 put() 和 get() 两个方法，到此结束。(二)将重点从扩容机制和线程安全性角度来谈，未完待续。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://tech.meituan.com/java-hashmap.html" target="_blank" rel="external">https://tech.meituan.com/java-hashmap.html</a></p>
+<p>2.<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html" target="_blank" rel="external">https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/17/深入-Java-中的-HashMap-二/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          深入 Java 中的 HashMap (二)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/18/解读好用的-RecyclerView-第三方库-Groupie/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">解读好用的 RecyclerView 第三方库 Groupie</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/12/03/深入-Java-中的-HashMap-一/" target="_blank" title="深入 Java 中的 HashMap (一)">深入 Java 中的 HashMap (一)</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/12/03/深入-Java-中的-HashMap-一/" target="_blank" title="深入 Java 中的 HashMap (一)">http://iamasoldier6.com/2017/12/03/深入-Java-中的-HashMap-一/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
@@ -135,18 +393,20 @@
 </footer>
     </div>
     
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
 
 <script>
 	var yiliaConfig = {
-		fancybox: undefined,
-		mathjax: undefined,
-		animate: undefined,
+		fancybox: true,
+		mathjax: true,
+		animate: true,
 		isHome: false,
 		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: undefined
+		open_in_new: false
 	}
 </script>
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
@@ -154,7 +414,41 @@
 
 
 
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 
