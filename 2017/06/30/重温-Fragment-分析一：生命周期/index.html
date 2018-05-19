@@ -177,7 +177,196 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-重温-Fragment-分析一：生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/30/重温-Fragment-分析一：生命周期/" class="article-date">
+  	<time datetime="2017-06-30T10:13:44.000Z" itemprop="datePublished">2017-06-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      重温 Fragment 分析一：生命周期
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fragment/">Fragment</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-Fragment"><span class="toc-number">1.</span> <span class="toc-text">简介 Fragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fragment-的生命周期"><span class="toc-number">2.</span> <span class="toc-text">Fragment 的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归纳生命周期"><span class="toc-number">3.</span> <span class="toc-text">归纳生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>天下古今之庸人，皆以一惰字致败；天下古今之才人，皆以一傲字致败。</p>
+</blockquote>
+<p>想必从事 Android 开发的工程师，日常的工作中，总挂在嘴边的离不开 Activity 和 Fragment 了。此前对 Activity 的两个重难点作出过简单的分析，这期，先来谈一谈 Fragment 的生命周期。<a id="more"></a></p>
+<h2 id="简介-Fragment"><a href="#简介-Fragment" class="headerlink" title="简介 Fragment"></a><strong>简介 Fragment</strong></h2><p>我们知道，Android 上的界面展示是通过 Activity 实现的，但其也具有局限性。比如，相同的界面在手机上正常显示，但是在大屏幕的平板上，界面可能会被过分拉长，不再合适。自 Android 3.0 开始，便引入 Fragment 解决这样的问题。</p>
+<p>Fragment 表示 Activity 中的行为或用户界面部分，可以将多个 Fragment 组合在一个 Activity 中来构建多窗格界面，以及在多个 Activity 中重复使用某个 Fragment。此外，Fragment 可以视为 Activity 的模块化组成部分，其具有自己的生命周期，能接受自己的输入事件，省去在 Activity 中加入一堆控件的事件处理代码。更重要的是，可以在 Activity 运行时动态地添加、替换和移除某个 Fragment。</p>
+<h2 id="Fragment-的生命周期"><a href="#Fragment-的生命周期" class="headerlink" title="Fragment 的生命周期"></a><strong>Fragment 的生命周期</strong></h2><p>Fragment 必须始终嵌入在 Activity 中，其生命周期受宿主 Activity 生命周期的影响。比如，当 Activity 暂停时，其中的 Fragment 也会暂停；当 Activity 被销毁时，所有 Fragment 也会被销毁；当 Activity 处于运行期或已恢复生命周期状态时，可以独立操作每个 Fragment，添加或移除它们。同 Activity 一样，Fragment 也有自己的生命周期，FragmentLifeCycleDemo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">FragmentLifeCycleDemo</a>。</p>
+<p>主要看该部分代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubFragment</span> <span class="keyword">extends</span> <span class="title">Fragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"SUB_FRAGMENT"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAttach</span><span class="params">(Activity activity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onAttach(activity);</span><br><span class="line">        Log.d(TAG, <span class="string">"onAttach"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        Log.d(TAG, <span class="string">"onCreate"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        Log.d(TAG, <span class="string">"onCreateView"</span>);</span><br><span class="line">        View view = inflater.inflate(R.layout.fragment_sub, container, <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">return</span> view;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityCreated</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onActivityCreated(savedInstanceState);</span><br><span class="line">        Log.d(TAG, <span class="string">"onActivityCreated"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart();</span><br><span class="line">        Log.d(TAG, <span class="string">"onStart"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line">        Log.d(TAG, <span class="string">"onResume"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onPause();</span><br><span class="line">        Log.d(TAG, <span class="string">"onPause"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop();</span><br><span class="line">        Log.d(TAG, <span class="string">"onStop"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroyView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroyView();</span><br><span class="line">        Log.d(TAG, <span class="string">"onDestroyView"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">        Log.d(TAG, <span class="string">"onDestroy"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDetach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDetach();</span><br><span class="line">        Log.d(TAG, <span class="string">"onDetach"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，效果如下图：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/fragment_life_cycle1.png" alt=""></p>
+<p>查看 Android Monitor 中的 logcat 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">21</span>:<span class="number">00.308</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onAttach</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">21</span>:<span class="number">00.308</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onCreate</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">21</span>:<span class="number">00.308</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onCreateView</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">21</span>:<span class="number">00.308</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onActivityCreated</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">21</span>:<span class="number">00.309</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onStart</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">21</span>:<span class="number">00.309</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onResume</span><br></pre></td></tr></table></figure>
+<p>接着，按一下 Home 键，logcat 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">22</span>:<span class="number">53.186</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onPause</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">22</span>:<span class="number">53.189</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onStop</span><br></pre></td></tr></table></figure>
+<p>再重新进入应用，logcat 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">24</span>:<span class="number">21.487</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onStart</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">24</span>:<span class="number">21.487</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onResume</span><br></pre></td></tr></table></figure>
+<p>最后，点击 Back 键退出应用，logcat 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">25</span>:<span class="number">40.738</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onPause</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">25</span>:<span class="number">41.170</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onStop</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">25</span>:<span class="number">41.170</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onDestroyView</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">25</span>:<span class="number">41.171</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onDestroy</span><br><span class="line"><span class="number">06</span>-<span class="number">24</span> <span class="number">23</span>:<span class="number">25</span>:<span class="number">41.171</span> <span class="number">14205</span>-<span class="number">14205</span>/com.iamasoldier6.fragmentlifecycledemo D/SUB_FRAGMENT: onDetach</span><br></pre></td></tr></table></figure>
+<h2 id="归纳生命周期"><a href="#归纳生命周期" class="headerlink" title="归纳生命周期"></a><strong>归纳生命周期</strong></h2><p>Fragment 的生命周期与 Activity 的生命周期很相似。和 Activity 一样，Fragment 也以三种状态存在：</p>
+<p><strong><em>运行</em></strong></p>
+<p>Fragment 在运行的 Activity 中可见。</p>
+<p><strong><em>暂停</em></strong></p>
+<p>另一个 Activity 位于前台并具有焦点，但此 Fragment 所在的 Activity 仍然可见(前台 Activity 部分透明，或未覆盖整个屏幕)。</p>
+<p><strong><em>停止</em></strong></p>
+<p>Fragment 不可见。宿主 Activity 已停止，或 Fragment 已从 Activity 中移除，但已添加到返回栈。停止的 Fragment 仍然处于活动状态(系统会保留所有状态和成员信息)。然而，它对用户不再可见，若 Activity 被终止，它也会被终止。</p>
+<p>同 Activity 一样，若 Activity 的进程被终止，假使需要在重建 Activity 时恢复 Fragment 状态，以可以使用 Bundle 保留 Fragment 的状态。同时，可以在 Fragment 的 onSaveInstanceState() 回调期间保存状态。</p>
+<p>Activity 生命周期与 Fragment 生命周期之间的<strong>最显著差异</strong>在于其在各自返回栈中的存储方式不同。默认情况下，Activity 停止时会被放入由系统管理的 Activity 返回栈，用户通过<strong><em>返回</em></strong>按钮回退到 Activity；然而，只有在移除 Fragment 的事物执行期间，通过调用 addToBackStack() 显式请求保存实例时，系统才会将 Fragment 放入由宿主 Activity 管理的返回栈。</p>
+<p><strong><em>注意！</em></strong></p>
+<p>若需要 Fragment 内的某个 Context 对象，则能调用 getActivity()。<code>仅在 Fragment 附加到 Activity 时调用 getActivity()，若 Fragment 没有附加，或在其生命周期结束期间分离，则 getActivity() 将返回 null。</code></p>
+<p>同样，参见 Android 官网整理图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/fragment_lifecycle1.png" alt=""></p>
+<p>重点看与 Activity 未重合的回调方法，归纳及总结如下：</p>
+<p><strong><em>onAttach()</em></strong></p>
+<p>Fragment 与 Activity 关联时调用( Activity 传递到该方法内)。</p>
+<p><strong><em>onCreateView()</em></strong></p>
+<p>系统会在 Fragment 第一次绘制用户界面时调用。<strong>注意</strong>，要为 Fragment 绘制 UI，从此方法中返回的 View 须是 Fragment 布局的根视图。若 Fragment 未提供 UI，可以返回 null。</p>
+<p><strong><em>onActivityCreated()</em></strong></p>
+<p>在 Activity 的 onCreate() 方法已经返回时调用。</p>
+<p><strong><em>onDestroyView()</em></strong></p>
+<p>移除与 Fragment 关联的视图层次结构时调用。</p>
+<p><strong><em>onDetach()</em></strong></p>
+<p>取消 Fragment 与 Activity 的关联时调用。</p>
+<p>综合 Activity 与 Fragment 之间生命周期回调方法的对应同步关系，参见 GitHub 上 <a href="https://github.com/xxv/android-lifecycle/blob/master/complete_android_fragment_lifecycle.pdf" target="_blank" rel="external">The Complete Android Activity / Fragment Lifecycle</a>。</p>
+<p>至此，关于 Fragment 的生命周期，其简单的回顾与归纳分析完毕，下一篇是对 Fragment 的使用方面的总结。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://developer.android.com/guide/components/fragments.html?hl=zh-cn#Creating" target="_blank" rel="external">https://developer.android.com/guide/components/fragments.html?hl=zh-cn#Creating</a></p>
+<p>2.<a href="http://blog.csdn.net/guolin_blog/article/details/8881711" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/8881711</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/15/重温-Fragment-分析二：使用及注意事项/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          重温 Fragment 分析二：使用及注意事项
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/17/Android-Unit-Test-方案小结：JUnit-Mockito-PowerMock/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android Unit Test 方案小结：JUnit &amp; Mockito &amp; PowerMock</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/06/30/重温-Fragment-分析一：生命周期/" target="_blank" title="重温 Fragment 分析一：生命周期">重温 Fragment 分析一：生命周期</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/06/30/重温-Fragment-分析一：生命周期/" target="_blank" title="重温 Fragment 分析一：生命周期">http://iamasoldier6.com/2017/06/30/重温-Fragment-分析一：生命周期/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">

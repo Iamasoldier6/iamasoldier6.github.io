@@ -176,7 +176,208 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 	</div>
 </nav>
 
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-从-Android-WebView-谈开去" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/20/从-Android-WebView-谈开去/" class="article-date">
+  	<time datetime="2016-11-20T09:55:07.000Z" itemprop="datePublished">2016-11-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从 Android WebView 谈开去
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WebView-的简介"><span class="toc-number">1.</span> <span class="toc-text">WebView 的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-与-JavaScript-之间的交互"><span class="toc-number">2.</span> <span class="toc-text">Java 与 JavaScript 之间的交互</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo"><span class="toc-number">3.</span> <span class="toc-text">Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>目标赋予我们生命的意义和目的。有了目标，我们才会把注意力集中在追求喜悦，而不是在避免痛苦上。</p>
+</blockquote>
+<p>Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 SDK 中也有一个 WebView 组件。因此，一部分原生的功能改为 HTML5 开发，Android 与 HTML5 互相通信，实现混合开发。这样，该部分功能能够在不升级 App 的情况下动态更新，同时，可以在 Android 或 iOS 的 App 上运行，节约成本且提高了开发效率。本期就来谈一谈 Android WebView。<a id="more"></a></p>
+<h2 id="WebView-的简介"><a href="#WebView-的简介" class="headerlink" title="WebView 的简介"></a><strong>WebView 的简介</strong></h2><p>WebView，即显示网页的视图。基于该视图组件，我们可以在 Activity 中滚动 Web 浏览器，或者简单地展现一些在线内容。同时，WebView 使用 WebKit 渲染引擎来显示网页，包括通过历史记录向前和向后浏览、缩小和放大、执行文本搜索等方法。</p>
+<p>以上来自官网。</p>
+<p>使用 WebView，首先得在 AndroidManifest.xml 中添加访问网络权限如下(使用本地 assets 目录下的 html 文件除外)：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其次，访问页面中有 JavaScript，则设置支持 JavaScript：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WebSettings webSettings = mWebView.getSetting()<span class="comment">;</span></span><br><span class="line">webSettings.setJavaScriptEnabled(true)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>最后，WebView 的常用方法如下：</p>
+<p><strong><em>loadUrl()</em></strong></p>
+<p>加载界面：</p>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载 assets 目录下的 sample.html 文件</span></span><br><span class="line">mWebView.loadUrl(<span class="string">"file:///android_asset/sample.html"</span>)<span class="comment">;</span></span><br><span class="line"><span class="comment">// 加载网络资源</span></span><br><span class="line">mWebView.loadUrl(<span class="string">"http://iamasoldier6.com"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>setWebViewClient()</em></strong></p>
+<p>(1) 设置 WebViewClient，网络资源在当前 WebView 中响应，不会跳转到系统浏览器响应：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 官网说明显示 shouldOverrideUrlLoading() 在 API Level 24 中过时了</span></span><br><span class="line">mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">        view.loadUrl(url);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在，这样写同样可以使得网络资源在当前 WebView 中响应，不会跳转到系统浏览器响应：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mWebView</span><span class="selector-class">.setWebViewClient</span>(<span class="selector-tag">new</span> <span class="selector-tag">WebViewClient</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"><span class="selector-tag">mWebView</span><span class="selector-class">.loadUrl</span>(<span class="selector-tag">url</span>);</span><br></pre></td></tr></table></figure>
+<p>(2) 设置开始加载网页、加载完成和加载错误时的处理：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;    </span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onPageStarted</span><span class="params">(WebView view, String url, Bitmap favicon)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>.onPageStarted(view, url, favicon);  </span><br><span class="line">        <span class="comment">// 开始加载网页时的处理</span></span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onPageFinished</span><span class="params">(WebView view, String url)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>.onPageFinished(view, url);  </span><br><span class="line">        <span class="comment">// 网页加载完成时的处理</span></span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onReceivedError</span><span class="params">(WebView view, <span class="keyword">int</span> errorCode, String description, String failingUrl)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>.onReceivedError(view, errorCode, description, failingUrl);  </span><br><span class="line">        <span class="comment">// 加载网页失败时的处理</span></span><br><span class="line">    &#125;    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong><em>setWebChromeClient()</em></strong></p>
+<p>WebChromeClient 主要用来辅助 WebView 处理 JavaScript 的对话框、网站图标、网站标题和网页加载进度等。比如显示页面加载进度，需要在 WebChromeClient 子类中重写父类的 onProgressChanged() 方法( progress 表示当前页面中加载的进度，为 1 至 100 的整数)：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mWebView.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> progress)</span> </span>&#123;    </span><br><span class="line">        setTitle(<span class="string">"页面加载中，请稍候..."</span> + progress + <span class="string">"%"</span>);    </span><br><span class="line">        setProgress(progress * <span class="number">100</span>);    </span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (progress == <span class="number">100</span>) &#123;    </span><br><span class="line">            <span class="comment">// 相关处理</span></span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong><em>setDownloadListener()</em></strong></p>
+<p>WebView 渲染的界面中或许含有可以下载文件的链接，点击该链接后，开始执行下载任务，并保存文件到本地中。</p>
+<p>I. 创建 DownloadListener：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDownloadListenter</span> <span class="keyword">implements</span> <span class="title">DownloadListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="keyword">void</span> onDownloadStart(<span class="built_in">String</span> url, <span class="built_in">String</span> userAgent, <span class="built_in">String</span> contentDisposition, <span class="built_in">String</span> mimetype, long contentLength) &#123;</span><br><span class="line">        <span class="comment">// 下载任务主要有两种方式：自定义下载任务，或者调用系统的 Download 模块</span></span><br><span class="line">        <span class="built_in">Uri</span> uri = <span class="built_in">Uri</span>.parse(url);</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW, uri);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>II. 设置下载监听：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWebView.setDownloadListener(<span class="keyword">new</span> MyDownloadListenter());</span><br></pre></td></tr></table></figure>
+<p><strong><em>goBack()</em></strong></p>
+<p>若不做处理，浏览网页，点击系统 Back 键或者点击设备物理返回键，Browser 会调用 finish() 直接退出；若希望返回上一浏览页，则在当前 Activity 中重写 onKeyDown() 方法：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">boolean</span> onKeyDown(<span class="built_in">int</span> <span class="built_in">keyCode</span>, KeyEvent event) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((<span class="built_in">keyCode</span> == KEYCODE_BACK) &amp;&amp; mWebView.canGoBack()) &#123;</span><br><span class="line">        mWebView.goBack();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onKeyDown(<span class="built_in">keyCode</span>, event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Java-与-JavaScript-之间的交互"><a href="#Java-与-JavaScript-之间的交互" class="headerlink" title="Java 与 JavaScript 之间的交互"></a><strong>Java 与 JavaScript 之间的交互</strong></h2><p>Java 端使用 addJavascriptInterface() 方式，实现与 JavaScript 端的交互。</p>
+<p><strong>Java 调 JavaScript</strong></p>
+<p>I. JavaScript 端的代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">javaCallJs</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"message"</span>).innerHTML = (arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>II. Java 端调用 JavaScript 端的的方法：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWebView.loadUrl(<span class="string">"javascript:javaCallJs("</span>+<span class="string">"'"</span>+ <span class="built_in">name</span> +<span class="string">"'"</span>+<span class="string">")"</span>);</span><br></pre></td></tr></table></figure>
+<p>即调用了 JavaScript 端中的 javaCallJs() 方法，传入一个 name 参数。</p>
+<p><strong>JavaScript 调 Java</strong></p>
+<p>I. Java 端配置 JavaScript 接口：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWebView.<span class="keyword">addJavascriptInterface(new </span><span class="keyword">JsInterface(), </span><span class="string">"Java"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>II. Java 端实现接口类：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">JsInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    @JavascriptInterface</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> showAlert(String <span class="keyword">str</span>) &#123;</span><br><span class="line">        Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="keyword">str</span>, Toast.LENGTH_LONG).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>III. JavaScript 端调用 Java 端的方法：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="keyword">type</span>="button" value="我是按钮，点击调用<span class="type">Java</span>端方法" onclick="window.<span class="type">Java</span>.showAlert('出现此提示，则<span class="type">JS</span>端调用<span class="type">Java</span>端的showAlert()方法成功')"/&gt;</span><br></pre></td></tr></table></figure>
+<p>window.Java.showToast() 中的 Java 即 addJavascriptInterface() 中指定的，JavaScript 端向 Java 端传递了 String 类型的参数，同时，Java 端以 Toast 的形式弹出该参数。</p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a><strong>Demo</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">JavaAndJsCommunicateDemo</a>。</p>
+<p>效果动图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/javaandjs.gif" alt=""></p>
+<p>I. 新建 JsSample.html 文件，放入 assets 目录下，javaCallJs() 是 Java 端调 JavaScript 端的方法，而 showToast() 是 JavaScript 端调 Java 端的方法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">javaCallJs</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">  		<span class="built_in">document</span>.getElementById(<span class="string">"message"</span>).innerHTML = (<span class="string">"Welcome"</span> + arg);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"message"</span>&gt;</span>Java端输入框输入内容，点击确定，此处显示该内容，则Java端调JS端的javaCallJs()方法成功<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"我是按钮，点击调用Java端方法"</span> <span class="attr">onclick</span>=<span class="string">"window.Java.showAlert('出现此提示，则JS端调用Java端的showAlert()方法成功')"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>II.布局文件 activity_main.xml 中，一个输入框与一个按钮，点击按钮调用 JavaScript 中的方法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span><br><span class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/ll_root"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span><br><span class="line">    <span class="attr">tools:context</span>=<span class="string">"com.iamasoldier6.javaandjscommunicatedemo.MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span><br><span class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span><br><span class="line">        <span class="attr">android:background</span>=<span class="string">"#FFD700"</span></span><br><span class="line">        <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span></span><br><span class="line">        <span class="attr">android:padding</span>=<span class="string">"10dp"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">EditText</span></span><br><span class="line">            <span class="attr">android:id</span>=<span class="string">"@+id/et_input"</span></span><br><span class="line">            <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span><br><span class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span><br><span class="line">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span><br><span class="line">            <span class="attr">android:background</span>=<span class="string">"#FFFFFF"</span></span><br><span class="line">            <span class="attr">android:hint</span>=<span class="string">"我是Java端输入框，调用JS端方法，传至WebView显示"</span></span><br><span class="line">            <span class="attr">android:textSize</span>=<span class="string">"16sp"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span></span><br><span class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span><br><span class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span><br><span class="line">            <span class="attr">android:layout_marginLeft</span>=<span class="string">"12dp"</span></span><br><span class="line">            <span class="attr">android:layout_marginRight</span>=<span class="string">"4dp"</span></span><br><span class="line">            <span class="attr">android:onClick</span>=<span class="string">"confirm"</span></span><br><span class="line">            <span class="attr">android:text</span>=<span class="string">"确定"</span></span><br><span class="line">            <span class="attr">android:textSize</span>=<span class="string">"16sp"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>III. MainActivity 中，动态生成 WebView：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> WebView mWebView;</span><br><span class="line">    <span class="keyword">private</span> LinearLayout llLayout;</span><br><span class="line">    <span class="keyword">private</span> EditText etInput;</span><br><span class="line">    <span class="keyword">private</span> String url = <span class="string">"file:///android_asset/JsSample.html"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        llLayout = (LinearLayout) findViewById(R.id.ll_root);</span><br><span class="line">        etInput = (EditText) findViewById(R.id.et_input);</span><br><span class="line">        initView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 动态创建 WebView 添加到整体布局中</span></span><br><span class="line">        mWebView = <span class="keyword">new</span> WebView(getApplication());</span><br><span class="line">        LinearLayout.LayoutParams params = <span class="keyword">new</span> LinearLayout.LayoutParams(</span><br><span class="line">                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">        mWebView.setLayoutParams(params);</span><br><span class="line">        llLayout.addView(mWebView);</span><br><span class="line">        <span class="comment">// 当前 WebView 展示，不跳转到系统浏览器</span></span><br><span class="line">        mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">       </span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        WebSettings settings = mWebView.getSettings();</span><br><span class="line">        settings.setJavaScriptEnabled(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        mWebView.loadUrl(url);</span><br><span class="line">        mWebView.addJavascriptInterface(<span class="keyword">new</span> JsInterface(), <span class="string">"Java"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">confirm</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Java 调用 JS</span></span><br><span class="line">        mWebView.loadUrl(<span class="string">"javascript:javaCallJs("</span> + <span class="string">"'"</span> + etInput.getText().toString() + <span class="string">"'"</span> + <span class="string">")"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 页面销毁时，移除 WebView</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">        llLayout.removeView(mWebView);</span><br><span class="line">        mWebView.stopLoading();</span><br><span class="line">        mWebView.removeAllViews();</span><br><span class="line">        mWebView.destroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">JsInterface</span> </span>&#123;</span><br><span class="line">        <span class="comment">// JS 调用 Java</span></span><br><span class="line">        <span class="meta">@JavascriptInterface</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showAlert</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>, str, Toast.LENGTH_LONG).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，浅谈 Android WebView 到此结束，关于使用 WebView 的一些注意事项参见<a href="http://blog.csdn.net/hytfly/article/details/48489251" target="_blank" rel="external">安卓 webview 的一些坑</a>。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/qq_24530405/article/details/52067474" target="_blank" rel="external">http://blog.csdn.net/qq_24530405/article/details/52067474</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/03/浅谈-Java-中的反射机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          浅谈 Java 中的反射机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/05/我的 Android-训练馆/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">我的 Android 训练馆</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/11/20/从-Android-WebView-谈开去/" target="_blank" title="从 Android WebView 谈开去">从 Android WebView 谈开去</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2016/11/20/从-Android-WebView-谈开去/" target="_blank" title="从 Android WebView 谈开去">http://iamasoldier6.com/2016/11/20/从-Android-WebView-谈开去/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">

@@ -176,7 +176,218 @@ Android 开发中，会遇到加载大批量图片或异步加载图片的场景
 	</div>
 </nav>
 
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-Android-图片加载之浅谈-Universal-Image-Loader" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/07/Android-图片加载之浅谈-Universal-Image-Loader/" class="article-date">
+  	<time datetime="2017-10-07T00:51:14.000Z" itemprop="datePublished">2017-10-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 图片加载之浅谈 Universal Image Loader
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image/">Image</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-Universal-Image-Loader"><span class="toc-number">1.</span> <span class="toc-text">简介 Universal Image Loader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo-用法"><span class="toc-number">2.</span> <span class="toc-text">Demo 用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OOM-优化方案"><span class="toc-number">3.</span> <span class="toc-text">OOM 优化方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>坚持做自己懒得做但正确的事情，就能得到别人想得到却得不到的东西。</p>
+</blockquote>
+<p>Android 开发中，会遇到加载大批量图片或异步加载图片的场景，这其中，或许会遇到一些问题，如图片错乱，甚至是著名的 OOM(Out Of Memory) 问题。谈及图片加载，本期先谈谈老牌的图片加载框架，即 Universal Image Loader，距今都有着五六年的光景了。<a id="more"></a></p>
+<h2 id="简介-Universal-Image-Loader"><a href="#简介-Universal-Image-Loader" class="headerlink" title="简介 Universal Image Loader"></a><strong>简介 Universal Image Loader</strong></h2><p>Universal Image Loader 下面简称 <strong>UIL</strong>，迄今为止在 <a href="https://www.gitrep.com/search?utf8=%E2%9C%93&amp;omni_search=&amp;public_tags%5B%5D=android&amp;description=&amp;search=true&amp;sort=star_count&amp;commit=Search" target="_blank" rel="external">gitrep</a> 上 Android library 中排行第一。UIL 旨在作为加载、缓存和展示图片的的工具，其强大、灵活且高度定制化。此外，其提供了很多配置选项，在图片的加载和缓存过程中表现良好。重要特点如下：</p>
+<ul>
+<li>异步或同步地多线程加载图片，其可来源于网络、文件系统、项目文件夹 assets 或 drawable 中等；</li>
+<li>可任意配置 ImageLoader 的参数，如线程执行器、下载器、解码器、内存和磁盘缓存、图片展示选项等；</li>
+<li>支持许多图片展示调用选项的配置，如 stub images、缓存切换、解码选项和位图的处理与展示等；</li>
+<li>可将图片缓存进内存和磁盘，如设备的文件系统或 SD 卡；</li>
+<li>支持加载过程包括下载过程的监听。</li>
+</ul>
+<p>除此之外，根据开发中的实际情况，可以由控件的如 ImageView 的大小对 Bitmap 进行裁剪，减少其所占的内存；较好地控制图片的加载过程，如暂停加载图片、重新开始加载图片，<strong>应用场景</strong>像：在 ListView 或 RecyclerView 中使用，滑动时暂停加载图片，停止滑动时加载图片；可在较慢的网络下加载图片，等等。</p>
+<h2 id="Demo-用法"><a href="#Demo-用法" class="headerlink" title="Demo 用法"></a><strong>Demo 用法</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">UniversalImageLoaderDemo</a>。</p>
+<p><strong>引入 Gradle 依赖</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'</span><br></pre></td></tr></table></figure>
+<p><strong>Android Manifest</strong>:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>MyApplication 类如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 配置 ImageLoader 的默认参数</span></span><br><span class="line">        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(<span class="keyword">this</span>);</span><br><span class="line">        ImageLoader.getInstance().init(configuration);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ImageLoaderConfiguration 是指定的 ImageLoader 的配置参数，看其源码，运用了<a href="http://www.runoob.com/design-pattern/builder-pattern.html" target="_blank" rel="external">建造者模式 (Builder Pattern)</a>。其中，调用 createDefault() 方法配置默认的参数。此外，选择性配置的全部项<a href="https://github.com/nostra13/Android-Universal-Image-Loader/wiki/Configuration" target="_blank" rel="external">参考</a>如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">File cacheDir = StorageUtils.getCacheDirectory(context);</span><br><span class="line">ImageLoaderConfiguration config = <span class="keyword">new</span> ImageLoaderConfiguration.Builder(context)</span><br><span class="line">		.memoryCacheExtraOptions(<span class="number">480</span>, <span class="number">800</span>) <span class="comment">// 默认的设备屏幕尺寸</span></span><br><span class="line">		.diskCacheExtraOptions(<span class="number">480</span>, <span class="number">800</span>, <span class="keyword">null</span>)</span><br><span class="line">		.taskExecutor(...)</span><br><span class="line">		.taskExecutorForCachedImages(...)</span><br><span class="line">		.threadPoolSize(<span class="number">3</span>) <span class="comment">// 默认的线程池尺寸</span></span><br><span class="line">		.threadPriority(Thread.NORM_PRIORITY - <span class="number">2</span>) <span class="comment">// 默认的线程优先级为 3</span></span><br><span class="line">		.tasksProcessingOrder(QueueProcessingType.FIFO) <span class="comment">// 默认的任务处理顺序为先进先出</span></span><br><span class="line">		.denyCacheImageMultipleSizesInMemory()</span><br><span class="line">		.memoryCache(<span class="keyword">new</span> LruMemoryCache(<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>))</span><br><span class="line">		.memoryCacheSize(<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>)</span><br><span class="line">		.memoryCacheSizePercentage(<span class="number">13</span>) <span class="comment">// 默认的内存缓存大小占比为 13</span></span><br><span class="line">		.diskCache(<span class="keyword">new</span> UnlimitedDiskCache(cacheDir)) <span class="comment">// 默认的磁盘缓存</span></span><br><span class="line">		.diskCacheSize(<span class="number">50</span> * <span class="number">1024</span> * <span class="number">1024</span>)</span><br><span class="line">		.diskCacheFileCount(<span class="number">100</span>)</span><br><span class="line">		.diskCacheFileNameGenerator(<span class="keyword">new</span> HashCodeFileNameGenerator()) <span class="comment">// 默认的磁盘缓存文件名生成器</span></span><br><span class="line">		.imageDownloader(<span class="keyword">new</span> BaseImageDownloader(context)) <span class="comment">// 默认的图像下载器</span></span><br><span class="line">		.imageDecoder(<span class="keyword">new</span> BaseImageDecoder()) <span class="comment">// 默认的图像解码器</span></span><br><span class="line">		.defaultDisplayImageOptions(DisplayImageOptions.createSimple()) <span class="comment">// 默认的展示图像选项</span></span><br><span class="line">		.writeDebugLogs()</span><br><span class="line">		.build();</span><br></pre></td></tr></table></figure>
+<p>布局文件很简单，如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span></span><br><span class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span><br><span class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_picture"</span></span><br><span class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span><br><span class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span><br><span class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span><br><span class="line">        <span class="attr">android:src</span>=<span class="string">"@mipmap/ic_launcher"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>只放置了一个 ImageView，UIL 主要提供的图片加载方法为 displayImage()、loadImage() 和 loadImageSync()。<strong>注意</strong>，loadImageSync() 要求是同步的，涉及不能在主线程里的网络操作时，不使用。</p>
+<p><strong>loadImage()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ImageView imageView = (ImageView) findViewById(R.id.iv_picture);</span><br><span class="line">String imageUrl = <span class="string">"http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg"</span>;</span><br><span class="line"></span><br><span class="line">ImageLoader</span><br><span class="line">        .getInstance()</span><br><span class="line">        .loadImage(imageUrl, <span class="keyword">new</span> ImageLoadingListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingStarted</span><span class="params">(String imageUri, View view)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingFailed</span><span class="params">(String imageUri, View view, FailReason failReason)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingComplete</span><span class="params">(String imageUri, View view, Bitmap loadedImage)</span> </span>&#123;</span><br><span class="line">                imageView.setImageBitmap(loadedImage);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingCancelled</span><span class="params">(String imageUri, View view)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>回调方法 onLoadingComplete() 中，将 loadedImage 设置到指定的 ImageView 上。开发中，在只关注图片加载事件的情况下，也可以用 ImageLoadingListener 的实现类 SimpleImageLoadingListener 代替 ImageLoadingListener 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ImageView imageView = (ImageView) findViewById(R.id.iv_picture);</span><br><span class="line">String imageUrl = <span class="string">"http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg"</span>;</span><br><span class="line"></span><br><span class="line">ImageLoader.getInstance().loadImage(imageUrl, <span class="keyword">new</span> SimpleImageLoadingListener() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingComplete</span><span class="params">(String imageUri, View view, Bitmap loadedImage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onLoadingComplete(imageUri, view, loadedImage);</span><br><span class="line">        imageView.setImageBitmap(loadedImage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>进一步，想指定图片大小的做法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ImageView imageView = (ImageView) findViewById(R.id.iv_picture);</span><br><span class="line">String imageUrl = <span class="string">"http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg"</span>;</span><br><span class="line"></span><br><span class="line">ImageSize imageSize = <span class="keyword">new</span> ImageSize(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">ImageLoader.getInstance().loadImage(imageUrl, imageSize, <span class="keyword">new</span> SimpleImageLoadingListener() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingComplete</span><span class="params">(String imageUri, View view, Bitmap loadedImage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onLoadingComplete(imageUri, view, loadedImage);</span><br><span class="line">        imageView.setImageBitmap(loadedImage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当然，这里仅为简单的示例。实际开发中有着复杂的场合应用，会用到 DisplayImageOptions 类，其配置<a href="https://github.com/nostra13/Android-Universal-Image-Loader/wiki/Display-Options" target="_blank" rel="external">参考</a>如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">DisplayImageOptions options = <span class="keyword">new</span> DisplayImageOptions.Builder()</span><br><span class="line">		.showImageOnLoading(R.drawable.ic_stub) <span class="comment">// resource or drawable</span></span><br><span class="line">		.showImageForEmptyUri(R.drawable.ic_empty) <span class="comment">// resource or drawable</span></span><br><span class="line">		.showImageOnFail(R.drawable.ic_error) <span class="comment">// resource or drawable</span></span><br><span class="line">		.resetViewBeforeLoading(<span class="keyword">false</span>)  <span class="comment">// 默认 Loading 之前不重置 View</span></span><br><span class="line">		.delayBeforeLoading(<span class="number">1000</span>)</span><br><span class="line">		.cacheInMemory(<span class="keyword">false</span>) <span class="comment">// 默认不内存缓存</span></span><br><span class="line">		.cacheOnDisk(<span class="keyword">false</span>) <span class="comment">// 默认不磁盘缓存</span></span><br><span class="line">		.preProcessor(...)</span><br><span class="line">		.postProcessor(...)</span><br><span class="line">		.extraForDownloader(...)</span><br><span class="line">		.considerExifParams(<span class="keyword">false</span>) <span class="comment">// 默认不考虑可交换图像文件参数</span></span><br><span class="line">		.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) <span class="comment">// 默认的图像比例类型</span></span><br><span class="line">		.bitmapConfig(Bitmap.Config.ARGB_8888) <span class="comment">// 默认的位图配置</span></span><br><span class="line">		.decodingOptions(...)</span><br><span class="line">		.displayer(<span class="keyword">new</span> SimpleBitmapDisplayer()) <span class="comment">// 默认的位图展示</span></span><br><span class="line">		.handler(<span class="keyword">new</span> Handler()) <span class="comment">// 默认</span></span><br><span class="line">		.build();</span><br></pre></td></tr></table></figure>
+<p>根据需要，上面的代码可以稍作重构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ImageView imageView = (ImageView) findViewById(R.id.iv_picture);</span><br><span class="line">String imageUrl = <span class="string">"http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg"</span>;</span><br><span class="line"></span><br><span class="line">ImageSize imageSize = <span class="keyword">new</span> ImageSize(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示图像的配置</span></span><br><span class="line">DisplayImageOptions options = <span class="keyword">new</span> DisplayImageOptions.Builder()</span><br><span class="line">        .cacheInMemory(<span class="keyword">true</span>) <span class="comment">// 设置内存缓存</span></span><br><span class="line">        .cacheOnDisk(<span class="keyword">true</span>) <span class="comment">// 设置磁盘缓存</span></span><br><span class="line">        .bitmapConfig(Bitmap.Config.RGB_565) <span class="comment">// 设置位图显示质量低于 ARGB_8888</span></span><br><span class="line">        .build();</span><br><span class="line"></span><br><span class="line">ImageLoader.getInstance().loadImage(imageUrl, imageSize, options, <span class="keyword">new</span> SimpleImageLoadingListener() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadingComplete</span><span class="params">(String imageUri, View view, Bitmap loadedImage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onLoadingComplete(imageUri, view, loadedImage);</span><br><span class="line">        imageView.setImageBitmap(loadedImage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>对图像显示选项作了一些定制配置，如设置内存缓存和磁盘缓存，则不需要每次从网络中加载图片；设置位图显示质量为 RGB_565 而不是 ARGB_8888，在图像显示要求不是特别高的情况下，可以少消耗 2 倍的内存。</p>
+<p><strong>displayImage()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> ImageView imageView = (ImageView) findViewById(R.id.iv_picture);</span><br><span class="line">String imageUrl = <span class="string">"http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg"</span>;</span><br><span class="line"></span><br><span class="line">DisplayImageOptions options = <span class="keyword">new</span> DisplayImageOptions.Builder()</span><br><span class="line">        .showImageOnLoading(R.drawable.ic_load)</span><br><span class="line">        .showImageOnFail(R.drawable.ic_load_fail)</span><br><span class="line">        .cacheInMemory(<span class="keyword">true</span>)</span><br><span class="line">        .cacheOnDisk(<span class="keyword">true</span>)</span><br><span class="line">        .bitmapConfig(Bitmap.Config.RGB_565)</span><br><span class="line">        .build();</span><br><span class="line"></span><br><span class="line">ImageLoader.getInstance().displayImage(imageUrl, imageView, options);</span><br></pre></td></tr></table></figure>
+<p>使用 displayImage() 无需添加 ImageLoadingListener 接口。此外，注意到添加了 showImageOnLoading() 方法，一开始显示 ic_load 图片；也添加了 showImageOnFail() 方法，加载错误则显示 ic_load_fail 图片。值得注意的是，该方法 displayImage() 同时会根据控件的大小和 imageScaleType() 自动裁剪图片。重构 MyApplication 类，加入 Log 打印如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line"></span><br><span class="line">        ImageLoaderConfiguration configuration = <span class="keyword">new</span> ImageLoaderConfiguration.Builder(<span class="keyword">this</span>)</span><br><span class="line">                .writeDebugLogs() <span class="comment">// 打印 Log</span></span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        ImageLoader.getInstance().init(configuration);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关注下面的 Log：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">09-29 21:03:30.622 6243-6279/com.iamasoldier6.universalimageloaderdemo D/ImageLoader: Start display image task [http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg_768x1184]</span><br><span class="line">09-29 21:03:30.622 6243-6279/com.iamasoldier6.universalimageloaderdemo D/ImageLoader: Load image from network [http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg_768x1184]</span><br><span class="line">09-29 21:03:30.622 6243-6279/com.iamasoldier6.universalimageloaderdemo D/ImageLoader: Cache image on disk [http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg_768x1184]</span><br><span class="line">09-29 21:03:37.292 6243-6279/com.iamasoldier6.universalimageloaderdemo D/ImageLoader: Cache image in memory [http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg_768x1184]</span><br><span class="line">09-29 21:03:37.292 6243-6243/com.iamasoldier6.universalimageloaderdemo D/ImageLoader: Display image in ImageAware (loaded from NETWORK) [http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg_768x1184]</span><br></pre></td></tr></table></figure>
+<p>读 Log 信息，</p>
+<p>第一条：打印出图片的 url 和图片的最大宽度和高度，默认是设备的宽高；</p>
+<p>第二条：显示加载的图片来自网络；</p>
+<p>第三条：缓存图片到磁盘；</p>
+<p>第四条：缓存图片到内存；</p>
+<p>第五条：加载自网络，在 ImageAware 中展示图片。</p>
+<p>引人兴趣的是，displayImage() 方法中传入 ImageLoadingProgressListener 接口，当加载网络图片时，可以显示图片下载的进度，关键代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ImageLoader.getInstance().displayImage(imageUrl, imageView, options, <span class="keyword">new</span> SimpleImageLoadingListener(), <span class="keyword">new</span> ImageLoadingProgressListener() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressUpdate</span><span class="params">(String imageUri, View view, <span class="keyword">int</span> current,</span><br><span class="line">                                 <span class="keyword">int</span> total)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>回调方法 onProgressUpdate() 中，可以设置图片的加载进度。</p>
+<p>以上，加载的网络图片显示如下：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/image_loader_from_network.png" alt=""></p>
+<p>除此之外，加载来自 drawable 和 assets 的 imageUrl 示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String imageUrl = <span class="string">"drawable://"</span> + R.drawable.image_loader_flower;</span><br><span class="line">String imageUrl = <span class="string">"assets://image_loader_flower.png"</span>;</span><br></pre></td></tr></table></figure>
+<p>更有甚者，加载来自 SD 卡和 Content Provider 的示例如下，不常用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"file:///mnt/sdcard/image.png"</span> <span class="comment">// 来自 SD 卡</span></span><br><span class="line"><span class="string">"file:///mnt/sdcard/video.mp4"</span> <span class="comment">// 来自 SD 卡，极短小的视频</span></span><br><span class="line"><span class="string">"content://media/external/images/media/13"</span> <span class="comment">// 来自 Content Provider </span></span><br><span class="line"><span class="string">"content://media/external/video/media/13"</span> <span class="comment">// 来自 Content Provider，极短小的视频</span></span><br></pre></td></tr></table></figure>
+<h2 id="OOM-优化方案"><a href="#OOM-优化方案" class="headerlink" title="OOM 优化方案"></a><strong>OOM 优化方案</strong></h2><p>OOM 是加载图片时绕不开的痛，针对 UIL 的优化 OOM 的方案如下：</p>
+<ul>
+<li>禁用内存缓存，即设置 cacheInMemory(false)，可使用 MemoryAnalyzer 来配合检测，查看代码中是否有内存泄漏；</li>
+<li>减少配置时的线程池大小，其配置选项中通过调用 threadPoolSize() 方法，推荐 1-5 ；</li>
+<li>如上面提到的，显示选项中调用 bitmapConfig(Bitmap.Config.RGB_565)，其消耗内存比之 ARGB_8888 减少 2 倍；</li>
+<li>显示选项中调用 imageScaleType(ImageScaleType.EXACTLY)；</li>
+<li>配置选项中调用 diskCacheExtraOptions(480, 320, null)；</li>
+<li>指定加载图像 ImageView 的宽高。</li>
+</ul>
+<p>更多细节使用及注意事项参见 <a href="https://github.com/nostra13/Android-Universal-Image-Loader/wiki" target="_blank" rel="external">Documentation</a> 和 <a href="https://github.com/nostra13/Android-Universal-Image-Loader/issues" target="_blank" rel="external">Issues</a>。</p>
+<p>至此，UIL 的基本了解、使用和注意事项介绍完毕，下一期将从源码角度探究这一经典的图片加载框架。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://github.com/nostra13/Android-Universal-Image-Loader/wiki" target="_blank" rel="external">https://github.com/nostra13/Android-Universal-Image-Loader/wiki</a></p>
+<p>2.<a href="http://blog.csdn.net/xiaanming/article/details/26810303" target="_blank" rel="external">http://blog.csdn.net/xiaanming/article/details/26810303</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/22/Android-图片加载之深入-Universal-Image-Loader-源码探究/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Android 图片加载之深入 Universal Image Loader 源码探究
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/23/浅谈-Android-中的-DialogFragment/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈 Android 中的 DialogFragment</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/10/07/Android-图片加载之浅谈-Universal-Image-Loader/" target="_blank" title="Android 图片加载之浅谈 Universal Image Loader">Android 图片加载之浅谈 Universal Image Loader</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/10/07/Android-图片加载之浅谈-Universal-Image-Loader/" target="_blank" title="Android 图片加载之浅谈 Universal Image Loader">http://iamasoldier6.com/2017/10/07/Android-图片加载之浅谈-Universal-Image-Loader/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">

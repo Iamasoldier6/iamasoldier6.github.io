@@ -175,7 +175,193 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-Java-并发编程梳理三：浅谈-volatile" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/07/Java-并发编程梳理三：浅谈-volatile/" class="article-date">
+  	<time datetime="2018-04-07T01:23:39.000Z" itemprop="datePublished">2018-04-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 并发编程梳理三：浅谈 volatile
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Concurrency/">Concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简要概述"><span class="toc-number">1.</span> <span class="toc-text">简要概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景应用"><span class="toc-number">2.</span> <span class="toc-text">场景应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深入探究"><span class="toc-number">3.</span> <span class="toc-text">深入探究</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多内容"><span class="toc-number">5.</span> <span class="toc-text">更多内容</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>这世界上没有什么能阻止一个有正确态度的人完成他的目标，而一个态度不对头的人是无可救药的。</p>
+</blockquote>
+<p>浅析完 synchronized，这次来谈谈“程度较轻的 synchronized”，即 volatile。相较于 synchronized，volatile 需要的代码少一些，运行时的开销也较少，但是，其仅能实现 synchronized 的一部分功能。<a id="more"></a></p>
+<h2 id="简要概述"><a href="#简要概述" class="headerlink" title="简要概述"></a><strong>简要概述</strong></h2><p>volatile 是一种稍弱的同步机制，使用它来保证变量的更新操作通知到其他线程。当变量被声明为 volatile 类型后，编译器与运行时都会注意到这个共享的变量，从而<strong>不会重排序该变量上的操作与其他内存操作</strong>。</p>
+<ul>
+<li>volatile 变量不会被缓存在寄存器或其他处理器不可见的地方，故在读取 volatile 修饰的变量时，总是会返回最新写入的值</li>
+<li>访问 volatile 变量时，不执行加锁的操作，不会阻塞执行线程</li>
+</ul>
+<p>使用 volatile 须满足<strong>两个条件</strong>：</p>
+<ul>
+<li>对变量的写操作不依赖于当前值</li>
+<li>该变量未包含在具有其他变量的不变式中</li>
+</ul>
+<p>第一个条件，意思即 volatile 变量不能用作线程安全计数器，即使形如 a++ 的增量操作好似一个单独操作。事实上，该增量操作是一个由读取 - 修改 - 写入操作序列构成的组合操作，得以原子方式执行，而 <strong>volatile 不能提供必须的原子特性</strong>。</p>
+<p>第二个条件，不变式的意思是，<strong>下界总是小于或等于上界</strong>。来看一个例子如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NumRange</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> up = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> up;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">(<span class="keyword">int</span> upValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (upValue &lt; low) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.up = upValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLow</span><span class="params">(<span class="keyword">int</span> lowValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lowValue &gt; up) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.low = lowValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上下界分别初始化为 10 和 0，此时，假设线程 t1 和 t2 在某一时刻同时执行了 setLow(9) 和 setUp(6)，并通过了不变式的检查，但是范围 (9, 6) 无效。故只能通过 synchronized 确保两个 set 方法在每一时刻只执行一个线程。</p>
+<h2 id="场景应用"><a href="#场景应用" class="headerlink" title="场景应用"></a><strong>场景应用</strong></h2><p>以下举例 volatile 关键字两个应用场景。</p>
+<p>1.作为<strong>状态标记量</strong></p>
+<p>比如电商的高并发场景下，定义一个布尔类型的变量 isPromoted，控制代码是否执行促销逻辑如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Promotion</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> isPromoted;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isPromoted) &#123;</span><br><span class="line">            <span class="comment">// 促销</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 常规</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPromoted</span><span class="params">(<span class="keyword">boolean</span> promoted)</span> </span>&#123;</span><br><span class="line">        isPromoted = promoted;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用户的请求线程执行 run() 方法，若要开启促销模式，则通过后台设置发送一个请求，调用 setPromoted() 方法，设置 isPromoted 为 true。因为 isPromoted 经由 volatile 修饰，其一旦修改了，其他线程也可以拿到 isPromoted 的最新值。</p>
+<p>2.双重检查</p>
+<p>volatile 修饰的单例，确保代码的稳定性为 100%，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton sInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    sInstance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sInstance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="深入探究"><a href="#深入探究" class="headerlink" title="深入探究"></a><strong>深入探究</strong></h2><p>Java 虚拟机的内存模型中，分为主内存和工作内存，每一个线程对应一个工作内存，且共享主内存的数据。重点看操作普通变量和 volatile 变量的差异：</p>
+<ul>
+<li><strong>普通变量</strong>，读操作会优先读取工作内存中的数据，若工作内存中不存在，则从主内存中拷贝一份数据到工作内存中；写操作只修改工作内存中的副本数据。这就是其他线程无法读取普通变量最新值的原因。</li>
+<li><strong>volatile 变量</strong>，读操作时，Java 内存模型 JMM 会把工作内存中对应的值设置为无效的，要求线程从主内存中读取数据；写操作时，JMM 会将工作内存中相应的数据刷新到主内存中。那么，其他线程就可以读取变量的最新值。</li>
+</ul>
+<p>进一步，volatile 变量的内存可见性，是基于内存屏障 (Memory Barrier)，即基于又称为内存栅栏的一个 CPU 指令实现的。</p>
+<p>程序在运行时，为了提高性能，编译器和处理器会对指令重排序，JMM 为了保证在不同的编译器和 CPU 上都有着一样的效果，<strong>通过插入特定类型的内存屏障来禁止特定类型的编译器和处理器重排序</strong>。通俗点来说，即插入一条内存屏障告诉编译器和 CPU：<strong>任何指令都不能和这条内存屏障重排序</strong>。看下面例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton sInstance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> j;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> k;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    i = <span class="number">1</span>; <span class="comment">// step 1</span></span><br><span class="line">                    j = <span class="number">2</span>; <span class="comment">// step 2</span></span><br><span class="line"></span><br><span class="line">                    sInstance = <span class="keyword">new</span> Singleton(); <span class="comment">// step 3</span></span><br><span class="line"></span><br><span class="line">                    k = i + j; <span class="comment">// step 4</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sInstance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若变量 sInstance 未被 volatile 修饰，则语句 1、2、3 可以随意地进行重排序执行，意思即语句的执行过程可能是 1324 或 3214 等；若使用 volatile 修饰变量 sInstance，则语句 3 的前后各插入一个内存屏障。</p>
+<p>反编译并比较 volatile 变量和普通变量生成的汇编代码，发现执行 volatile 变量会在之前多出一个 lock 前缀指令。其中，lock 指令相当于所说的内存屏障，确保：</p>
+<ul>
+<li>将当前 CPU 缓存行的数据写回到主内存</li>
+<li>写回内存的操作会导致其他 CPU 里缓存该内存地址的数据无效</li>
+</ul>
+<p>至此，关于 Java 并发编程梳理三完毕。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://www.cnblogs.com/a31415926/p/6744485.html" target="_blank" rel="external">https://www.cnblogs.com/a31415926/p/6744485.html</a></p>
+<h2 id="更多内容"><a href="#更多内容" class="headerlink" title="更多内容"></a><strong>更多内容</strong></h2><p><a href="http://t.cn/RuejyV2" target="_blank" rel="external">Java 并发编程梳理一：迈进大门</a></p>
+<p><a href="http://t.cn/RuelnYB" target="_blank" rel="external">Java 并发编程梳理二：浅析 synchronized</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/22/深入-Android-性能优化二：谈谈-systrace/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          深入 Android 性能优化二：谈谈 systrace
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/23/Java-并发编程梳理二：浅析-synchronized/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 并发编程梳理二：浅析 synchronized</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2018/04/07/Java-并发编程梳理三：浅谈-volatile/" target="_blank" title="Java 并发编程梳理三：浅谈 volatile">Java 并发编程梳理三：浅谈 volatile</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2018/04/07/Java-并发编程梳理三：浅谈-volatile/" target="_blank" title="Java 并发编程梳理三：浅谈 volatile">http://iamasoldier6.com/2018/04/07/Java-并发编程梳理三：浅谈-volatile/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+</div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
