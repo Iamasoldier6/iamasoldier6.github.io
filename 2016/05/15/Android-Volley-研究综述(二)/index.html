@@ -178,8 +178,18 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Android-Volley-研究综述(二)" class="article article-type-post " itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android-Volley-研究综述(二)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/15/Android-Volley-研究综述(二)/" class="article-date">
+  	<time datetime="2016-05-15T15:02:15.000Z" itemprop="datePublished">2016-05-15</time>
+</a>
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -189,15 +199,28 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
     </h1>
   
 
-        
-        <a href="/2016/05/15/Android-Volley-研究综述(二)/" class="archive-article-date">
-  	<time datetime="2016-05-15T15:02:15.000Z" itemprop="datePublished">2016-05-15</time>
-</a>
-        
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ImageRequest-的使用"><span class="toc-number">1.</span> <span class="toc-text">ImageRequest 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ImageLoader-的使用"><span class="toc-number">2.</span> <span class="toc-text">ImageLoader 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NetworkImageView-的使用"><span class="toc-number">3.</span> <span class="toc-text">NetworkImageView 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
         <blockquote>
 <p>Nothing is given, everything is earned, you work for what you have.</p>
 </blockquote>
@@ -281,29 +304,11 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
 <p>3.<a href="http://blog.csdn.net/guolin_blog/article/details/17482165" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/17482165</a></p>
 
       
-
-      
     </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-        
-      
-      <div class="clearfix"></div>
-    </div>
+    
   </div>
-</article>
-
   
+    
 <nav id="article-nav">
   
     <a href="/2016/05/28/Android-Volley-研究综述(三)/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -323,20 +328,75 @@ Universal-Image-Loader 具备强大的网络图片加载功能，使用 Volley�
   
 </nav>
 
-
-
-
-
-
-  
-  
   
 
   
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
 
-  
 
-  
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2016/05/15/Android-Volley-研究综述(二)/" target="_blank" title="Android Volley 研究综述(二)">Android Volley 研究综述(二)</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2016/05/15/Android-Volley-研究综述(二)/" target="_blank" title="Android Volley 研究综述(二)">http://iamasoldier6.com/2016/05/15/Android-Volley-研究综述(二)/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
 </div>
       <footer id="footer">
   <div class="outer">

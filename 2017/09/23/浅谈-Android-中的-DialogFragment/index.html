@@ -177,8 +177,18 @@ Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使�
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-浅谈-Android-中的-DialogFragment" class="article article-type-post " itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-浅谈-Android-中的-DialogFragment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/23/浅谈-Android-中的-DialogFragment/" class="article-date">
+  	<time datetime="2017-09-23T03:10:51.000Z" itemprop="datePublished">2017-09-23</time>
+</a>
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -188,15 +198,28 @@ Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使�
     </h1>
   
 
-        
-        <a href="/2017/09/23/浅谈-Android-中的-DialogFragment/" class="archive-article-date">
-  	<time datetime="2017-09-23T03:10:51.000Z" itemprop="datePublished">2017-09-23</time>
-</a>
-        
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DialogFragment/">DialogFragment</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/">Source Code</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介-DialogFragment"><span class="toc-number">1.</span> <span class="toc-text">简介 DialogFragment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo-用法"><span class="toc-number">2.</span> <span class="toc-text">Demo 用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深入源码"><span class="toc-number">3.</span> <span class="toc-text">深入源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
         <blockquote>
 <p>If you don’t like where you are, change it. You’re not a tree.</p>
 </blockquote>
@@ -245,29 +268,11 @@ Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使�
 <p>2.<a href="http://blog.csdn.net/lmj623565791/article/details/37815413" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/37815413</a></p>
 
       
-
-      
     </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DialogFragment/">DialogFragment</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/">Source Code</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-        
-      
-      <div class="clearfix"></div>
-    </div>
+    
   </div>
-</article>
-
   
+    
 <nav id="article-nav">
   
     <a href="/2017/10/07/Android-图片加载之浅谈-Universal-Image-Loader/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -287,20 +292,75 @@ Android 开发中，Dialog 十分常见。如今，在官方不推荐直接使�
   
 </nav>
 
-
-
-
-
-
-  
-  
   
 
   
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
 
-  
 
-  
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2017/09/23/浅谈-Android-中的-DialogFragment/" target="_blank" title="浅谈 Android 中的 DialogFragment">浅谈 Android 中的 DialogFragment</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2017/09/23/浅谈-Android-中的-DialogFragment/" target="_blank" title="浅谈 Android 中的 DialogFragment">http://iamasoldier6.com/2017/09/23/浅谈-Android-中的-DialogFragment/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
 </div>
       <footer id="footer">
   <div class="outer">
