@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>浅谈 Java 中的参数传递 | Iamasoldier6&#39;s Column</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="莫忘初衷 / 莫忘初衷 / 别忘 / 那一年 / 那一天 / 出发时心中的梦
+
+引言来自动力火车的一首老歌《莫忘初衷》，确实，保持初心并不容易，走得太远了，不要忘记当初为何要出发！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 Java 中的参数传递">
+<meta property="og:url" content="http://iamasoldier6.com/2018/06/02/浅谈-Java-中的参数传递/index.html">
+<meta property="og:site_name" content="Iamasoldier6's Column">
+<meta property="og:description" content="莫忘初衷 / 莫忘初衷 / 别忘 / 那一年 / 那一天 / 出发时心中的梦
+
+引言来自动力火车的一首老歌《莫忘初衷》，确实，保持初心并不容易，走得太远了，不要忘记当初为何要出发！">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/params_mem.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/params_ref.png">
+<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
+<meta property="og:updated_time" content="2018-06-17T03:44:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈 Java 中的参数传递">
+<meta name="twitter:description" content="莫忘初衷 / 莫忘初衷 / 别忘 / 那一年 / 那一天 / 出发时心中的梦
+
+引言来自动力火车的一首老歌《莫忘初衷》，确实，保持初心并不容易，走得太远了，不要忘记当初为何要出发！">
+<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/params_mem.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon2.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Iamasoldier6</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">归档</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AOSP/" style="font-size: 10px;">AOSP</a> <a href="/tags/Activity/" style="font-size: 11.43px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Annotation/" style="font-size: 10px;">Annotation</a> <a href="/tags/Annual/" style="font-size: 11.43px;">Annual</a> <a href="/tags/Application/" style="font-size: 10px;">Application</a> <a href="/tags/Bundle/" style="font-size: 10px;">Bundle</a> <a href="/tags/Callback/" style="font-size: 10px;">Callback</a> <a href="/tags/Concurrency/" style="font-size: 12.86px;">Concurrency</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Debug/" style="font-size: 10px;">Debug</a> <a href="/tags/DialogFragment/" style="font-size: 10px;">DialogFragment</a> <a href="/tags/Event/" style="font-size: 11.43px;">Event</a> <a href="/tags/EventBus/" style="font-size: 11.43px;">EventBus</a> <a href="/tags/Fragment/" style="font-size: 11.43px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 10px;">Framework</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Handler/" style="font-size: 10px;">Handler</a> <a href="/tags/HashMap/" style="font-size: 11.43px;">HashMap</a> <a href="/tags/I-O/" style="font-size: 10px;">I/O</a> <a href="/tags/Image/" style="font-size: 12.86px;">Image</a> <a href="/tags/Java/" style="font-size: 17.14px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Launch/" style="font-size: 10px;">Launch</a> <a href="/tags/ListView/" style="font-size: 10px;">ListView</a> <a href="/tags/Mac/" style="font-size: 12.86px;">Mac</a> <a href="/tags/Message/" style="font-size: 10px;">Message</a> <a href="/tags/Parameter/" style="font-size: 10px;">Parameter</a> <a href="/tags/Pattern/" style="font-size: 11.43px;">Pattern</a> <a href="/tags/Performance/" style="font-size: 11.43px;">Performance</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/RecyclerView/" style="font-size: 15.71px;">RecyclerView</a> <a href="/tags/Reflection/" style="font-size: 10px;">Reflection</a> <a href="/tags/Source-Code/" style="font-size: 18.57px;">Source Code</a> <a href="/tags/Summary/" style="font-size: 11.43px;">Summary</a> <a href="/tags/Text/" style="font-size: 10px;">Text</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/View/" style="font-size: 11.43px;">View</a> <a href="/tags/Volley/" style="font-size: 14.29px;">Volley</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Iamasoldier6</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xt0ac.com1.z0.glb.clouddn.com/cavs23.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Iamasoldier6</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Forged from suffering, hardened by pain.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">归档</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Iamasoldier6" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/2253797763/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Iamasoldier6" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/Iamasoldier6" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-浅谈-Java-中的参数传递" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/02/浅谈-Java-中的参数传递/" class="article-date">
+  	<time datetime="2018-06-02T02:51:32.000Z" itemprop="datePublished">2018-06-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈 Java 中的参数传递
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Parameter/">Parameter</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言概述"><span class="toc-number">1.</span> <span class="toc-text">前言概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展详谈"><span class="toc-number">2.</span> <span class="toc-text">扩展详谈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本数据类型"><span class="toc-number">2.1.</span> <span class="toc-text">基本数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用类型"><span class="toc-number">2.2.</span> <span class="toc-text">引用类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
+  </div>
+
+        <blockquote>
+<p>莫忘初衷 / 莫忘初衷 / 别忘 / 那一年 / 那一天 / 出发时心中的梦</p>
+</blockquote>
+<p>引言来自动力火车的一首老歌《莫忘初衷》，确实，保持初心并不容易，走得太远了，不要忘记当初为何要出发！<a id="more"></a></p>
+<h2 id="前言概述"><a href="#前言概述" class="headerlink" title="前言概述"></a><strong>前言概述</strong></h2><p>前段时间，重构某块代码时踩到了一个坑，就是混淆了 Java 中的值传递与引用传递，导致某块属性没有生效，这次扩展谈一下。</p>
+<p><strong>Java 的参数传递究竟是传值还是传引用呢？</strong>换句话说，当一个对象被当作参数传递到一个方法后，该方法内可以改变这个对象的属性，这里究竟是按值传递还是按引用传递？</p>
+<p><strong>按值传递</strong>！网上大多将 Java 的参数传递分为按值传递和按引用传递，这里，我认为只有按值传递。</p>
+<ul>
+<li>当一个实例对象被作为参数传递到某个方法中时，参数值事实上为<strong><em>该对象的引用的一个副本</em></strong></li>
+<li>当指向同一个对象时，对象的内容在被调用的方法内改变，然而，<strong><em>对象的引用 (这里的引用不是引用的副本) 是永不改变的</em></strong></li>
+</ul>
+<p>事实上，<strong>微软的文档有段按引用传递参数的说明</strong>如下：</p>
+<p>在方法的参数列表中使用<code>ref</code>关键字时，它指示参数按引用传递，而非按值传递。按引用传递的效果是，对所调用方法中参数进行的任何更改都反映在调用方法中。例如，如果调用方传递本地变量表达式或数组元素访问表达式，所调用方法会替换 ref 参数引用的对象，然后，当该方法返回时，调用方的本地变量或数组元素将开始引用新对象。</p>
+<p><strong>注意</strong>！不要混淆通过引用传递的概念与引用类型的概念。这两种概念是不同的。<strong><em>无论方法参数是值类型还是引用类型，均可由 ref 修改。当通过引用传递时，不会对值类型装箱。</em></strong></p>
+<h2 id="扩展详谈"><a href="#扩展详谈" class="headerlink" title="扩展详谈"></a><strong>扩展详谈</strong></h2><p>下面将参数分为基本数据类型和引用类型参数分开说。</p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a><strong>基本数据类型</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicParams</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">3</span>;</span><br><span class="line">        System.out.println(<span class="string">"调用 convertNum() 方法前: num = "</span> + num);</span><br><span class="line">        convertNum(num);</span><br><span class="line">        System.out.println(<span class="string">"调用 convertNum() 方法后: num = "</span> + num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convertNum</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        i = <span class="number">6</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">调用 convertNum() 方法前: num = 3</span><br><span class="line">调用 convertNum() 方法后: num = 3</span><br></pre></td></tr></table></figure>
+<p>我们发现，值并没有改变。来看一个简单的示意图：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/params_mem.png" alt=""></p>
+<p>num 作为参数传递给 convertNum() 时，是将内存空间中 num 指向的存储单元中存放的值 3 传递给 convertNum() 中的 i 变量，然而，该 i 变量也在内存空间中分配了一个存储单元，即这时将 num 的值 3 传递给了 i 的这个存储单元。这以后，在 convertNum() 中对 i 的一切操作都是针对 i 所指向的这个存储单元，与 num 所指向的那个存储单元不再有任何关系。</p>
+<p>因此，调用 convertNum() 后，num 所指向的存储单元的值未发生变化。</p>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a><strong>引用类型</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferParams</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Reference r1 = <span class="keyword">new</span> Reference();</span><br><span class="line">        System.out.println(<span class="string">"调用 convert() 方法前: r1 = "</span> + r1);</span><br><span class="line">        convert(r1);</span><br><span class="line">        System.out.println(<span class="string">"调用 convert() 方法后: r1 = "</span> + r1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(Reference r2)</span> </span>&#123;</span><br><span class="line">        r2 = <span class="keyword">new</span> Reference();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Reference</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">调用 convert() 方法前: r1 = ReferParams$Reference@330bedb4</span><br><span class="line">调用 convert() 方法后: r1 = ReferParams$Reference@330bedb4</span><br></pre></td></tr></table></figure>
+<p>显然，打印两次的 Reference 地址的值是一样的，换句话说，调用 convert() 方法后，Reference 类型的变量并没有发生改变。简单的示意图如下：</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/params_ref.png" alt=""></p>
+<p>程序执行到<code>Reference r1 = new Reference()</code>时，在<strong>堆内存</strong>中开辟了一块内存空间，用来存储 Reference 类的实例对象，同时，在<strong>栈内存</strong>中开辟一个存储单元，来存储该实例对象的引用，即图中 p1 指向的存储单元。</p>
+<p>执行到<code>convert()</code>时，p1 作为参数传递给该方法，即<strong>p1 将自己存储单元的内容传递给了 convert() 方法的 p2 变量</strong>，之后，convert() 方法中对 p2 的一切操作，都是针对 p2 指向的存储单元，与 p1 所指向的那个存储单元就没有关系了。</p>
+<p>但是，若改造成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferParams</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Reference r1 = <span class="keyword">new</span> Reference();</span><br><span class="line">        r1.setValue(<span class="number">1</span>);</span><br><span class="line">        System.out.println(<span class="string">"调用 convert() 方法前: r1 = "</span> + r1.getValue());</span><br><span class="line">        convert(r1);</span><br><span class="line">        System.out.println(<span class="string">"调用 convert() 方法后: r1 = "</span> + r1.getValue());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convert</span><span class="params">(Reference r2)</span> </span>&#123;</span><br><span class="line">        r2.setValue(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Reference</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> mValue;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> mValue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span><span class="params">(<span class="keyword">int</span> mValue)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.mValue = mValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">调用 convert() 方法前: r1 = 1</span><br><span class="line">调用 convert() 方法后: r1 = 2</span><br></pre></td></tr></table></figure>
+<p>形参和实参指向同一个内存地址，公用一个内存，会影响到调用方。</p>
+<p>至此，关于浅谈 Java 中的参数传递完毕。</p>
+<p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://www.cnblogs.com/nnngu/p/8299724.html" target="_blank" rel="external">https://www.cnblogs.com/nnngu/p/8299724.html</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/19/小结-Android-中的自定义-View-套路/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">小结 Android 中的自定义 View 套路</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <! -- 添加捐赠图标 -->
+<div class ="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+		   左边支付宝打赏，右边微信打赏。
+        </span>
+        <br>
+      </div>  
+	<div id="donate_guide" class="donate_bar center hidden" >
+		<!-- 支付宝打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/ZFB.png" alt="支付宝打赏"> 
+		<!-- 微信打赏图案 -->
+		<img src="http://7xt0ac.com1.z0.glb.clouddn.com/WX6.png" alt="微信打赏">  
+    </div>
+	<script type="text/javascript">
+		document.getElementById('btn_donate').onclick = function(){
+			$('#donate_board').addClass('hidden');
+			$('#donate_guide').removeClass('hidden');
+		}
+	</script>
+</div>
+<! -- 添加捐赠图标 -->
+
+
+
+      <! -- 添加版权信息 -->
+<div class="article-footer-copyright">
+<left>本文由<b> <a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a> </b>创作和发表，采用<b>署名</b>-<b>非商用</b>-<b>禁止演绎 3.0 </b>国际许可协议进行许可。<br/></left>
+
+<left>非商业转载请注明作者及出处，商业转载请联系作者本人。<br/>本文作者：<b><a href="/index.html" target="_blank" title="Iamasoldier6">Iamasoldier6</a></b><br/>本文标题：<b><a href="/2018/06/02/浅谈-Java-中的参数传递/" target="_blank" title="浅谈 Java 中的参数传递">浅谈 Java 中的参数传递</a></b></left>
+
+<left><br/>本文链接：<b><a href="/2018/06/02/浅谈-Java-中的参数传递/" target="_blank" title="浅谈 Java 中的参数传递">http://iamasoldier6.com/2018/06/02/浅谈-Java-中的参数传递/</a></b></left>
+</div>
+<! -- 添加版权信息 -->
+    
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Iamasoldier6
+
+          <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+          </script>
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75799138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4548ab92471a76e452c9750997a514f8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
