@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iamasoldier6.com/"/>
-  <updated>2018-07-29T16:19:27.000Z</updated>
+  <updated>2018-07-29T16:22:40.000Z</updated>
   <id>http://iamasoldier6.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iamasoldier6.com/2018/07/15/%E5%88%9D%E4%BA%A4-Google-Flutter/"/>
     <id>http://iamasoldier6.com/2018/07/15/初交-Google-Flutter/</id>
     <published>2018-07-15T15:39:16.000Z</published>
-    <updated>2018-07-29T16:19:27.000Z</updated>
+    <updated>2018-07-29T16:22:40.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;蒲柳之姿，望秋而落；松柏之志，经霜弥茂。&lt;/p&gt;
@@ -108,7 +108,7 @@
 &lt;p&gt;Flutter 以热更新方式提供了一个快速开发的闭环环境，即重载正在运行 App 的代码时，不用重启或者丢失掉 App 的状态如下：&lt;/p&gt;
 &lt;p&gt;打开&lt;code&gt;lib/main.dart&lt;/code&gt;，将&lt;code&gt;You have clicked the button this many times:&lt;/code&gt; 改为&lt;code&gt;Hello World&lt;/code&gt;，点击&lt;strong&gt;保存&lt;/strong&gt; (&lt;strong&gt;File &amp;gt; Save All&lt;/strong&gt;)，或者点击&lt;strong&gt;热更新&lt;/strong&gt; (&lt;strong&gt;Hot Reload&lt;/strong&gt;)，即编辑器上方的绿色圆环箭头按钮，我们会马上到运行的 App 上立即显示出来&lt;code&gt;Hello World&lt;/code&gt;！Cool!&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xt0ac.com1.z0.glb.clouddn.com/flutter_world1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;​&lt;/p&gt;
+&lt;p&gt;了解更多请参见 &lt;a href=&quot;https://flutter.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Flutter 官网&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;至此，初步认识 Google Flutter 到此结束。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Email: iamasoldiersix@gmail.com / WeChat: Wolverine623&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
