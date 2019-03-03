@@ -260,7 +260,7 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>最后，将该 StringRequest 对象添加到 RequestQueue 里面即可：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>.add(stringRequest);</span><br></pre></td></tr></table></figure>
 <p>另外，Volley 要访问网络，在 AndroidManifest.xml 文件中添加一条权限：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="built_in">name</span>=<span class="string">"android.permission.INTERNET"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>运行程序，发出该 HTTP 请求，Logcat 中部分打印数据如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span><span class="tag">&lt;<span class="name">html</span> <span class="attr">itemscope</span>=<span class="string">""</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WebPage"</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"width=device-width,minimum-scale=1.0"</span> <span class="attr">name</span>=<span class="string">"viewport"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for."</span> <span class="attr">name</span>=<span class="string">"description"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"noodp"</span> <span class="attr">name</span>=<span class="string">"robots"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"/logos/doodles/2016/hertha-marks-ayrtons-162nd-birthday-6049205031272448-hp.jpg"</span> <span class="attr">itemprop</span>=<span class="string">"image"</span>&gt;</span><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"/images/branding/product/ico/googleg_lodp.ico"</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"Hertha Marks Ayrton&amp;#8217;s 162nd birthday #GoogleDoodle"</span> <span class="attr">property</span>=<span class="string">"og:description"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"http://www.google.com/logos/doodles/2016/hertha-marks-ayrtons-162nd-birthday-6049205031272448-thp.png"</span> <span class="attr">property</span>=<span class="string">"og:image"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"500"</span> <span class="attr">property</span>=<span class="string">"og:image:width"</span>&gt;</span><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"200"</span> <span class="attr">property</span>=<span class="string">"</span></span></span><br></pre></td></tr></table></figure>
 <p>Google 返回的就是这一长串 HTML 代码，浏览器可以轻松地将这段 HTML 代码解析，然后将 Google 首页展现出来。如此，最基本的 HTTP 发送与响应的功能就完成了。代码量不多，其实，主要分以下三步：</p>
@@ -385,7 +385,17 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 
 
 </div>
-      
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 Iamasoldier6
+    	</div>
+      	<div class="footer-right">
+      	</div>
+    </div>
+  </div>
+</footer>
     </div>
     
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
