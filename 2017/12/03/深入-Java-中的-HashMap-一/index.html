@@ -18,16 +18,16 @@
 
 引言来自 ThoughtWorks 的首席科学家、《重构》等经典书籍的作者 Martin Fowler。
 个人觉得，要写出别人能读懂的程序，不仅要知其然，也要知其所以然。好，这期就来谈谈我们 Android 乃至 Java 开发中使用再频繁不过的的 HashMap (本篇分析基于 JDK 1.8)，做到会用，且知">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_save1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:29:40.000Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7baedd3a213b041713da0d">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T10:39:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Java 中的 HashMap (一)">
 <meta name="twitter:description" content="任何一个傻瓜都能写出计算机能理解的程序，而优秀的程序员却能写出别人能读懂的程序。
 
 引言来自 ThoughtWorks 的首席科学家、《重构》等经典书籍的作者 Martin Fowler。
 个人觉得，要写出别人能读懂的程序，不仅要知其然，也要知其所以然。好，这期就来谈谈我们 Android 乃至 Java 开发中使用再频繁不过的的 HashMap (本篇分析基于 JDK 1.8)，做到会用，且知">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_save1.png">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c7baedd3a213b041713da0d">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -243,7 +243,7 @@
 <p>有了直观的感受后，进一步，先来看 HashMap 的存储结构。</p>
 <p><strong>存储结构</strong></p>
 <p>HashMap 是数组 + 链表 + 红黑树( JDK 1.8 新增红黑树) 实现的，如下图所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/hashmap_save1.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7baedd3a213b041713da0d" alt=""></p>
 <p>顺带提一下以上几个概念：</p>
 <p><strong>数组</strong>：存储空间是<strong><em>连续</em></strong>的，占用内存<strong><em>严重</em></strong>，空间复杂度<strong><em>很大</em></strong>。但是，其二分查找时间复杂度<strong><em>小</em></strong>，为 O(nlogn)；其特点为<strong><em>寻址容易，插入和删除困难</em></strong>。</p>
 <p><strong>链表</strong>：存储空间是<strong><em>离散</em></strong>的，占用内存<strong><em>较宽松</em></strong>，空间复杂度<strong><em>很小</em></strong>。但是，其二分查询的时间复杂度<strong><em>很大</em></strong>；其特点为<strong><em>寻址困难，插入和删除容易</em></strong>。</p>
@@ -275,8 +275,8 @@
 <p>至此，深入 Java 中的 HashMap (一) 对 HashMap 的简介，以及重点谈到的 put() 和 get() 两个方法，到此结束。(二)将重点从扩容机制和线程安全性角度来谈，未完待续。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://tech.meituan.com/java-hashmap.html" target="_blank" rel="external">https://tech.meituan.com/java-hashmap.html</a></p>
 <p>2.<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html" target="_blank" rel="external">https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html</a></p>
 

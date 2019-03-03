@@ -16,17 +16,17 @@
 <meta property="og:description" content="Learn something of everything, learn everything of something.
 
 前面谈了老牌图片加载框架 Universal Image Loader，这期谈一下当前流行的 Glide，这是 Google 推荐使用的图片加载框架，其在大多数情况下，一行代码就能搞定图片加载，下面详细来看。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/glide_show_image.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/gif_shiba.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/pic_shiba.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:29:00.000Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bade53a213b041713c6b6">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7badfe3a213b041713c954">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bae243a213b041713cc0f">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T10:36:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 图片加载之浅谈 Glide">
 <meta name="twitter:description" content="Learn something of everything, learn everything of something.
 
 前面谈了老牌图片加载框架 Universal Image Loader，这期谈一下当前流行的 Glide，这是 Google 推荐使用的图片加载框架，其在大多数情况下，一行代码就能搞定图片加载，下面详细来看。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/glide_show_image.png">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c7bade53a213b041713c6b6">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -238,7 +238,7 @@
 <p>布局文件同样也很简单：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span></span><br><span class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span><br><span class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span><br><span class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/iv_picture"</span></span><br><span class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span><br><span class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span><br><span class="line">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span><br><span class="line">        <span class="attr">android:src</span>=<span class="string">"@mipmap/ic_launcher"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>运行程序如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/glide_show_image.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bade53a213b041713c6b6" alt=""></p>
 <p>核心代码就一行：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(<span class="keyword">this</span>).load(url).into(mImageView);</span><br></pre></td></tr></table></figure>
 <p>Glide.with() 创建一个加载图片的实例，with() 里可传入 Context、Activity 或 Fragment 类型的参数。Activity 或 Fragment 里，可直接传入 this；调用处不在 Activity 和 Fragment 中时，则可传入 ApplicationContext。需要<strong>注意</strong>的是，with() 中传入的实例决定 Glide 加载图片的生命周期，若其对应的实例对象销毁掉，则停止图片加载。</p>
@@ -258,11 +258,11 @@
 <p>Glide 支持加载 GIF 动画，其内部会自动判断图像格式，如给定一 GIF 动画的 URL 地址如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://i.dimg.cc/61/a1/f0/6b/e9/be/3f/f1/f4/f8/4c/65/3c/63/b5/a2.gif</span><br></pre></td></tr></table></figure>
 <p>替换掉原先的 URL 地址，运行如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/gif_shiba.gif" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7badfe3a213b041713c954" alt=""></p>
 <p>若要指定加载的图片为静态图，则可以使用 asBitmap() 方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">"http://i.dimg.cc/61/a1/f0/6b/e9/be/3f/f1/f4/f8/4c/65/3c/63/b5/a2.gif"</span>;</span><br><span class="line">Glide.with(<span class="keyword">this</span>)</span><br><span class="line">        .asBitmap()</span><br><span class="line">        .load(url)</span><br><span class="line">        .into(mImageView);</span><br></pre></td></tr></table></figure>
 <p>运行如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/pic_shiba.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bae243a213b041713cc0f" alt=""></p>
 <p>即只显示 GIF 图的第一帧图片。</p>
 <p>更多参见官方文档及其翻译– <a href="https://muyangmin.github.io/glide-docs-cn/doc/generatedapi.html" target="_blank" rel="external">Generated API</a>。</p>
 <p><strong>图像大小</strong></p>
@@ -286,8 +286,8 @@
 <p>至此，浅谈 Glide 到此结束，后来接着一期将从源码角度探究这一新兴的贵族。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://github.com/bumptech/glide" target="_blank" rel="external">https://github.com/bumptech/glide</a></p>
 <p>2.<a href="http://blog.csdn.net/guolin_blog/article/details/53759439" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/53759439</a></p>
 

@@ -16,15 +16,15 @@ Android 开发中，会遇到加载大批量图片或异步加载图片的场景
 <meta property="og:description" content="坚持做自己懒得做但正确的事情，就能得到别人想得到却得不到的东西。
 
 Android 开发中，会遇到加载大批量图片或异步加载图片的场景，这其中，或许会遇到一些问题，如图片错乱，甚至是著名的 OOM(Out Of Memory) 问题。谈及图片加载，本期先谈谈老牌的图片加载框架，即 Universal Image Loader，距今都有着五六年的光景了。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/image_loader_from_network.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:28:27.000Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bad053a213b041713b53b">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T10:32:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 图片加载之浅谈 Universal Image Loader">
 <meta name="twitter:description" content="坚持做自己懒得做但正确的事情，就能得到别人想得到却得不到的东西。
 
 Android 开发中，会遇到加载大批量图片或异步加载图片的场景，这其中，或许会遇到一些问题，如图片错乱，甚至是著名的 OOM(Out Of Memory) 问题。谈及图片加载，本期先谈谈老牌的图片加载框架，即 Universal Image Loader，距今都有着五六年的光景了。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/image_loader_from_network.png">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c7bad053a213b041713b53b">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -270,7 +270,7 @@ Android 开发中，会遇到加载大批量图片或异步加载图片的场景
 <p>引人兴趣的是，displayImage() 方法中传入 ImageLoadingProgressListener 接口，当加载网络图片时，可以显示图片下载的进度，关键代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ImageLoader.getInstance().displayImage(imageUrl, imageView, options, <span class="keyword">new</span> SimpleImageLoadingListener(), <span class="keyword">new</span> ImageLoadingProgressListener() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressUpdate</span><span class="params">(String imageUri, View view, <span class="keyword">int</span> current,</span><br><span class="line">                                 <span class="keyword">int</span> total)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>回调方法 onProgressUpdate() 中，可以设置图片的加载进度。</p>
-<p>以上，加载的网络图片显示如下：<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/image_loader_from_network.png" alt=""></p>
+<p>以上，加载的网络图片显示如下：<br><img src="https://pic.superbed.cn/item/5c7bad053a213b041713b53b" alt=""></p>
 <p>除此之外，加载来自 drawable 和 assets 的 imageUrl 示例如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String imageUrl = <span class="string">"drawable://"</span> + R.drawable.image_loader_flower;</span><br><span class="line">String imageUrl = <span class="string">"assets://image_loader_flower.png"</span>;</span><br></pre></td></tr></table></figure>
 <p>更有甚者，加载来自 SD 卡和 Content Provider 的示例如下，不常用：</p>
@@ -288,8 +288,8 @@ Android 开发中，会遇到加载大批量图片或异步加载图片的场景
 <p>至此，UIL 的基本了解、使用和注意事项介绍完毕，下一期将从源码角度探究这一经典的图片加载框架。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://github.com/nostra13/Android-Universal-Image-Loader/wiki" target="_blank" rel="external">https://github.com/nostra13/Android-Universal-Image-Loader/wiki</a></p>
 <p>2.<a href="http://blog.csdn.net/xiaanming/article/details/26810303" target="_blank" rel="external">http://blog.csdn.net/xiaanming/article/details/26810303</a></p>
 

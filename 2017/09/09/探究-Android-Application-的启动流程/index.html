@@ -16,19 +16,19 @@
 <meta property="og:description" content="Fear is not real, why so serious?
 
 平时，我们点击手机主页上的一个 App 图标，就能正常地启动一个 App 应用。站在用户的角度，这个过程没什么特殊的。但是，从开发者的角度，其背后或许暗藏着一些玄机。本期，就来着重地分析下，探究启动一个 App 走过的流程。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/android_process.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/activity_manager.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/zygote_process2.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/system_zygote_app.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/application_launcher.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:27:13.000Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7babd93a213b0417139af2">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7babf33a213b0417139ddf">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bac153a213b041713a088">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bac433a213b041713a432">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bac5e3a213b041713a644">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T10:29:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="探究 Android Application 的启动流程">
 <meta name="twitter:description" content="Fear is not real, why so serious?
 
 平时，我们点击手机主页上的一个 App 图标，就能正常地启动一个 App 应用。站在用户的角度，这个过程没什么特殊的。但是，从开发者的角度，其背后或许暗藏着一些玄机。本期，就来着重地分析下，探究启动一个 App 走过的流程。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/android_process.png">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c7babd93a213b0417139af2">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -235,13 +235,13 @@
 <p>Android 中，每一个 Application 都被设计成为单独的进程，Application 可以根据自己的需要，来决定是否需要启用多个进程。总的来说，此 Application 与其他的 Application 和系统服务是相互独立的。细想一下，为了达成有效的解耦和系统的稳定性，不因某个应用程序的崩溃就影响到其他应用进程或者系统服务进程，Application 着实须运行在不同的进程上。</p>
 <p>Application 的进程与 Android 系统中其他的守护进程不同，内存不够时，某些应用进程或许会被系统回收掉，应用进程也是有着自己的生命周期的，更多参见官网<a href="https://developer.android.com/guide/components/processes-and-threads.html" target="_blank" rel="external">Processes and Threads</a>。然而，<strong>要注意的是</strong>，Android 应用组件不一定要运行在单独的进程上，其可以运行在多个进程中，如对 Android 某个组件指定运行的进程<code>android:process</code>，即可让其运行在其他进程中。</p>
 <p>事实上，每个 Application 的进程都相当于一个沙箱，而每个 Application 就像一个 User，只能对其目录下的内容具有访问和读写权限，从根源上保护了其他应用程序，如下图所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/android_process.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7babd93a213b0417139af2" alt=""></p>
 <h2 id="Application-的启动流程"><a href="#Application-的启动流程" class="headerlink" title="Application 的启动流程"></a><strong>Application 的启动流程</strong></h2><p>探究整个启动流程之前，先谈一下 ActivityManager 的整体架构。</p>
 <p><strong>I. ActivityManager 的整体架构</strong></p>
 <p>开发中，会涉及许多 Activity 之间的跳转，在 Launcher 中，点击 App 图标跳转同理，都会调用到<code>context.startActivity(intent)</code>方法。其中，Launcher 在一个进程，而启动的 App 则运行在另一个进程中，会涉及到进程间通信 (IPC)，这种复杂的过程则需要 ActivityManagerService 作为中介来中转和处理。</p>
 <p>ActivityManagerService 运行在 Android Framework 中，其是一个守护进程。Android 系统中，实现了 ActivityManager，通过其作为一个入口，来和 ActivityManagerService 打交道。ActivityManager 其背后的运作方式之核心就是 Binder 机制，下面大概看一下。</p>
 <p>Binder 体系架构分为 Client 和 Server 两端，为了更方便地调用 Client，采用了 AIDL (Android 接口定义语言)的方式。ActivityManager 使用了<a href="http://t.cn/RMy3vs8" target="_blank" rel="external">代理模式</a>：IActivityManager 对执行的命令抽象，包括常见的 startActivity()、showWaitingForDebugger() 和 finishActivity() 等方法。ActivityManagerProxy 相当于信使，其 Proxy 无须懂得具体的业务，只传递过去具体的指令。ActivityManagerService 是具体的执行者，而 ActivityManager 则是具体业务逻辑的外观类，负责核心的分发命令。如下图：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/activity_manager.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7babf33a213b0417139ddf" alt=""></p>
 <p><strong>II. Launcher 至 ActivityManager 启动</strong></p>
 <p>点击 Launcher 中的 App 图标，将调用 Activity 的 startActivity() 方法。跟进去，看到会调用到 startActivityForResult() 方法，在该方法中，最后会调用到 mInstrumentation.execStartActivity() 方法，源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivity</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.startActivity(intent, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -267,7 +267,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">main</span></span><br><span class="line"><span class="title">socket</span> <span class="title">zygote</span> <span class="title">stream</span> 660 <span class="title">root</span> <span class="title">system</span></span></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String argv[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 注册 Zygote socket</span></span><br><span class="line">    registerZygoteSocket(socketName);</span><br><span class="line">    Trace.traceBegin(Trace.TRACE_TAG_DALVIK, <span class="string">"ZygotePreload"</span>);</span><br><span class="line">    EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_START,</span><br><span class="line">            SystemClock.uptimeMillis());</span><br><span class="line">    <span class="comment">// 预加载资源</span></span><br><span class="line">    preload();</span><br><span class="line">    EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_END,</span><br><span class="line">            SystemClock.uptimeMillis());</span><br><span class="line">    Trace.traceEnd(Trace.TRACE_TAG_DALVIK);</span><br><span class="line">    <span class="comment">// 完成 zygote 的初始化配置</span></span><br><span class="line">    SamplingProfilerIntegration.writeZygoteSnapshot();</span><br><span class="line">    <span class="comment">// 启动后，执行个初步的 gc 以清除</span></span><br><span class="line">    Trace.traceBegin(Trace.TRACE_TAG_DALVIK, <span class="string">"PostZygoteInitGC"</span>);</span><br><span class="line">    <span class="comment">// 触发 gc</span></span><br><span class="line">    gcAndFinalize();</span><br><span class="line">    <span class="comment">// 启动 System Server</span></span><br><span class="line">    <span class="keyword">if</span> (startSystemServer) &#123;</span><br><span class="line">        startSystemServer(abiList, socketName);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>大致的流程示意图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/zygote_process2.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bac153a213b041713a088" alt=""></p>
 <p>应用程序的运行，依托于相应的 Dalvik(ART) 虚拟机环境。但是，每次启动的开销较大，通过 Fork Zygote 的进程，能够较好地提升效率。在这个过程中，采用了 Copy-on-Write 的方式，极大地复用了 Zygote 上的资源。</p>
 <p>好，认识完毕，接下来看 ActivityManagerService 至进程启动。</p>
 <p><strong>IV. ActivityManagerService 至进程启动</strong></p>
@@ -289,17 +289,17 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeStaticMain</span><span class="params">(ClassLoader loader,</span><br><span class="line">                             String className, String[] argv)</span></span><br><span class="line">        <span class="keyword">throws</span> ZygoteInit.MethodAndArgsCaller </span>&#123;</span><br><span class="line">    Class&lt;?&gt; cl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        cl = loader.loadClass(className);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="string">"Missing class when invoking static main "</span> + className,</span><br><span class="line">                ex);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 此抛出会在 ZygoteInit.main() 中捕获，被调用异常的 run() 方法响应，</span></span><br><span class="line">    <span class="comment">// 清除所有要求设置进程的栈帧</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ZygoteInit.MethodAndArgsCaller(m, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过反射调用 ZygoteInit.MethodAndArgsCaller，这就是相应的 ActivityThread 里的 main() 方法，其运行的进程即 UI 线程(主线程)。</p>
 <p>至此，Application 的启动流程完毕，如下图所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/system_zygote_app.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bac433a213b041713a432" alt=""></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>经过上述分析，最终总结图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/application_launcher.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bac5e3a213b041713a644" alt=""></p>
 <p>点击 Launcher 中的 Icon，发送广播，启动 Service 等组件的跳转，通过 AndroidManagerProxy 来中转。AndroidManagerProxy 向 System Server 请求名为 Activity 的 ActivityManagerService 的 Binder 对象。该 Binder 对象大致可以粗略地看作是 ActivityManagerService 的句柄，从 Binder 对象实际操作 ActivityManagerService。</p>
 <p>ActivityManagerService 启动相应的组件时，会先判断是否有相应的 ProcessRecord，若不存在，则新建相应的应用进程。ActivityManagerService 通过 Socket 通信方式和 Zygote 进行协商，Zygote 在其监听的<code>/dev/socket/zygote</code>socket 中发现有需要创建进程的请求后，会 fork 自身，并返回相应的 process id。</p>
 <p>而后，Process 会进行相应的初始化，使其具备与系统服务进行 IPC 通信的能力，此后，调用 Activity Thread 中的 main() 方法，开启 Looper，启动主线程。Application 的启动流程结束。</p>
 <p>至此，探究 Android Application 的启动流程到此结束。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/luoshengyang/article/details/6689748" target="_blank" rel="external">http://blog.csdn.net/luoshengyang/article/details/6689748</a></p>
 <p>2.<a href="http://multi-core-dump.blogspot.hk/2010/04/android-application-launch.html" target="_blank" rel="external">http://multi-core-dump.blogspot.hk/2010/04/android-application-launch.html</a></p>
 <p>3.<a href="http://www.woaitqs.cc/android/2016/06/21/activity-service.html" target="_blank" rel="external">http://www.woaitqs.cc/android/2016/06/21/activity-service.html</a></p>
