@@ -29,7 +29,7 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
   
-    <link rel="icon" href="http://7xt0ac.com1.z0.glb.clouddn.com/shiba.jpeg">
+    <link rel="icon" href="https://i.loli.net/2019/03/03/5c7b849a196a0.jpeg">
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -226,7 +226,7 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <h2 id="WebView-的简介"><a href="#WebView-的简介" class="headerlink" title="WebView 的简介"></a><strong>WebView 的简介</strong></h2><p>WebView，即显示网页的视图。基于该视图组件，我们可以在 Activity 中滚动 Web 浏览器，或者简单地展现一些在线内容。同时，WebView 使用 WebKit 渲染引擎来显示网页，包括通过历史记录向前和向后浏览、缩小和放大、执行文本搜索等方法。</p>
 <p>以上来自官网。</p>
 <p>使用 WebView，首先得在 AndroidManifest.xml 中添加访问网络权限如下(使用本地 assets 目录下的 html 文件除外)：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="built_in">name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>其次，访问页面中有 JavaScript，则设置支持 JavaScript：</p>
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WebSettings webSettings = mWebView.getSetting()<span class="comment">;</span></span><br><span class="line">webSettings.setJavaScriptEnabled(true)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>最后，WebView 的常用方法如下：</p>
@@ -349,25 +349,6 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <! -- 添加版权信息 -->
     
 </article>
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">分享到: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
-    <a class="jiathis_button_plus"></a> 
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
 
 
 
