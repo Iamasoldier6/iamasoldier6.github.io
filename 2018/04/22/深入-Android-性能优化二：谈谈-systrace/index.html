@@ -16,18 +16,18 @@
 <meta property="og:description" content="干就完了。
 
 这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace2.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace3.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace4.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-04-22T04:47:02.000Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb5d73a213b0417145e50">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb5ee3a213b04171461ed">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb6033a213b041714639b">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb61d3a213b041714657e">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T11:10:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Android 性能优化二：谈谈 systrace">
 <meta name="twitter:description" content="干就完了。
 
 这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c7bb5d73a213b0417145e50">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -228,7 +228,7 @@
 <p>这段时间，在币圈和技术圈，引言上这句话看到过好几次，怎么理解，见仁见智。个人觉得，对任何事，早早确立方向，不用想太多，生活形成一种习惯，莫忘初心，干就完了。好，不废话了，最近接触性能监控和优化方面的活，之前也作过一篇性能优化方面的概要介绍，这次来安利一款性能优化工具即 systrace。<a id="more"></a></p>
 <p><strong>以下大多内容翻译及加工自<a href="https://developer.android.com/studio/command-line/systrace.html#syntax" target="_blank" rel="external">官网</a></strong>。</p>
 <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a><strong>简要介绍</strong></h2><p>systrace 命令可以允许我们在系统层面上，对设备里所有进程的耗时信息进行收集和调研。systrace 结合的分析数据来源于 Android 内核，如 CPU 调度器、磁盘活动和 App 的线程等，会生成一份网页报告如下所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/systrace1.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb5d73a213b0417145e50" alt=""></p>
 <p>这是一份简单的 systrace 网页报告，显示了和 App 5 秒钟的交互，报告中高亮的帧是 systrace 认为没有合理渲染的地方。</p>
 <p>事实上，生成的报告在给定的时间区间，描述了 Android 设备系统进程的全局图。同时，报告检查了抓到的 tracing 信息，并高亮化其观察到的问题，如展示动作或动画时的 UI 卡顿，会提供一些如何修复的建议。此外，systrace 也有它自身的局限性，其无法收集到 App 进程内的代码执行信息。为了获取更多的详细信息，如 App 运行时正在执行的方法、App 使用的 CPU 资源等，使用 Android Studio 内置的 <a href="https://developer.android.com/studio/profile/cpu-profiler.html" target="_blank" rel="external">CPU profiler</a>，或<a href="https://developer.android.com/studio/profile/generate-trace-logs.html" target="_blank" rel="external">生成的 trace 日志</a>，然后使用 <a href="https://developer.android.com/studio/profile/traceview.html" target="_blank" rel="external">Traceview</a> 查看。</p>
 <p>为了运行 systrace，需要完成下面这些：</p>
@@ -323,13 +323,13 @@
 <p>可以点击报告，来查看记录期间设备 CPU 的使用。下面给出怎样在报告中调研信息，来找到并修复 UI 的性能问题。</p>
 <p><strong><em>审查帧和警告</em></strong></p>
 <p>如下图所示，报告中列出了渲染 UI 帧的每个进程，显示了时间线里每幅渲染的帧。绿色帧圈的表明，在要求的 16.6 毫秒内保持稳定的 60 帧/秒渲染帧像；黄色或红色帧圈的表明，渲染帧像时花费了超过 16.6 毫秒。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/systrace2.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb5ee3a213b04171461ed" alt=""></p>
 <p><strong>注意</strong>，在 Android 5.0 (API level 21) 及更高的设备上，渲染帧像的工作被分隔于 UI 主线程和渲染线程。以前的版本，创建帧像的工作都在 UI 主线程完成。</p>
 <p>点击帧圈可以高亮化，提供系统完成渲染帧像额外的信息，包括警告。它也展示渲染帧像时系统正在执行的方法，因此可以根据这些方法来找出 UI 卡顿的原因。选择有问题的帧，trace 报告下面会展示问题详情的一个 alert。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/systrace3.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb6033a213b041714639b" alt=""></p>
 <p>一目了然，trace 中会给出相关事件的链接，来解释在此期间系统运行的详情。</p>
 <p>要看 trace 中工具发现的 alert，以及设备触发每个警告的次数，可以点击右上边上的 <strong>Alerts</strong> tab。<strong>Alerts</strong> 栏可以显示 trace 里发生的每一个问题和它们导致卡顿的频次。考虑到栏目里一系列待修复的 bugs，一片区域里，一个微小的变化或改进，可以忽略 App 中整个类的警告。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/systrace4.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb61d3a213b041714657e" alt=""></p>
 <p>若看到 UI 主线程中做了太多的工作，需要我们自己找出消耗 CPU 时间的那些方法，<strong>方法之一</strong>是在认为导致性能瓶颈的地方，添加 trace 标记，来查看 trace 中出现的调用方法。若<strong>不确定</strong>哪些方法或许导致 UI 主线程的瓶颈，使用 Android Studio 内置的 <a href="https://developer.android.com/studio/profile/cpu-profiler.html" target="_blank" rel="external">CPU profiler</a>，或<a href="https://developer.android.com/studio/profile/generate-trace-logs.html" target="_blank" rel="external">生成的 trace 日志</a>，然后使用 <a href="https://developer.android.com/studio/profile/traceview.html" target="_blank" rel="external">Traceview</a> 查看。</p>
 <p><strong><em>网页报告快捷键</em></strong></p>
 <p>下面列出查看 systrace 网页报告的一些快捷键：</p>
@@ -388,8 +388,8 @@
 <p>至此，谈谈 systrace 完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="更多内容"><a href="#更多内容" class="headerlink" title="更多内容"></a><strong>更多内容</strong></h2><p><a href="http://t.cn/RuwUzHz" target="_blank" rel="external">深入 Android 性能优化一：概要介绍</a></p>
 
       

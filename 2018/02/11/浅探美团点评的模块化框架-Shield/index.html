@@ -16,20 +16,20 @@
 <meta property="og:description" content="风过雁渡无声影，深入世俗不迷失。
 
 想必，随着美团点评业务的不断壮大和复杂化，其特定业务的场景中，产生的定制化需求也越来越多。往往是，单一的页面也需要根据不同的业务、乃至不同的用户展示出不同的内容。在这样的背景下，“盾牌” Shield 便应运而生，其帮助将一个复杂的页面切分成多个模块，以利于更高效地开发与维护，如此，在移动互联网的大潮下，为整个集团内部的多种移动端 App 保驾护航。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/shield_framework1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/agent_config.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/view_cell1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/white_board1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/dianping_page.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/dianping_agent.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-02-10T18:04:06.000Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb3c83a213b041714365f">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb3e33a213b0417143937">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb3fc3a213b0417143af1">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb4153a213b0417143d2e">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb4303a213b0417143fd8">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c7bb4a23a213b04171447cd">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T11:04:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅探美团点评的模块化框架 Shield">
 <meta name="twitter:description" content="风过雁渡无声影，深入世俗不迷失。
 
 想必，随着美团点评业务的不断壮大和复杂化，其特定业务的场景中，产生的定制化需求也越来越多。往往是，单一的页面也需要根据不同的业务、乃至不同的用户展示出不同的内容。在这样的背景下，“盾牌” Shield 便应运而生，其帮助将一个复杂的页面切分成多个模块，以利于更高效地开发与维护，如此，在移动互联网的大潮下，为整个集团内部的多种移动端 App 保驾护航。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/shield_framework1.png">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c7bb3c83a213b041714365f">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -251,7 +251,7 @@
 <p>最后，问题来了，模块与页面之间、模块与模块之间怎么进行数据通信交互呢？</p>
 <p>这里，页面持有一个支持数据订阅和通知的白板 (<code>WhiteBoard</code>)，相当于一个媒介平台，以利于模块与页面之间、模块与模块之间进行数据通信交互。</p>
 <p>示意图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/shield_framework1.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb3c83a213b041714365f" alt=""></p>
 <h3 id="单个页面"><a href="#单个页面" class="headerlink" title="单个页面"></a><strong>单个页面</strong></h3><p>我们已经知道，在模块化框架中，视图统一由页面的视图管理器管理。页面容器切换或扩展时，<strong>仅仅需要改变相应的视图管理器 (CellManager)，不需要对模块进行调整</strong>。</p>
 <p>页面接入模块化框架大致核心的流程如下：</p>
 <ul>
@@ -267,7 +267,7 @@
 <p>看源码中，数组的一个维度一般包含两个元素，即模块的键 key 和模块的值：模块的包名 + 类名，亦即以</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">"key"</span>,  AGENT_PKG_NAME + <span class="string">"AgentClassName"</span> &#125;</span><br></pre></td></tr></table></figure>
 <p>表示一个模块。这样，多个模块即组成了一个完整的页面。示意图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/agent_config.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb3e33a213b0417143937" alt=""></p>
 <p><strong>注意</strong>，模块实例以反射的方式创建，类名字符串要正确。<strong>此外</strong>，更新模块配置时，页面调用 AgentManagerFragment 里的 resetAgents() 方法重置配置，选择合适的配置后，根据现有模块和新模块的综合情况，来调用模块的生命周期。类似 Activity 里的生命周期，新增的模块会调用 onCreate() 和 onStart() 等方法，不再存在的模块调用 onStop() 和 onDestroy() 方法。</p>
 <h3 id="单个模块"><a href="#单个模块" class="headerlink" title="单个模块"></a><strong>单个模块</strong></h3><p>结合上文，及总结来说，模块是有着生命周期和 Context 的视图块和逻辑片段。</p>
 <p>通常情况下，一个模块包含一定的业务逻辑如请求接口 API、数据解析和刷新等，数据请求完成，会异步地更新视图 View，还有一定的视图逻辑如视图的渲染和展示等。不过，也有的模块仅处理业务逻辑。</p>
@@ -278,7 +278,7 @@
 <p>模块要在页面中显示视图的话，需要调用 getSectionCellInterface() 的方法指定模块对应的视图组件。</p>
 <p><strong>关注模块与视图组件交互的部分</strong>，视图管理器会自动将模块中的视图组件加载到页面容器中，模块<strong>仅需要提供视图组件必需的数据</strong>。视图组件依赖的数据改变时，模块即调用<code>updateAgentCell()</code>方法来刷新相应的视图组件。而后，框架会自主调用视图组件中的<code>onCreateView()</code>和<code>updateView()</code>方法。模块自身仅仅只需要更新视图需要的数据。</p>
 <h3 id="视图组件"><a href="#视图组件" class="headerlink" title="视图组件"></a><strong>视图组件</strong></h3><p>视图组件可以在不同的模块之间复用，其正常是一个 Section &amp; Row 的结构。一个视图组件可以有多个 Section，一个 Section 也可以有多个 Row。示意图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/view_cell1.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb3fc3a213b0417143af1" alt=""></p>
 <p><strong>注意，同一个模块中的不同 Section 能通过 LinkType 连接到一起，组成一个新的 Section</strong>。</p>
 <p><strong>不同的模块之间，Section 无法通过 LinkType 连接在一起</strong>。</p>
 <p><strong>Section 之间默认不连接</strong>。</p>
@@ -295,16 +295,16 @@
 <p>见码识意。<strong>注意</strong>，视图管理器要与特定的页面容器配合使用，如 Fragment 要使用 SectionRecyclerCellManager 作为视图管理器，须调用 setAgentContainerView() 设定一个 RecyclerView 类型的页面容器。</p>
 <h3 id="数据交互"><a href="#数据交互" class="headerlink" title="数据交互"></a><strong>数据交互</strong></h3><p>如前文示意图，页面里的模块间，彼此之间的数据交互和通信，在 WhiteBoard 上进行，且 WhiteBoard 对象由 Fragment 持有并销毁。</p>
 <p>WhiteBoard 类似于 RxJava 的注册与订阅。存取或获取数据等，要先调用 getWhiteBoard()。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/white_board1.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb4153a213b0417143d2e" alt=""></p>
 <p>如此，大部分页面通过 Activity + Fragment + Agent 的模块化架构支撑了大多业务的差异化定制需求，沉淀出了这份强大且灵活的“盾牌”框架。综合示例如下两张图：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/dianping_page.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb4303a213b0417143fd8" alt=""></p>
 <p>拆分成模块化即：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/dianping_agent.png" alt=""></p>
+<p><img src="https://pic.superbed.cn/item/5c7bb4a23a213b04171447cd" alt=""></p>
 <p>至此，关于浅探美团点评的模块化框架 Shield 到此结束，更多细节及亮点参见 Shield 源码。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://tech.meituan.com/shield-opensource.html" target="_blank" rel="external">https://tech.meituan.com/shield-opensource.html</a></p>
 <p>2.<a href="https://github.com/Meituan-Dianping/Shield" target="_blank" rel="external">https://github.com/Meituan-Dianping/Shield</a></p>
 
