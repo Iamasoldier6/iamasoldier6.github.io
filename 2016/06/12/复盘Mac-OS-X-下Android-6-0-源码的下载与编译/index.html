@@ -12,14 +12,14 @@
 <meta property="og:url" content="http://iamasoldier6.com/2016/06/12/复盘Mac-OS-X-下Android-6-0-源码的下载与编译/index.html">
 <meta property="og:site_name" content="Iamasoldier6's Column">
 <meta property="og:description" content="复盘是棋类术语，指对局完毕后，复演该盘棋的记录，以检查对局中着法的优劣与得失关键，同时提出假设，再找出最佳方案。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success_hhh1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/source_world1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:14:48.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b881ade539.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b8834c9feb.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T07:55:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="复盘 Mac OS X 下 Android 6.0 源码的下载与编译">
 <meta name="twitter:description" content="复盘是棋类术语，指对局完毕后，复演该盘棋的记录，以检查对局中着法的优劣与得失关键，同时提出假设，再找出最佳方案。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/success_hhh1.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b881ade539.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -265,19 +265,19 @@
 <p>解决办法：</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> external/iptables/extensions/../<span class="keyword">include</span>/linux/netfilter</span><br><span class="line">ln -s xt_dscp.<span class="keyword">h</span> xt_DSCP.<span class="built_in">h</span></span><br></pre></td></tr></table></figure>
 <p>再返回 AOSP 目录，重新 <code>make -j4</code>。</p>
-<p>出现问题，解决，再 <code>make -j4</code>，循环往复，直到最终编译完成。不用管出现的多个 warning，有 error 时解决完继续下去。编译全程，花了一半小时多点。最后，令人激动的时刻来临！<br><img src="http://7xt0ac.com1.z0.glb.clouddn.com/success_hhh1.png" alt=""><br>编译成功！Congratulations！！！此时，可以写入模拟器或真机进行调试了。</p>
+<p>出现问题，解决，再 <code>make -j4</code>，循环往复，直到最终编译完成。不用管出现的多个 warning，有 error 时解决完继续下去。编译全程，花了一半小时多点。最后，令人激动的时刻来临！<br><img src="https://i.loli.net/2019/03/03/5c7b881ade539.png" alt=""><br>编译成功！Congratulations！！！此时，可以写入模拟器或真机进行调试了。</p>
 <h2 id="阅读源码"><a href="#阅读源码" class="headerlink" title="阅读源码"></a><strong>阅读源码</strong></h2><p>阅读源码的工具种类繁多，这里，姑且只谈谈使用 Android Studio 阅读源码。</p>
 <p>源码根目录下，</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mmm development<span class="regexp">/tools/idegen/</span></span><br></pre></td></tr></table></figure>
 <p>稍等片刻，接着</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sh .<span class="meta-keyword">/development/</span>tools<span class="meta-keyword">/idegen/</span>idegen.sh</span><br></pre></td></tr></table></figure>
 <p>最终完成后，打开 Android Studio，选择打开一个现有的 Android Studio 项目，选择 Android 源码的根目录，导入 android.irp 文件，Bingo！精美的源码世界。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/source_world1.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b8834c9feb.png" alt=""></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a><strong>后记</strong></h2><p>“源码在手，天下我有”，想想还有点小激动呢。拍拍身上的灰尘，活动完筋骨，继续前行。“路漫漫其修远兮，吾将上下而求索”。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="https://source.android.com/source/requirements.html" target="_blank" rel="external">https://source.android.com/source/requirements.html</a></p>
 <p>2.<a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="external">https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/</a></p>
 <p>3.<a href="https://seewhy.me/2016/01/01/aospcompilation/" target="_blank" rel="external">https://seewhy.me/2016/01/01/aospcompilation/</a></p>

@@ -16,15 +16,15 @@
 <meta property="og:description" content="火跳动着绝望/谁在低声吟唱/说遗忘者的哀伤 /用战斗证明希望
 
 说起 Java 中的反射机制，初学者或者 Java 基础不扎实的人或许会有点懵，甚至唯恐避之不及。事实上，Java 的反射机制很重要，许多开发框架都是基于反射来实现对目标对象的操作，反射配合注解，用好用活，能大大提升代码的效率和性能，并且，如今 Android 中一些高效的注解库也与此反射机制有着极大的关联，这期就来探究并总结下。">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/class_instru1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:19:22.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b8fad4fb05.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T08:27:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 Java 中的反射机制">
 <meta name="twitter:description" content="火跳动着绝望/谁在低声吟唱/说遗忘者的哀伤 /用战斗证明希望
 
 说起 Java 中的反射机制，初学者或者 Java 基础不扎实的人或许会有点懵，甚至唯恐避之不及。事实上，Java 的反射机制很重要，许多开发框架都是基于反射来实现对目标对象的操作，反射配合注解，用好用活，能大大提升代码的效率和性能，并且，如今 Android 中一些高效的注解库也与此反射机制有着极大的关联，这期就来探究并总结下。">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/class_instru1.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b8fad4fb05.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -234,7 +234,7 @@
 <p>场景一：也是使用比较多的场景，要使用的类在运行时才会确定，这时不能在编译期使用，只能通过反射的形式来使用在运行时才存在的类(符合某种特定规范的类，如 JDBC 即 Java 数据库连接)。</p>
 <p>场景二：比较常见的场景，编译时对类的内部信息不知道，必须到运行时才能获得类的具体信息(如 ORM 即对象关系映射框架，在运行时才能获取类中的各个属性，再通过反射的形式获取其属性名和值，存入数据库)。</p>
 <h2 id="关于-Class"><a href="#关于-Class" class="headerlink" title="关于 Class"></a><strong>关于 Class</strong></h2><p>上文所指的 Class，结合示意图如下所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/class_instru1.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b8fad4fb05.png" alt=""></p>
 <p>当一个 Java 项目被编写完，所有的 Java 文件会被编译成一个 .class 文件，这些 Class 对象承载了这个类型的父类、接口、构造函数、方法和属性等原始信息，随后，这些 .class 文件在程序运行时会被 ClassLoader 加载到虚拟机中。当一个类被加载后，Java 虚拟机就会在内存中自动产生一个 Class 对象。事实上，通过 new 的形式创建对象就是通过这些 Class 来创建，只是过程对外界不透明。</p>
 <h2 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a><strong>应用实例</strong></h2><p>先给出以下代码：</p>
 <p><code>Person.java</code></p>
@@ -310,8 +310,8 @@
 <p>至此，关于 Java 中的反射机制探究并总结完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://www.cnblogs.com/rollenholt/archive/2011/09/02/2163758.html" target="_blank" rel="external">http://www.cnblogs.com/rollenholt/archive/2011/09/02/2163758.html</a></p>
 <p>2.<a href="http://t.cn/Rf1q5Ej" target="_blank" rel="external">http://t.cn/Rf1q5Ej</a></p>
 

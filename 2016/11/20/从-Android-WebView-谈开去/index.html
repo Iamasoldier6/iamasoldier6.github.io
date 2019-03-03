@@ -16,15 +16,15 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <meta property="og:description" content="目标赋予我们生命的意义和目的。有了目标，我们才会把注意力集中在追求喜悦，而不是在避免痛苦上。
 
 Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 SDK 中也有一个 WebView 组件。因此，一部分原生的功能改为 HTML5 开发，Android 与 HTML5 互相通信，实现混合开发。这样，该部分功能能够在不升级 App 的情况下动态更新，同时，可以在 Androi">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/javaandjs.gif">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-02-10T17:44:17.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b8f5a84b5b.gif">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T08:25:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 Android WebView 谈开去">
 <meta name="twitter:description" content="目标赋予我们生命的意义和目的。有了目标，我们才会把注意力集中在追求喜悦，而不是在避免痛苦上。
 
 Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 SDK 中也有一个 WebView 组件。因此，一部分原生的功能改为 HTML5 开发，Android 与 HTML5 互相通信，实现混合开发。这样，该部分功能能够在不升级 App 的情况下动态更新，同时，可以在 Androi">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/javaandjs.gif">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b8f5a84b5b.gif">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -269,7 +269,7 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <p>window.Java.showToast() 中的 Java 即 addJavascriptInterface() 中指定的，JavaScript 端向 Java 端传递了 String 类型的参数，同时，Java 端以 Toast 的形式弹出该参数。</p>
 <h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a><strong>Demo</strong></h2><p>Demo 地址：<a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external">JavaAndJsCommunicateDemo</a>。</p>
 <p>效果动图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/javaandjs.gif" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b8f5a84b5b.gif" alt=""></p>
 <p>I. 新建 JsSample.html 文件，放入 assets 目录下，javaCallJs() 是 Java 端调 JavaScript 端的方法，而 showToast() 是 JavaScript 端调 Java 端的方法：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">javaCallJs</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">  		<span class="built_in">document</span>.getElementById(<span class="string">"message"</span>).innerHTML = (<span class="string">"Welcome"</span> + arg);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"message"</span>&gt;</span>Java端输入框输入内容，点击确定，此处显示该内容，则Java端调JS端的javaCallJs()方法成功<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"我是按钮，点击调用Java端方法"</span> <span class="attr">onclick</span>=<span class="string">"window.Java.showAlert('出现此提示，则JS端调用Java端的showAlert()方法成功')"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>II.布局文件 activity_main.xml 中，一个输入框与一个按钮，点击按钮调用 JavaScript 中的方法：</p>
@@ -279,8 +279,8 @@ Android 移动设备如手机内置有高性能的 WebKit 内核浏览器，其 
 <p>至此，浅谈 Android WebView 到此结束，关于使用 WebView 的一些注意事项参见<a href="http://blog.csdn.net/hytfly/article/details/48489251" target="_blank" rel="external">安卓 webview 的一些坑</a>。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/qq_24530405/article/details/52067474" target="_blank" rel="external">http://blog.csdn.net/qq_24530405/article/details/52067474</a></p>
 
       

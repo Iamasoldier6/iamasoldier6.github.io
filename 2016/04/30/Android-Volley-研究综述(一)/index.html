@@ -18,17 +18,17 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 
 Android 官网对 Volley 的一句话概括如下：
 Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.即 Volley 是一个 HTTP 库，能让 Andro">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_7.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_8.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:09:48.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b85e2807d8.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b86004e0e0.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T07:46:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Volley 研究综述(一)">
 <meta name="twitter:description" content="今天的生活是由三年前我们的选择决定的，而今天我们的抉择将决定我们三年后的生活。
 
 Android 官网对 Volley 的一句话概括如下：
 Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.即 Volley 是一个 HTTP 库，能让 Andro">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_7.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b85e2807d8.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -245,9 +245,9 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <h2 id="Volley-的准备"><a href="#Volley-的准备" class="headerlink" title="Volley 的准备"></a><strong>Volley 的准备</strong></h2><p>首先，电脑上最好得装有 Git，具体安装方法因操作系统各异，自行 Google，推荐梯子<code>蓝灯</code>。好，下载 Volley 源码：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://android.googlesource.com/platform/frameworks/volley</span><br></pre></td></tr></table></figure>
 <p>下载完成后，在 /volley/build/intermediates/bundles/debug 里找到 classes.jar，就是我们要的 jar 包了，拷贝一份出来，重命名成 volley.jar，再使用 Android Studio 新建一个 Android 项目，将 volley.jar 文件添加到 libs 目录下，如图：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_7.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b85e2807d8.png" alt=""></p>
 <p>然后，鼠标左击选中 volley.jar，再右击会出现一长串菜单，下拉找到 Add As Library 并单击，再 OK，等待 Gradle build。完事后，再选中项目，比如我的 VolleyDemo，右击后下拉菜单，找到 Open Module Settings 并单击，出现如图：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/as_jar_8.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b86004e0e0.png" alt=""></p>
 <p>看到 Volley 已在 Dependencies 中，点击右下角 OK，完事，这样准备工作就完成了。</p>
 <h2 id="StringRequest-的使用"><a href="#StringRequest-的使用" class="headerlink" title="StringRequest 的使用"></a><strong>StringRequest 的使用</strong></h2><p>StringRequestDemo 地址: <a href="https://github.com/Iamasoldier6/AndroidExerciseDemos" target="_blank" rel="external"> StringRequestDemo</a>，只有 Get 请求的使用，Post 请求的使用，类比即可。</p>
 <p>从最基本的 HTTP 通信开始学习，即发起一条 HTTP 请求，然后接收 HTTP 响应。Android Studio 新建一个StringRequestDemo 项目，其他全部默认，一路 Next 到底，最后 Done。思路如下：</p>
@@ -289,8 +289,8 @@ Volley is an HTTP library that makes networking for Android apps easier and most
 <p>总结来说，StringRequest, JsonObjectRequest 和 JsonArrayRequest 的用法基本一致，关于 Android Volley 研究综述(一)到此结束，(二)未完待续。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://developer.android.com/training/volley/index.html" target="_blank" rel="external">http://developer.android.com/training/volley/index.html</a></p>
 <p>2.<a href="http://developer.android.com/training/volley/request.html" target="_blank" rel="external">http://developer.android.com/training/volley/request.html</a></p>
 <p>3.<a href="http://blog.csdn.net/guolin_blog/article/details/17482095" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/17482095</a></p>
