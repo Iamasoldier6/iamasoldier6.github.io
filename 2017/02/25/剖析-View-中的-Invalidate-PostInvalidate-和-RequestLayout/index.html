@@ -16,15 +16,15 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 <meta property="og:description" content="大巧无工，重剑无锋。
 
 View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate1.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:22:28.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b964ac1217.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T08:55:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剖析 View 中的 Invalidate, PostInvalidate 和 RequestLayout">
 <meta name="twitter:description" content="大巧无工，重剑无锋。
 
 View 在 Android 开发中，有着极其重要的地位，甚至比常说的四大组件中的 BroadcastReceiver 和 ContentProvider 都重要。不知大家发现没有，在日常 App 的开发中，大部分时候都是和各种 View 打交道。这次，就来一探开发 View 中用到的 invalidate()、postInvalidate() 和 requestLayo">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate1.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b964ac1217.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -262,13 +262,13 @@ View 在 Android 开发中，有着极其重要的地位，甚至比常说的四
 <p><strong>ViewRootImpl#requestLayout()</strong> 的源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = <span class="keyword">true</span>;</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>又走到了 scheduleTraversals() 方法！同样的分析又可以在上文提到的部分继续下去。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/invalidate1.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p><img src="https://i.loli.net/2019/03/03/5c7b964ac1217.png" alt=""></p>
 <p>如上流程图所示，一目了然。若 View 自身不再适用于当前区域，比如其 LayoutParams 发生改变，需要父布局对其重新测量、布局和绘制，往往使用 requestLayout()。而 invalidate() 或者 postInvalidate() 则是刷新当前 View，对当前的 View 进行重绘，不会进行测量与布局流程。因此，若 View 只需要重绘而不用测量和布局的时候，使用 invalidate() 比 requestLayout() 更加高效。</p>
 <p>至此，从源码角度对 invalidate，postInvalidate 和 requestLayout 的剖析完毕。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://www.jianshu.com/p/effe9b4333de" target="_blank" rel="external">http://www.jianshu.com/p/effe9b4333de</a></p>
 
       

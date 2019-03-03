@@ -16,16 +16,16 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <meta property="og:description" content="Nobody can go back and start a new beginning, but anyone can start today and make a new ending.
 
 Context 在我们的 Android 开发中，真是无处不在：加载资源、启动一个新的 Activity、获取系统服务和创建 View 操作等。那么问题来了，Context 究竟是什么，具体怎么使用，又有">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context_capability.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:21:19.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b93eddfac6.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b94104a393.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T08:45:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅探 Android 中的 Context">
 <meta name="twitter:description" content="Nobody can go back and start a new beginning, but anyone can start today and make a new ending.
 
 Context 在我们的 Android 开发中，真是无处不在：加载资源、启动一个新的 Activity、获取系统服务和创建 View 操作等。那么问题来了，Context 究竟是什么，具体怎么使用，又有">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/context.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b93eddfac6.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -234,7 +234,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <h2 id="探索-Context"><a href="#探索-Context" class="headerlink" title="探索 Context"></a><strong>探索 Context</strong></h2><p><strong><em>Context 的类型</em></strong></p>
 <p>由前文的简单介绍，我们已经知道，虽然 Android 应用程序是由 Java 语言编写的，但是 Android 程序不像 Java 程序那样，创建一个类，写个 main() 方法就能运行了，还要配套有一个完整的工程环境。这样，Activity、Service 和 BroadcastReceiver 等系统组件才能正常工作。Context 可以说是 Android 程序中维持各组件正常运行的一个核心功能类。</p>
 <p>简单的结构图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/context.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b93eddfac6.png" alt=""></p>
 <p>Context 有两个子类，分别为 ContextWrapper 和 ContextImpl。</p>
 <p>Context 部分源码：</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Context</span> &#123;  </span><br><span class="line">     ...  </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Object <span class="title">getSystemService</span>(<span class="params">String name</span>)</span>; <span class="comment">// 获得系统级服务  </span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">startActivity</span>(<span class="params">Intent intent</span>)</span>; <span class="comment">//通过 Intent 启动 Activity  </span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ComponentName <span class="title">startService</span>(<span class="params">Intent service</span>)</span>; <span class="comment">//启动 Service  </span></span><br><span class="line">     <span class="comment">// 根据文件名得到 SharedPreferences 对象  </span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> SharedPreferences <span class="title">getSharedPreferences</span>(<span class="params">String name, <span class="keyword">int</span> mode</span>)</span>;  </span><br><span class="line">     ...  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -252,7 +252,7 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <p><code>注意</code>：常说的四大组件中，BroadcastReceiver 和 ContentProvider 并不是 Context 的子类，它们持有的 Context 都是其他地方传过去的，并不计入 Context 总数。</p>
 <p><strong><em>Context 的作用域</em></strong></p>
 <p>总结如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/context_capability.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b94104a393.png" alt=""></p>
 <p>注意到 NO 右上角有数字，其实从能力上来说是 YES 的，关于标明 NO 的解释如下：</p>
 <p>数字1：应用可以从这里启动一个 Activity，但要求创建一个新的任务。这样，或许适用于特殊的使用实例，但是会在应用程序里创建非标准的返回栈行为，通常不推荐。</p>
 <p>数字2：用在这里是可以的，但会在运行的系统上加载默认的主题，而不是加载应用程序里自定义的主题。</p>
@@ -279,8 +279,8 @@ Context 在我们的 Android 开发中，真是无处不在：加载资源、启
 <p>至此，浅探 Android 中的 Context 到此结束。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://blog.csdn.net/guolin_blog/article/details/47028975" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/47028975</a></p>
 <p>2.<a href="http://www.jianshu.com/p/94e0f9ab3f1d" target="_blank" rel="external">http://www.jianshu.com/p/94e0f9ab3f1d</a></p>
 <p>3.<a href="http://blog.csdn.net/lmj623565791/article/details/40481055" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/40481055</a></p>

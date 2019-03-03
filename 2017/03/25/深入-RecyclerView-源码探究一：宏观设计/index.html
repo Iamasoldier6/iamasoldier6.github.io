@@ -16,18 +16,18 @@
 <meta property="og:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
 
 时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png">
-<meta property="og:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg">
-<meta property="og:updated_time" content="2018-01-01T14:23:13.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b96d7c0fc3.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b96ecd6f5b.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b970a7cc8c.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b971ea8de7.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg">
+<meta property="og:updated_time" content="2019-03-03T08:58:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 RecyclerView 源码探究一：宏观设计">
 <meta name="twitter:description" content="生活好像没有我们想得那么简单，但也没有我们想得那样复杂，只不过，想吃芒果和樱桃，就得为了吃得起而努力。
 
 时间如白驹过隙，大半年前，曾写过一篇从 ListView 到 RecyclerView 的用法浅析，当时，只是简单地谈了谈 ListView 与 RecyclerView 的对比与使用。而今，公司项目完全切到 RecyclerView，外界中，RecyclerView 的使用也愈发频繁。因此">
-<meta name="twitter:image" content="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b96d7c0fc3.png">
   
     <link rel="alternative" href="/atom.xml" title="Iamasoldier6&#39;s Column" type="application/atom+xml">
   
@@ -235,12 +235,12 @@
 </ul>
 <p>下面看看其精美的宏观设计。</p>
 <h2 id="宏观设计"><a href="#宏观设计" class="headerlink" title="宏观设计"></a><strong>宏观设计</strong></h2><h3 id="关于数据展示"><a href="#关于数据展示" class="headerlink" title="关于数据展示"></a><strong>关于数据展示</strong></h3><p>RecyclerView 的目的之一就是在有限的窗口能够展示大量数据，和 ListView 一样，运用了设计模式中的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/AdapterPatternDemo" target="_blank" rel="external">适配器模式</a>。结构图如下所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview3.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b96d7c0fc3.png" alt=""></p>
 <p>RecyclerView 继承自 ViewGroup，是装载子 View 的容器之一，其通过 Adapter，整合要展示数据的内容和类型，生成相应的 ViewHolder，再设置相应的 itemView，从而展示出来。其中，通过实现 Adapter 中的 onCreateViewHolder() 创建 ViewHolder，onBindViewHolder() 绑定数据，Data 才能转化生成用于展示 View 的 ViewHolder。</p>
 <h3 id="关于-Flexible"><a href="#关于-Flexible" class="headerlink" title="关于 Flexible"></a><strong>关于 Flexible</strong></h3><p>RecyclerView 高度解耦，异常灵活，从其布局、装饰和动画上能体现其极好的弹性。</p>
 <p><strong>I. 布局</strong></p>
 <p>通过布局管理器 LayoutManager 可以控制其显示方式。结构图如下所示：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview4.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b96ecd6f5b.png" alt=""></p>
 <p>RecyclerView 的布局全权由 LayoutManager 负责，其获取 ViewHolder 中的 itemView，根据定义好的布局模式(包括线性布局、网格布局和瀑布流布局)，对 itemView 进行布局，最后添加到 RecyclerView 中显示出来。此外，开发者可以根据自己的需求，重写相关的方法，进行自定义布局。</p>
 <p><strong>II. 装饰</strong></p>
 <p>通过 ItemDecoration 可以控制 Item 间的间隔(可绘制)。</p>
@@ -252,12 +252,12 @@
 <p><strong>III. 动画</strong></p>
 <p>通过 ItemAnimator 可以控制 Item 增删的动画。</p>
 <p>当添加、删除甚至更改 Item 时，可以通过动画来体现这种变化，RecyclerView 提供了一种非常灵活的动画机制。结构图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview5.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b970a7cc8c.png" alt=""></p>
 <p>数据改变触发动画，通常调用 Adapter 中的 notify 系列方法。notify 系列的方法可以看作是发出一个事件，这里，Adapter 和 RecyclerView 的工作机制是一个典型的<a href="https://github.com/Iamasoldier6/DesignPattern/tree/master/ObserverPatternDemo" target="_blank" rel="external">观察者模式</a>。</p>
 <p>RecyclerView 是观察者，Adapter 是可观察的，设置 Adapter 时，RecyclerView 订阅观察事件，Adapter 中的数据发生改变时，会通知 RecyclerView，其获取通知后，调用一系列方法，触发重新布局。接着，布局过程中，再调用一系列方法，将动画信息存储到 ViewInfoStore 中。最后，布局结束时，ViewInfoStore 统一处理，通过 Callback 中的方法调用 ItemAnimator 中的方法，再执行动画。</p>
 <p>ItemAnimator 铸就了 RecyclerView 动画的灵活性，开发者通过继承 ItemAnimator，实现或重写其方法，来生成各种各样的效果。</p>
 <h3 id="关于视图复用"><a href="#关于视图复用" class="headerlink" title="关于视图复用"></a><strong>关于视图复用</strong></h3><p>有限的窗口展现大量数据的视图，并且有着很好的性能，视图复用机制在这里起着举足轻重的作用。结构图如下：</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/recyclerview6.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b971ea8de7.png" alt=""></p>
 <p>橙色列表是一个 Recycler，底部还有个 RecycledViewPool。</p>
 <p><strong><em>Recycler</em></strong></p>
 <p>A Recycler is responsible for managing scrapped or detached item views for reuse.</p>
@@ -269,8 +269,8 @@
 <p>至此，关于 RecyclerView 的宏观设计探究完毕，后续将分几篇从主要流程和机制方面展开探究。</p>
 <p><strong><em>本人才疏学浅，如有疏漏错误之处，望读者中有识之士不吝赐教，谢谢。</em></strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email: iamasoldiersix@gmail.com / WeChat: Wolverine623</span><br></pre></td></tr></table></figure>
-<p><strong><em>您也可以关注我个人的微信公众号</em></strong> <strong><em>AndroidEngineer</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
-<p><img src="http://7xt0ac.com1.z0.glb.clouddn.com/wx_qrcode.jpg" alt=""></p>
+<p><strong><em>您也可以关注我个人的微信公众号</em></strong> ：<strong><em>码农六哥</em></strong>，<strong><em>第一时间获得博客的更新通知，或后台留言与我交流</em></strong>。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b80d4d728b.jpg" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><p>1.<a href="http://www.jianshu.com/p/9ddfdffee5d3" target="_blank" rel="external">http://www.jianshu.com/p/9ddfdffee5d3</a></p>
 
       
